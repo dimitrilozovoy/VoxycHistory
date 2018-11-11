@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{95E26BE0-D88E-4665-887A-C0D1E87B189A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Voxyc</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-DPLATFORM_WINDOWS</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>assimp-vc140-mt.lib;glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;libsndfile-1.lib;OpenAL32.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-DPLATFORM_WINDOWS</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-DPLATFORM_WINDOWS</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp-vc140-mt.lib;glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;libsndfile-1.lib;OpenAL32.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-DPLATFORM_WINDOWS</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\app\LuaProgram.h" />
+    <ClInclude Include="..\..\..\..\app\main.h" />
+    <ClInclude Include="..\..\..\..\app\VoxycApp.h" />
+    <ClInclude Include="..\..\..\..\engine\AndroidAudio.h" />
+    <ClInclude Include="..\..\..\..\engine\Audio.h" />
+    <ClInclude Include="..\..\..\..\engine\Batch.h" />
+    <ClInclude Include="..\..\..\..\engine\Batcher.h" />
+    <ClInclude Include="..\..\..\..\engine\Camera.h" />
+    <ClInclude Include="..\..\..\..\engine\Controls2.h" />
+    <ClInclude Include="..\..\..\..\engine\DDLUtils.hpp" />
+    <ClInclude Include="..\..\..\..\engine\EditorController.h" />
+    <ClInclude Include="..\..\..\..\engine\Engine2.h" />
+    <ClInclude Include="..\..\..\..\engine\FileIO.h" />
+    <ClInclude Include="..\..\..\..\engine\Framebuffer.h" />
+    <ClInclude Include="..\..\..\..\engine\GLIncludes.h" />
+    <ClInclude Include="..\..\..\..\engine\Globals.hpp" />
+    <ClInclude Include="..\..\..\..\engine\Grid.h" />
+    <ClInclude Include="..\..\..\..\engine\GUI.h" />
+    <ClInclude Include="..\..\..\..\engine\LuaBridge.h" />
+    <ClInclude Include="..\..\..\..\engine\Mesh.h" />
+    <ClInclude Include="..\..\..\..\engine\Model2.h" />
+    <ClInclude Include="..\..\..\..\engine\ModelRenderer.h" />
+    <ClInclude Include="..\..\..\..\engine\Object.h" />
+    <ClInclude Include="..\..\..\..\engine\OBJWriter.h" />
+    <ClInclude Include="..\..\..\..\engine\OzzRenderer.h" />
+    <ClInclude Include="..\..\..\..\engine\platform.h" />
+    <ClInclude Include="..\..\..\..\engine\Renderer.h" />
+    <ClInclude Include="..\..\..\..\engine\Scene.h" />
+    <ClInclude Include="..\..\..\..\engine\ShadowMap.h" />
+    <ClInclude Include="..\..\..\..\engine\Shape.h" />
+    <ClInclude Include="..\..\..\..\engine\ShapeRenderer.h" />
+    <ClInclude Include="..\..\..\..\engine\SkyboxRenderer.h" />
+    <ClInclude Include="..\..\..\..\engine\SoftCanvas.h" />
+    <ClInclude Include="..\..\..\..\engine\SpriteRenderer.h" />
+    <ClInclude Include="..\..\..\..\engine\SpriteRenderer2D.hpp" />
+    <ClInclude Include="..\..\..\..\engine\Terrain.h" />
+    <ClInclude Include="..\..\..\..\engine\TextPrinter.h" />
+    <ClInclude Include="..\..\..\..\engine\TextureAtlas.h" />
+    <ClInclude Include="..\..\..\..\engine\TextureManager2.h" />
+    <ClInclude Include="..\..\..\..\engine\Voxels.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\app\LuaProgram.cpp" />
+    <ClCompile Include="..\..\..\..\app\main.cpp" />
+    <ClCompile Include="..\..\..\..\app\VoxycApp.cpp" />
+    <ClCompile Include="..\..\..\..\editor\Editor.cpp" />
+    <ClCompile Include="..\..\..\..\editor\EditorOld.cpp" />
+    <ClCompile Include="..\..\..\..\engine\AndroidAudio.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Audio.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Batch.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Batcher.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Camera.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Controls2.cpp" />
+    <ClCompile Include="..\..\..\..\engine\DDLUtils.cpp" />
+    <ClCompile Include="..\..\..\..\engine\EditorController.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Engine2.cpp" />
+    <ClCompile Include="..\..\..\..\engine\FileIO.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Framebuffer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Globals.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Grid.cpp" />
+    <ClCompile Include="..\..\..\..\engine\GUI.cpp" />
+    <ClCompile Include="..\..\..\..\engine\LuaBridge.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Model2.cpp" />
+    <ClCompile Include="..\..\..\..\engine\ModelRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Object.cpp" />
+    <ClCompile Include="..\..\..\..\engine\OBJWriter.cpp" />
+    <ClCompile Include="..\..\..\..\engine\OzzRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Scene.cpp" />
+    <ClCompile Include="..\..\..\..\engine\ShadowMap.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Shape.cpp" />
+    <ClCompile Include="..\..\..\..\engine\ShapeRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\SkyboxRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\SoftCanvas.cpp" />
+    <ClCompile Include="..\..\..\..\engine\SpriteRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\SpriteRenderer2D.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Terrain.cpp" />
+    <ClCompile Include="..\..\..\..\engine\TextPrinter.cpp" />
+    <ClCompile Include="..\..\..\..\engine\TextureAtlas.cpp" />
+    <ClCompile Include="..\..\..\..\engine\TextureManager2.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Voxels.cpp" />
+    <ClCompile Include="..\..\..\..\thirdparty\lodepng\lodepng.cpp" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lapi.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lauxlib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lbaselib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lbitlib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lcode.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lcorolib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lctype.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldblib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldebug.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldo.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldump.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lfunc.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lgc.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\linit.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\liolib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\llex.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lmathlib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lmem.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\loadlib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lobject.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lopcodes.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\loslib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lparser.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lstate.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lstring.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lstrlib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ltable.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ltablib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ltm.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lua.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\luac.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lundump.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lutf8lib.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lvm.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lzio.c" />
+    <ClCompile Include="..\..\..\..\thirdparty\openal\alhelpers.c" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Voxyc.cpp" />
+    <ClCompile Include="windows.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

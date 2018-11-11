@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{c33dff8b-a8a4-4822-8d43-14a6f759429c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\app">
+      <UniqueIdentifier>{fcd82b7e-a19b-4b2e-8cfd-44d8da2ceb00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{5c0ca434-7fda-47d1-85c3-d2f3ad562972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\editor">
+      <UniqueIdentifier>{a5f9a9bd-08c5-443c-9479-dc8fe6257b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\thirdparty">
+      <UniqueIdentifier>{bbf17c40-9714-4d4d-bdf5-3d71d3b8d3db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\thirdparty\lua">
+      <UniqueIdentifier>{2d808247-36b5-4beb-82f7-06eecb56cb1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\thirdparty\openal">
+      <UniqueIdentifier>{75a45109-9c65-4a5f-b4e5-55a62518d42a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\thirdparty\lodepng">
+      <UniqueIdentifier>{ef3bdff1-743a-4989-9aaf-e9a631c32f14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\app">
+      <UniqueIdentifier>{7043bd5f-c352-484a-9996-2a6739168cb3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\AndroidAudio.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Audio.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Batch.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Batcher.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Camera.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Controls2.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\DDLUtils.hpp">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\EditorController.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Engine2.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\FileIO.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Framebuffer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\GLIncludes.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Globals.hpp">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Grid.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\GUI.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\LuaBridge.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Mesh.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Model2.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\ModelRenderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Object.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\OBJWriter.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\OzzRenderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\platform.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Renderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Scene.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\ShadowMap.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Shape.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\ShapeRenderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\SkyboxRenderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\SoftCanvas.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\SpriteRenderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\SpriteRenderer2D.hpp">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Terrain.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\TextPrinter.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\TextureAtlas.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\TextureManager2.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Voxels.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\app\LuaProgram.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\app\main.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\app\VoxycApp.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Voxyc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\AndroidAudio.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Audio.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Batch.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Batcher.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Camera.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Controls2.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\EditorController.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Engine2.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\FileIO.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Framebuffer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Grid.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\GUI.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\LuaBridge.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Model2.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\ModelRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Object.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\OBJWriter.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\OzzRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Renderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Scene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\ShadowMap.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Shape.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\ShapeRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\SkyboxRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\SoftCanvas.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\SpriteRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\SpriteRenderer2D.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Terrain.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\TextPrinter.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\TextureAtlas.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\TextureManager2.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Voxels.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\DDLUtils.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="windows.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\app\LuaProgram.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\app\VoxycApp.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\editor\Editor.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\editor\EditorOld.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Globals.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lapi.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lauxlib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lbaselib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lbitlib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lcode.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lcorolib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lctype.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldblib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldebug.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldo.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ldump.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lfunc.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lgc.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\linit.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\liolib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\llex.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lmathlib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lmem.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\loadlib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lobject.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lopcodes.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\loslib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lparser.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lstate.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lstring.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lstrlib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ltable.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ltablib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\ltm.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lua.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\luac.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lundump.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lutf8lib.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lvm.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lua\lzio.c">
+      <Filter>Source Files\thirdparty\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\openal\alhelpers.c">
+      <Filter>Source Files\thirdparty\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\thirdparty\lodepng\lodepng.cpp">
+      <Filter>Source Files\thirdparty\lodepng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\app\main.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

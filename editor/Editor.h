@@ -1,0 +1,72 @@
+/*
+Copyright (C) 2018 Dimitri Lozovoy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+#ifndef Editor_h
+#define Editor_h
+
+#include <stdio.h>
+#include "../engine/Engine2.h"
+#include "../engine/LuaBridge.h"
+
+typedef enum
+{
+	EM_OBJ,
+	EM_VOX
+}
+EditorMode;
+
+class Editor
+{
+public:
+    void init();
+	void load();
+	void tick();
+    void tickGuides();
+	bool isVoxels(std::string objName);
+	void ray(Object *src, float dist, float &x, float &y, float &z);
+    void setVoxPreviewTextures();
+	void hideSystemObjects();
+	void showSystemObjects();
+	void enterScreenShotMode();
+	void exitScreenShotMode();
+
+private:
+    Engine2 *engine;
+	LuaBridge luaBridge;
+	const float objPreviewDist = 15.0;
+	const float selectAngleThresh = 5.0;
+	EditorMode mode = EM_OBJ;
+	Object *selectedObj = nullptr;
+	Object *lastSelectedObj = nullptr;
+	Object *lastLitUpGuide = nullptr;
+	bool movingSelected = false;
+	float distToSelected = 0.0;
+	Object *curVoxels = nullptr;
+	int newVoxelsSize = 16;
+	bool selectOnly = true;
+	bool gotvox = false;
+    int curVoxel = 1;
+	bool screenshotMode = false;
+	bool linkCopy = false;
+};
+
+#endif
