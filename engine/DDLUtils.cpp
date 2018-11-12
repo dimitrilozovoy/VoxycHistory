@@ -638,12 +638,15 @@ float ToDegrees(float radians)
 
 bool compareYaw(float yaw1, float yaw2, float threshold)
 {
-/*	if (yaw1 < 0.0)
+	while (yaw1 < 0.0)
 		yaw1 += 360.0;
+	while (yaw1 > 360.0)
+		yaw1 -= 360.0;
+	while (yaw2 < 0.0)
+		yaw2 += 360.0;
+	while (yaw2 > 360.0)
+		yaw2 -= 360.0;
 
-	if (yaw2 < 0.0)
-		yaw2 += 360.0;*/
-	
     if (abs(abs(yaw1) - abs(yaw2)) < threshold)
         return true;
     
@@ -652,12 +655,15 @@ bool compareYaw(float yaw1, float yaw2, float threshold)
 
 bool compareAngle(float angle1, float angle2, float threshold)
 {
-/*	if (angle1 < 0.0)
+	while (angle1 < 0.0)
 		angle1 += 360.0;
+	while (angle1 > 360.0)
+		angle1 -= 360.0;
+	while (angle2 < 0.0)
+		angle2 += 360.0;
+	while (angle2 > 360.0)
+		angle2 -= 360.0;
 
-	if (angle2 < 0.0)
-		angle2 += 360.0;*/
-		
     if (abs(abs(angle1) - abs(angle2)) < threshold)
         return true;
     

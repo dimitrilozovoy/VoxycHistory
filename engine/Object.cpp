@@ -501,6 +501,54 @@ void Object::moveTowardsNextPosition()
 	position += delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
 }
 
+void Object::rotateYawTowards(float targetYaw, float step)
+{
+	yaw = limit360(yaw);
+	targetYaw = limit360(targetYaw);
+
+	if (targetYaw == 0)
+	{
+		if (yaw > 180)
+			yaw += step;
+		else
+			yaw -= step;
+	}
+	else
+	{
+		float cWiseDist = 0;
+		float ccWiseDist = 0;
+
+		if (targetYaw > yaw)
+		{
+			cWiseDist = targetYaw - yaw;
+			ccWiseDist = yaw + (360 - targetYaw);
+		}
+
+		if (targetYaw < yaw)
+		{
+			cWiseDist = (360 - targetYaw) + targetYaw;
+			ccWiseDist = yaw - targetYaw;
+		}
+
+		if (cWiseDist > ccWiseDist)
+			yaw -= step;
+		else
+			yaw += step;
+
+		yaw = limit360(yaw);
+	}
+}
+
+float Object::limit360(float value)
+{
+	while (value > 360)
+		value -= 360;
+	while (value < 0)
+		value += 360;
+
+	return value;
+}
+
 std::string Object::toString()
 {
 	char str[4096];

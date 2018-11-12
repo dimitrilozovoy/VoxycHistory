@@ -182,6 +182,10 @@ private:
 
 		"void main() {" \
 
+		"   lowp vec4 f = texture(uTexture, vTexCoordsOut.st); " \
+		"   if (f.a == 0.0) " \
+		"       discard; " \
+
 		"	float visibility = 1.0; " \
 		"	float bias = 0.05; " \
 

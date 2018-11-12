@@ -213,6 +213,7 @@ public:
 	void genTexture(std::string name, std::string type, float arg1);
 
 	void copyObj(std::string src, std::string dest);
+	Object *getObject(std::string name);
 	std::map<std::string, Object*> &getObjects();
 	void setObjects(std::map<std::string, Object*> newObjs);
 	void setSystem(std::string name, bool system);

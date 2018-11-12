@@ -46,7 +46,6 @@ void TextureAtlas::add(std::string tex)
 
 void TextureAtlas::refresh()
 {
-//	bind();
 	fb.bind();
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -106,7 +105,6 @@ void TextureAtlas::refresh()
 
 	glEnable(GL_BLEND);
 	
-//	unbind();
 	fb.unbind();
 	
 	needsRefresh = false;

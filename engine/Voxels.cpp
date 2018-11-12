@@ -671,7 +671,7 @@ void Voxels::build(TextureManager2 *texMan)
 	// X PLANE FROM THE LEFT
 	//
 
-	for (int x = minx; x < maxx; x++)
+	for (int x = minx; x < maxx ; x++)
 	{
 		// Reset the done map; nothing is done on this Y plane yet
 		for (int z = 0; z < size; z++)

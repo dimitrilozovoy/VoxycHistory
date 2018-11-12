@@ -44,6 +44,22 @@ Texture *TextureManager2::find(std::string name)
 	    return nullptr;
 }
 
+void flip_vertically(unsigned char *pixels, const size_t width, const size_t height, const size_t bytes_per_pixel)
+{
+	const size_t stride = width * bytes_per_pixel;
+	unsigned char *row = (unsigned char *)malloc(stride);
+	unsigned char *low = pixels;
+	unsigned char *high = &pixels[(height - 1) * stride];
+
+	for (; low < high; low += stride, high -= stride) {
+		memcpy(row, low, stride);
+		memcpy(low, high, stride);
+		memcpy(high, row, stride);
+	}
+
+	free(row);
+}
+
 void TextureManager2::load(std::string name, bool external)
 {
 //	std::string s = "TextureManager2::load " + name ;
@@ -81,12 +97,12 @@ void TextureManager2::load(std::string name, bool external)
 	printFullResourceFilename((char *)name.c_str(), fullFilename);
 #endif
 
-	// Load file and decode image.
+	// Load file and decode image
 	std::vector<unsigned char> image;
 	unsigned width, height;
 	unsigned error = lodepng::decode(image, width, height, fullFilename);
 
-	// If there's an error, display it.
+	// If there's an error, display it
 	if (error != 0)
 	{
 		Log("Error loading PNG: ", (char *)lodepng_error_text(error));
@@ -102,6 +118,12 @@ void TextureManager2::load(std::string name, bool external)
 		}
 	}
 
+	// Flip image vertically
+	unsigned char *flippedImage = (unsigned char *)malloc(width * height * 4);
+	memcpy(flippedImage, reinterpret_cast<char*>(image.data()), width * height * 4);
+	flip_vertically(flippedImage, width, height, 4);
+
+	// Load image into GPU memory
 	glBindTexture(GL_TEXTURE_2D, glTexID);
 	checkGLError("glBindTexture");
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -109,7 +131,8 @@ void TextureManager2::load(std::string name, bool external)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	checkGLError("glBindTexture");
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
 	checkGLError("glTexImage2D");
 #endif
 

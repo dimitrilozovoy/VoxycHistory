@@ -29,6 +29,20 @@ SOFTWARE.
 #include "TextureManager2.h"
 #include "EditorController.h"
 
+#define MAX_BUTTONS	8
+
+typedef enum BtnNames
+{
+	BTN_A,
+	BTN_B,
+	BTN_X,
+	BTN_Y,
+	BTN_UP,
+	BTN_DOWN,
+	BTN_LEFT,
+	BTN_RIGHT
+};
+
 typedef enum ControlSchemes
 {
 	CTRL_FPS,
@@ -89,6 +103,9 @@ public:
 	void save();
 	void load();
 	bool checkActionUp();
+	void mouse(float mouseX, float mouseY);
+	void setBtn(int which, int state);
+	int getBtn(BtnNames which);
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
@@ -136,6 +153,8 @@ private:
 	
 	int afterGestureTimer = 0;
 	bool actionUp = false;
+
+	int buttons[MAX_BUTTONS];
 };
 
 #endif //FATELESS_CONTROLS2_H

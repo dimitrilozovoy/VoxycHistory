@@ -144,7 +144,11 @@ void Engine2::draw(int eye)
 
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 	modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
+
+// HACK: Sprite renderer is broken on Windows; ShapeRenderer takes care as fallback
+#ifndef PLATFORM_WINDOWS
 	spriteRenderer.draw(eye, objects, &camera);
+#endif
 	
 #ifdef USE_OZZ
 	ozzRenderer.draw();
@@ -1453,6 +1457,11 @@ void Engine2::copyObj(std::string src, std::string dst)
     dstObj->name = dst;
 //	Log(src);
 //	Log(dst);
+}
+
+Object *Engine2::getObject(std::string name)
+{
+	return objects[name];
 }
 
 std::map<std::string, Object*> &Engine2::getObjects()

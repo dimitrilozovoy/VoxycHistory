@@ -406,6 +406,21 @@ static int setroll(lua_State *L)
 	return 1;
 }
 
+static int setsecondaryyaw(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	lua_Number yaw = lua_tonumber(L, 2);
+
+	Object *o = g_engine2->findObj(name);
+
+	if (o == nullptr)
+		return 0;
+
+	o->secondaryYaw = yaw;
+
+	return 0;
+}
+
 static int getyaw(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -430,6 +445,21 @@ static int getroll(lua_State *L)
     float val = g_engine2->getRoll(name);
 	lua_pushnumber(L, val);
 	
+	return 1;
+}
+
+static int getsecondaryyaw(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object *o = g_engine2->findObj(name);
+
+	if (o == nullptr)
+		return 0;
+
+	float val = o->secondaryYaw;
+	lua_pushnumber(L, val);
+
 	return 1;
 }
 
@@ -1405,6 +1435,29 @@ static int loadscene(lua_State *L)
 	return 0;
 }
 
+static int setsecondaryyawmesh(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	int meshIdx = lua_tonumber(L, 2);
+
+	Object *obj = g_engine2->getObject(name);
+
+	obj->secondaryYawMesh = meshIdx;
+
+	return 0;
+}
+
+static int getbtn(lua_State *L)
+{
+	int which = lua_tonumber(L, 1);
+
+	Controls2 *ctrl = g_engine2->getControls();
+
+	lua_pushnumber(L, ctrl->getBtn((BtnNames)which));
+
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1458,10 +1511,13 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getorient", getorient);
 	lua_register(L, "setyaw", setyaw);	
 	lua_register(L, "setpitch", setpitch);
-    lua_register(L, "setroll", setroll);	
+    lua_register(L, "setroll", setroll);
+	lua_register(L, "setsecondaryyaw", setsecondaryyaw);
 	lua_register(L, "getyaw", getyaw);
 	lua_register(L, "getpitch", getpitch);
     lua_register(L, "getroll", getroll);
+	lua_register(L, "getyaw", getyaw);
+	lua_register(L, "getsecondaryyaw", getsecondaryyaw);
 	lua_register(L, "moveforward", moveforward);
 	lua_register(L, "setmovesmoothly", setmovesmoothly);
 	lua_register(L, "setfade", setfade);
@@ -1534,6 +1590,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "runscript", runscript);
 	lua_register(L, "batch", batch);
 	lua_register(L, "loadscene", loadscene);
+	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
+	lua_register(L, "getbtn", getbtn);
 }
 
 void LuaBridge::exec(std::string filename)

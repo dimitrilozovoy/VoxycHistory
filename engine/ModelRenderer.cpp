@@ -188,7 +188,10 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	scale = glm::scale(glm::mat4(), glm::vec3(scaleX * object->scale.x, scaleY * object->scale.y, scaleZ * object->scale.z)); // Normalization scale
 
 	// Rotate
-	if (object->alwaysFacePlayer)
+	if (object->secondaryYawMesh != -1 && mesh->index == object->secondaryYawMesh)
+		rotate = glm::rotate(glm::mat4(), glm::radians(-object->secondaryYaw), glm::vec3(0, 1, 0)) // Model yaw
+		* glm::rotate(glm::mat4(), glm::radians(-object->pitch), glm::vec3(1, 0, 0)); // Model pitch
+	else if (object->alwaysFacePlayer)
 		rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw), glm::vec3(0, 1, 0)) // Model yaw
 		* glm::rotate(glm::mat4(), glm::radians(camera->pitch), glm::vec3(1, 0, 0)); // Model pitch
 	else

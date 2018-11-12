@@ -45,6 +45,122 @@ void Controls2::tick()
 
 	screenWidth = PLAT_GetWindowWidth();
     screenHeight = PLAT_GetWindowHeight();
+
+	//
+	// Process buttons
+	//
+
+	// New schemes
+
+	switch (controlScheme)
+	{
+	case CTRL_THIRDPERSON:
+
+		float targetYaw = 1000000;
+
+		if (buttons[BTN_UP] == 1)
+			targetYaw = camera->yaw;
+		if (buttons[BTN_DOWN] == 1)
+			targetYaw = camera->yaw + 180;
+		if (buttons[BTN_LEFT] == 1)
+			targetYaw = camera->yaw - 90;
+		if (buttons[BTN_RIGHT] == 1)
+			targetYaw = camera->yaw + 90;
+
+		if (buttons[BTN_UP] == 1 && buttons[BTN_LEFT] == 1)
+			targetYaw = camera->yaw - 45;
+		if (buttons[BTN_UP] == 1 && buttons[BTN_RIGHT] == 1)
+			targetYaw = camera->yaw + 45;
+		if (buttons[BTN_DOWN] == 1 && buttons[BTN_LEFT] == 1)
+			targetYaw = camera->yaw - 135;
+		if (buttons[BTN_DOWN] == 1 && buttons[BTN_RIGHT] == 1)
+			targetYaw = camera->yaw + 135;
+
+		if (targetYaw != 1000000)
+		{
+			if (!compareYaw(playerObj->yaw, targetYaw, 10))
+				playerObj->rotateYawTowards(targetYaw, 5);
+			else
+			{
+				playerObj->yaw = targetYaw;
+				playerObj->MoveForward(getMoveFactor() * 0.5);
+			}
+		}
+
+		break;
+	}
+
+	// Old schemes
+
+	if (buttons[BTN_UP] == 1)
+	{
+		switch (controlScheme)
+		{
+		case CTRL_SCROLLINGSHOOTER:
+			playerObj->MoveForward(getMoveFactor() * 2.0);
+			break;
+		case CTRL_UFOSHOOTER_360:
+			playerObj->MoveForward(getMoveFactor() * 2.0);
+			break;
+		case CTRL_EDITOR:
+			playerObj->MoveForward(getMoveFactor());
+			break;
+		}
+	}
+
+	if (buttons[BTN_DOWN] == 1)
+	{
+		switch (controlScheme)
+		{
+		case CTRL_SCROLLINGSHOOTER:
+			playerObj->MoveBackward(getMoveFactor() * 2.0);
+			break;
+		case CTRL_UFOSHOOTER_360:
+			playerObj->MoveBackward(getMoveFactor() * 2.0);
+			break;
+		case CTRL_EDITOR:
+			playerObj->MoveBackward(getMoveFactor());
+			break;
+		}
+	}
+
+	if (buttons[BTN_LEFT] == 1)
+	{
+		switch (controlScheme)
+		{
+		case CTRL_SCROLLINGSHOOTER:
+			playerObj->MoveLeft(getMoveFactor() * 10.0);
+			break;
+		case CTRL_UFOSHOOTER_360:
+			playerObj->MoveLeft(getMoveFactor());
+			break;
+		case CTRL_EDITOR:
+			//		std::string str = "player xyz " + ToString(playerObj->position.x) + " " + ToString(playerObj->position.y) + " " + ToString(playerObj->position.z);
+			//		Log(str);
+			playerObj->MoveLeft(getMoveFactor());
+			break;
+		}
+	}
+
+	if (buttons[BTN_RIGHT] == 1)
+	{
+		switch (controlScheme)
+		{
+		case CTRL_SCROLLINGSHOOTER:
+			playerObj->MoveRight(getMoveFactor() * 10.0);
+			break;
+		case CTRL_UFOSHOOTER_360:
+			playerObj->MoveRight(getMoveFactor());
+			break;
+		case CTRL_EDITOR:
+			playerObj->MoveRight(getMoveFactor());
+			break;
+		}
+	}
+
+	//
+	// Process touch
+	//
 	
 	if (jdown)
     {
@@ -142,14 +258,14 @@ void Controls2::tick()
                 playerObj->MoveLeft(abs(xdiff) * getMoveFactor());*/
 			break;
         default:
-            if (ydiff < -0.2)
+/*            if (ydiff < -0.2)
                 ArrowUp(abs(ydiff) / 140.0);
             if (ydiff > 0.2)
                 ArrowDown(abs(ydiff) / 140.0);
             if (xdiff > 0.2)
                 ArrowRight(abs(xdiff) / 140.0);
             if (xdiff < -0.2)
-                ArrowLeft(abs(xdiff) / 150.0);
+                ArrowLeft(abs(xdiff) / 150.0);*/
 			break;
 		}
     }
@@ -421,7 +537,7 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
 	lasty = y;
 }
 
-void Controls2::ArrowDown(float factor)
+/*void Controls2::ArrowDown(float factor)
 {
 	if (!enabled)
 		return;
@@ -429,7 +545,14 @@ void Controls2::ArrowDown(float factor)
 	switch (controlScheme)
 	{
 	case CTRL_THIRDPERSON:
-		playerObj->MoveBackward(factor * getMoveFactor());
+		if (!compareYaw(playerObj->yaw, camera->yaw + 180, 10))
+			playerObj->rotateYawTowards(camera->yaw + 180, 5);
+		else
+		{
+			playerObj->yaw = camera->yaw + 180;
+			playerObj->MoveForward(factor * getMoveFactor());
+		}
+//		playerObj->MoveBackward(factor * getMoveFactor());
 		break;
 	case CTRL_SCROLLINGSHOOTER:
 		playerObj->MoveBackward(factor * getMoveFactor() * 2.0);
@@ -451,7 +574,14 @@ void Controls2::ArrowUp(float factor)
 	switch (controlScheme)
 	{
 	case CTRL_THIRDPERSON:
-		playerObj->MoveForward(factor * getMoveFactor());
+		if (!compareYaw(playerObj->yaw, camera->yaw, 10))
+			playerObj->rotateYawTowards(camera->yaw, 5);
+		else
+		{
+			playerObj->yaw = camera->yaw;
+			playerObj->MoveForward(factor * getMoveFactor());
+		}
+//		playerObj->MoveForward(factor * getMoveFactor());
 		break;
 	case CTRL_SCROLLINGSHOOTER:
 		playerObj->MoveForward(factor * getMoveFactor() * 2.0);
@@ -473,7 +603,14 @@ void Controls2::ArrowLeft(float factor)
 	switch (controlScheme)
 	{
 	case CTRL_THIRDPERSON:
-		playerObj->MoveYaw(-2);
+		if (!compareYaw(playerObj->yaw, camera->yaw - 90, 10))
+			playerObj->rotateYawTowards(camera->yaw - 90, 5);
+		else
+		{
+			playerObj->yaw = camera->yaw + -90;
+			playerObj->MoveForward(factor * getMoveFactor());
+		}
+//		playerObj->MoveYaw(-2);
 		break;
 	case CTRL_SCROLLINGSHOOTER:
 		playerObj->MoveLeft(factor * getMoveFactor() * 10.0);
@@ -497,7 +634,14 @@ void Controls2::ArrowRight(float factor)
 	switch (controlScheme)
 	{
 	case CTRL_THIRDPERSON:
-		playerObj->MoveYaw(2);
+		if (!compareYaw(playerObj->yaw, camera->yaw + 90, 10))
+			playerObj->rotateYawTowards(camera->yaw + 90, 5);
+		else
+		{
+			playerObj->yaw = camera->yaw + 90;
+			playerObj->MoveForward(factor * getMoveFactor());
+		}
+//		playerObj->MoveYaw(2);
 		break;
 	case CTRL_SCROLLINGSHOOTER:
 		playerObj->MoveRight(factor * getMoveFactor() * 10.0);
@@ -509,7 +653,7 @@ void Controls2::ArrowRight(float factor)
 		playerObj->MoveRight(factor * getMoveFactor());
 		break;
 	}
-}
+}*/
 
 void Controls2::MoveUp(float factor)
 {
@@ -606,20 +750,20 @@ void Controls2::BtnDown(int which)
 		return;
 
 	if (which == 0)
-	{
-		tap();
-	}
-
+		buttons[0] = 1;
 	if (which == 1)
-	{
-		tap2();
-	}
+		buttons[1] = 1;
 }
 
 void Controls2::BtnUp(int which)
 {
 	if (!enabled)
 		return;
+
+	if (which == 0)
+		buttons[0] = 0;
+	if (which == 1)
+		buttons[1] = 0;
 }
 
 void Controls2::minus()
@@ -770,4 +914,23 @@ bool Controls2::checkActionUp()
 	bool result = actionUp;
     actionUp = false;
 	return result;
+}
+
+void Controls2::mouse(float mouseX, float mouseY)
+{
+
+}
+
+void Controls2::setBtn(int which, int state)
+{
+	if (which < MAX_BUTTONS)
+		buttons[which] = state;
+}
+
+int Controls2::getBtn(BtnNames which)
+{
+	if (which < MAX_BUTTONS)
+		return buttons[which];
+	else
+		return 0;
 }

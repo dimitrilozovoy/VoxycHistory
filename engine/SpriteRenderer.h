@@ -192,6 +192,7 @@ class SpriteRenderer: public Renderer
 		"uniform lowp vec4 globalColor; " \
 		"out lowp vec2 vTexCoordsOut; " \
 		"out lowp vec4 posOut; " \
+		"out vec4 finalColor; " \
 		"uniform lowp float useTexture; " \
 
 		"uniform lowp float fadeNear; " \

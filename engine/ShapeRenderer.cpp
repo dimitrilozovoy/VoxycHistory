@@ -134,9 +134,13 @@ void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object
 			float distance = camera->distanceTo(obj);
 
 			if (obj->visible && obj->type == OBJTYPE_SHAPE && (obj->shapeType == SHAPE_QUAD || obj->shapeType == SHAPE_SPRITE) && (distance <= drawDistance || obj->isPartOfVehicle))
-			{
 				drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap);
-			}
+
+// HACK: Sprite renderer is broken on Windows; draw spirtes separately as shapes
+#ifdef PLATFORM_WINDOWS
+			if (obj->visible && obj->type == OBJTYPE_SPRITE && (distance <= drawDistance || obj->isPartOfVehicle))
+				drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap);
+#endif
 		}
 	}
 	

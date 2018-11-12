@@ -366,32 +366,34 @@ void updateControls()
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS
 
 	Controls2 *controls = g_engine2->getControls();
+	Camera *camera = g_engine2->getCamera();
 
 	if (g_keyTimer <= 0)
 	{
 		if (glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT_SHIFT) || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT_SHIFT))
 		{
 		}
+		
 		if (glfwGetKey(g_glfwWindow, 'S') || glfwGetKey(g_glfwWindow, ';') || glfwGetKey(g_glfwWindow, GLFW_KEY_DOWN))
-		{
-			controls->ArrowDown();
-			g_lastKey = 0;
-		}
-		else if (glfwGetKey(g_glfwWindow, 'W') || glfwGetKey(g_glfwWindow, 'P') || glfwGetKey(g_glfwWindow, GLFW_KEY_UP))
-		{
-			controls->ArrowUp();
-			g_lastKey = 0;
-		}
+			controls->setBtn(BTN_DOWN, 1);
+		else
+			controls->setBtn(BTN_DOWN, 0);
+
+		if (glfwGetKey(g_glfwWindow, 'W') || glfwGetKey(g_glfwWindow, 'P') || glfwGetKey(g_glfwWindow, GLFW_KEY_UP))
+			controls->setBtn(BTN_UP, 1);
+		else
+			controls->setBtn(BTN_UP, 0);
+
 		if (glfwGetKey(g_glfwWindow, 'A') || glfwGetKey(g_glfwWindow, 'L') || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT))
-		{
-			controls->ArrowLeft();
-			g_lastKey = 0;
-		}
-		else if (glfwGetKey(g_glfwWindow, 'D') || glfwGetKey(g_glfwWindow, '\'') || glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT))
-		{
-			controls->ArrowRight();
-			g_lastKey = 0;
-		}
+			controls->setBtn(BTN_LEFT, 1);
+		else
+			controls->setBtn(BTN_LEFT, 0);
+
+		if (glfwGetKey(g_glfwWindow, 'D') || glfwGetKey(g_glfwWindow, '\'') || glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT))
+			controls->setBtn(BTN_RIGHT, 1);
+		else
+			controls->setBtn(BTN_RIGHT, 0);
+
 		if (glfwGetKey(g_glfwWindow, 'Q'))
 		{
 			g_lastKey = 0;
@@ -528,8 +530,8 @@ void updateControls()
 
 	glfwGetCursorPos(g_glfwWindow, &mouseX, &mouseY);
 
-	controls->MoveYaw((float)mouseX / 4.0);
-	controls->MovePitch((float)-mouseY / 4.0);
+	controls->mouse(mouseX, mouseY);
+	camera->mouse(mouseX, mouseY);
 
 	glfwSetCursorPos(g_glfwWindow, 0, 0);
 #endif

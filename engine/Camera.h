@@ -42,6 +42,7 @@ public:
 	void tick();
 	void setCameraScheme(CameraSchemes scheme);
 	void setPlayerObj(Object *playerObj);
+	void mouse(float mouseX, float mouseY);
 
 private:
 #ifdef USE_PLAYEROBJ

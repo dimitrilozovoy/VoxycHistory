@@ -59,6 +59,8 @@ public:
 	void moveByVelocity();
 	void capVelocity();
 	void moveTowardsNextPosition();
+	void rotateYawTowards(float targetYaw, float step);
+	float limit360(float value);
 	std::string toString();
 	void save(FILE *f);
 	void load(FILE *f);
@@ -85,6 +87,8 @@ public:
     float yaw = 0.1;
 	float pitch = 0;
 	float roll = 0;
+	float secondaryYaw = 0.1;
+	int secondaryYawMesh = -1;
     int glTexID = -1;
 	const float moveDistance = 1.0;
 	bool moveSmoothly = false;

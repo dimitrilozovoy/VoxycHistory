@@ -692,14 +692,27 @@ void Editor::tick() {
 
     if (movingDown)
         ctrl->MoveDown();
+
     if (movingLeft)
-        ctrl->ArrowLeft();
-    if (movingRight)
-        ctrl->ArrowRight();
-    if (movingBackward)
-        ctrl->ArrowDown();
+        ctrl->setBtn(BTN_LEFT, 1);
+	else
+		ctrl->setBtn(BTN_LEFT, 0);
+
+	if (movingRight)
+		ctrl->setBtn(BTN_RIGHT, 1);
+	else
+		ctrl->setBtn(BTN_RIGHT, 0);
+	
+	if (movingBackward)
+		ctrl->setBtn(BTN_DOWN, 1);
+	else
+		ctrl->setBtn(BTN_DOWN, 0);
+
     if (movingForward)
-        ctrl->ArrowUp();
+		ctrl->setBtn(BTN_UP, 1);
+	else
+		ctrl->setBtn(BTN_UP, 0);
+
     if (movingUp)
         ctrl->MoveUp();
 

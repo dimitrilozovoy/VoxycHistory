@@ -46,18 +46,9 @@ void Camera::tick()
 		break;
 	case CAMERA_THIRDPERSON:
 		this->position = playerObj->position;
-
-		this->position.z += 50;
-		this->position.y += 10;
-
-/*		this->setDeltaXZ(playerObj->yaw - 180, -30.0);
-		move();
-
-		this->position.y += 4.0;
-
-		this->yaw = playerObj->yaw;
-		this->pitch = 0;
-		this->roll = 0;*/
+		this->setDeltaXZ(-yaw, 30.0);
+		move();		
+		this->position.y += 5;
 		break;
 	case CAMERA_UFOSHOOTER_360:
 		this->position = playerObj->position;
@@ -146,4 +137,10 @@ void Camera::setPlayerObj(Object *playerObj)
 #ifdef USE_PLAYEROBJ
 	this->playerObj = playerObj;
 #endif
+}
+
+void Camera::mouse(float mouseX, float mouseY)
+{
+	yaw += mouseX;
+	playerObj->secondaryYaw = yaw;
 }
