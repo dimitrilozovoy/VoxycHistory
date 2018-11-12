@@ -51,6 +51,10 @@ SOFTWARE.
 #include "Windows.h"
 #endif
 
+#ifdef PLATFORM_ANDROID
+#include "../platform/android/Voxyc/app/src/main/cpp/android.h"
+#endif
+
 int g_logInitialized = 0;
 int g_randomIntInitialized = 0;
 
