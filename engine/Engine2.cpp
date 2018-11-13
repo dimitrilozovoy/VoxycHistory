@@ -1629,10 +1629,58 @@ void Engine2::loadScene(std::string fname)
 			}
         }
 	}
+
+	refreshObjectCategories();
 }
 
 void Engine2::setAssetsDir(std::string dir)
 {
 	g_assetsDir = dir;
 	g_assetsDirExplicit = true;
+}
+
+void Engine2::refreshObjectCategories()
+{
+	for (const auto &pair : objects) {
+		Object *obj = pair.second;
+
+		if (obj == nullptr)
+			continue;
+
+		if (obj->system)
+			continue;
+
+		if (obj->shape != nullptr && obj->shape->voxels != nullptr) {
+			obj->category = "voxels";
+		}
+		else if (obj->type == OBJTYPE_SPRITE)
+		{
+			obj->category = "sprite";
+		}
+		else if (obj->type == OBJTYPE_SHAPE)
+		{
+			Shape *shape = obj->shape;
+
+			if (shape != nullptr)
+			{
+				if (shape->type == SHAPE_TERRAIN)
+				{
+					obj->category = "terrain";
+				}
+				else if (shape->type == SHAPE_BLOCK)
+				{
+					obj->category = "block";
+				}
+			}
+		}
+		else if (obj->type == OBJTYPE_MODEL)
+		{
+			obj->category = "model";
+		}
+		else
+		{
+			obj->category = "unknown";
+		}
+	}
+
 }

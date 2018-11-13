@@ -35,7 +35,9 @@ public:
 	bool checkCollision(Object *obj1, Object *obj2);
 
 private:
+	const float nearCollisionFactor = 1.5;
 	std::map<Object*, Object*> collisions;
+	std::map<Object*, Object*> nearCollisions;
 };
 
 #endif

@@ -28,6 +28,8 @@ void Camera::init(Object *mouseLook)
 	this->player = player;
 #endif
 	this->mouseLook = mouseLook;
+
+	ints["ignorecollisions"] = 1;
 }
 
 void Camera::tick()
@@ -141,6 +143,14 @@ void Camera::setPlayerObj(Object *playerObj)
 
 void Camera::mouse(float mouseX, float mouseY)
 {
-	yaw += mouseX;
-	playerObj->secondaryYaw = yaw;
+	switch (cameraScheme)
+	{
+	case CAMERA_THIRDPERSON:
+		yaw += mouseX;
+
+		if (playerObj != nullptr)
+			playerObj->secondaryYaw = yaw;
+
+		break;
+	}
 }

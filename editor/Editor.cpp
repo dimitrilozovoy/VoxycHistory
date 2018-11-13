@@ -61,7 +61,11 @@ void Editor::load() {
     lastLitUpGuide = nullptr;
     curVoxels = nullptr;
 
-    // Make grid sprites
+    // Turn off collision detection for player
+    Object *player = engine->getPlayerObj();
+    player->ints["ignorecollisions"] = 1;
+
+    // Make main grid sprite
     engine->genTexture("maingrid", "grid", 32);
 
     // Create main grid obj
@@ -187,6 +191,7 @@ void Editor::tick() {
             PLAT_AddListMenuOption("Load Scene...", "");
             PLAT_AddListMenuOption("Save Scene...", "");
             PLAT_AddListMenuOption("Run script...", "");
+            PLAT_AddListMenuOption("Clear and run script...", "");
             PLAT_AddListMenuOption("README", "");
             PLAT_AddListMenuOption("Simple Mode", "");
             PLAT_ShowListMenuInDialog("File", "");
@@ -259,6 +264,13 @@ void Editor::tick() {
             PLAT_ShowFileSelector("lua");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "runscript";
+        }
+
+        if (engine->getExtraStr("listmenuoptionclicked") == "Clear and run script...") {
+            timer = 50;
+            PLAT_ShowFileSelector("lua");
+            engine->setExtraStr("listmenuoptionclicked", "");
+            fileSelectorAction = "clearandrunscript";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "README") {
@@ -396,6 +408,14 @@ void Editor::tick() {
                 engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
                 std::string fname = GetFileName(engine->getExtraStr("fileselected"));
                 luaBridge.exec(fname);
+                engine->setExtraStr("fileselected", "");
+            }
+
+            if (fileSelectorAction == "clearandrunscript") {
+                engine->setExtraInt("switchmodule", 1);
+                engine->setExtraStr("nextmodule", "luaprogram");
+                engine->setExtraStr("loadscript", GetFileName(engine->getExtraStr("fileselected")));
+                engine->setExtraStr("assetsdir", GetPath(engine->getExtraStr("fileselected")));
                 engine->setExtraStr("fileselected", "");
             }
 

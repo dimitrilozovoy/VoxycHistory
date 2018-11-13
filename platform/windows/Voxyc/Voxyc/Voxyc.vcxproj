@@ -154,6 +154,7 @@
     <ClInclude Include="..\..\..\..\engine\Batch.h" />
     <ClInclude Include="..\..\..\..\engine\Batcher.h" />
     <ClInclude Include="..\..\..\..\engine\Camera.h" />
+    <ClInclude Include="..\..\..\..\engine\Common.h" />
     <ClInclude Include="..\..\..\..\engine\Controls2.h" />
     <ClInclude Include="..\..\..\..\engine\DDLUtils.hpp" />
     <ClInclude Include="..\..\..\..\engine\EditorController.h" />

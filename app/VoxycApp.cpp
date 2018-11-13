@@ -34,20 +34,23 @@ void VoxycApp::init()
 	Log("*");
 	Log("*");
 	Log("*");
-	
-    g_engine2 = &engine;
-	
+
+	g_engine2 = &engine;
+
+	if (firstLaunch)
+	{
 #if defined PLATFORM_ANDROID
 #ifdef USE_EXTERNAL_ASSETS
-    char cdir[MAX_STR_LEN];
-    sprintf(cdir, "%s/%s", g_externalFilesDir, EXTERNAL_PROJECT_DIR);
-    g_assetsDir = cdir;
+        char cdir[MAX_STR_LEN];
+        sprintf(cdir, "%s/%s", g_externalFilesDir, EXTERNAL_PROJECT_DIR);
+        g_assetsDir = cdir;
 #else
-	g_assetsDir = g_externalFilesDir;
+		g_assetsDir = g_externalFilesDir;
 #endif
 #endif
 
-	module = g_module;
+		module = g_module;
+	}
 
 	if (module == "editor")
 		editor.init();
@@ -55,6 +58,8 @@ void VoxycApp::init()
         editorOld.init();
 	else if (module == "luaprogram")
 		luaProgram.init();
+
+	firstLaunch = false;
 }
 
 void VoxycApp::load()
@@ -78,8 +83,6 @@ void VoxycApp::tick()
 		return;
 	}
 	
-	engine.tick();
-
 	if (module == "editor")
 		editor.tick();
 	else if (module == "editorold")
@@ -87,7 +90,9 @@ void VoxycApp::tick()
 	else if (module == "luaprogram")
 		luaProgram.tick();
 
-	// Switch module
+    engine.tick();
+
+    // Switch module
 	int switchModule = engine.getExtraInt("switchmodule");
 	std::string nextModule = engine.getExtraStr("nextmodule");
 	

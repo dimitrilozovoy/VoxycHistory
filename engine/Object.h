@@ -64,6 +64,7 @@ public:
 	std::string toString();
 	void save(FILE *f);
 	void load(FILE *f);
+	bool checkCollision(Object *other, float multiplier);
 
     std::string name;
     ObjType type;
@@ -105,6 +106,7 @@ public:
 
 	bool visible = true;
 	bool system = false;
+	std::string category = "";
 
 	glm::mat4 DepthMVP;
 
@@ -113,6 +115,8 @@ public:
 	std::map<std::string, int> ints;
 	std::map<std::string, std::string> strings;
 	std::map<std::string, float> floats;
+
+	std::vector<Object *> nearCollisions;
 };
 
 #endif //FATELESS_OBJECT_H

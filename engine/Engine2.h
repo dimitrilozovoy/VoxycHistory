@@ -157,7 +157,7 @@ public:
 	void playTrack(std::string name, bool stereo);
 
 	bool checkCollision(Object *obj1, Object *obj2, float factorx = 1.0, float factory = 1.0, float factorz = 1.0);
-    bool checkVoxelCollision(Object *obj, float multx, float multy, float multz);
+	bool checkVoxelCollision(Object *obj, float multx, float multy, float multz);
     bool checkVoxelCollisionPt(Object *voxobj, float x, float y, float z);
 	void moveObjectsByVelocity();
 	void moveObjectsTowardsNextPosition();
@@ -234,8 +234,9 @@ public:
 
 	void saveScene(std::string fname);
 	void loadScene(std::string fname);
-
 	void setAssetsDir(std::string dir);
+
+	void refreshObjectCategories();
 
 private:
 	ShapeRenderer shapeRenderer;

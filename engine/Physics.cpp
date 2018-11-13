@@ -29,46 +29,73 @@ void Physics::init()
 void Physics::tick(std::map<std::string, Object*> &objects)
 {
 	collisions.clear();
+	nearCollisions.clear();
 
-	for (const auto &pair: objects)
+	// Clear near collisions
+	for (const auto &pair : objects)
 	{
 		Object *obj1 = pair.second;
 
-		for (const auto &pair: objects)
+		if (obj1 == nullptr)
+			continue;
+
+		obj1->nearCollisions.clear();
+
+		for (const auto &pair2 : objects)
 		{
-			Object *obj2 = pair.second;
+			Object *obj2 = pair2.second;
+
+			if (obj2 == nullptr)
+				continue;
+
+			obj2->nearCollisions.clear();
+		}
+	}
+
+	// Find collisions and near collisions
+	for (const auto &pair : objects)
+	{
+		Object *obj1 = pair.second;
+
+		if (obj1 == nullptr || obj1->category == "terrain")
+			continue;
+
+		for (const auto &pair2: objects)
+		{
+			Object *obj2 = pair2.second;
+
+			if (obj2 == nullptr || obj2->category == "terrain")
+				continue;
 
 			if (obj1 == nullptr || obj2 == nullptr)
 				continue;
 
-			bool collx = false;
-			bool colly = false;
-			bool collz = false;
-			bool coll = false;
+			// Actual collisions
 
-			if ((obj1->position.x < obj2->position.x) && (obj1->position.x + (obj1->scale.x / 2) > obj2->position.x - (obj2->scale.x / 2))
-				|| (obj1->position.x > obj2->position.x) && (obj1->position.x - (obj1->scale.x / 2) < obj2->position.x + (obj2->scale.x / 2)))
-				collx = true;
-
-			if ((obj1->position.y < obj2->position.y) && (obj1->position.y + (obj1->scale.y / 2) > obj2->position.y - (obj2->scale.y / 2))
-				|| (obj1->position.y > obj2->position.y) && (obj1->position.y - (obj1->scale.y / 2) < obj2->position.y + (obj2->scale.y / 2)))
-				colly = true;
-
-			if ((obj1->position.z < obj2->position.z) && (obj1->position.z + (obj1->scale.y / 2) > obj2->position.z - (obj2->scale.z / 2))
-				|| (obj1->position.z > obj2->position.z) && (obj1->position.z - (obj1->scale.z / 2) < obj2->position.z + (obj2->scale.z / 2)))
-				collz = true;
-
-			if (collx && colly && collz)
-				coll = true;
-
-			if (coll)
+			if (obj1->checkCollision(obj2, 1.0))
 			{
 				// Collision detected
 				collisions[obj1] = obj2;
 			}
+
+			// Near collisions
+
+			bool nearcollx = false;
+			bool nearcolly = false;
+			bool nearcollz = false;
+			bool nearcoll = false;
+
+
+			if (obj1->checkCollision(obj2, 1.2))
+			{
+				// Collision detected
+				nearCollisions[obj1] = obj2;
+
+				obj1->nearCollisions.push_back(obj2);
+				obj2->nearCollisions.push_back(obj1);
+			}
 		}
 	}
-
 }
 
 bool Physics::checkCollision(Object *obj1, Object *obj2)

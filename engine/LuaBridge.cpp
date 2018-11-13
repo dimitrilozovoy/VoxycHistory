@@ -1505,9 +1505,11 @@ static int getbtn(lua_State *L)
 static int getallobjs(lua_State *L)
 {
 	// Table for Lua to know what each object is approximately
-	lua_newtable(L, 1);
+	lua_newtable(L);
 	int top = lua_gettop(L);
 	int idx = 1;
+
+	g_engine2->refreshObjectCategories();
 
 	std::map<std::string, Object *> objs = g_engine2->getObjects();
 
@@ -1520,56 +1522,29 @@ static int getallobjs(lua_State *L)
 		if (obj->system)
 			continue;
 
-		if (obj->shape != nullptr && obj->shape->voxels != nullptr) {
-			lua_pushstring(L, obj->name.c_str());
-			lua_pushstring(L, "voxels");
-		}
-		else if (obj->type == OBJTYPE_SPRITE)
-		{
-			lua_pushstring(L, obj->name.c_str());
-			lua_pushstring(L, "sprite");
-		}
-		else if (obj->type == OBJTYPE_SHAPE)
-		{
-			Shape *shape = obj->shape;
+		lua_pushstring(L, obj->name.c_str());
+		lua_pushstring(L, obj->category.c_str());
 
-			if (shape != nullptr)
-			{
-				if (shape->type == SHAPE_TERRAIN)
-				{
-					lua_pushstring(L, obj->name.c_str());
-					lua_pushstring(L, "terrain");
-				}
-				else if (shape->type == SHAPE_BLOCK)
-				{
-					lua_pushstring(L, obj->name.c_str());
-					lua_pushstring(L, "block");
-				}
-			}
-		}
-		else if (obj->type == OBJTYPE_MODEL)
-		{
-			lua_pushstring(L, obj->name.c_str());
-			lua_pushstring(L, "model");
-		}
-		else
-		{
-			lua_pushstring(L, obj->name.c_str());
-			lua_pushstring(L, "unknown");
-		}
-
-//		lua_settable(L, top);
 		lua_settable(L, -3);
-//		lua_settable(L, idx);
 
 		idx++;
 	}
 
-	Log("qwerqwer");
-
 	lua_setglobal(L, "allobjs");
 
 	return 1;
+}
+
+static int setplayarea(lua_State *L)
+{
+	g_common.playAreaMinX = lua_tonumber(L, 1);
+	g_common.playAreaMaxX = lua_tonumber(L, 2);
+	g_common.playAreaMinY = lua_tonumber(L, 3);
+	g_common.playAreaMaxY = lua_tonumber(L, 4);
+	g_common.playAreaMinZ = lua_tonumber(L, 5);
+	g_common.playAreaMaxZ = lua_tonumber(L, 6);
+
+	return 0;
 }
 
 void LuaBridge::init(Engine2 *engine)
@@ -1710,6 +1685,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
 	lua_register(L, "getallobjs", getallobjs);
+	lua_register(L, "setplayarea", setplayarea);
 }
 
 void LuaBridge::exec(std::string filename)

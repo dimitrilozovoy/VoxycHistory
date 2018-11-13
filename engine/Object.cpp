@@ -245,10 +245,46 @@ void Object::setDeltaXYZ(float heading, float pitch, float vel)
 
 void Object::move()
 {
-	if (moveSmoothly)
-		nextPosition += delta;
-	else
+	// Check for possible collisions before moving
+	bool okToMove = true;
+
+	if (ints["ignorecollisions"] != 1)
+	{
+		// Pretend we moved
 		position += delta;
+
+		// Check for other objects
+		for (auto other : nearCollisions)
+		{
+			if (checkCollision(other, 1.0)
+				&& (other->category == "voxels"
+					|| other->category == "model"
+					|| other->category == "sprite"))
+				okToMove = false;
+
+		}
+
+		// Check if we are escaping play area
+		if (g_common.playAreaMinX != 0 && position.x < g_common.playAreaMinX
+			|| g_common.playAreaMaxX != 0 && position.x > g_common.playAreaMaxX
+			|| g_common.playAreaMinY != 0 && position.y < g_common.playAreaMinY
+			|| g_common.playAreaMaxY != 0 && position.y > g_common.playAreaMaxY
+			|| g_common.playAreaMinZ != 0 && position.z < g_common.playAreaMinZ
+			|| g_common.playAreaMaxZ != 0 && position.z > g_common.playAreaMaxZ)
+			okToMove = false;
+
+		// Unmove
+		position -= delta;
+	}
+
+	// Move if OK
+	if (okToMove)
+	{
+		if (moveSmoothly)
+			nextPosition += delta;
+		else
+			position += delta;
+	}
 }
 
 void Object::MoveBackward(float factor)
@@ -721,4 +757,34 @@ void Object::load(FILE *f)
 	hitPoints = getKVInt("hitPoints");
 	fireTriggerOn = getKVBool("fireTriggerOn");
 	speed = getKVFloat("speed");
+}
+
+bool Object::checkCollision(Object *obj2, float multiplier)
+{
+	if (obj2 == nullptr || !visible || !obj2->visible)
+		return false;
+
+	bool collx = false;
+	bool colly = false;
+	bool collz = false;
+	bool coll = false;
+
+	Object *obj1 = this;
+
+	if ((obj1->position.x < obj2->position.x) && (obj1->position.x + ((obj1->scale.x * multiplier) / 2) > obj2->position.x - ((obj2->scale.x * multiplier) / 2))
+		|| (obj1->position.x > obj2->position.x) && (obj1->position.x - ((obj1->scale.x * multiplier) / 2) < obj2->position.x + ((obj2->scale.x * multiplier) / 2)))
+		collx = true;
+
+	if ((obj1->position.y < obj2->position.y) && (obj1->position.y + ((obj1->scale.y * multiplier) / 2) > obj2->position.y - ((obj2->scale.y * multiplier) / 2))
+		|| (obj1->position.y > obj2->position.y) && (obj1->position.y - ((obj1->scale.y * multiplier) / 2) < obj2->position.y + ((obj2->scale.y * multiplier) / 2)))
+		colly = true;
+
+	if ((obj1->position.z < obj2->position.z) && (obj1->position.z + ((obj1->scale.z * multiplier) / 2) > obj2->position.z - ((obj2->scale.z * multiplier) / 2))
+		|| (obj1->position.z > obj2->position.z) && (obj1->position.z - ((obj1->scale.z * multiplier) / 2) < obj2->position.z + ((obj2->scale.z * multiplier) / 2)))
+		collz = true;
+
+	if (collx && colly && collz)
+		return true;
+	else
+		return false;
 }

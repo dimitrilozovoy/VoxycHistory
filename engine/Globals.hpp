@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <string>
+#include "Common.h"
 
 #define DEFAULT_ASSETS_DIR "../../../../assets"
 #define DEFAULT_MODULE "editor"
@@ -277,5 +278,7 @@ extern std::string g_module;
 
 extern bool g_useLegacyTextureSpan;
 extern bool g_simpleMode;
+
+extern Common g_common;
 
 #endif /* Globals_hpp */

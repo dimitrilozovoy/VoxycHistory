@@ -57,6 +57,7 @@ private:
 	
 	bool skipFrame = false;
 	bool loadingModule = false;
+	bool firstLaunch = true;
 };
 
 #endif

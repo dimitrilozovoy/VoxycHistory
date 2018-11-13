@@ -26,7 +26,6 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../Voxyc/app/src/main/cpp/javagl.cpp\
              ../../../../engine/DDLUtils.cpp\
              ../../../../engine/Globals.cpp\
-             ../../../../app/main.cpp\
              ../../../../engine/Audio.cpp\
              ../../../../engine/AndroidAudio.cpp\
              ../../../../engine/Camera.cpp\
@@ -58,6 +57,8 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../engine/FrameBuffer.cpp\
              ../../../../engine/FileIO.cpp\
              ../../../../engine/Scene.cpp\
+             ../../../../engine/Physics.cpp\
+             ../../../../app/main.cpp\
              ../../../../app/VoxycApp.cpp\
              ../../../../app/LuaProgram.cpp\
              ../../../../editor/Editor.cpp\

@@ -35,11 +35,11 @@ void LuaProgram::init()
 //	engine->setControlScheme(CTRL_EDITOR);
 	
 	// Draw splash while we are loading
-	engine->addText("loading", "loading", 0.0, 0.0, 0.1);
+/*	engine->addText("loading", "loading", 0.0, 0.0, 0.1);
 	engine->setTextVisible("loading", true);
     engine->setControlsVisible(false);
     engine->setHealthBarsVisible(false);
-    engine->setSkybox("skybox.png");
+    engine->setSkybox("skybox.png");*/
 	
 	g_engine2->draw(0);
 }
@@ -47,6 +47,9 @@ void LuaProgram::init()
 void LuaProgram::load()
 {
 	std::string fname;
+
+	if (engine->getExtraStr("assetsdir") != "")
+		engine->setAssetsDir(engine->getExtraStr("assetsdir"));
 
 	if (engine->getExtraStr("loadscript") == "")
 		fname = "load.lua";
