@@ -171,6 +171,9 @@
     <ClInclude Include="..\..\..\..\app\VoxycApp.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\Physics.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -409,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\app\main.cpp">
       <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\Physics.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

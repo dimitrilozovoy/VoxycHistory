@@ -56,6 +56,7 @@ SOFTWARE.
 #include "Batch.h"
 #include "Batcher.h"
 #include "Scene.h"
+#include "Physics.h"
 
 class Engine2
 {
@@ -253,6 +254,7 @@ private:
 	TextureAtlas texAtlas;
 	ShadowMap shadowMap;
 	Batcher batcher;
+	Physics physics;
 
     std::map<std::string, Object*> objects;
     std::map<std::string, Shape*> shapes;

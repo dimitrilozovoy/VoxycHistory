@@ -171,6 +171,7 @@
     <ClInclude Include="..\..\..\..\engine\Object.h" />
     <ClInclude Include="..\..\..\..\engine\OBJWriter.h" />
     <ClInclude Include="..\..\..\..\engine\OzzRenderer.h" />
+    <ClInclude Include="..\..\..\..\engine\Physics.h" />
     <ClInclude Include="..\..\..\..\engine\platform.h" />
     <ClInclude Include="..\..\..\..\engine\Renderer.h" />
     <ClInclude Include="..\..\..\..\engine\Scene.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="..\..\..\..\engine\Object.cpp" />
     <ClCompile Include="..\..\..\..\engine\OBJWriter.cpp" />
     <ClCompile Include="..\..\..\..\engine\OzzRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\Physics.cpp" />
     <ClCompile Include="..\..\..\..\engine\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\Scene.cpp" />
     <ClCompile Include="..\..\..\..\engine\ShadowMap.cpp" />

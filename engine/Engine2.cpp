@@ -63,6 +63,7 @@ void Engine2::init()
 
     controls.init(&camera, &mouseLook, &texMan, &editorController);
 	controls.setPlayerObj(playerObj);
+	physics.init();
 
 #ifndef USE_PLAYEROBJ
 	player.init(&vehicle);
@@ -101,6 +102,7 @@ void Engine2::tick()
 
     resetOnClickExtras();
 
+	physics.tick(objects);
     controls.tick();
 	audio.tick();
 
@@ -142,8 +144,8 @@ void Engine2::draw(int eye)
 	
 //	texAtlas.refresh();
 
-	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 	modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
+	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 
 // HACK: Sprite renderer is broken on Windows; ShapeRenderer takes care as fallback
 #ifndef PLATFORM_WINDOWS
@@ -272,6 +274,9 @@ void Engine2::setType(std::string name, ObjType type)
         return;
 
     o->type = type;
+
+	if (type == OBJTYPE_SPRITE)
+		o->shapeType = SHAPE_SPRITE;
 }
 
 void Engine2::setShape(std::string name, ObjShapeType shape)
@@ -913,7 +918,9 @@ void Engine2::playTrack(std::string name, bool stereo)
 
 bool Engine2::checkCollision(Object *obj1, Object *obj2, float factorx, float factory, float factorz)
 {
-	float deltaX = abs(obj1->position.x - obj2->position.x);
+	return physics.checkCollision(obj1, obj2);
+
+/*	float deltaX = abs(obj1->position.x - obj2->position.x);
 	float deltaY = abs(obj1->position.y - obj2->position.y);
 	float deltaZ = abs(obj1->position.z - obj2->position.z);
 
@@ -924,7 +931,7 @@ bool Engine2::checkCollision(Object *obj1, Object *obj2, float factorx, float fa
 	if (deltaX < avgSizeX * factorx && deltaY < avgSizeY * factory && deltaZ < avgSizeZ * factorz)
 		return true;
 
-	return false;
+	return false;*/
 }
 
 bool Engine2::checkVoxelCollision(Object *obj, float multx, float multy, float multz)
@@ -1284,7 +1291,7 @@ void Engine2::clear()
 {
 	objects.clear();
 
-	for (const auto &pair : shapes)
+	for (const auto &pair: shapes)
 	{
 		Shape *shape = pair.second;
 		if (shape != nullptr)

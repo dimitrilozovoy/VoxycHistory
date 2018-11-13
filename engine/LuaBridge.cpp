@@ -146,6 +146,20 @@ static int settex(lua_State *L)
 	return 0;
 }
 
+static int gettex(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object *obj = g_engine2->findObj(name);
+
+	if (obj == nullptr)
+		return 0;
+
+	lua_pushstring(L, obj->textureName.c_str());
+
+	return 1;
+}
+
 static int settexspan(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -204,6 +218,24 @@ static int setsize(lua_State *L)
     g_engine2->setSize(name, x, y, z);
 	
 	return 1;
+}
+
+static int getsize(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object *obj = g_engine2->findObj(name);
+
+	if (obj == nullptr)
+		return 0;
+
+	glm::vec3 scale = obj->scale;
+
+	lua_pushnumber(L, scale.x);
+	lua_pushnumber(L, scale.y);
+	lua_pushnumber(L, scale.z);
+
+	return 3;
 }
 
 static int setpos(lua_State *L)
@@ -715,6 +747,17 @@ static int setplayerpos(lua_State *L)
 	return 1;
 }
 
+static int getplayerpos(lua_State *L)
+{
+	Object *player = g_engine2->getPlayerObj();
+
+	lua_pushnumber(L, player->position.x);
+	lua_pushnumber(L, player->position.y);
+	lua_pushnumber(L, player->position.z);
+
+	return 3;
+}
+
 static int setplayerorient(lua_State *L)
 {
 	lua_Number pitch = lua_tonumber(L,1);
@@ -736,6 +779,7 @@ static int getplayerorient(lua_State *L)
 
 	return 3;
 }
+
 static int setplayerpitch(lua_State *L)
 {
     lua_Number pitch = lua_tonumber(L, 1);
@@ -1458,6 +1502,76 @@ static int getbtn(lua_State *L)
 	return 1;
 }
 
+static int getallobjs(lua_State *L)
+{
+	// Table for Lua to know what each object is approximately
+	lua_newtable(L, 1);
+	int top = lua_gettop(L);
+	int idx = 1;
+
+	std::map<std::string, Object *> objs = g_engine2->getObjects();
+
+	for (const auto &pair : objs) {
+		Object *obj = pair.second;
+
+		if (obj == nullptr)
+			continue;
+
+		if (obj->system)
+			continue;
+
+		if (obj->shape != nullptr && obj->shape->voxels != nullptr) {
+			lua_pushstring(L, obj->name.c_str());
+			lua_pushstring(L, "voxels");
+		}
+		else if (obj->type == OBJTYPE_SPRITE)
+		{
+			lua_pushstring(L, obj->name.c_str());
+			lua_pushstring(L, "sprite");
+		}
+		else if (obj->type == OBJTYPE_SHAPE)
+		{
+			Shape *shape = obj->shape;
+
+			if (shape != nullptr)
+			{
+				if (shape->type == SHAPE_TERRAIN)
+				{
+					lua_pushstring(L, obj->name.c_str());
+					lua_pushstring(L, "terrain");
+				}
+				else if (shape->type == SHAPE_BLOCK)
+				{
+					lua_pushstring(L, obj->name.c_str());
+					lua_pushstring(L, "block");
+				}
+			}
+		}
+		else if (obj->type == OBJTYPE_MODEL)
+		{
+			lua_pushstring(L, obj->name.c_str());
+			lua_pushstring(L, "model");
+		}
+		else
+		{
+			lua_pushstring(L, obj->name.c_str());
+			lua_pushstring(L, "unknown");
+		}
+
+//		lua_settable(L, top);
+		lua_settable(L, -3);
+//		lua_settable(L, idx);
+
+		idx++;
+	}
+
+	Log("qwerqwer");
+
+	lua_setglobal(L, "allobjs");
+
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1491,10 +1605,12 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setcolor", setcolor);
 	lua_register(L, "setmeshcolor", setmeshcolor);
 	lua_register(L, "settex", settex);	
+	lua_register(L, "gettex", gettex);
 	lua_register(L, "settexspan", settexspan);
 	lua_register(L, "setvisible", setvisible);	
 	lua_register(L, "getvisible", getvisible);	
 	lua_register(L, "setsize", setsize);
+	lua_register(L, "getsize", getsize);
 	lua_register(L, "setpos", setpos);
 	lua_register(L, "getpos", getpos);
 	lua_register(L, "setx", setx);
@@ -1534,6 +1650,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setcamorient", setcamorient);	
 	lua_register(L, "setplayerobj", setplayerobj);
 	lua_register(L, "setplayerpos", setplayerpos);
+	lua_register(L, "getplayerpos", getplayerpos);
 	lua_register(L, "setplayerorient", setplayerorient);
 	lua_register(L, "getplayerorient", getplayerorient);
 	lua_register(L, "setplayerpitch", setplayerpitch);
@@ -1592,6 +1709,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "loadscene", loadscene);
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
+	lua_register(L, "getallobjs", getallobjs);
 }
 
 void LuaBridge::exec(std::string filename)

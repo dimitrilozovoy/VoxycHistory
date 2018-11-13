@@ -78,6 +78,8 @@ void VoxycApp::tick()
 		return;
 	}
 	
+	engine.tick();
+
 	if (module == "editor")
 		editor.tick();
 	else if (module == "editorold")
@@ -85,8 +87,6 @@ void VoxycApp::tick()
 	else if (module == "luaprogram")
 		luaProgram.tick();
 
-	engine.tick();
-	
 	// Switch module
 	int switchModule = engine.getExtraInt("switchmodule");
 	std::string nextModule = engine.getExtraStr("nextmodule");
