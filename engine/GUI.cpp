@@ -239,7 +239,8 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 		        if (clickgly > textgly - item->size.y * 2.0
 		        && clickgly < textgly + item->size.y * 2.0
 		        && clickglx > textglx - (item->text.size() * item->size.x)
-		        && clickglx < textglx + (item->text.size() * item->size.x))
+		        && clickglx < textglx + (item->text.size() * item->size.x)
+				&& item->onClickExtra != "")
 		        {
 					Log(item->onClickExtra);
 		            return item->onClickExtra;
@@ -250,9 +251,9 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 				if (clickgly > item->position.y - item->size.y / 1.0 
 		        && clickgly < item->position.y + item->size.y / 1.0
 		        && clickglx > item->position.x - item->size.x / 1.0
-		        && clickglx < item->position.x + item->size.x / 1.0)
+		        && clickglx < item->position.x + item->size.x / 1.0
+				&& item->onClickExtra != "")
 			    {
-//					Log(item->onClickExtra);
 				    return item->onClickExtra;
 			    }
 			}
@@ -260,26 +261,6 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 	}
 	
 	return "";
-}
-
-float GUI::scrToGlX(float screenX)
-{
-	return 2.0f * screenX / (float)PLAT_GetWindowWidth() - 1.0f;
-}
-
-float GUI::scrToGlY(float screenY)
-{
-	return -(2.0f * screenY / (float)PLAT_GetWindowHeight() - 1.0f);
-}
-
-float GUI::glToScrX(float glX)
-{
-	return ((glX + 1.0f) / 2.0f) * (float)PLAT_GetWindowWidth();
-}
-
-float GUI::glToScrY(float glY)
-{
-	return (float)PLAT_GetWindowHeight() - abs(((glY + 1.0f) / 2.0f) * (float)PLAT_GetWindowHeight());
 }
 
 void GUI::clear()

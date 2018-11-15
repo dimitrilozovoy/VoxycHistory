@@ -247,6 +247,7 @@ void Object::move()
 {
 	// Check for possible collisions before moving
 	bool okToMove = true;
+	std::string stuckOn = "";
 
 	if (ints["ignorecollisions"] != 1)
 	{
@@ -259,9 +260,11 @@ void Object::move()
 			if (checkCollision(other, 1.0)
 				&& (other->category == "voxels"
 					|| other->category == "model"
-					|| other->category == "sprite"))
+					/*|| other->category == "sprite"*/))
+			{
 				okToMove = false;
-
+				stuckOn = other->name;
+			}
 		}
 
 		// Check if we are escaping play area
@@ -271,7 +274,10 @@ void Object::move()
 			|| g_common.playAreaMaxY != 0 && position.y > g_common.playAreaMaxY
 			|| g_common.playAreaMinZ != 0 && position.z < g_common.playAreaMinZ
 			|| g_common.playAreaMaxZ != 0 && position.z > g_common.playAreaMaxZ)
+		{
 			okToMove = false;
+			stuckOn = "playarea";
+		}
 
 		// Unmove
 		position -= delta;
@@ -280,10 +286,17 @@ void Object::move()
 	// Move if OK
 	if (okToMove)
 	{
+		ints["stuck"] = 0;
+
 		if (moveSmoothly)
 			nextPosition += delta;
 		else
 			position += delta;
+	}
+	else
+	{
+		ints["stuck"] = 1;
+		strings["stuckon"] = stuckOn;
 	}
 }
 
@@ -535,54 +548,6 @@ void Object::moveTowardsNextPosition()
 	glm::vec4 delta = nextPosition - position;
 
 	position += delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
-}
-
-void Object::rotateYawTowards(float targetYaw, float step)
-{
-	yaw = limit360(yaw);
-	targetYaw = limit360(targetYaw);
-
-	if (targetYaw == 0)
-	{
-		if (yaw > 180)
-			yaw += step;
-		else
-			yaw -= step;
-	}
-	else
-	{
-		float cWiseDist = 0;
-		float ccWiseDist = 0;
-
-		if (targetYaw > yaw)
-		{
-			cWiseDist = targetYaw - yaw;
-			ccWiseDist = yaw + (360 - targetYaw);
-		}
-
-		if (targetYaw < yaw)
-		{
-			cWiseDist = (360 - targetYaw) + targetYaw;
-			ccWiseDist = yaw - targetYaw;
-		}
-
-		if (cWiseDist > ccWiseDist)
-			yaw -= step;
-		else
-			yaw += step;
-
-		yaw = limit360(yaw);
-	}
-}
-
-float Object::limit360(float value)
-{
-	while (value > 360)
-		value -= 360;
-	while (value < 0)
-		value += 360;
-
-	return value;
 }
 
 std::string Object::toString()

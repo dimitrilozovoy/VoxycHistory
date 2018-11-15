@@ -28,7 +28,7 @@ SOFTWARE.
 #endif
 #include "DDLUtils.hpp"
 
-#define MAX_BUFFER_LEN_SFX		16384 * 8
+#define MAX_BUFFER_LEN_SFX		16384 * 32
 #define MAX_BUFFER_LEN_MUSIC	16384 * 1200
 
 #ifdef PLATFORM_ANDROID

@@ -189,29 +189,21 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 
 	// Rotate
 	if (object->secondaryYawMesh != -1 && mesh->index == object->secondaryYawMesh)
-		rotate = glm::rotate(glm::mat4(), glm::radians(-object->secondaryYaw), glm::vec3(0, 1, 0)) // Model yaw
-		* glm::rotate(glm::mat4(), glm::radians(-object->pitch), glm::vec3(1, 0, 0)); // Model pitch
+		rotate = glm::rotate(glm::mat4(), glm::radians(-object->secondaryYaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
+		* glm::rotate(glm::mat4(), glm::radians(-object->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 	else if (object->alwaysFacePlayer)
-		rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw), glm::vec3(0, 1, 0)) // Model yaw
-		* glm::rotate(glm::mat4(), glm::radians(camera->pitch), glm::vec3(1, 0, 0)); // Model pitch
+		rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
+		* glm::rotate(glm::mat4(), glm::radians(camera->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 	else
-		rotate = glm::rotate(glm::mat4(), glm::radians(-object->yaw), glm::vec3(0, 1, 0)) // Model yaw
-		* glm::rotate(glm::mat4(), glm::radians(-object->pitch), glm::vec3(1, 0, 0)); // Model pitch
+		rotate = glm::rotate(glm::mat4(), glm::radians(-object->yaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
+		* glm::rotate(glm::mat4(), glm::radians(-object->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 
-	if (object->isPartOfVehicle)
-		cameraRotate = glm::rotate(glm::mat4(), glm::radians(mouseLook->roll), glm::vec3(0, 0, 1)) // Camera roll
-		* glm::rotate(glm::mat4(), -glm::radians(mouseLook->pitch), glm::vec3(1, 0, 0)) // Camera pitch
-		* glm::rotate(glm::mat4(), glm::radians(mouseLook->yaw), glm::vec3(0, 1, 0)); // Camera yaw
-	else
-		cameraRotate = glm::rotate(glm::mat4(), glm::radians(camera->roll), glm::vec3(0, 0, 1)) // Camera roll
-		* glm::rotate(glm::mat4(), -glm::radians(camera->pitch), glm::vec3(1, 0, 0)) // Camera pitch
-		* glm::rotate(glm::mat4(), glm::radians(camera->yaw), glm::vec3(0, 1, 0)); // Camera yaw
+	cameraRotate = glm::rotate(glm::mat4(), glm::radians(camera->roll), glm::vec3(0, 0, 1)) // Camera roll
+	* glm::rotate(glm::mat4(), -glm::radians(camera->pitch), glm::vec3(1, 0, 0)) // Camera pitch
+	* glm::rotate(glm::mat4(), glm::radians(camera->yaw), glm::vec3(0, 1, 0)); // Camera yaw
 
 	// Translate
-	if (object->isPartOfVehicle)
-		cameraTranslate = glm::translate(glm::mat4(), glm::vec3(0.0, 0.0, 0.0)); // Camera translate
-	else
-		cameraTranslate = glm::translate(glm::mat4(), glm::vec3(-camera->position.x, -camera->position.y, -camera->position.z)); // Camera translate
+	cameraTranslate = glm::translate(glm::mat4(), glm::vec3(-camera->position.x, -camera->position.y, -camera->position.z)); // Camera translate
 
 	mvMatrix =
 	    scaleToNDC

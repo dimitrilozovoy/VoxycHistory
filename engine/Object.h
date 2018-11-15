@@ -59,8 +59,6 @@ public:
 	void moveByVelocity();
 	void capVelocity();
 	void moveTowardsNextPosition();
-	void rotateYawTowards(float targetYaw, float step);
-	float limit360(float value);
 	std::string toString();
 	void save(FILE *f);
 	void load(FILE *f);

@@ -54,13 +54,21 @@ typedef enum ControlSchemes
 	CTRL_EDITOR
 };
 
+typedef struct TouchBtnBind
+{
+	float x;
+	float y;
+	float size;
+	int btn;
+};
+
 class Controls2
 {
 public:
     void init(Object *camera, Object *mouseLook, TextureManager2 *texMan, EditorController *editor);
     void tick();
     void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2);
-//    void touchEvent(int action, float x, float y, int finger, int count);
+    void processTouchJoystick(bool left, int action, float x, float y);
     void ArrowDown(float factor = 1.00);
     void ArrowUp(float factor = 1.00);
     void ArrowLeft(float factor = 1.00);
@@ -106,6 +114,11 @@ public:
 	void mouse(float mouseX, float mouseY);
 	void setBtn(int which, int state);
 	int getBtn(BtnNames which);
+	float getRJDistX() { return rjlastmovex - rjlastdownx; };
+	float getRJDistY() { return rjlastmovey - rjlastdowny; };
+	bool getRJDown() { return rjdown; };
+	void addTouchBtnBind(int btn, float x, float y, float size);
+	std::vector<TouchBtnBind> getTouchBtnBinds() { return touchBtnBinds; };
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
@@ -138,6 +151,7 @@ private:
     float ljlastdowny = 0;
     float ljlastmovex = 0;
     float ljlastmovey = 0;
+	bool lrjwentup = false;
 
 	float minPlayerX = 0.0;
 	float maxPlayerX = 0.0;
@@ -155,6 +169,8 @@ private:
 	bool actionUp = false;
 
 	int buttons[MAX_BUTTONS];
+	
+	std::vector<TouchBtnBind> touchBtnBinds;
 };
 
 #endif //FATELESS_CONTROLS2_H

@@ -107,7 +107,7 @@ void Engine2::tick()
 	audio.tick();
 
 	moveObjectsSmoothly();
-	moveObjectsByVelocity();
+//	moveObjectsByVelocity();
 	limitPlayerRange();
 
 	camera.tick();
@@ -334,6 +334,17 @@ void Engine2::setModel(std::string name, std::string modelName)
     }
 
     o->model = m;
+}
+
+void Engine2::setModelOrientation(std::string modelName, float pitch, float yaw, float roll)
+{
+	Model2 *m = findModel(modelName);
+
+	if (m != nullptr) {
+		m->pitch = pitch;
+		m->yaw = yaw;
+		m->roll = roll;
+	}
 }
 
 void Engine2::setColor(std::string name, float r, float g, float b, float a)
@@ -741,8 +752,57 @@ void Engine2::resetOnClickExtras()
 
 void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2)
 {
-//	Log("x1", (int)(x1 * 1000), "y1", (int)(y1 * 1000));
+//	Log("x1", (int)(x1 * 100), "y1", (int)(y1 * 100));
+//	Log("x2", (int)(x2 * 100), "y1", (int)(y2 * 100));
+
+	//
+	// Touch button binds
+	//
 	
+	float glx1 = scrToGlX(x1);
+	float glx2 = scrToGlX(x2);
+	float gly1 = scrToGlY(y1);
+	float gly2 = scrToGlY(y2);
+	
+	std::vector<TouchBtnBind> touchBtnBinds = controls.getTouchBtnBinds();
+	
+	for (int i = 0; i < touchBtnBinds.size(); i++)
+	{
+		TouchBtnBind tbb = touchBtnBinds[i];
+		
+		if (glx1 > (tbb.x - tbb.size / 2)
+		&& glx1 < (tbb.x + tbb.size / 2)
+		&& gly1 > (tbb.y - tbb.size / 2)
+		&& gly1 < (tbb.y + tbb.size / 2))
+		{
+		    if (action1 == 1 || action1 == 2)
+			    controls.setBtn(tbb.btn, 1);
+		    if (action1 == 3)
+			    controls.setBtn(tbb.btn, 0);
+		}
+		
+		if (glx2 > (tbb.x - tbb.size / 2)
+		&& glx2 < (tbb.x + tbb.size / 2)
+		&& gly2 > (tbb.y - tbb.size / 2)
+		&& gly2 < (tbb.y + tbb.size / 2))
+        {
+			if (action2 == 1 || action2 == 2)
+			    controls.setBtn(tbb.btn, 1);
+		    if (action2 == 3)
+			    controls.setBtn(tbb.btn, 0);
+	    }
+    }
+
+	if (action1 == 3 || action2 == 3)
+	{
+		for (int i = 0; i < 32; i++)
+		    controls.setBtn(i, 0);
+	}
+	
+	//
+	// End touch button binds
+	//
+
 	std::string extra1 = textPrinter.getOnClickExtraIfClicked(action1, x1, y1, 0, 1);
 	extra1 = gui.getOnClickExtraIfClicked(action1, x1, y1, 0, 1);
 	
@@ -755,14 +815,14 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 	if (action2 != 0 && extra2 != "")
 		setExtraInt(extra2, action2);
 	
-	if (extra1 == "")
+	if (/*touchBtnBinds.size() > 0 || */ extra1 == "")
 	{
 		controls.touchEvent(count, action1, x1, y1, action2, x2, y2);
 	}
 	
 	setExtraInt("touchaction1", action1);
-	setExtraInt("touchaction2", action2);
-	
+	setExtraInt("touchaction2", action2);	
+		
 /*	static int clickTimer = 0;
 	
 	if (action1 == 0 && extra != "" && clickTimer == 0)

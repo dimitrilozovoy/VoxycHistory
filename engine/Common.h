@@ -31,6 +31,12 @@ typedef struct Common
 	float playAreaMaxY = 0;
 	float playAreaMinZ = 0;
 	float playAreaMaxZ = 0;
+	bool touchCtrlLJDown = false;
+	float touchCtrlLJDistX = 0;
+	float touchCtrlLJDistY = 0;
+	bool touchCtrlRJDown = false;
+	float touchCtrlRJDistX = 0;
+	float touchCtrlRJDistY = 0;
 };
 
 #endif

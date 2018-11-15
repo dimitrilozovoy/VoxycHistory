@@ -109,6 +109,18 @@ static int setmodel(lua_State *L)
 	return 0;
 }
 
+static int setmodelorient(lua_State *L)
+{
+	std::string model = lua_tostring(L, 1);
+	float pitch = lua_tonumber(L, 2);
+	float yaw = lua_tonumber(L, 3);
+	float roll = lua_tonumber(L, 4);
+
+	g_engine2->setModelOrientation(model, pitch, yaw, roll);
+
+	return 0;
+}
+
 static int setcolor(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1303,9 +1315,33 @@ static int getyawto(lua_State *L)
 	Object *fromobj = g_engine2->findObj(fromname);
 	Object *toobj = g_engine2->findObj(toname);
 
+	if (fromobj == nullptr || toobj == nullptr)
+		return 0;
+
     float val = fromobj->getYawTo(toobj);
 	lua_pushnumber(L, val);
 	
+	return 1;
+}
+
+static int getyawtopoint(lua_State *L)
+{
+	std::string fromname = lua_tostring(L, 1);
+	float tox = lua_tonumber(L, 2);
+	float toz = lua_tonumber(L, 3);
+
+	Object *fromobj = g_engine2->findObj(fromname);
+	Object toobj;
+
+	if (fromobj == nullptr)
+		return 0;
+
+	toobj.position.x = tox;
+	toobj.position.z = toz;
+
+	float val = fromobj->getYawTo(&toobj);
+	lua_pushnumber(L, val);
+
 	return 1;
 }
 
@@ -1431,6 +1467,19 @@ static int setwgvisible(lua_State *L)
 	return 1;
 }
 
+static int setwgcolor(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	lua_Number r = lua_tonumber(L, 2);
+	lua_Number g = lua_tonumber(L, 3);
+	lua_Number b = lua_tonumber(L, 4);
+	lua_Number a = lua_tonumber(L, 5);
+
+	g_engine2->getGUI()->setWgColor(name, r, g, b, a);
+
+	return 0;
+}
+
 static int runscript(lua_State *L)
 {
 	std::string filename = lua_tostring(L, 1);
@@ -1502,6 +1551,18 @@ static int getbtn(lua_State *L)
 	return 1;
 }
 
+static int setbtn(lua_State *L)
+{
+	int which = lua_tonumber(L, 1);
+	int value = lua_tonumber(L, 2);
+
+	Controls2 *ctrl = g_engine2->getControls();
+
+	ctrl->setBtn(which, value);
+
+	return 0;
+}
+
 static int getallobjs(lua_State *L)
 {
 	// Table for Lua to know what each object is approximately
@@ -1547,6 +1608,45 @@ static int setplayarea(lua_State *L)
 	return 0;
 }
 
+static int addtouchbtnbind(lua_State *L)
+{
+	int btn = lua_tonumber(L, 1);
+	float x = lua_tonumber(L, 2);
+	float y = lua_tonumber(L, 3);
+	float size = lua_tonumber(L, 4);
+	
+	Controls2 *ctrl = g_engine2->getControls();
+	
+    ctrl->addTouchBtnBind(btn, x, y, size);
+	
+	return 0;
+}
+
+static int rotateangletowards(lua_State *L) 
+{
+	float angle = lua_tonumber(L, 1);
+	float targetAngle = lua_tonumber(L, 2);
+	float step = lua_tonumber(L, 3);
+
+	float val = RotateAngleTowards(angle, targetAngle, step);
+
+	lua_pushnumber(L, val);
+
+	return 1;
+}
+
+static int compareyaw(lua_State *L)
+{
+	float yaw = lua_tonumber(L, 1);
+	float otherYaw = lua_tonumber(L, 2);
+	float tolerance = lua_tonumber(L, 3);
+
+	bool val = compareYaw(yaw, otherYaw, tolerance);
+	lua_pushboolean(L, val);
+
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1577,6 +1677,7 @@ void LuaBridge::init(Engine2 *engine)
     lua_register(L, "settype", settype);
 	lua_register(L, "setshape", setshape);
 	lua_register(L, "setmodel", setmodel);	
+	lua_register(L, "setmodelorient", setmodelorient);
 	lua_register(L, "setcolor", setcolor);
 	lua_register(L, "setmeshcolor", setmeshcolor);
 	lua_register(L, "settex", settex);	
@@ -1670,6 +1771,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setdeltaxz", rand);
 	lua_register(L, "move", rand);
 	lua_register(L, "getyawto", getyawto);
+	lua_register(L, "getyawtopoint", getyawtopoint);
 	lua_register(L, "getpitchto", getpitchto);
 	lua_register(L, "distance", distance);
 	lua_register(L, "setplayerrangex", setplayerrangex);
@@ -1679,13 +1781,18 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "cleargui", cleargui);
 	lua_register(L, "addwg", addwg);
 	lua_register(L, "setwgvisible", setwgvisible);
+	lua_register(L, "setwgcolor", setwgcolor);
 	lua_register(L, "runscript", runscript);
 	lua_register(L, "batch", batch);
 	lua_register(L, "loadscene", loadscene);
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
+	lua_register(L, "setbtn", setbtn);
 	lua_register(L, "getallobjs", getallobjs);
 	lua_register(L, "setplayarea", setplayarea);
+	lua_register(L, "addtouchbtnbind", addtouchbtnbind);
+	lua_register(L, "rotateangletowards", rotateangletowards);
+	lua_register(L, "compareyaw", compareyaw);
 }
 
 void LuaBridge::exec(std::string filename)

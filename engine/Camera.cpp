@@ -47,10 +47,22 @@ void Camera::tick()
 		this->roll = playerObj->roll + mouseLook->roll;
 		break;
 	case CAMERA_THIRDPERSON:
+		
+				if (g_common.touchCtrlRJDown)
+		{
+		    yaw += g_common.touchCtrlRJDistX / 20.0;
+
+		    if (playerObj != nullptr)
+			    playerObj->secondaryYaw = yaw;
+		}
+
+		
 		this->position = playerObj->position;
 		this->setDeltaXZ(-yaw, 30.0);
 		move();		
 		this->position.y += 5;
+		
+
 		break;
 	case CAMERA_UFOSHOOTER_360:
 		this->position = playerObj->position;

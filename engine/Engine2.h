@@ -75,6 +75,7 @@ public:
 	void setShape(std::string name, ObjShapeType shape);
     void setShape(std::string name, std::string shapeName);
 	void setModel(std::string name, std::string modelName);
+	void setModelOrientation(std::string modelName, float pitch, float yaw, float roll);
 	void setColor(std::string name, float r, float g, float b, float a);
 	void setMeshColor(std::string name, int mesh, float r, float g, float b, float a);
 	void setTexture(std::string name, std::string textureName);
@@ -237,7 +238,7 @@ public:
 	void setAssetsDir(std::string dir);
 
 	void refreshObjectCategories();
-
+	
 private:
 	ShapeRenderer shapeRenderer;
     SkyboxRenderer skyboxRenderer;

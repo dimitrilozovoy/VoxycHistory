@@ -88,5 +88,11 @@ std::string ToString(int value);
 std::string GetFileName(const std::string& s);
 std::string GetPath(const std::string& s);
 std::string FloatToStr(float f);
+float scrToGlX(float screenX);
+float scrToGlY(float screenY);
+float glToScrX(float glX);
+float glToScrY(float glY);
+float RotateAngleTowards(float angle, float targetAngle, float step);
+float Limit360(float value);
 
 #endif /* Utils_hpp */

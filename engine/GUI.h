@@ -66,10 +66,6 @@ public:
 	void setWgVisible(std::string name, bool val);
 	void setWgColor(std::string name, float r, float g, float b, float a);
     std::string getOnClickExtraIfClicked(int action, float x, float y, int finger, int count);
-    float scrToGlX(float screenX);
-    float scrToGlY(float screenY);
-    float glToScrX(float glX);
-    float glToScrY(float glY);
 	std::map<std::string, Widget*> getWidgets() { return widgets; }
     void clear();
 	void hide();

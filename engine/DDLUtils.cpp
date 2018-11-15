@@ -485,9 +485,8 @@ void Logv(char *str)
     char strFinal[MAX_STR_LEN];
     char fullFilename[MAX_STR_LEN];
 
-    sprintf(strFinal, "%s\n", str);
-	
-    sprintf(fullFilename, "%s/%s", g_filesDir, "log.txt");
+    snprintf(strFinal, MAX_STR_LEN, "%s\n", str);
+    snprintf(fullFilename, MAX_STR_LEN, "%s/%s", g_filesDir, "log.txt");
     g_logFile = fopen(fullFilename, "a+");
         
 	fwrite(strFinal, sizeof(char), lengthOfStr(strFinal), g_logFile);
@@ -521,9 +520,8 @@ void Logv(char *str, int a)
     char strFinal[MAX_STR_LEN];
     char fullFilename[MAX_STR_LEN];
 
-    sprintf(strFinal, "%s %d\n", str, a);
-    
-	sprintf(fullFilename, "%s/%s", g_filesDir, "log.txt");
+    snprintf(strFinal, MAX_STR_LEN, "%s %d\n", str, a);
+	snprintf(fullFilename, MAX_STR_LEN, "%s/%s", g_filesDir, "log.txt");
     g_logFile = fopen(fullFilename, "a+");
         
 	fwrite(strFinal, sizeof(char), lengthOfStr(strFinal), g_logFile);
@@ -557,9 +555,8 @@ void Logv(char *stra, int a, char *strb, int b, char *strc, int c)
     char strFinal[MAX_STR_LEN];
     char fullFilename[MAX_STR_LEN];
 
-    sprintf(strFinal, "%s %d %s %d %s %d\n", stra, a, strb, b, strc, c);
-    
-	sprintf(fullFilename, "%s/%s", g_filesDir, "log.txt");
+    snprintf(strFinal, MAX_STR_LEN, "%s %d %s %d %s %d\n", stra, a, strb, b, strc, c);
+	snprintf(fullFilename, MAX_STR_LEN, "%s/%s", g_filesDir, "log.txt");
     g_logFile = fopen(fullFilename, "a+");
         
 	fwrite(strFinal, sizeof(char), lengthOfStr(strFinal), g_logFile);
@@ -593,9 +590,8 @@ void LogvReset()
     char strFinal[MAX_STR_LEN];
     char fullFilename[MAX_STR_LEN];
 
-    sprintf(strFinal, "%s", "");
-	
-    sprintf(fullFilename, "%s/%s", g_filesDir, "log.txt");
+    snprintf(strFinal, MAX_STR_LEN, "%s", "");
+    snprintf(fullFilename, MAX_STR_LEN, "%s/%s", g_filesDir, "log.txt");
     g_logFile = fopen(fullFilename, "w");
         
 	fwrite(strFinal, sizeof(char), lengthOfStr(strFinal), g_logFile);
@@ -780,4 +776,74 @@ std::string FloatToStr(float f)
     std::string sx(ssx.str());
 
     return sx;
+}
+
+float scrToGlX(float screenX)
+{
+	return 2.0f * screenX / (float)PLAT_GetWindowWidth() - 1.0f;
+}
+
+float scrToGlY(float screenY)
+{
+	return -(2.0f * screenY / (float)PLAT_GetWindowHeight() - 1.0f);
+}
+
+float glToScrX(float glX)
+{
+	return ((glX + 1.0f) / 2.0f) * (float)PLAT_GetWindowWidth();
+}
+
+float glToScrY(float glY)
+{
+	return (float)PLAT_GetWindowHeight() - abs(((glY + 1.0f) / 2.0f) * (float)PLAT_GetWindowHeight());
+}
+
+float RotateAngleTowards(float angle, float targetAngle, float step)
+{
+	angle = Limit360(angle);
+	targetAngle = Limit360(targetAngle);
+
+	if (targetAngle == 0)
+	{
+		if (angle > 180)
+			angle += step;
+		else
+			angle -= step;
+	}
+	else
+	{
+		float cWiseDist = 0;
+		float ccWiseDist = 0;
+
+		if (targetAngle >angle)
+		{
+			cWiseDist = targetAngle - angle;
+			ccWiseDist = angle + (360 - targetAngle);
+		}
+
+		if (targetAngle < angle)
+		{
+			cWiseDist = (360 - targetAngle) + angle;
+			ccWiseDist = angle - targetAngle;
+		}
+
+		if (cWiseDist > ccWiseDist)
+			angle -= step;
+		else
+			angle += step;
+
+		angle = Limit360(angle);
+	}
+
+	return angle;
+}
+
+float Limit360(float value)
+{
+	while (value > 360)
+		value -= 360;
+	while (value < 0)
+		value += 360;
+
+	return value;
 }
