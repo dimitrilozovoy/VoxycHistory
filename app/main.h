@@ -61,6 +61,9 @@ bool Draw(int eye);
 void AppFree();
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS
 void processJoystickInput();
+bool getJoyBtn(Controls2 *controls, const unsigned char *buttons, int inBtn, int outBtn, int count);
+void processJoyAxis(Controls2 *controls, const float *axes, int inAxis, int outAxis, int count);
+void processCharInput(char c);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 #endif
 void updateControls();

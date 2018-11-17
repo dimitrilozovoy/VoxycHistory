@@ -36,6 +36,12 @@ void Editor::init() {
     g_simpleMode = false;
     g_assetsDirExplicit = false;
 
+#ifdef PLATFORM_ANDROID
+	touchControls = true;
+#else
+	touchControls = false;
+#endif
+
     g_engine2->init();
     this->engine = g_engine2;
 
@@ -44,7 +50,15 @@ void Editor::init() {
     engine->setControlsVisible(false);
     engine->setControlScheme(CTRL_EDITOR);
     engine->setHealthBarsVisible(false);
-    engine->setSkybox("");
+    engine->setSkybox("black.png");
+
+	GUI *gui = g_engine2->getGUI();
+
+#ifdef PLATFORM_ANDROID
+	gui->setNativeWidgets(true);
+#else
+	gui->setNativeWidgets(false);
+#endif
 
     g_engine2->draw(0);
 }
@@ -116,42 +130,51 @@ void Editor::load() {
     float bsv = 0.25;
     float hw = 1.0 / numbtns;
 
-    // Top buttons
-    engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.8, hw, hw);
-    engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.8, hw, hw);
-//    engine->addWg("drawbtn",      WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", -hw * 1, 0.8, hw, hw);
-//    engine->addWg("scriptbtn",    WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", hw * 1, 0.8, hw, hw);
-    engine->addWg("prevbtn", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3, 0.8, hw, hw);
-    engine->addWg("nextbtn", WG_BTN, "nextkit.png", "", "nextbtnclicked", "", hw * 5, 0.8, hw, hw);
+	if (touchControls)
+	{
+		// Top buttons
+		engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.8, hw, hw);
+		engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.8, hw, hw);
+		//    engine->addWg("drawbtn",      WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", -hw * 1, 0.8, hw, hw);
+		//    engine->addWg("scriptbtn",    WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", hw * 1, 0.8, hw, hw);
+		engine->addWg("prevbtn", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3, 0.8, hw, hw);
+		engine->addWg("nextbtn", WG_BTN, "nextkit.png", "", "nextbtnclicked", "", hw * 5, 0.8, hw, hw);
 
-    // Mid buttons
-    engine->addWg("remove", WG_BTN, "redx.png", "", "removeclicked", "", -hw * 5, -0.5, hw, hw);
-    engine->addWg("options", WG_BTN, "toolbox.png", "", "optionsclicked", "", -hw * 3, -0.5, hw,
-                  hw);
-    engine->addWg("objmode", WG_BTN, "shapes.png", "", "objmodeclicked", "", -hw * 1, -0.5, hw, hw);
-    engine->addWg("voxmode", WG_BTN, "cube.png", "", "voxmodeclicked", "", hw * 1, -0.5, hw, hw);
-    engine->addWg("move", WG_BTN, "dpad.png", "", "moveclicked", "", hw * 3, -0.5, hw, hw);
-    engine->addWg("add", WG_BTN, "nextkit.png", "", "addclicked", "", hw * 5, -0.5, hw * 1.4,
-                  hw * 1.4);
+		// Mid buttons
+		engine->addWg("remove", WG_BTN, "redx.png", "", "removeclicked", "", -hw * 5, -0.5, hw, hw);
+		engine->addWg("options", WG_BTN, "toolbox.png", "", "optionsclicked", "", -hw * 3, -0.5, hw,
+			hw);
+		engine->addWg("objmode", WG_BTN, "shapes.png", "", "objmodeclicked", "", -hw * 1, -0.5, hw, hw);
+		engine->addWg("voxmode", WG_BTN, "cube.png", "", "voxmodeclicked", "", hw * 1, -0.5, hw, hw);
+		engine->addWg("move", WG_BTN, "dpad.png", "", "moveclicked", "", hw * 3, -0.5, hw, hw);
+		engine->addWg("add", WG_BTN, "nextkit.png", "", "addclicked", "", hw * 5, -0.5, hw * 1.4,
+			hw * 1.4);
 
-    // Bottom buttons
-    engine->addWg("moveleft", WG_BTN, "leftarrow.png", "", "moveleftclicked", "", -hw * 5, -0.8, hw,
-                  hw);
-    engine->addWg("moveright", WG_BTN, "rightarrow.png", "", "moverightclicked", "", -hw * 3, -0.8,
-                  hw, hw);
-    engine->addWg("movedown", WG_BTN, "downtriangle.png", "", "movedownclicked", "", -hw * 1, -0.8,
-                  hw, hw);
-    engine->addWg("moveup", WG_BTN, "uptriangle.png", "", "moveupclicked", "", hw * 1, -0.8, hw,
-                  hw);
-    engine->addWg("moveforward", WG_BTN, "uparrow.png", "", "moveforwardclicked", "", hw * 3, -0.8,
-                  hw, hw);
-    engine->addWg("movebackward", WG_BTN, "downarrow.png", "", "movebackwardclicked", "", hw * 5,
-                  -0.8, hw, hw);
+		// Ray length
+		engine->addWg("shortenray", WG_BTN, "prevkit.png", "", "shortenrayclicked", "", -hw * 5, -0.25, hw, hw);
+		engine->addWg("lengthenray", WG_BTN, "nextkit.png", "", "lengthenrayclicked", "", hw * 5, -0.25, hw, hw);
+		engine->setWgColor("shortenray", 1.0, 1.0, 1.0, 0.5);
+		engine->setWgColor("lengthenray", 1.0, 1.0, 1.0, 0.5);
 
-    engine->addText("msg", "", 0.0, 0.6, 0.08);
-    engine->addText("msg2", "", 0.0, 0.5, 0.08);
-/*	engine->addText("debug3", "debug3", 0.0, 0.4, 0.1);
-	engine->addText("debug4", "debug4", 0.0, 0.3, 0.1);*/
+		// Bottom buttons
+		engine->addWg("moveleft", WG_BTN, "leftarrow.png", "", "moveleftclicked", "", -hw * 5, -0.8, hw,
+			hw);
+		engine->addWg("moveright", WG_BTN, "rightarrow.png", "", "moverightclicked", "", -hw * 3, -0.8,
+			hw, hw);
+		engine->addWg("movedown", WG_BTN, "downtriangle.png", "", "movedownclicked", "", -hw * 1, -0.8,
+			hw, hw);
+		engine->addWg("moveup", WG_BTN, "uptriangle.png", "", "moveupclicked", "", hw * 1, -0.8, hw,
+			hw);
+		engine->addWg("moveforward", WG_BTN, "uparrow.png", "", "moveforwardclicked", "", hw * 3, -0.8,
+			hw, hw);
+		engine->addWg("movebackward", WG_BTN, "downarrow.png", "", "movebackwardclicked", "", hw * 5,
+			-0.8, hw, hw);
+
+		engine->addText("msg", "", 0.0, 0.6, 0.08);
+		engine->addText("msg2", "", 0.0, 0.5, 0.08);
+		/*	engine->addText("debug3", "debug3", 0.0, 0.4, 0.1);
+			engine->addText("debug4", "debug4", 0.0, 0.3, 0.1);*/
+	}
 }
 
 //
@@ -166,9 +189,11 @@ void Editor::tick() {
     static int msg2Timer = 0;
     static const int msgTimerDelay = 50;
 
-    // Show framedump if exists
+	GUI *gui = g_engine2->getGUI();
+	
+	// Show framedump if exists
     if (engine->getFrameDump() != "")
-        PLAT_ShowLongText(engine->getFrameDump());
+        gui->showLongText(engine->getFrameDump());
 
     if (engine->getExtraStr("tickscript") != "") {
         luaBridge.exec(engine->getExtraStr("tickscript"));
@@ -181,20 +206,22 @@ void Editor::tick() {
     // UI CALLBACKS
     //
 
+	processHWButtons();
+
     if (timer == 0) {
         // File menu
 
         if (engine->getExtraInt("filebtnclicked") == 1
             || engine->getExtraInt("filebtnclicked") == 2) {
-            PLAT_ClearListMenu();
-            PLAT_AddListMenuOption("New Scene...", "");
-            PLAT_AddListMenuOption("Load Scene...", "");
-            PLAT_AddListMenuOption("Save Scene...", "");
-            PLAT_AddListMenuOption("Run script...", "");
-            PLAT_AddListMenuOption("Clear and run script...", "");
-            PLAT_AddListMenuOption("README", "");
-            PLAT_AddListMenuOption("Simple Mode", "");
-            PLAT_ShowListMenuInDialog("File", "");
+            gui->clearListMenu();
+            gui->addListMenuOption("New Scene", "");
+            gui->addListMenuOption("Load Scene", "");
+            gui->addListMenuOption("Save Scene", "");
+            gui->addListMenuOption("Run script", "");
+            gui->addListMenuOption("Clear and run script", "");
+            gui->addListMenuOption("README", "");
+            gui->addListMenuOption("Simple Mode", "");
+            gui->showListMenuInDialog("File", "");
 
             engine->setExtraInt("filebtnclicked", 0);
 
@@ -202,7 +229,7 @@ void Editor::tick() {
             timer = 50;
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "New Scene...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "New Scene") {
             timer = 50;
             engine->clear();
             engine->clearGUI();
@@ -210,65 +237,65 @@ void Editor::tick() {
             engine->setExtraStr("listmenuoptionclicked", "");
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
             timer = 50;
-            PLAT_ShowFileSelector("sc");
+            gui->showFileSelector("sc");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "loadscene";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Save Scene...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Save Scene") {
             timer = 50;
-            PLAT_ShowFileSelector("sc");
+            gui->showFileSelector("sc");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "savescene";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import voxel texture...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Import voxel texture") {
             timer = 50;
-            PLAT_ShowFileSelector("png");
+            gui->showFileSelector("png");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "importvoxeltexture";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import terrain texture...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Import terrain texture") {
             timer = 50;
-            PLAT_ShowFileSelector("png");
+            gui->showFileSelector("png");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "importterraintexture";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import sky texture...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Import sky texture") {
             timer = 50;
-            PLAT_ShowFileSelector("png");
+            gui->showFileSelector("png");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "importskytexture";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import OBJ...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Import OBJ") {
             timer = 50;
-            PLAT_ShowFileSelector("obj");
+            gui->showFileSelector("obj");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "importobj";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Export OBJ...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Export OBJ") {
             timer = 50;
-            PLAT_ShowFileSelector("obj");
+            gui->showFileSelector("obj");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "writeobj";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Run script...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Run script") {
             timer = 50;
-            PLAT_ShowFileSelector("lua");
+            gui->showFileSelector("lua");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "runscript";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Clear and run script...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Clear and run script") {
             timer = 50;
-            PLAT_ShowFileSelector("lua");
+            gui->showFileSelector("lua");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "clearandrunscript";
         }
@@ -284,7 +311,7 @@ void Editor::tick() {
             t = t + "GitHub: https://github.com/dimitrilozovoy/VoxycAndroid\n";
             t = t + "Contact e-mail: dimitrilozovoy@gmail.com";
 
-            PLAT_ShowText(t);
+            gui->showText(t);
             engine->setExtraStr("listmenuoptionclicked", "");
         }
 
@@ -297,15 +324,15 @@ void Editor::tick() {
 
         if (engine->getExtraInt("objbtnclicked") == 1
             || engine->getExtraInt("objbtnclicked") == 2) {
-            PLAT_ClearListMenu();
-            PLAT_AddListMenuOption("Select Only", "");
-            PLAT_AddListMenuOption("Add Voxels...", "");
-            PLAT_AddListMenuOption("Add Shape...", "");
-            PLAT_AddListMenuOption("Add Model...", "");
-            PLAT_AddListMenuOption("Add Sprite...", "");
-            PLAT_AddListMenuOption("Set Sky...", "");
-            PLAT_AddListMenuOption("Hide GUI and Guides", "");
-            PLAT_ShowListMenuInDialog("Object", "");
+            gui->clearListMenu();
+            gui->addListMenuOption("Select Only", "");
+            gui->addListMenuOption("Add Voxels", "");
+            gui->addListMenuOption("Add Shape", "");
+            gui->addListMenuOption("Add Model", "");
+            gui->addListMenuOption("Add Sprite", "");
+            gui->addListMenuOption("Set Sky", "");
+            gui->addListMenuOption("Hide GUI and Guides", "");
+            gui->showListMenuInDialog("Object", "");
 
             engine->setExtraInt("objbtnclicked", 0);
 
@@ -319,33 +346,33 @@ void Editor::tick() {
 //            timer = 50;
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Add Shape...") {
-            PLAT_ClearListMenu();
-            PLAT_AddListMenuOption("Add Terrain...", "");
-            PLAT_AddListMenuOption("Add Block...", "");
-            PLAT_ShowListMenuInDialog("Add Shape", "");
+        if (engine->getExtraStr("listmenuoptionclicked") == "Add Shape") {
+            gui->clearListMenu();
+            gui->addListMenuOption("Add Terrain", "");
+            gui->addListMenuOption("Add Block", "");
+            gui->showListMenuInDialog("Add Shape", "");
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Add Model...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Add Model") {
             timer = 50;
-            PLAT_ShowFileSelector("obj");
+            gui->showFileSelector("obj");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "addmodel";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Add Sprite...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Add Sprite") {
             timer = 50;
-            PLAT_ShowFileSelector("png");
+            gui->showFileSelector("png");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "addsprite";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Set Sky...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Set Sky") {
             timer = 50;
-            PLAT_ShowFileSelector("png");
+            gui->showFileSelector("png");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "setskybox";
         }
@@ -366,7 +393,6 @@ void Editor::tick() {
                 load();
                 engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
                 engine->loadScene(GetFileName(engine->getExtraStr("fileselected")));
-                Log(engine->objectDump());
                 engine->setExtraStr("fileselected", "");
             }
 
@@ -468,7 +494,7 @@ void Editor::tick() {
 
         // Add shape actions
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Add Terrain...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Add Terrain") {
             selectOnly = false;
             mode = EM_OBJ;
 
@@ -486,13 +512,13 @@ void Editor::tick() {
             timer = 50;
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Add Voxels...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Add Voxels") {
             selectOnly = false;
             mode = EM_OBJ;
 
-            PLAT_ClearDialog();
-            PLAT_AddDialogPart("Size", "16", "newvoxelssize");
-            PLAT_ShowDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
+            gui->clearDialog();
+            gui->addDialogPart("Size", "16", "newvoxelssize");
+            gui->showDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
 
             engine->newShape("voxels", SHAPE_VOXELS, 10.0, 0);
 
@@ -508,7 +534,7 @@ void Editor::tick() {
             timer = 50;
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Add Block...") {
+        if (engine->getExtraStr("listmenuoptionclicked") == "Add Block") {
             selectOnly = false;
             mode = EM_OBJ;
 
@@ -537,7 +563,8 @@ void Editor::tick() {
              || engine->getExtraInt("prevbtnclicked") == 2)) {
             if (mode == EM_VOX && curVoxel > 0 && switchVoxTimer == 0) {
                 curVoxel--;
-                switchVoxTimer = 10;
+                switchVoxTimer = 40;
+				engine->setExtraInt("prevbtnclicked", 0);
             } else if (mode == EM_OBJ && selectedObj != nullptr) {
                 selectedObj->scale *= 0.99;
             } else if (mode == EM_OBJ && selectedObj == nullptr) {
@@ -554,7 +581,8 @@ void Editor::tick() {
              || engine->getExtraInt("nextbtnclicked") == 2)) {
             if (mode == EM_VOX && curVoxel < 255 && switchVoxTimer == 0) {
                 curVoxel++;
-                switchVoxTimer = 10;
+                switchVoxTimer = 40;
+				engine->setExtraInt("nextbtnclicked", 0);
             } else if (mode == EM_OBJ && selectedObj != nullptr) {
                 selectedObj->scale *= 1.01;
             } else if (mode == EM_OBJ && selectedObj == nullptr) {
@@ -594,6 +622,27 @@ void Editor::tick() {
         if (newVoxelsSize > 32)
             newVoxelsSize = 32;
         engine->setExtraInt("voxelparamsselected", 0);
+    }
+
+    float rayDelta = 0.1;
+/*#ifdef PLATFORM_ANDROID
+    rayDelta = 1;
+#else*/
+    rayDelta = 0.1;
+//#endif
+
+    if (engine->getExtraInt("shortenrayclicked") == 1
+        || engine->getExtraInt("shortenrayclicked") == 2) {
+        if (rayDelta > 1)
+            rayLength -= rayDelta;
+        engine->setExtraInt("shortenrayclicked", 0);
+    }
+
+    if (engine->getExtraInt("lengthenrayclicked") == 1
+        || engine->getExtraInt("lengthenrayclicked") == 2) {
+        if (rayDelta < 30)
+            rayLength += rayDelta;
+        engine->setExtraInt("lengthenrayclicked", 0);
     }
 
     //
@@ -766,7 +815,7 @@ void Editor::tick() {
         float wy = 0.0;
         float wz = 0.0;
 
-        ray(player, 20.0, wx, wy, wz);
+        ray(player, rayLength, wx, wy, wz);
 
         // See if the point is in a voxel object
         Object *target = nullptr;
@@ -814,21 +863,11 @@ void Editor::tick() {
         }
 
         if (curVoxels != nullptr) {
-            float rx = (wx - (curVoxels->position.x - curVoxels->scale.x / 2.0)) /
-                       ((curVoxels->position.x + curVoxels->scale.x / 2.0) -
-                        (curVoxels->position.x - curVoxels->scale.x / 2.0));
-            float ry = (wy - (curVoxels->position.y - curVoxels->scale.y / 2.0)) /
-                       ((curVoxels->position.y + curVoxels->scale.y / 2.0) -
-                        (curVoxels->position.y - curVoxels->scale.y / 2.0));
-            float rz = (wz - (curVoxels->position.z - curVoxels->scale.z / 2.0)) /
-                       ((curVoxels->position.z + curVoxels->scale.z / 2.0) -
-                        (curVoxels->position.z - curVoxels->scale.z / 2.0));
-
             int size = curVoxels->shape->voxels->getSize();
 
-            int x = (int) ((float) size * rx);
-            int y = (int) ((float) size * ry);
-            int z = (int) ((float) size * rz);
+			int x, y, z = 0;
+
+			worldToVoxelCoords(wx, wy, wz, x, y, z);
 
             if (x >= 0 && x < size
                 && y >= 0 && y < size
@@ -906,8 +945,8 @@ void Editor::tick() {
 
             Shape *shape = curVoxels->shape;
             engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, curVoxel);
-
             shape->needsRebuild = true;
+
         } else if (mode == EM_OBJ) {
 
             //
@@ -973,11 +1012,11 @@ void Editor::tick() {
                 msgTimer = msgTimerDelay;
                 Log(msg);
 
-                placeObjTimer = 10;
+                placeObjTimer = 30;
             }
 
             linkCopy = false;
-        }
+		}
 
         exitScreenShotMode();
     }
@@ -986,27 +1025,34 @@ void Editor::tick() {
     // Remove button
 	//
 
-    static int rmTimer = 0;
+    static int rmObjTimer = 0;
 
-    if (rmTimer > 0)
-        rmTimer--;
+    if (rmObjTimer > 0)
+        rmObjTimer--;
 
     if ((engine->getExtraInt("removeclicked") == 1
-         || engine->getExtraInt("removeclicked") == 2)
-        && rmTimer == 0) {
+         || engine->getExtraInt("removeclicked") == 2)) {
         if (mode == EM_VOX) {
+
+			//
             // Delete voxel
+			//
+
             if (curVoxels != nullptr) {
                 Shape *shape = curVoxels->shape;
                 engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, 0);
 
                 shape->needsRebuild = true;
 
-                rmTimer = 30;
+//                rmTimer = 30;
             }
         } else if (mode == EM_OBJ) {
+
+			//
             // Delete object
-            if (selectedObj != nullptr) {
+			//
+
+            if (selectedObj != nullptr && rmObjTimer == 0) {
                 // If voxels, remove guides
                 if (isVoxels(selectedObj->name)) {
                     std::string name = selectedObj->name;
@@ -1028,14 +1074,16 @@ void Editor::tick() {
                     engine->removeObject(gnamef);
 
                     engine->removeObject(gnamec);
-                }
+				}
 
                 engine->removeObject(selectedObj);
                 engine->setText("msg", "object removed");
+
+				rmObjTimer = 30;
             }
 
-            rmTimer = 30;
-        }
+//			g_engine2->setExtraInt("removeclicked", 0);
+		}
 
         exitScreenShotMode();
     }
@@ -1053,21 +1101,21 @@ void Editor::tick() {
          || engine->getExtraInt("optionsclicked") == 2)
         && optTimer == 0) {
         if (mode == EM_OBJ) {
-            PLAT_ClearListMenu();
-            PLAT_AddListMenuOption("Set name...", "");
-            PLAT_AddListMenuOption("Set texture...", "");
-            PLAT_AddListMenuOption("Set position...", "");
-			PLAT_AddListMenuOption("Set orientation...", "");
-			PLAT_AddListMenuOption("Set scale...", "");
-			PLAT_AddListMenuOption("Link copy", "");
-            PLAT_ShowListMenuInDialog("Options", "");
+            gui->clearListMenu();
+            gui->addListMenuOption("Set name", "");
+            gui->addListMenuOption("Set texture", "");
+            gui->addListMenuOption("Set position", "");
+			gui->addListMenuOption("Set orientation", "");
+			gui->addListMenuOption("Set scale", "");
+			gui->addListMenuOption("Link copy", "");
+            gui->showListMenuInDialog("Options", "");
 
             optTimer = 30;
         } else if (mode == EM_VOX) {
-            PLAT_ClearListMenu();
-            PLAT_AddListMenuOption("Set texture...", "");
-            PLAT_AddListMenuOption("Set texture span...", "");
-            PLAT_ShowListMenuInDialog("Options", "");
+            gui->clearListMenu();
+            gui->addListMenuOption("Set texture", "");
+            gui->addListMenuOption("Set texture span", "");
+            gui->showListMenuInDialog("Options", "");
 
             optTimer = 30;
         }
@@ -1077,13 +1125,13 @@ void Editor::tick() {
 	
 	// Set name
 	
-    if (engine->getExtraStr("listmenuoptionclicked") == "Set name...") {
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set name") {
 		
 		if (selectedObj != nullptr)
 		{
-            PLAT_ClearDialog();
-            PLAT_AddDialogPart("Name", selectedObj->name, "newname");
-            PLAT_ShowDialog("Set Name", "OK", "Cancel", "setobjname_entered");
+            gui->clearDialog();
+            gui->addDialogPart("Name", selectedObj->name, "newname");
+            gui->showDialog("Set Name", "OK", "Cancel", "setobjname_entered");
 		}
 		
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1096,22 +1144,25 @@ void Editor::tick() {
             std::string oldname = selectedObj->name;
             std::string newname = engine->getExtraStr("newname");
 
-            std::map<std::string, Object *> objs = engine->getObjects();
+			if (oldname != newname)
+			{
+				std::map<std::string, Object *> objs = engine->getObjects();
 
-    		objs[newname] = objs[oldname];
-            objs[newname]->name = newname;
-            objs.erase(oldname);
+				objs[newname] = objs[oldname];
+				objs[newname]->name = newname;
+				objs.erase(oldname);
 
-            engine->setObjects(objs);
+				engine->setObjects(objs);
 
-            engine->setExtraInt("setobjname_entered", 0);
+				engine->setExtraInt("setobjname_entered", 0);
+			}
         }
     }
 	
 	// Set texture
 
-    if (engine->getExtraStr("listmenuoptionclicked") == "Set texture...") {
-        PLAT_ShowFileSelector("png");
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set texture") {
+        gui->showFileSelector("png");
         engine->setExtraStr("listmenuoptionclicked", "");
         fileSelectorAction = "settexture";
     }
@@ -1147,17 +1198,17 @@ void Editor::tick() {
 
     // Set position
 
-    if (engine->getExtraStr("listmenuoptionclicked") == "Set position...") {
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set position") {
 
         if (selectedObj != nullptr)
         {
-            PLAT_ClearDialog();
+            gui->clearDialog();
 
-            PLAT_AddDialogPart("x", FloatToStr(selectedObj->position.x), "newx");
-            PLAT_AddDialogPart("y", FloatToStr(selectedObj->position.y), "newy");
-            PLAT_AddDialogPart("z", FloatToStr(selectedObj->position.z), "newz");
+            gui->addDialogPart("x", FloatToStr(selectedObj->position.x), "newx");
+            gui->addDialogPart("y", FloatToStr(selectedObj->position.y), "newy");
+            gui->addDialogPart("z", FloatToStr(selectedObj->position.z), "newz");
 
-            PLAT_ShowDialog("Set Position", "OK", "Cancel", "setobjposition_entered");
+            gui->showDialog("Set Position", "OK", "Cancel", "setobjposition_entered");
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1177,17 +1228,17 @@ void Editor::tick() {
 
     // Set orientation
 
-    if (engine->getExtraStr("listmenuoptionclicked") == "Set orientation...") {
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set orientation") {
 
         if (selectedObj != nullptr)
         {
-            PLAT_ClearDialog();
+            gui->clearDialog();
 
-            PLAT_AddDialogPart("pitch", FloatToStr(selectedObj->pitch), "pitch");
-            PLAT_AddDialogPart("yaw", FloatToStr(selectedObj->yaw), "yaw");
-            PLAT_AddDialogPart("roll", FloatToStr(selectedObj->roll), "roll");
+            gui->addDialogPart("pitch", FloatToStr(selectedObj->pitch), "pitch");
+            gui->addDialogPart("yaw", FloatToStr(selectedObj->yaw), "yaw");
+            gui->addDialogPart("roll", FloatToStr(selectedObj->roll), "roll");
 
-            PLAT_ShowDialog("Set Orientation", "OK", "Cancel", "setobjorientation_entered");
+            gui->showDialog("Set Orientation", "OK", "Cancel", "setobjorientation_entered");
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1207,17 +1258,17 @@ void Editor::tick() {
 
     // Set scale
 
-    if (engine->getExtraStr("listmenuoptionclicked") == "Set scale...") {
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set scale") {
 
         if (selectedObj != nullptr)
         {
-            PLAT_ClearDialog();
+            gui->clearDialog();
 
-            PLAT_AddDialogPart("x", FloatToStr(selectedObj->scale.x), "scalex");
-            PLAT_AddDialogPart("y", FloatToStr(selectedObj->scale.y), "scaley");
-            PLAT_AddDialogPart("z", FloatToStr(selectedObj->scale.z), "scalez");
+            gui->addDialogPart("x", FloatToStr(selectedObj->scale.x), "scalex");
+            gui->addDialogPart("y", FloatToStr(selectedObj->scale.y), "scaley");
+            gui->addDialogPart("z", FloatToStr(selectedObj->scale.z), "scalez");
 
-            PLAT_ShowDialog("Set Scale", "OK", "Cancel", "setobjscale_entered");
+            gui->showDialog("Set Scale", "OK", "Cancel", "setobjscale_entered");
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1257,7 +1308,7 @@ void Editor::tick() {
 
     // Set texture span
 
-    if (engine->getExtraStr("listmenuoptionclicked") == "Set texture span...") {
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set texture span") {
 
         if (curVoxels != nullptr && curVoxels->shape != nullptr)
         {
@@ -1266,12 +1317,12 @@ void Editor::tick() {
             TextureManager2 *texMan = engine->getTextureManager();
             Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
 
-            PLAT_ClearDialog();
+            gui->clearDialog();
 
-            PLAT_AddDialogPart("x", FloatToStr(tex->texSpanX), "texturespanx");
-            PLAT_AddDialogPart("y", FloatToStr(tex->texSpanY), "texturespany");
+            gui->addDialogPart("x", FloatToStr(tex->texSpanX), "texturespanx");
+            gui->addDialogPart("y", FloatToStr(tex->texSpanY), "texturespany");
 
-            PLAT_ShowDialog("Set Texture Span", "OK", "Cancel", "settexturespan_entered");
+            gui->showDialog("Set Texture Span", "OK", "Cancel", "settexturespan_entered");
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1767,4 +1818,169 @@ void Editor::exitScreenShotMode() {
         engine->getGUI()->show();
         showSystemObjects();
     }
+}
+
+void Editor::processHWButtons()
+{
+	Controls2 *ctrl = g_engine2->getControls();
+	GUI *gui = g_engine2->getGUI();
+
+	static int timer = 0;
+
+	if (timer > 0)
+		timer--;
+
+	if (timer == 0)
+	{
+		if (ctrl->getBtn(BTN_A))
+		{
+			if (gui->nonNativeWidgetsShown())
+			{
+				gui->enter();
+				timer = 50;
+			}
+			else
+				g_engine2->setExtraInt("addclicked", 1);			
+		}
+		else
+			g_engine2->setExtraInt("addclicked", 0);
+
+		if (ctrl->getBtn(BTN_B))
+		{
+			if (gui->nonNativeWidgetsShown())
+			{
+				gui->clearNonNativeWidgets();
+				timer = 50;
+			}
+			else
+				g_engine2->setExtraInt("removeclicked", 1);
+		}
+		else
+			g_engine2->setExtraInt("removeclicked", 0);
+
+		if (ctrl->getBtn(BTN_GUIDE))
+		{
+			g_engine2->setExtraInt("objbtnclicked", 1);
+			timer = 20;
+		}
+		else
+			g_engine2->setExtraInt("objbtnclicked", 0);
+
+		if (ctrl->getBtn(BTN_START))
+		{
+			g_engine2->setExtraInt("filebtnclicked", 1);
+			timer = 20;
+		}
+		else
+			g_engine2->setExtraInt("filebtnclicked", 0);
+
+		if (mode == EM_OBJ)
+		{
+			if (ctrl->getBtn(BTN_LEFT_BUMPER))
+			{
+				g_engine2->setExtraInt("optionsclicked", 1);
+				timer = 20;
+			}
+			else
+				g_engine2->setExtraInt("optionsclicked", 0);
+
+			if (ctrl->getBtn(BTN_RIGHT_BUMPER))
+			{
+				g_engine2->setExtraInt("moveclicked", 1);
+				timer = 20;
+			}
+			else
+				g_engine2->setExtraInt("moveclicked", 0);
+		}
+
+		if (mode == EM_VOX)
+		{
+			if (ctrl->getBtn(BTN_LEFT_THUMB))
+			{
+				g_engine2->setExtraInt("prevbtnclicked", 1);
+				timer = 50;
+			}
+			else
+				g_engine2->setExtraInt("prevbtnclicked", 0);
+
+			if (ctrl->getBtn(BTN_RIGHT_THUMB))
+			{
+				g_engine2->setExtraInt("nextbtnclicked", 1);
+				timer = 50;
+			}
+			else
+				g_engine2->setExtraInt("nextbtnclicked", 0);
+		}
+	}
+
+	if (ctrl->getBtn(BTN_X))
+		mode = EM_OBJ;
+
+	if (ctrl->getBtn(BTN_Y))
+		mode = EM_VOX;
+
+	Object *playerObj = g_engine2->getPlayerObj();
+
+	if (ctrl->getBtn(BTN_UP))
+	{
+		if (gui->nonNativeWidgetsShown())
+			gui->up();
+		else
+			playerObj->MoveUp(0.1);
+	}
+
+	if (ctrl->getBtn(BTN_DOWN))
+	{
+		if (gui->nonNativeWidgetsShown())
+			gui->down();
+		else
+			playerObj->MoveDown(0.1);
+	}
+
+	if (ctrl->getBtn(BTN_LEFT))
+	{
+		if (gui->nonNativeWidgetsShown())
+			gui->left();
+		else
+			playerObj->MoveLeft(0.1);
+	}
+
+	if (ctrl->getBtn(BTN_RIGHT))
+	{
+		if (gui->nonNativeWidgetsShown())
+			gui->right();
+		else
+			playerObj->MoveRight(0.1);
+	}
+
+	if (mode == EM_VOX)
+	{
+		if (ctrl->getBtn(BTN_LEFT_BUMPER))
+			rayLength -= 0.1;
+
+		if (ctrl->getBtn(BTN_RIGHT_BUMPER))
+			rayLength += 0.1;
+	}
+}
+
+void Editor::worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, int &z)
+{
+	if (curVoxels == nullptr)
+		return;
+
+	float rx = (wx - (curVoxels->position.x - curVoxels->scale.x / 2.0)) /
+		((curVoxels->position.x + curVoxels->scale.x / 2.0) -
+		(curVoxels->position.x - curVoxels->scale.x / 2.0));
+	float ry = (wy - (curVoxels->position.y - curVoxels->scale.y / 2.0)) /
+		((curVoxels->position.y + curVoxels->scale.y / 2.0) -
+		(curVoxels->position.y - curVoxels->scale.y / 2.0));
+	float rz = (wz - (curVoxels->position.z - curVoxels->scale.z / 2.0)) /
+		((curVoxels->position.z + curVoxels->scale.z / 2.0) -
+		(curVoxels->position.z - curVoxels->scale.z / 2.0));
+
+	int size = curVoxels->shape->voxels->getSize();
+
+	x = (int)((float)size * rx);
+	y = (int)((float)size * ry);
+	z = (int)((float)size * rz);
 }

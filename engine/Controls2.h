@@ -29,29 +29,46 @@ SOFTWARE.
 #include "TextureManager2.h"
 #include "EditorController.h"
 
-#define MAX_BUTTONS	8
-
 typedef enum BtnNames
 {
 	BTN_A,
 	BTN_B,
 	BTN_X,
 	BTN_Y,
+	BTN_LEFT_BUMPER,
+	BTN_RIGHT_BUMPER,
+	BTN_BACK,
+	BTN_START,
+	BTN_GUIDE,
+	BTN_LEFT_THUMB,
+	BTN_RIGHT_THUMB,
 	BTN_UP,
+	BTN_RIGHT,
 	BTN_DOWN,
 	BTN_LEFT,
-	BTN_RIGHT
+	MAX_BUTTONS
+};
+
+typedef enum ENUM_AXES
+{
+	AX_LEFT_X,
+	AX_LEFT_Y,
+	AX_UNKNOWN_X,
+	AX_UNKNOWN_Y,
+	AX_RIGHT_X,
+	AX_RIGHT_Y,
+	MAX_AXES
 };
 
 typedef enum ControlSchemes
 {
+	CTRL_EDITOR,
 	CTRL_FPS,
 	CTRL_THIRDPERSON,
 	CTRL_UFOSHOOTER,
 	CTRL_UFOSHOOTER_360,
 	CTRL_SCROLLINGSHOOTER,
-	CTRL_SCROLLINGSHOOTERXY,
-	CTRL_EDITOR
+	CTRL_SCROLLINGSHOOTERXY
 };
 
 typedef struct TouchBtnBind
@@ -119,6 +136,7 @@ public:
 	bool getRJDown() { return rjdown; };
 	void addTouchBtnBind(int btn, float x, float y, float size);
 	std::vector<TouchBtnBind> getTouchBtnBinds() { return touchBtnBinds; };
+	void setAxis(int axis, float value);
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
@@ -169,8 +187,9 @@ private:
 	bool actionUp = false;
 
 	int buttons[MAX_BUTTONS];
-	
 	std::vector<TouchBtnBind> touchBtnBinds;
+
+	float axes[MAX_AXES];
 };
 
 #endif //FATELESS_CONTROLS2_H

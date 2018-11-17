@@ -872,7 +872,9 @@ static int setcameracheme(lua_State *L)
 	
 	CameraSchemes scheme;
 	
-    if (schemeStr == "fps")
+	if (schemeStr == "editor")
+		scheme = CAMERA_EDITOR;
+	if (schemeStr == "fps")
 	    scheme = CAMERA_FPS;	
 	if (schemeStr == "thirdperson")
 		scheme = CAMERA_THIRDPERSON;
@@ -1647,6 +1649,16 @@ static int compareyaw(lua_State *L)
 	return 1;
 }
 
+static int loadtex(lua_State *L)
+{
+	std::string tex = lua_tostring(L, 1);
+	
+	TextureManager2 *texMan = g_engine2->getTextureManager();
+	texMan->find(tex);
+
+	return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1793,6 +1805,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "addtouchbtnbind", addtouchbtnbind);
 	lua_register(L, "rotateangletowards", rotateangletowards);
 	lua_register(L, "compareyaw", compareyaw);
+	lua_register(L, "loadtex", loadtex);
 }
 
 void LuaBridge::exec(std::string filename)

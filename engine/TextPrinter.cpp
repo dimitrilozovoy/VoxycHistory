@@ -46,6 +46,14 @@ void TextPrinter::draw()
 
 void TextPrinter::drawText(TextItem *item)
 {
+	if (item->text == "")
+		return;
+
+	// Is the sprite visible on the screen?
+	if (item->position.x < (-1.0 - item->size / 2.0) || item->position.x > (1.0 + item->size / 2.0)
+		|| item->position.y < (-1.0 - item->size / 2.0) || item->position.y >(1.0 + item->size / 2.0))
+		return;
+
 	float width = PLAT_GetWindowWidth();
     float height = PLAT_GetWindowHeight();
 #ifdef PLATFORM_OPENVR
@@ -78,7 +86,7 @@ void TextPrinter::drawText(TextItem *item)
 
 			if (tex != nullptr && item->text.at(i) != ' ')
 			{
-				renderer->DrawSprite(item->position.x - (item->text.size() * item->size) / 2.0 + (float)i * item->size * 1.2, item->position.y, sizex, sizey, tex->glTexID);
+				renderer->DrawSprite(item->position.x - (((item->text.size() - 1) * 1.2) * item->size) / 2.0 + (float)i * item->size * 1.2, item->position.y, sizex, sizey, tex->glTexID, item->color.r, item->color.g, item->color.b, item->color.a);
 			}
 		}
 	}
@@ -275,6 +283,14 @@ std::string TextPrinter::getTextureNameForChar(char symbol)
 	case '_':
 		result = "underscore.png";
 		break;
+	case '.':
+		result = "period.png";
+		break;
+	case '-':
+		result = "dash.png";
+		break;
+	default:
+		result = "empty.png";
 	}
 
 	return result;

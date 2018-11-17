@@ -296,9 +296,6 @@ private:
 	bool healthBarsVisible = true;
 	bool controlsVisible = true;
 	
-	std::map<std::string, int> extraInts;
-	std::map<std::string, std::string> extraStrings;
-
 	bool initialized = false;
 
 	OBJWriter objWriter;

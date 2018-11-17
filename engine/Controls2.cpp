@@ -51,10 +51,43 @@ void Controls2::tick() {
 
     // New schemes
 
-    switch (controlScheme) {
-        case CTRL_THIRDPERSON:
+	float targetYaw = 1000000;
+	
+	switch (controlScheme) {
+	case CTRL_EDITOR:
 
-            float targetYaw = 1000000;
+		if (buttons[BTN_UP] == 1)
+			playerObj->MoveUp(getMoveFactor() / 4.0);
+		if (buttons[BTN_DOWN] == 1)
+			playerObj->MoveDown(getMoveFactor() / 4.0);
+		if (buttons[BTN_LEFT] == 1)
+			playerObj->MoveLeft(getMoveFactor() / 2.0);
+		if (buttons[BTN_RIGHT] == 1)
+			playerObj->MoveRight(getMoveFactor() / 2.0);
+
+		if (buttons[BTN_UP] == 1 && buttons[BTN_LEFT] == 1)
+		{
+			playerObj->MoveUp(getMoveFactor() / 4.0);
+			playerObj->MoveLeft(getMoveFactor());
+		}
+		if (buttons[BTN_UP] == 1 && buttons[BTN_RIGHT] == 1)
+		{
+			playerObj->MoveUp(getMoveFactor() / 4.0);
+			playerObj->MoveRight(getMoveFactor());
+		}
+		if (buttons[BTN_DOWN] == 1 && buttons[BTN_LEFT] == 1)
+		{
+			playerObj->MoveDown(getMoveFactor() / 4.0);
+			playerObj->MoveLeft(getMoveFactor() / 4.0);
+		}
+		if (buttons[BTN_DOWN] == 1 && buttons[BTN_RIGHT] == 1)
+		{
+			playerObj->MoveDown(getMoveFactor() / 4.0);
+			playerObj->MoveRight(getMoveFactor() / 4.0);
+		}
+
+		break;
+	case CTRL_THIRDPERSON:
 
             if (buttons[BTN_UP] == 1)
                 targetYaw = camera->yaw;
@@ -99,9 +132,6 @@ void Controls2::tick() {
             case CTRL_UFOSHOOTER_360:
                 playerObj->MoveForward(getMoveFactor() * 2.0);
                 break;
-            case CTRL_EDITOR:
-                playerObj->MoveForward(getMoveFactor());
-                break;
         }
     }
 
@@ -112,9 +142,6 @@ void Controls2::tick() {
                 break;
             case CTRL_UFOSHOOTER_360:
                 playerObj->MoveBackward(getMoveFactor() * 2.0);
-                break;
-            case CTRL_EDITOR:
-                playerObj->MoveBackward(getMoveFactor());
                 break;
         }
     }
@@ -127,11 +154,6 @@ void Controls2::tick() {
             case CTRL_UFOSHOOTER_360:
                 playerObj->MoveLeft(getMoveFactor());
                 break;
-            case CTRL_EDITOR:
-                //		std::string str = "player xyz " + ToString(playerObj->position.x) + " " + ToString(playerObj->position.y) + " " + ToString(playerObj->position.z);
-                //		Log(str);
-                playerObj->MoveLeft(getMoveFactor());
-                break;
         }
     }
 
@@ -141,9 +163,6 @@ void Controls2::tick() {
                 playerObj->MoveRight(getMoveFactor() * 10.0);
                 break;
             case CTRL_UFOSHOOTER_360:
-                playerObj->MoveRight(getMoveFactor());
-                break;
-            case CTRL_EDITOR:
                 playerObj->MoveRight(getMoveFactor());
                 break;
         }
@@ -296,10 +315,32 @@ void Controls2::tick() {
         }
     }
 
-    if (afterGestureTimer > 0) {
+	//
+	// Gamepad control for new schemes
+	//
+
+	switch (controlScheme)
+	{
+	case CTRL_EDITOR:
+		playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);
+		playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
+		playerObj->MoveForward(axes[AX_LEFT_Y] / 2.0);
+		break;
+	case CTRL_THIRDPERSON:
+		// Movement
+		break;
+	}
+
+	if (afterGestureTimer > 0) {
         afterGestureTimer--;
         return;
     }
+
+	// Write axes into common
+	g_common.gamepadLeftX = axes[AX_LEFT_X];
+	g_common.gamepadLeftY = axes[AX_LEFT_Y];
+	g_common.gamepadRightX = axes[AX_RIGHT_X];
+	g_common.gamepadRightY = axes[AX_RIGHT_Y];
 }
 
 void
@@ -891,7 +932,7 @@ void Controls2::mouse(float mouseX, float mouseY) {
 }
 
 void Controls2::setBtn(int which, int state) {
-    if (which < MAX_BUTTONS)
+	if (which < MAX_BUTTONS)
         buttons[which] = state;
 }
 
@@ -911,4 +952,9 @@ void Controls2::addTouchBtnBind(int btn, float x, float y, float size) {
     tbb.size = size;
 
     touchBtnBinds.push_back(tbb);
+}
+
+void Controls2::setAxis(int axis, float value)
+{
+	axes[axis] = value;
 }

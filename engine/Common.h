@@ -23,6 +23,8 @@ SOFTWARE.
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <map>
+
 typedef struct Common
 {
 	float playAreaMinX = 0;
@@ -37,6 +39,12 @@ typedef struct Common
 	bool touchCtrlRJDown = false;
 	float touchCtrlRJDistX = 0;
 	float touchCtrlRJDistY = 0;
+	float gamepadLeftX = 0;
+	float gamepadLeftY = 0;
+	float gamepadRightX = 0;
+	float gamepadRightY = 0;
+	std::map<std::string, int> extraInts;
+	std::map<std::string, std::string> extraStrings;
 };
 
 #endif

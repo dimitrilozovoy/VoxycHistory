@@ -714,7 +714,7 @@ void Object::load(FILE *f)
 	velocity.w = getKVFloat("velocity.w");
 
 	maxVelocity = getKVFloat("maxVelocity");
-	yaw = getKVFloat("roll");
+	yaw = getKVFloat("yaw");
 	pitch = getKVFloat("pitch");
 	roll = getKVFloat("roll");
 	moveSmoothly = getKVBool("moveSmoothly");

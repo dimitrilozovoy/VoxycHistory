@@ -333,12 +333,10 @@ void AppFree()
 // =======================================================================
 
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS
-void processJoystickInput()
-{
-    int present = glfwJoystickPresent(GLFW_JOYSTICK_1);
-    
-//    Log("present", present);
-}
+
+//
+// mouse_button_callback()
+//
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
@@ -361,168 +359,192 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 }
 #endif
 
+//
+// updateControls()
+//
+
 void updateControls()
 {
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS
 
 	Controls2 *controls = g_engine2->getControls();
 	Camera *camera = g_engine2->getCamera();
+	GUI *gui = g_engine2->getGUI();
 
-	if (g_keyTimer <= 0)
-	{
-		if (glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT_SHIFT) || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT_SHIFT))
+	//
+	// Gamepad and keyboard
+	//
+
+		int curJoystick = GLFW_JOYSTICK_1;
+
+		bool joy = glfwJoystickPresent(curJoystick);
+		int count = 0;
+
+		if (joy)
 		{
-		}
-		
-		if (glfwGetKey(g_glfwWindow, 'S') || glfwGetKey(g_glfwWindow, ';') || glfwGetKey(g_glfwWindow, GLFW_KEY_DOWN))
-			controls->setBtn(BTN_DOWN, 1);
-		else
-			controls->setBtn(BTN_DOWN, 0);
+			const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &count);
 
-		if (glfwGetKey(g_glfwWindow, 'W') || glfwGetKey(g_glfwWindow, 'P') || glfwGetKey(g_glfwWindow, GLFW_KEY_UP))
+			processJoyAxis(controls, axes, 0, AX_LEFT_X, count);
+			processJoyAxis(controls, axes, 1, AX_LEFT_Y, count);
+			processJoyAxis(controls, axes, 2, AX_RIGHT_X, count);
+			processJoyAxis(controls, axes, 3, AX_RIGHT_Y, count);
+		}
+
+		const unsigned char *buttons = glfwGetJoystickButtons(curJoystick, &count);
+
+		for (int i = 0; i < count; i++)
+		{
+//			if (buttons[i] == 1)
+//				Log("btn ", i);
+		}
+
+		if ((joy && getJoyBtn(controls, buttons, 10, BTN_UP, count)) || (!gui->nonNativeWidgetsShown() && glfwGetKey(g_glfwWindow, 'W')) || glfwGetKey(g_glfwWindow, GLFW_KEY_UP))
 			controls->setBtn(BTN_UP, 1);
 		else
 			controls->setBtn(BTN_UP, 0);
 
-		if (glfwGetKey(g_glfwWindow, 'A') || glfwGetKey(g_glfwWindow, 'L') || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT))
+		if ((joy && getJoyBtn(controls, buttons, 12, BTN_DOWN, count)) || (!gui->nonNativeWidgetsShown() && glfwGetKey(g_glfwWindow, 'S')) || glfwGetKey(g_glfwWindow, GLFW_KEY_DOWN))
+			controls->setBtn(BTN_DOWN, 1);
+		else
+			controls->setBtn(BTN_DOWN, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 13, BTN_LEFT, count)) || (!gui->nonNativeWidgetsShown() && glfwGetKey(g_glfwWindow, 'A')) || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT))
 			controls->setBtn(BTN_LEFT, 1);
 		else
 			controls->setBtn(BTN_LEFT, 0);
 
-		if (glfwGetKey(g_glfwWindow, 'D') || glfwGetKey(g_glfwWindow, '\'') || glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT))
+		if ((joy && getJoyBtn(controls, buttons, 11, BTN_RIGHT, count)) || (!gui->nonNativeWidgetsShown() && glfwGetKey(g_glfwWindow, 'D')) || glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT))
 			controls->setBtn(BTN_RIGHT, 1);
 		else
 			controls->setBtn(BTN_RIGHT, 0);
 
-		if (glfwGetKey(g_glfwWindow, 'Q'))
-		{
-			g_lastKey = 0;
-		}
-		else if (glfwGetKey(g_glfwWindow, 'E'))
-		{
-			g_lastKey = 0;
-		}
-		if (glfwGetKey(g_glfwWindow, 'Z') || glfwGetKey(g_glfwWindow, GLFW_KEY_PAGE_DOWN))
-		{
-			controls->MoveDown();
-			g_lastKey = 0;
-		}
-		else if (glfwGetKey(g_glfwWindow, 'X') || glfwGetKey(g_glfwWindow, GLFW_KEY_PAGE_UP))
-		{
-			controls->MoveUp();
-			g_lastKey = 0;
-		}
-		else if (glfwGetKey(g_glfwWindow, '`') && g_lastKey != '`')
-		{
-			g_lastKey = '`';
-		}
+		if ((joy && getJoyBtn(controls, buttons, 6, BTN_GUIDE, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_TAB))
+			controls->setBtn(BTN_GUIDE, 1);
+		else
+			controls->setBtn(BTN_GUIDE, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 7, BTN_START, count)))
+			controls->setBtn(BTN_START, 1);
+		else
+			controls->setBtn(BTN_START, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 4, BTN_LEFT_BUMPER, count)))
+			controls->setBtn(BTN_LEFT_BUMPER, 1);
+		else
+			controls->setBtn(BTN_LEFT_BUMPER, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 5, BTN_RIGHT_BUMPER, count)))
+			controls->setBtn(BTN_RIGHT_BUMPER, 1);
+		else
+			controls->setBtn(BTN_RIGHT_BUMPER, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 8, BTN_LEFT_THUMB, count)))
+			controls->setBtn(BTN_LEFT_THUMB, 1);
+		else
+			controls->setBtn(BTN_LEFT_THUMB, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 9, BTN_RIGHT_THUMB, count)))
+			controls->setBtn(BTN_RIGHT_THUMB, 1);
+		else
+			controls->setBtn(BTN_RIGHT_THUMB, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 0, BTN_A, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_ENTER))
+			controls->setBtn(BTN_A, 1);
+		else
+			controls->setBtn(BTN_A, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 1, BTN_B, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_ESCAPE))
+			controls->setBtn(BTN_B, 1);
+		else
+			controls->setBtn(BTN_B, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 2, BTN_X, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT_BRACKET))
+			controls->setBtn(BTN_X, 1);
+		else
+			controls->setBtn(BTN_X, 0);
+
+		if ((joy && getJoyBtn(controls, buttons, 3, BTN_Y, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT_BRACKET))
+			controls->setBtn(BTN_Y, 1);
+		else
+			controls->setBtn(BTN_Y, 0);
+
 		if (glfwGetKey(g_glfwWindow, GLFW_KEY_SPACE))
 		{
 			g_lastKey = 0;
 		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_MINUS))
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_MINUS))
 		{
 			controls->minus();
 		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_EQUAL))
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_EQUAL))
 		{
 			controls->equals();
 		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_KP_SUBTRACT))
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_KP_SUBTRACT))
 		{
 			controls->minus();
 		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_KP_ADD))
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_KP_ADD))
 		{
 			controls->plus();
 		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_F2))
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_F2))
 		{
 			controls->save();
 		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_F3))
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_F3))
 		{
 			controls->load();
 		}
-
-		// Console input enabled; entering console commands
-	/*	CheckConsoleInput('Q');
-		CheckConsoleInput('W');
-		CheckConsoleInput('E');
-		CheckConsoleInput('R');
-		CheckConsoleInput('T');
-		CheckConsoleInput('Y');
-		CheckConsoleInput('U');
-		CheckConsoleInput('I');
-		CheckConsoleInput('O');
-		CheckConsoleInput('P');
-		//        CheckConsoleInput('[');
-		//        CheckConsoleInput(']');
-		CheckConsoleInput('A');
-		CheckConsoleInput('S');
-		CheckConsoleInput('D');
-		CheckConsoleInput('F');
-		CheckConsoleInput('G');
-		CheckConsoleInput('H');
-		CheckConsoleInput('J');
-		CheckConsoleInput('K');
-		CheckConsoleInput('L');
-		CheckConsoleInput(';');
-		CheckConsoleInput('"');
-		CheckConsoleInput('Z');
-		CheckConsoleInput('X');
-		CheckConsoleInput('C');
-		CheckConsoleInput('V');
-		CheckConsoleInput('B');
-		CheckConsoleInput('N');
-		CheckConsoleInput('M');
-		//        CheckConsoleInput(',');
-		//        CheckConsoleInput('.');
-		//        CheckConsoleInput('/');
-		CheckConsoleInput('0');
-		CheckConsoleInput('1');
-		CheckConsoleInput('2');
-		CheckConsoleInput('3');
-		CheckConsoleInput('4');
-		CheckConsoleInput('5');
-		CheckConsoleInput('6');
-		CheckConsoleInput('7');
-		CheckConsoleInput('8');
-		CheckConsoleInput('9');
-		CheckConsoleInput(' ');
+		if (glfwGetKey(g_glfwWindow, GLFW_KEY_BACKSPACE))
+		{
+			gui->backspace();
 		}
 
-		if (glfwGetKey(g_glfwWindow, '`') && g_lastKey != '`')
-		{
-			g_lastKey = '`';
-			g_console.CancelInput();
-		}
-		else if (!glfwGetKey(g_glfwWindow, '`') && g_lastKey == '`')
-		{
-			g_lastKey = 0;
-		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_ENTER) && g_lastKey != GLFW_KEY_ENTER)
-		{
-			g_lastKey = GLFW_KEY_ENTER;
-			g_console.ProcessInput();
-		}
-		else if (glfwGetKey(g_glfwWindow, GLFW_KEY_BACKSPACE) && g_lastKey != GLFW_KEY_BACKSPACE)
-		{
-			if (g_keyTimer <= 0)
-			{
-				g_lastKey = GLFW_KEY_BACKSPACE;
-				g_console.Backspace();
-				g_keyTimer = KEYTIMER_VALUE * 2;
-			}
-			else
-				g_keyTimer--;
-			}
-		}
-		else
-		{
-			g_keyTimer--;
-		}*/
-	}
+		processCharInput('Q');
+		processCharInput('W');
+		processCharInput('E');
+		processCharInput('R');
+		processCharInput('T');
+		processCharInput('Y');
+		processCharInput('U');
+		processCharInput('I');
+		processCharInput('O');
+		processCharInput('P');
+		processCharInput('A');
+		processCharInput('S');
+		processCharInput('D');
+		processCharInput('F');
+		processCharInput('G');
+		processCharInput('H');
+		processCharInput('J');
+		processCharInput('K');
+		processCharInput('L');
+		processCharInput(';');
+		processCharInput('"');
+		processCharInput('Z');
+		processCharInput('X');
+		processCharInput('C');
+		processCharInput('V');
+		processCharInput('B');
+		processCharInput('N');
+		processCharInput('M');
+		processCharInput('.');
+		processCharInput('0');
+		processCharInput('1');
+		processCharInput('2');
+		processCharInput('3');
+		processCharInput('4');
+		processCharInput('5');
+		processCharInput('6');
+		processCharInput('7');
+		processCharInput('8');
+		processCharInput('9');
+		processCharInput(' ');
+
+	//
+	// Mouse
+	//
 
 	// Rotate camera
 	const float mouseSensitivity = 0.1f;
@@ -536,6 +558,56 @@ void updateControls()
 	glfwSetCursorPos(g_glfwWindow, 0, 0);
 #endif
 }
+
+bool getJoyBtn(Controls2 *controls, const unsigned char *buttons, int inBtn, int outBtn, int count)
+{
+#ifndef PLATFORM_ANDROID
+	if (count > MAX_BUTTONS)
+		return false;
+
+	if (buttons[inBtn] == GLFW_PRESS)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+#endif
+
+	return false;
+}
+
+void processJoyAxis(Controls2 *controls, const float *axes, int inAxis, int outAxis, int count)
+{
+	if (count > MAX_AXES)
+		return;
+
+	controls->setAxis(outAxis, axes[inAxis]);
+}
+
+#if defined PLATFORM_OSX || defined PLATFORM_WINDOWS
+
+void processCharInput(char c)
+{
+	GUI *gui = g_engine2->getGUI();
+
+	if (glfwGetKey(g_glfwWindow, c))
+	{
+		gui->charEntered(c);
+	}
+	else
+	{
+	}
+}
+
+#endif
+
+// =======================================================================
+//
+//   Virtual Reality
+//
+// =======================================================================
 
 #ifdef PLATFORM_OPENVR
 void SetProjectionMatrix(Matrix4 projection)
@@ -728,20 +800,4 @@ void SetHeadVector(float yaw, float pitch, float roll)
 	g_headPitch = pitch;
 	g_headRoll = roll;
 }
-#endif
-
-#if defined PLATFORM_OSX || defined PLATFORM_WINDOWS
-/*void CheckConsoleInput(char c)
-{
-	if (glfwGetKey(g_glfwWindow, c))
-	{
-//		g_console.Enter(c);
-		g_lastKey = c;
-		g_keyTimer = KEYTIMER_VALUE;
-	}
-	else if (!glfwGetKey(g_glfwWindow, c) && g_lastKey == c)
-	{
-		g_lastKey = 0;
-	}
-}*/
 #endif

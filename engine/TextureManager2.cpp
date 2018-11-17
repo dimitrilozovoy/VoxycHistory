@@ -68,6 +68,9 @@ void TextureManager2::load(std::string name, bool external)
     Texture *t = new Texture();
     t->name = name;
 
+//	if (name == "skybox.png")
+//		Log("stop");
+
     int glTexID;
 
     glGenTextures(1, (GLuint *)&glTexID);

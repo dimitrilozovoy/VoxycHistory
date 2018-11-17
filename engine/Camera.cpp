@@ -37,9 +37,16 @@ void Camera::tick()
 	if (playerObj == nullptr)
 		return;
 
-#ifdef USE_PLAYEROBJ
+	// Touch camera
+
 	switch (cameraScheme)
 	{
+	case CAMERA_EDITOR:
+		this->position = playerObj->position;
+		this->yaw = playerObj->yaw;
+		this->pitch = playerObj->pitch;
+		this->roll = playerObj->roll;
+		break;
 	case CAMERA_FPS:
 		this->position = playerObj->position;
 		this->yaw = playerObj->yaw + mouseLook->yaw;
@@ -48,7 +55,7 @@ void Camera::tick()
 		break;
 	case CAMERA_THIRDPERSON:
 		
-				if (g_common.touchCtrlRJDown)
+		if (g_common.touchCtrlRJDown)
 		{
 		    yaw += g_common.touchCtrlRJDistX / 20.0;
 
@@ -87,58 +94,38 @@ void Camera::tick()
 		break;
 	default:
 	    this->position = playerObj->position;
-	    this->yaw = playerObj->yaw + mouseLook->yaw;
+		this->yaw = playerObj->yaw + mouseLook->yaw;
 	    this->pitch = playerObj->pitch + mouseLook->pitch;
 	    this->roll = playerObj->roll + mouseLook->roll;
         break;
 	}
-#else
-	glm::vec4 camPos;
+
+	// Gamepad camera
 
 	switch (cameraScheme)
 	{
-	case CAMERA_FPS:
-		this->position = player->position;
-		this->yaw = player->yaw + mouseLook->yaw;
-		this->pitch = player->pitch + mouseLook->pitch;
-		this->roll = player->roll + mouseLook->roll;
-		break;
-	case CAMERA_UFOSHOOTER:
-		camPos = vehicle->position;
-		camPos.z += 40;
-		camPos.y += 8;
-		this->position = camPos;
-		this->yaw = 0;
-		this->pitch = 0;
-		this->roll = 0;
-		break;
-	case CAMERA_UFOSHOOTER_360:
-		this->position = vehicle->position;;
+	case CAMERA_EDITOR:
 
-		this->setDeltaXZ(-vehicle->yaw - 180, -40.0);
+		yaw += g_common.gamepadRightX;
+
+		if (playerObj != nullptr)
+			playerObj->yaw = yaw;
+
+		break;
+	case CAMERA_THIRDPERSON:
+
+		yaw += g_common.gamepadRightX * 5;
+
+		if (playerObj != nullptr)
+			playerObj->secondaryYaw = yaw;
+
+		this->position = playerObj->position;
+		this->setDeltaXZ(-yaw, 30.0);
 		move();
+		this->position.y += 5;
 
-		this->position.y += 8.0;
-
-		this->yaw = vehicle->yaw;
-		this->pitch = 0;
-		this->roll = 0;
-		break;
-	case CAMERA_UFOSHOOTER_VR:
-		this->position = vehicle->position;;
-
-//		this->setDeltaXZ(-vehicle->yaw - 180, -40.0);
-//		move();
-
-		this->position.y += 0.5;
-//		this->position.y -= 50.0;
-
-		this->yaw = vehicle->yaw;
-		this->pitch = 0;
-		this->roll = 0;
 		break;
 	}
-#endif
 }
 
 void Camera::setCameraScheme(CameraSchemes scheme)

@@ -748,9 +748,9 @@ std::string GetFileName(const std::string& s) {
 
     char sep = '/';
 
-#ifdef _WIN32
+/*#ifdef _WIN32
     sep = '\\';
-#endif
+#endif*/
 
     size_t i = s.rfind(sep, s.length());
     if (i != std::string::npos) {

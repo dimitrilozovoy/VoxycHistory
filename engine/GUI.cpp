@@ -23,12 +23,73 @@ SOFTWARE.
 #include "GUI.h"
 #include "platform.h"
 #include "DDLUtils.hpp"
+#ifdef PLATFORM_WINDOWS
+#include "../thirdparty/dirent/dirent.h"
+#endif
 
 void GUI::init(TextureManager2 *texMan, SpriteRenderer2D *renderer, TextPrinter *tp)
 {
 	this->texMan = texMan;
 	this->renderer = renderer;
 	this->textPrinter = tp;
+}
+
+void GUI::tick()
+{
+	if (listMenuShown)
+	{
+		int i = 1;
+
+		for (int i = 0; i < listMenu.size(); i++)
+		{
+			std::string name = "listmenuitem" + ToString(i);
+
+			if (i == listMenuSelectedItem - 1)
+				setWgColor(name, 0.5, 0.5, 2.0, 1.0);
+			else
+				setWgColor(name, 1.0, 1.0, 1.0, 1.0);
+		}
+	}
+
+	if (dialogShown)
+	{
+		int i = 1;
+
+		for (int i = 0; i < dialogParts.size(); i++)
+		{
+			std::string caption = "caption" + ToString(i);
+			std::string value = "value" + ToString(i);
+
+			widgets[value]->text = dialogParts[i].value;
+
+			if (i == dialogSelectedItem - 1)
+				setWgColor(value, 0.5, 0.5, 2.0, 1.0);
+			else
+				setWgColor(value, 1.0, 1.0, 1.0, 1.0);
+		}
+
+		if (dialogOKSelected)
+		{
+			setWgColor("ok", 0.5, 0.5, 2.0, 1.0);
+		}
+		else
+			setWgColor("ok", 1.0, 1.0, 1.0, 1.0);
+
+		if (dialogCancelSelected)
+		{
+			setWgColor("cancel", 0.5, 0.5, 2.0, 1.0);
+		}
+		else
+			setWgColor("cancel", 1.0, 1.0, 1.0, 1.0);
+	}
+
+	// New filename dialog; need to add folder
+	if (g_common.extraInts["newfilenameselected"] == 1)
+	{
+		g_common.extraStrings["fileselected"] = fileSelectorDir + "/" + g_common.extraStrings["newfilename"];
+		g_common.extraStrings["newfilenameselected"] = "";
+		g_common.extraStrings["newfilename"] = "";
+	}
 }
 
 void GUI::draw()
@@ -66,6 +127,9 @@ void GUI::draw()
 					break;
                 case WG_MENUITEM:
 				    drawBtn(wg);
+					break;
+				case WG_TEXT:
+					drawBtn(wg);
 					break;
 			}
 		}
@@ -106,6 +170,7 @@ void GUI::drawBtn(Widget *item)
 		ti.position.x = item->position.x;
 		ti.position.y = item->position.y;
 		ti.size = item->size.x;
+		ti.color = item->color;
 		
 		textPrinter->drawText(&ti);
 	}
@@ -200,7 +265,8 @@ void GUI::setWgVisible(std::string name, bool val)
 
 void GUI::setWgColor(std::string name, float r, float g, float b, float a)
 {
-	widgets[name]->color = glm::vec4(r, g, b, a);
+	if (widgets.find(name) != widgets.end())
+		widgets[name]->color = glm::vec4(r, g, b, a);
 }
 
 std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int finger, int count)
@@ -276,4 +342,506 @@ void GUI::hide()
 void GUI::show()
 {
 	hide_ = false;
+}
+
+void GUI::showFileSelector(std::string ext, std::string sdir)
+{
+#ifdef PLATFORM_WINDOWS
+	if (nativeWidgets)
+		PLAT_ShowFileSelector(ext);
+	else
+	{
+		if (sdir == "")
+			sdir = g_assetsDir;
+
+		clearListMenu();
+
+		addListMenuOption("new file", "");
+
+		DIR *dir;
+		struct dirent *ent;
+
+		if ((dir = opendir((const char *)sdir.c_str())) != NULL)
+		{
+			while ((ent = readdir(dir)) != NULL)
+			{
+				std::string fname = ent->d_name;
+
+				if (fname != ".")
+				{
+					addListMenuOption(ent->d_name, "");
+				}
+			}
+
+			closedir(dir);
+		}
+		else {
+			Log("Directory parsing error");
+		}
+
+		showListMenuInDialog("", "");
+		fileSelectorShown = true;
+		fileSelectorDir = sdir;
+		fileSelectorExt = ext;
+	}
+#endif
+}
+
+void GUI::drawFileSelector()
+{
+
+}
+
+void GUI::clearListMenu()
+{
+	if (nativeWidgets)
+		PLAT_ClearListMenu();
+	else
+	{
+		for (int i = 0; i < listMenu.size(); i++)
+		{
+			std::string name = "listmenuitem" + ToString(i);
+			widgets.erase(name);
+		}
+
+		listMenu.clear();
+		listMenuShown = false;
+		fileSelectorShown = false;
+	}
+}
+
+void GUI::addListMenuOption(std::string title, std::string desc)
+{
+	if (nativeWidgets)
+		PLAT_AddListMenuOption(title, desc);
+	else
+	{
+		listMenu.push_back(title);
+	}
+}
+
+void GUI::showListMenuInDialog(std::string title, std::string options)
+{
+	if (nativeWidgets)
+		PLAT_ShowListMenuInDialog(title, options);
+	else
+	{
+		const float lineHeight = 1.6;
+		float typeSize = 0.1;
+
+		float starty = 0;
+
+		if (listMenu.size() > 10)
+			starty = 0.0;
+		else
+			starty = (listMenu.size() * typeSize * lineHeight * 0.5);
+
+		for (int i = 0; i < listMenu.size(); i++)
+		{
+			std::string name = "listmenuitem" + ToString(i);
+			std::string title = listMenu[i];
+
+			addWg(name, WG_MENUITEM, "", title, title, "", 0.0, starty - typeSize * lineHeight * i, typeSize * 0.8, typeSize * 0.8);
+		}
+
+		listMenuShown = true;
+		listMenuSelectedItem = 1;
+		listMenuLineHeight = lineHeight;
+		listMenuTypeSize = typeSize;
+	}
+}
+
+void GUI::drawListMenu()
+{
+
+}
+
+void GUI::showText(std::string text)
+{
+	if (nativeWidgets)
+		PLAT_ShowText(text);
+	else
+	{
+
+	}
+}
+
+void GUI::drawText()
+{
+
+}
+
+void GUI::showLongText(std::string text)
+{
+	if (nativeWidgets)
+		PLAT_ShowLongText(text);
+	else
+	{
+
+	}
+}
+
+void GUI::drawLongText()
+{
+
+}
+
+void GUI::clearDialog()
+{
+	if (nativeWidgets)
+		PLAT_ClearDialog();
+	else
+	{
+		for (int i = 0; i < dialogParts.size(); i++)
+		{
+			std::string captionName = "caption" + ToString(i);
+			std::string valueName = "value" + ToString(i);
+
+			widgets.erase(captionName);
+			widgets.erase(valueName);
+		}
+
+		std::string captionName = "ok";
+		std::string valueName = "cancel";
+
+		widgets.erase(captionName);
+		widgets.erase(valueName);
+
+		dialogParts.clear();
+		dialogShown = false;
+	}
+}
+
+void GUI::addDialogPart(std::string caption, std::string defaultValue, std::string extraKey)
+{
+	if (nativeWidgets)
+		PLAT_AddDialogPart(caption, defaultValue, extraKey);
+	else
+	{
+		DialogPart part;
+
+		part.caption = caption;
+		part.value = defaultValue;
+		part.extraKey = extraKey;
+
+		dialogParts.push_back(part);
+	}
+}
+
+void GUI::showDialog(std::string title, std::string okText, std::string cancelText, std::string okExtra)
+{
+	if (nativeWidgets)
+		PLAT_ShowDialog(title, okText, cancelText, okExtra);
+	else
+	{
+		const float lineHeight = 1.6;
+		float typeSize = 0.1;
+
+		float starty = 0;
+
+		if (dialogParts.size() > 10)
+			starty = 0.0;
+		else
+			starty = (dialogParts.size() * typeSize * lineHeight * 0.5);
+
+		for (int i = 0; i < dialogParts.size(); i++)
+		{
+			DialogPart part = dialogParts[i];
+
+			std::string captionName = "caption" + ToString(i);
+			std::string valueName = "value" + ToString(i);
+
+			addWg(captionName, WG_TEXT, "", part.caption, "", "", -0.5, starty - typeSize * lineHeight * i, typeSize * 0.8, typeSize * 0.8);
+			addWg(valueName, WG_TEXT, "", part.value, "", "", 0.5, starty - typeSize * lineHeight * i, typeSize * 0.8, typeSize * 0.8);
+		}
+
+		addWg("ok", WG_TEXT, "", okText, "", "", -0.5, -starty - lineHeight * typeSize, typeSize * 0.8, typeSize * 0.8);
+		addWg("cancel", WG_TEXT, "", cancelText, "", "", 0.5, -starty - lineHeight * typeSize, typeSize * 0.8, typeSize * 0.8);
+
+		dialogShown = true;
+		dialogSelectedItem = 1;
+		dialogLineHeight = lineHeight;
+		dialogTypeSize = typeSize;
+		dialogOKSelected = false;
+		dialogCancelSelected = false;
+		dialogOKExtra = okExtra;
+	}
+}
+
+void GUI::drawDialog()
+{
+
+}
+
+void GUI::up()
+{
+	if (delayTimer > 0)
+	{
+		delayTimer--;
+		return;
+	}
+
+	if (listMenuShown)
+	{
+		listMenuSelectedItem--;
+
+		if (listMenuSelectedItem <= 0)
+			listMenuSelectedItem = listMenu.size();
+	}
+
+	if (dialogShown)
+	{
+		if (dialogCancelSelected)
+		{
+			dialogCancelSelected = false;
+			dialogOKSelected = false;
+			dialogSelectedItem = dialogParts.size();
+		}
+		else if (dialogOKSelected)
+		{
+			dialogCancelSelected = false;
+			dialogOKSelected = false;
+			dialogSelectedItem = dialogParts.size();
+		}
+		else
+		{
+			dialogSelectedItem--;
+
+			if (dialogSelectedItem <= 0)
+				dialogSelectedItem = dialogParts.size();
+		}
+
+		dialogCharIdx = 0;
+	}
+
+	if (fileSelectorShown)
+	{
+		for (int i = 0; i < listMenu.size(); i++)
+		{
+			std::string name = "listmenuitem" + ToString(i);
+			if (widgets.find(name) != widgets.end())
+				widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
+		}
+	}
+
+//	delayTimer = 5;
+	delayTimer = 10 - (listMenu.size() / 20);
+	if (delayTimer < 0)
+		delayTimer = 0;
+}
+
+void GUI::down()
+{
+	if (delayTimer > 0)
+	{
+		delayTimer--;
+		return;
+	}
+
+	if (listMenuShown)
+	{
+		listMenuSelectedItem++;
+
+		if (listMenuSelectedItem > listMenu.size())
+			listMenuSelectedItem = 1;
+	}
+
+	if (dialogShown)
+	{
+		dialogSelectedItem++;
+
+		if (dialogSelectedItem == dialogParts.size() + 1)
+		{
+			dialogOKSelected = true;
+			dialogCancelSelected = false;
+		}
+
+		if (dialogSelectedItem == dialogParts.size() + 2)
+		{
+			dialogOKSelected = false;
+			dialogCancelSelected = true;
+		}
+
+		dialogCharIdx = 0;
+	}
+
+	if (fileSelectorShown)
+	{
+		for (int i = 0; i < listMenu.size(); i++)
+		{
+			std::string name = "listmenuitem" + ToString(i);
+			if (widgets.find(name) != widgets.end())
+				widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
+		}
+	}
+
+//	delayTimer = 5;
+	delayTimer = 10 - (listMenu.size() / 20);
+	if (delayTimer < 0)
+		delayTimer = 0;
+}
+
+void GUI::left()
+{
+	if (dialogCancelSelected)
+	{
+		dialogCancelSelected = false;
+		dialogOKSelected = true;
+	}
+}
+
+void GUI::right()
+{
+	if (dialogOKSelected)
+	{
+		dialogCancelSelected = true;
+		dialogOKSelected = false;
+	}
+}
+
+void GUI::enter()
+{
+	if (fileSelectorShown == true)
+	{
+#ifndef PLATFORM_ANDROID
+		std::string fname = listMenu[listMenuSelectedItem - 1];
+
+		// Check if this is a dir
+		std::string fullFName = fileSelectorDir + "/" + fname;
+		DIR *dir = opendir(fullFName.c_str());
+
+		if (dir != nullptr)
+		{
+			closedir(dir);
+			showFileSelector(fileSelectorExt, fullFName);
+		}
+		else if (fname == "..")
+		{
+			clearListMenu();
+			std::string newDir = "";
+
+			auto pos = fileSelectorDir.rfind("/");
+
+			if (pos != std::string::npos) {
+				newDir = fileSelectorDir.substr(0, pos);
+			}
+
+			showFileSelector(fileSelectorExt, newDir);
+		}
+		else if (fname == "new file")
+		{
+			clearListMenu();
+			clearDialog();
+			addDialogPart("filename", "", "newfilename");
+			showDialog("new file", "ok", "cancel", "newfilenameselected");
+		}
+		else
+		{
+			g_common.extraStrings["fileselected"] = fullFName;
+			clearListMenu();
+		}
+#endif
+	}
+	else if (listMenuShown)
+	{
+		g_common.extraStrings["listmenuoptionclicked"] = listMenu[listMenuSelectedItem - 1];
+		clearListMenu();
+	}
+	else if (dialogShown)
+	{
+		if (dialogOKSelected)
+		{
+			for (int i = 0; i < dialogParts.size(); i++)
+			{
+				g_common.extraStrings[dialogParts[i].extraKey] = dialogParts[i].value;
+			}
+
+			g_common.extraInts[dialogOKExtra] = 1;
+
+			clearDialog();
+		}
+
+		if (dialogCancelSelected)
+		{
+			clearDialog();
+		}
+	}
+}
+
+void GUI::charEntered(char c)
+{
+	static int timer = 0;
+
+	if (timer > 0)
+	{
+		timer--;
+		return;
+	}
+	else
+	{
+		if (dialogShown)
+		{
+			if (dialogSelectedItem <= dialogParts.size())
+			{
+				std::string value = dialogParts[dialogSelectedItem - 1].value;
+
+				if (dialogCharIdx > value.size())
+					value = value + c;
+				else if (dialogCharIdx >= 0)
+					value[dialogCharIdx] = c;
+
+				dialogParts[dialogSelectedItem - 1].value = value;
+
+				dialogCharIdx++;
+			}
+		}
+
+		timer = 10;
+	}
+}
+
+void GUI::backspace()
+{
+	static int timer = 0;
+
+	if (timer > 0)
+	{
+		timer--;
+		return;
+	}
+	else
+	{
+		if (dialogShown)
+		{
+			if (dialogSelectedItem <= dialogParts.size())
+			{
+				std::string value = dialogParts[dialogSelectedItem - 1].value;
+
+				if (dialogCharIdx > 0)
+					value = value.substr(0, value.size() - 1);
+				else
+					value = "";
+
+				dialogParts[dialogSelectedItem - 1].value = value;
+
+				dialogCharIdx--;
+			}
+		}
+
+		timer = 10;
+	}
+}
+
+bool GUI::nonNativeWidgetsShown()
+{
+	if (listMenuShown || dialogShown)
+		return true;
+	else
+		return false;
+}
+
+void GUI::clearNonNativeWidgets()
+{
+	clearListMenu();
+	clearDialog();
 }

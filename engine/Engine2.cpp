@@ -117,6 +117,7 @@ void Engine2::tick()
 	shapeRenderer.tick();
 
 	editorController.tick();
+	gui.tick();
 
 //	spriteRenderer2D.tick();
 }
@@ -133,14 +134,14 @@ void Engine2::draw(int eye)
 		shadowMapReady = true;
 	}
 
-    if (skyboxGLTexID != -1)
+	if (skyboxGLTexID != -1)
 	    skyboxRenderer.draw(&camera, skyboxGLTexID);
 
     glEnable(GL_DEPTH_TEST);
 	glDepthRange(0.001, 1000.0);
 //	glClearDepth(1.0);
     glClear(GL_DEPTH_BUFFER_BIT);
-//	glDepthMask(true);
+	//	glDepthMask(true);
 	
 //	texAtlas.refresh();
 
@@ -254,14 +255,23 @@ void Engine2::removeObject(std::string name)
 
 void Engine2::removeObject(Object *object)
 {
+	std::string name = "";
+
 	for(const auto &pair: objects)
     {
 		if (pair.second == object)
 		{
-		    objects.erase(pair.first);
-	        batches.erase(pair.first);
+			name = pair.first;
 		}
     }
+
+	if (name != "")
+	{
+		objects.erase(objects.find(name));
+
+		if (batches.find(name) != batches.end())
+			batches.erase(batches.find(name));
+	}
 }
 
 void Engine2::setType(std::string name, ObjType type)
@@ -665,7 +675,7 @@ void Engine2::newShape(std::string name, ObjShapeType type, float sizeA, float s
     s->sizeC = sizeC;
     s->sizeD = sizeD;
 
-    s->generate(&extraStrings);
+    s->generate(&g_common.extraStrings);
 
     shapes[name] = s;
 }
@@ -1228,28 +1238,28 @@ void Engine2::setControlsVisible(bool value)
 
 void Engine2::setExtraInt(std::string name, int value)
 {
-	extraInts[name] = value;
+	g_common.extraInts[name] = value;
 }
 
 int Engine2::getExtraInt(std::string name)
 {
-	if (extraInts.count(name) == 0)
+	if (g_common.extraInts.count(name) == 0)
 		return 0;
 
-	return extraInts[name];
+	return g_common.extraInts[name];
 }
 
 void Engine2::setExtraStr(std::string name, std::string value)
 {
-	extraStrings[name] = value;
+	g_common.extraStrings[name] = value;
 }
 
 std::string Engine2::getExtraStr(std::string name)
 {
-	if (extraStrings.count(name) == 0)
+	if (g_common.extraStrings.count(name) == 0)
 		return "";
 
-	return extraStrings[name];
+	return g_common.extraStrings[name];
 }
 
 void Engine2::setVoxel(std::string shapeName, int x, int y, int z, char texture)

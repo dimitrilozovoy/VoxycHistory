@@ -503,6 +503,11 @@ void SpriteRenderer2D::DrawCircle(float xshift, float yshift, float cscale)
 
 void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, float scaley, int glTexID, float r, float g, float b, float a, bool noaspect)
 {
+	// Is the sprite visible on the screen?
+	if (xshift < (-1.0 - scalex / 2.0) || xshift >(1.0 + scalex / 2.0)
+		|| yshift < (-1.0 - scaley / 2.0) || xshift >(1.0 + scaley / 2.0))
+		return;
+
 /*	char str[512];
 	sprintf(str, "xshift = %d, yshift = %d, scalex = %d, scaley = %d, glTexID = %d, r = %d, g = %d, b = %d, a = %d\n", (int)(xshift * 100), (int)(yshift * 100), (int)(scalex * 100), (int)(scaley * 100), glTexID, (int)(r * 100), (int)(g * 100), (int)(b * 100), (int)(a * 100));
     Log(str);*/

@@ -36,6 +36,7 @@ typedef enum WidgetType
 	WG_BTN,
 	WG_MENU,
 	WG_MENUITEM,
+	WG_TEXT,
 	NUM_WIDGETTYPES
 };
 
@@ -54,10 +55,18 @@ typedef struct Widget
 	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 };
 
+typedef struct DialogPart
+{
+	std::string caption = "";
+	std::string value = "";
+	std::string extraKey = "";
+};
+
 class GUI
 {
 public:
 	void init(TextureManager2 *texMan, SpriteRenderer2D *renderer, TextPrinter *tp);
+	void tick();
     void draw();
 	void drawBtn(Widget *item);
 	void drawMenu(Widget *item);
@@ -70,13 +79,69 @@ public:
     void clear();
 	void hide();
 	void show();
-	
+
+	void setNativeWidgets(bool val) { nativeWidgets = val; };
+
+	void showFileSelector(std::string ext, std::string dir = "");
+	void drawFileSelector();
+
+	void clearListMenu();
+	void addListMenuOption(std::string title, std::string desc);
+	void showListMenuInDialog(std::string title, std::string options);
+	void drawListMenu();
+
+	void showText(std::string text);
+	void drawText();
+
+	void showLongText(std::string text);
+	void drawLongText();
+
+	void clearDialog();
+	void addDialogPart(std::string caption, std::string defaultValue, std::string extraKey);
+	void showDialog(std::string title, std::string okText, std::string cancelText, std::string okExtra);
+	void drawDialog();
+
+	void up();
+	void down();
+	void left();
+	void right();
+	void enter();
+	void charEntered(char c);
+	void backspace();
+
+	bool nonNativeWidgetsShown();
+	void clearNonNativeWidgets();
+
 private:
     std::map<std::string, Widget*> widgets;
 	TextureManager2 *texMan;
 	SpriteRenderer2D *renderer;
 	TextPrinter *textPrinter;
 	bool hide_ = false;
+	bool nativeWidgets = true;
+
+	std::vector<std::string> listMenu;
+	bool listMenuShown = false;
+	int listMenuSelectedItem = 1;
+	float listMenuLineHeight = 0;
+	float listMenuTypeSize = 0;
+
+	bool fileSelectorShown = false;
+	std::string fileSelectorDir = "";
+	std::string fileSelectorExt = "";
+
+	std::vector<DialogPart> dialogParts;
+
+	bool dialogShown = false;
+	int dialogSelectedItem = 1;
+	float dialogLineHeight = 0;
+	float dialogTypeSize = 0;
+	bool dialogOKSelected = false;
+	bool dialogCancelSelected = false;
+	int dialogCharIdx = 0;
+	std::string dialogOKExtra = "";
+
+	int delayTimer = 0;
 };
 
 #endif
