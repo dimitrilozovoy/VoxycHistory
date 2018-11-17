@@ -151,8 +151,8 @@ void Editor::load() {
 			hw * 1.4);
 
 		// Ray length
-		engine->addWg("shortenray", WG_BTN, "prevkit.png", "", "shortenrayclicked", "", -hw * 5, -0.25, hw, hw);
-		engine->addWg("lengthenray", WG_BTN, "nextkit.png", "", "lengthenrayclicked", "", hw * 5, -0.25, hw, hw);
+		engine->addWg("shortenray", WG_BTN, "prevkit.png", "", "shortenrayclicked", "", -hw * 5, -0.1, hw, hw);
+		engine->addWg("lengthenray", WG_BTN, "nextkit.png", "", "lengthenrayclicked", "", hw * 5, -0.1, hw, hw);
 		engine->setWgColor("shortenray", 1.0, 1.0, 1.0, 0.5);
 		engine->setWgColor("lengthenray", 1.0, 1.0, 1.0, 0.5);
 
@@ -206,7 +206,8 @@ void Editor::tick() {
     // UI CALLBACKS
     //
 
-	processHWButtons();
+    if (!touchControls)
+    	processHWButtons();
 
     if (timer == 0) {
         // File menu
@@ -492,25 +493,56 @@ void Editor::tick() {
             }
         }
 
-        // Add shape actions
+        //
+        // Add terrain
+        //
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Terrain") {
             selectOnly = false;
             mode = EM_OBJ;
 
-            engine->newShape("terrain", SHAPE_TERRAIN, 16.0, 4.0, 4.0);
+            gui->clearDialog();
 
-            std::string name = "objpreview";
+            gui->addDialogPart("size", "1000", "size");
+            gui->addDialogPart("detail", "16", "detail");
+            gui->addDialogPart("valley y", "8", "valleysizex");
+            gui->addDialogPart("valley z", "8", "valleysizez");
+            gui->addDialogPart("height", "25", "height");
 
-            engine->setType(name, OBJTYPE_SHAPE);
-            engine->setShape(name, "terrain");
-            engine->setSize(name, 1000, 25.0, 1000);
-            engine->setTexture(name, "grass1.png");
-            engine->setAlwaysFacePlayer(name, false);
+            gui->showDialog("New Terrain", "OK", "Cancel", "newterrainparams_entered");
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
         }
+
+        if (engine->getExtraInt("newterrainparams_entered") == 1)
+        {
+            float size = PLAT_stof(engine->getExtraStr("size"), 1000);
+            float detail = PLAT_stof(engine->getExtraStr("detail"), 16);
+            float valleysizex = PLAT_stof(engine->getExtraStr("valleysizex"), 8);
+            float valleysizez = PLAT_stof(engine->getExtraStr("valleysizez"), 8);
+            float height = PLAT_stof(engine->getExtraStr("height"), 25);
+
+            char newNamec[1024];
+            snprintf(newNamec, 1024, "obj%d", RandomInt(0, 10000));
+            std::string newName = std::string(newNamec);
+
+            engine->newShape(newName, SHAPE_TERRAIN, detail, valleysizex, valleysizez);
+
+            std::string name = "objpreview";
+
+            engine->setType(name, OBJTYPE_SHAPE);
+            engine->setShape(name, newName);
+            engine->setSize(name, size, height, size);
+            engine->setTexture(name, "grass1.png");
+            engine->setAlwaysFacePlayer(name, false);
+
+            engine->setExtraInt("newterrainparams_entered", 0);
+        }
+
+        //
+        // Add voxels
+        //
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Voxels") {
             selectOnly = false;
@@ -625,22 +657,22 @@ void Editor::tick() {
     }
 
     float rayDelta = 0.1;
-/*#ifdef PLATFORM_ANDROID
-    rayDelta = 1;
-#else*/
+#ifdef PLATFORM_ANDROID
+    rayDelta = 0.3;
+#else
     rayDelta = 0.1;
-//#endif
+#endif
 
     if (engine->getExtraInt("shortenrayclicked") == 1
         || engine->getExtraInt("shortenrayclicked") == 2) {
-        if (rayDelta > 1)
+        if (rayLength > 1)
             rayLength -= rayDelta;
         engine->setExtraInt("shortenrayclicked", 0);
     }
 
     if (engine->getExtraInt("lengthenrayclicked") == 1
         || engine->getExtraInt("lengthenrayclicked") == 2) {
-        if (rayDelta < 30)
+        if (rayLength < 20)
             rayLength += rayDelta;
         engine->setExtraInt("lengthenrayclicked", 0);
     }
@@ -759,8 +791,19 @@ void Editor::tick() {
     if (engine->getExtraInt("moveupclicked") == 3)
         movingUp = false;
 
-    if (movingDown)
-        ctrl->MoveDown();
+    Object *playerObj = engine->getPlayerObj();
+
+    if (movingForward)
+        playerObj->MoveForward(0.5);
+//		ctrl->setBtn(BTN_UP, 1);
+//	else
+//		ctrl->setBtn(BTN_UP, 0);
+
+    if (movingBackward)
+        playerObj->MoveForward(-0.5);
+//		ctrl->setBtn(BTN_DOWN, 1);
+//	else
+//		ctrl->setBtn(BTN_DOWN, 0);
 
     if (movingLeft)
         ctrl->setBtn(BTN_LEFT, 1);
@@ -771,19 +814,12 @@ void Editor::tick() {
 		ctrl->setBtn(BTN_RIGHT, 1);
 	else
 		ctrl->setBtn(BTN_RIGHT, 0);
-	
-	if (movingBackward)
-		ctrl->setBtn(BTN_DOWN, 1);
-	else
-		ctrl->setBtn(BTN_DOWN, 0);
-
-    if (movingForward)
-		ctrl->setBtn(BTN_UP, 1);
-	else
-		ctrl->setBtn(BTN_UP, 0);
 
     if (movingUp)
         ctrl->MoveUp();
+
+    if (movingDown)
+        ctrl->MoveDown();
 
     //
     // PREVIEW
@@ -1898,7 +1934,7 @@ void Editor::processHWButtons()
 			if (ctrl->getBtn(BTN_LEFT_THUMB))
 			{
 				g_engine2->setExtraInt("prevbtnclicked", 1);
-				timer = 50;
+				timer = 25;
 			}
 			else
 				g_engine2->setExtraInt("prevbtnclicked", 0);
@@ -1906,7 +1942,7 @@ void Editor::processHWButtons()
 			if (ctrl->getBtn(BTN_RIGHT_THUMB))
 			{
 				g_engine2->setExtraInt("nextbtnclicked", 1);
-				timer = 50;
+				timer = 25;
 			}
 			else
 				g_engine2->setExtraInt("nextbtnclicked", 0);

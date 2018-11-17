@@ -346,11 +346,11 @@ void GUI::show()
 
 void GUI::showFileSelector(std::string ext, std::string sdir)
 {
-#ifdef PLATFORM_WINDOWS
 	if (nativeWidgets)
 		PLAT_ShowFileSelector(ext);
 	else
 	{
+#ifdef PLATFORM_WINDOWS
 		if (sdir == "")
 			sdir = g_assetsDir;
 
@@ -383,8 +383,8 @@ void GUI::showFileSelector(std::string ext, std::string sdir)
 		fileSelectorShown = true;
 		fileSelectorDir = sdir;
 		fileSelectorExt = ext;
-	}
 #endif
+	}
 }
 
 void GUI::drawFileSelector()
