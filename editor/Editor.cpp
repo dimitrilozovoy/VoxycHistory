@@ -1997,6 +1997,11 @@ void Editor::processHWButtons()
 		if (ctrl->getBtn(BTN_RIGHT_BUMPER))
 			rayLength += 0.1;
 	}
+
+	if (gui->nonNativeWidgetsShown())
+		ctrl->setEnabled(false);
+	else
+		ctrl->setEnabled(true);
 }
 
 void Editor::worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, int &z)
