@@ -75,7 +75,7 @@ float PLAT_stof(std::string s, float fallback)
 	return std::stof(s, nullptr);
 }
 
-void PLAT_ShowFileSelector(std::string ext)
+void PLAT_ShowFileSelector(std::string ext, std::string dir)
 {
 }
 
