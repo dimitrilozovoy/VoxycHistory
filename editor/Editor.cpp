@@ -169,12 +169,13 @@ void Editor::load() {
 			hw, hw);
 		engine->addWg("movebackward", WG_BTN, "downarrow.png", "", "movebackwardclicked", "", hw * 5,
 			-0.8, hw, hw);
-
-		engine->addText("msg", "", 0.0, 0.6, 0.08);
-		engine->addText("msg2", "", 0.0, 0.5, 0.08);
-		/*	engine->addText("debug3", "debug3", 0.0, 0.4, 0.1);
-			engine->addText("debug4", "debug4", 0.0, 0.3, 0.1);*/
 	}
+
+	engine->addText("msg", "", 0.0, 0.6, 0.08);
+	engine->addText("msg2", "", 0.0, 0.5, 0.08);
+
+/*	engine->addText("debug3", "debug3", 0.0, 0.4, 0.1);
+	engine->addText("debug4", "debug4", 0.0, 0.3, 0.1);*/
 }
 
 //
@@ -185,8 +186,6 @@ void Editor::tick() {
     static int timer = 0;
     static bool refreshPreview = false;
     static std::string fileSelectorAction = "";
-    static int msgTimer = 0;
-    static int msg2Timer = 0;
     static const int msgTimerDelay = 50;
 
 	GUI *gui = g_engine2->getGUI();
@@ -398,7 +397,8 @@ void Editor::tick() {
             }
 
             if (fileSelectorAction == "savescene") {
-                engine->saveScene(engine->getExtraStr("fileselected"));
+				engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
+				engine->saveScene(engine->getExtraStr("fileselected"));
                 engine->setExtraStr("fileselected", "");
             }
 
@@ -452,43 +452,61 @@ void Editor::tick() {
             }
 
             if (fileSelectorAction == "addmodel") {
-                selectOnly = false;
-                mode = EM_OBJ;
-                std::string name = "objpreview";
-                engine->removeObject(name);
-                engine->addObject(name);
-                engine->setSystem(name, true);
-                engine->setVisible(name, true);
-                engine->setColor(name, 1.0, 1.0, 1.0, 1.0);
-                engine->setType(name, OBJTYPE_MODEL);
-                engine->setModel(name, GetFileName(engine->getExtraStr("fileselected")));
-                engine->setTexture(name, "bluecube.png");
-                engine->setAlwaysFacePlayer(name, false);
-                engine->setSize(name, 1.0, 1.0, 1.0);
-                engine->setExtraStr("fileselected", "");
 
-//                engine->DumpFrame();
+				if (verifySourceDir(engine->getExtraStr("fileselected")))
+				{
+					selectOnly = false;
+
+					mode = EM_OBJ;
+					std::string name = "objpreview";
+					engine->removeObject(name);
+					engine->addObject(name);
+					engine->setSystem(name, true);
+					engine->setVisible(name, true);
+					engine->setColor(name, 1.0, 1.0, 1.0, 1.0);
+					engine->setType(name, OBJTYPE_MODEL);
+					engine->setModel(name, GetFileName(engine->getExtraStr("fileselected")));
+					engine->setTexture(name, "bluecube.png");
+					engine->setAlwaysFacePlayer(name, false);
+					engine->setSize(name, 1.0, 1.0, 1.0);
+
+					placingObj = true;
+				}
+
+				engine->setExtraStr("fileselected", "");
             }
 
             if (fileSelectorAction == "addsprite") {
-                selectOnly = false;
-                mode = EM_OBJ;
-                std::string name = "objpreview";
-                engine->removeObject(name);
-                engine->addObject(name);
-                engine->setSystem(name, true);
-                engine->setVisible(name, true);
-                engine->setColor(name, 1.0, 1.0, 1.0, 1.0);
-                engine->setType(name, OBJTYPE_SPRITE);
-                engine->setTexture(name, GetFileName(engine->getExtraStr("fileselected")));
-                engine->setAlwaysFacePlayer(name, true);
-                engine->setSize(name, 1.0, 1.0, 1.0);
-                engine->setExtraStr("fileselected", "");
+				if (verifySourceDir(engine->getExtraStr("fileselected")))
+				{
+					selectOnly = false;
+
+					mode = EM_OBJ;
+					std::string name = "objpreview";
+					engine->removeObject(name);
+					engine->addObject(name);
+					engine->setSystem(name, true);
+					engine->setVisible(name, true);
+					engine->setColor(name, 1.0, 1.0, 1.0, 1.0);
+					engine->setType(name, OBJTYPE_SPRITE);
+					engine->setTexture(name, GetFileName(engine->getExtraStr("fileselected")));
+					engine->setAlwaysFacePlayer(name, true);
+					engine->setSize(name, 1.0, 1.0, 1.0);
+
+					placingObj = true;
+				}
+				
+				engine->setExtraStr("fileselected", "");
             }
 
             if (fileSelectorAction == "setskybox") {
-                std::string fname = GetFileName(engine->getExtraStr("fileselected"));
-                engine->setSkybox(fname);
+
+				if (verifySourceDir(engine->getExtraStr("fileselected")))
+				{
+					std::string fname = GetFileName(engine->getExtraStr("fileselected"));
+					engine->setSkybox(fname);
+				}
+
                 engine->setExtraStr("fileselected", "");
             }
         }
@@ -537,6 +555,8 @@ void Editor::tick() {
             engine->setTexture(name, "grass1.png");
             engine->setAlwaysFacePlayer(name, false);
 
+			placingObj = true;
+
             engine->setExtraInt("newterrainparams_entered", 0);
         }
 
@@ -562,6 +582,8 @@ void Editor::tick() {
             engine->setTexture(name, "bluecube.png");
             engine->setAlwaysFacePlayer(name, false);
 
+			placingObj = true;
+
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
         }
@@ -579,6 +601,8 @@ void Editor::tick() {
             engine->setSize(name, 1, 1, 1);
             engine->setTexture(name, "bluecube.png");
             engine->setAlwaysFacePlayer(name, false);
+
+			placingObj = true;
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -665,14 +689,14 @@ void Editor::tick() {
 
     if (engine->getExtraInt("shortenrayclicked") == 1
         || engine->getExtraInt("shortenrayclicked") == 2) {
-        if (rayLength > 1)
+        if (rayLength > minRayLength)
             rayLength -= rayDelta;
         engine->setExtraInt("shortenrayclicked", 0);
     }
 
     if (engine->getExtraInt("lengthenrayclicked") == 1
         || engine->getExtraInt("lengthenrayclicked") == 2) {
-        if (rayLength < 20)
+        if (rayLength < maxRayLength)
             rayLength += rayDelta;
         engine->setExtraInt("lengthenrayclicked", 0);
     }
@@ -973,6 +997,7 @@ void Editor::tick() {
     if ((engine->getExtraInt("addclicked") == 1
          || engine->getExtraInt("addclicked") == 2)
         && addTimer == 0 && !selectOnly) {
+
         if (mode == EM_VOX && curVoxels != nullptr) {
 
             //
@@ -989,7 +1014,7 @@ void Editor::tick() {
             // Place object
             //
 
-            if (placeObjTimer == 0) {
+            if (placeObjTimer == 0 && placingObj) {
                 char newNamec[1024];
                 snprintf(newNamec, 1024, "obj%d", RandomInt(0, 10000));
                 std::string newName = std::string(newNamec);
@@ -1068,6 +1093,17 @@ void Editor::tick() {
 
     if ((engine->getExtraInt("removeclicked") == 1
          || engine->getExtraInt("removeclicked") == 2)) {
+
+		if (placingObj)
+		{
+			placingObj = false;
+
+			if (engine->getVisible("voxpreview"))
+				engine->setVisible("voxpreview", false);
+			if (engine->getVisible("objpreview"))
+				engine->setVisible("objpreview", false);
+		}
+
         if (mode == EM_VOX) {
 
 			//
@@ -1205,28 +1241,35 @@ void Editor::tick() {
 
     if (engine->getExtraStr("fileselected") != "") {
         if (fileSelectorAction == "settexture") {
-            if (mode == EM_OBJ) {
-                if (selectedObj != nullptr) {
-                    std::string fname = GetFileName(engine->getExtraStr("fileselected"));
-                    engine->setTexture(selectedObj->name, fname);
-                } else if (selectedObj == nullptr) {
-                    std::string fname = GetFileName(engine->getExtraStr("fileselected"));
-                    engine->setTexture("objpreview", fname);
-                }
 
-            } else if (mode == EM_VOX) {
-                std::string fname = GetFileName(engine->getExtraStr("fileselected"));
+			if (verifySourceDir(engine->getExtraStr("fileselected")))
+			{
+				if (mode == EM_OBJ) {
 
-                if (curVoxels != nullptr) {
-                    Shape *shape = curVoxels->shape;
+					if (selectedObj != nullptr) {
+						std::string fname = GetFileName(engine->getExtraStr("fileselected"));
+						engine->setTexture(selectedObj->name, fname);
+					}
+					else if (selectedObj == nullptr) {
+						std::string fname = GetFileName(engine->getExtraStr("fileselected"));
+						engine->setTexture("objpreview", fname);
+					}
 
-                    if (shape != nullptr) {
-                        engine->setVoxelTexture(shape->name, curVoxel, fname);
-                        shape->needsRebuild = true;
-                        setVoxPreviewTextures();
-                    }
-                }
-            }
+				}
+				else if (mode == EM_VOX) {
+					std::string fname = GetFileName(engine->getExtraStr("fileselected"));
+
+					if (curVoxels != nullptr) {
+						Shape *shape = curVoxels->shape;
+
+						if (shape != nullptr) {
+							engine->setVoxelTexture(shape->name, curVoxel, fname);
+							shape->needsRebuild = true;
+							setVoxPreviewTextures();
+						}
+					}
+				}
+			}
 
             engine->setExtraStr("fileselected", "");
         }
@@ -1446,6 +1489,8 @@ void Editor::tick() {
         engine->setVisible("voxpreview", false);
         engine->setVisible("objpreview", true);
         exitScreenShotMode();
+
+		engine->setExtraInt("objmodeclicked", 0);
     }
 
     if ((engine->getExtraInt("voxmodeclicked") == 1
@@ -1457,7 +1502,9 @@ void Editor::tick() {
         engine->setVisible("voxpreview", true);
         engine->setVisible("objpreview", false);
         exitScreenShotMode();
-    }
+
+		engine->setExtraInt("voxmodeclicked", 0);
+	}
 
     //
     // SELECT OBJECT
@@ -1540,7 +1587,7 @@ void Editor::tick() {
             lastLitUpGuide = guidec;
         }
     } else if (!selectOnly) {
-        engine->setVisible("objpreview", true);
+//        engine->setVisible("objpreview", true);
     }
 
     if (lastSelectedObj != nullptr && selectedObj != lastSelectedObj) {
@@ -1576,7 +1623,8 @@ void Editor::tick() {
 
     if (mode == EM_OBJ) {
         engine->setVisible("voxpreview", false);
-        engine->setVisible("objpreview", true);
+		if (placingObj)
+	        engine->setVisible("objpreview", true);
     }
     if (mode == EM_VOX) {
         engine->setVisible("voxpreview", true);
@@ -1910,16 +1958,16 @@ void Editor::processHWButtons()
 		else
 			g_engine2->setExtraInt("filebtnclicked", 0);
 
+		if (ctrl->getBtn(BTN_LEFT_BUMPER))
+		{
+			g_engine2->setExtraInt("optionsclicked", 1);
+			timer = 20;
+		}
+		else
+			g_engine2->setExtraInt("optionsclicked", 0);
+
 		if (mode == EM_OBJ)
 		{
-			if (ctrl->getBtn(BTN_LEFT_BUMPER))
-			{
-				g_engine2->setExtraInt("optionsclicked", 1);
-				timer = 20;
-			}
-			else
-				g_engine2->setExtraInt("optionsclicked", 0);
-
 			if (ctrl->getBtn(BTN_RIGHT_BUMPER))
 			{
 				g_engine2->setExtraInt("moveclicked", 1);
@@ -1950,10 +1998,10 @@ void Editor::processHWButtons()
 	}
 
 	if (ctrl->getBtn(BTN_X))
-		mode = EM_OBJ;
+		engine->setExtraInt("objmodeclicked", 1);
 
 	if (ctrl->getBtn(BTN_Y))
-		mode = EM_VOX;
+		engine->setExtraInt("voxmodeclicked", 1);
 
 	Object *playerObj = g_engine2->getPlayerObj();
 
@@ -1989,13 +2037,32 @@ void Editor::processHWButtons()
 			playerObj->MoveRight(0.1);
 	}
 
+	// Triggers control ray length
+	float leftTrigger = ctrl->getAxis(AX_LEFT_TRIGGER);
+	float rightTrigger = ctrl->getAxis(AX_RIGHT_TRIGGER);
+
 	if (mode == EM_VOX)
 	{
-		if (ctrl->getBtn(BTN_LEFT_BUMPER))
-			rayLength -= 0.1;
+		if (rayLength > minRayLength)
+			rayLength -= leftTrigger * rayDeltaMultiplier;
+		if (rayLength < maxRayLength)
+			rayLength += rightTrigger * rayDeltaMultiplier;
+	}
 
-		if (ctrl->getBtn(BTN_RIGHT_BUMPER))
-			rayLength += 0.1;
+	if (mode == EM_OBJ)
+	{
+		if (distToSelected > minRayLength)
+			distToSelected -= leftTrigger * rayDeltaMultiplier;
+		if (distToSelected < maxRayLength)
+			distToSelected += rightTrigger * rayDeltaMultiplier;
+	}
+
+	if (placingObj)
+	{
+		if (objPreviewDist > minRayLength) 
+			objPreviewDist -= leftTrigger * rayDeltaMultiplier;
+		if (objPreviewDist < maxRayLength)
+			objPreviewDist += rightTrigger * rayDeltaMultiplier;
 	}
 
 	if (gui->nonNativeWidgetsShown())
@@ -2024,4 +2091,21 @@ void Editor::worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, in
 	x = (int)((float)size * rx);
 	y = (int)((float)size * ry);
 	z = (int)((float)size * rz);
+}
+
+bool Editor::verifySourceDir(std::string filename)
+{
+	std::string newDir = GetPath(filename);
+
+	if (g_assetsDir != newDir)
+	{
+		engine->setText("msg", "files must be");
+		engine->setText("msg2", "in scene folder");
+		msgTimer = 100;
+		msg2Timer = 100;
+
+		return false;
+	}
+	else
+		return true;
 }

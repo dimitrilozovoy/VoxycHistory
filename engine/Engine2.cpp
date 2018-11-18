@@ -88,6 +88,9 @@ void Engine2::init()
 	sun.yaw = 0.0;
 	sun.pitch = -45.0;
 	sun.roll = 0.0;
+
+	// Generate error texture
+	genTexture("fallback", "grid", 10);
 	
 	initialized = true;
 }
@@ -446,6 +449,16 @@ void Engine2::setVisible(std::string name, bool visible)
 	if (o != nullptr) {
 		o->visible = visible;
 	}
+}
+
+bool Engine2::getVisible(std::string name)
+{
+	Object *o = findObj(name);
+
+	if (o == nullptr)
+		return false;
+
+	return o->visible;
 }
 
 void Engine2::setMapTexture(std::string name)

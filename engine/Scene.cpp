@@ -84,6 +84,9 @@ void Scene::save(std::string fname, std::map<std::string, Object*> &objects, std
         std::string name = pair.first;
         Texture *tex = pair.second;
 
+		if (tex == nullptr)
+			continue;
+
         clearKVSet();
         addKV("name", tex->name);
         addKV("texSpanX", tex->texSpanX);
@@ -158,7 +161,10 @@ void Scene::load(std::string fname, std::map<std::string, Object*> &objects, std
 
         Texture *tex = texMan->find(name);
 
-        tex->texSpanX = getKVFloat("texSpanX");
+		if (tex == nullptr)
+			continue;
+
+		tex->texSpanX = getKVFloat("texSpanX");
         tex->texSpanY = getKVFloat("texSpanY");
     }
 

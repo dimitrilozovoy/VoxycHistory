@@ -62,18 +62,17 @@ void flip_vertically(unsigned char *pixels, const size_t width, const size_t hei
 
 void TextureManager2::load(std::string name, bool external)
 {
-//	std::string s = "TextureManager2::load " + name ;
-//	Log(s);
-	
     Texture *t = new Texture();
     t->name = name;
 
-//	if (name == "skybox.png")
-//		Log("stop");
-
     int glTexID;
-
     glGenTextures(1, (GLuint *)&glTexID);
+	t->glTexID = glTexID;
+	textures[name] = t;
+
+	// If name is blank, do not try to load texture
+	if (name == "")
+		return;
 
 #ifdef PLATFORM_ANDROID
 #ifdef USE_EXTERNAL_ASSETS
@@ -94,7 +93,6 @@ void TextureManager2::load(std::string name, bool external)
 #endif
 
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
-	glGenTextures(1, (GLuint *)&glTexID);
 
 	char fullFilename[MAX_STR_LEN];
 
@@ -109,20 +107,16 @@ void TextureManager2::load(std::string name, bool external)
 	unsigned width, height;
 	unsigned error = lodepng::decode(image, width, height, fullFilename);
 
-	// If there's an error, display it
+	// We have a problem; display an error and use fallback texture
 	if (error != 0)
 	{
 		Log("Error loading PNG: ", (char *)lodepng_error_text(error));
+		Log(name);
 
-		printFullResourceFilename("bluecube.png", fullFilename);
+		Texture *fb = find("fallback");
+		t->glTexID = fb->glTexID;
 
-		unsigned error = lodepng::decode(image, width, height, fullFilename);
-
-		// Still an error? Quit
-		if (error != 0)
-		{
-			return;
-		}
+		return;
 	}
 
 	// Flip image vertically
@@ -142,10 +136,6 @@ void TextureManager2::load(std::string name, bool external)
 //	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
 	checkGLError("glTexImage2D");
 #endif
-
-    t->glTexID = glTexID;
-
-	textures[name] = t;
 }
 
 void TextureManager2::add(std::string name, int glTexId)

@@ -149,6 +149,8 @@
     <ClInclude Include="..\..\..\..\app\LuaProgram.h" />
     <ClInclude Include="..\..\..\..\app\main.h" />
     <ClInclude Include="..\..\..\..\app\VoxycApp.h" />
+    <ClInclude Include="..\..\..\..\editor\Editor.h" />
+    <ClInclude Include="..\..\..\..\editor\EditorOld.h" />
     <ClInclude Include="..\..\..\..\engine\AndroidAudio.h" />
     <ClInclude Include="..\..\..\..\engine\Audio.h" />
     <ClInclude Include="..\..\..\..\engine\Batch.h" />

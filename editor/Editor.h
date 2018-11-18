@@ -50,17 +50,23 @@ public:
 	void exitScreenShotMode();
 	void processHWButtons();
 	void worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, int &z);
+	bool verifySourceDir(std::string filename);
 
 private:
     Engine2 *engine;
 	LuaBridge luaBridge;
-	const float objPreviewDist = 15.0;
+	const float defaultObjPreviewDist = 15.0;
+	float objPreviewDist = defaultObjPreviewDist;
 	const float selectAngleThresh = 5.0;
+	const float minRayLength = 4.0;
+	const float maxRayLength = 50.0;
+	const float rayDeltaMultiplier = 0.1;
 	float rayLength = 20.0;
 	EditorMode mode = EM_OBJ;
 	Object *selectedObj = nullptr;
 	Object *lastSelectedObj = nullptr;
 	Object *lastLitUpGuide = nullptr;
+	bool placingObj = false;
 	bool movingSelected = false;
 	float distToSelected = 0.0;
 	Object *curVoxels = nullptr;
@@ -71,6 +77,8 @@ private:
 	bool screenshotMode = false;
 	bool linkCopy = false;
 	bool touchControls = true;
+	int msgTimer = 0;
+	int msg2Timer = 0;
 };
 
 #endif

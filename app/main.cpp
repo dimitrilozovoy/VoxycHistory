@@ -388,6 +388,8 @@ void updateControls()
 			processJoyAxis(controls, axes, 1, AX_LEFT_Y, count);
 			processJoyAxis(controls, axes, 2, AX_RIGHT_X, count);
 			processJoyAxis(controls, axes, 3, AX_RIGHT_Y, count);
+			processJoyAxis(controls, axes, 4, AX_LEFT_TRIGGER, count);
+			processJoyAxis(controls, axes, 5, AX_RIGHT_TRIGGER, count);
 		}
 
 		const unsigned char *buttons = glfwGetJoystickButtons(curJoystick, &count);

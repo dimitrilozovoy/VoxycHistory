@@ -53,10 +53,10 @@ typedef enum ENUM_AXES
 {
 	AX_LEFT_X,
 	AX_LEFT_Y,
-	AX_UNKNOWN_X,
-	AX_UNKNOWN_Y,
 	AX_RIGHT_X,
 	AX_RIGHT_Y,
+	AX_LEFT_TRIGGER,
+	AX_RIGHT_TRIGGER,
 	MAX_AXES
 };
 
@@ -137,6 +137,7 @@ public:
 	void addTouchBtnBind(int btn, float x, float y, float size);
 	std::vector<TouchBtnBind> getTouchBtnBinds() { return touchBtnBinds; };
 	void setAxis(int axis, float value);
+	float getAxis(int axis) { return axes[axis]; };
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";

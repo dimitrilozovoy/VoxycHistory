@@ -81,6 +81,7 @@ public:
 	void setTexture(std::string name, std::string textureName);
 	void setTextureSpan(std::string name, float textureSpanX, float textureSpanY);
 	void setVisible(std::string name, bool visible);
+	bool getVisible(std::string name);
 	void setMapTexture(std::string name);
 	void setSize(std::string name, float size);
 	void setSize(std::string name, float sizex, float sizey, float sizez);
