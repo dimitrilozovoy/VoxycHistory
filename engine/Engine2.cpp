@@ -27,7 +27,11 @@ SOFTWARE.
 #include "SoftCanvas.h"
 
 #ifdef PLATFORM_ANDROID
+#ifdef GAME_RELEASE_DIR_TREE
+#include "../android.h"
+#else
 #include "../platform/android/Voxyc/app/src/main/cpp/android.h"
+#endif
 #endif
 
 #define CLICK_TIMER 100

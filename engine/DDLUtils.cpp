@@ -52,7 +52,11 @@ SOFTWARE.
 #endif
 
 #ifdef PLATFORM_ANDROID
+#ifdef GAME_RELEASE_DIR_TREE
+#include "../android.h"
+#else
 #include "../platform/android/Voxyc/app/src/main/cpp/android.h"
+#endif
 #endif
 
 int g_logInitialized = 0;

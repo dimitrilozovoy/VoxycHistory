@@ -20,12 +20,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifdef GAME_RELEASE_DIR_TREE
+#include "engine/Globals.hpp"
+#include <string.h>
+#include <jni.h>
+#include "javagl.h"
+#include "android.h"
+#include "engine/DDLUtils.hpp"
+#else
 #include "../../../../../../../engine/Globals.hpp"
 #include <string.h>
 #include <jni.h>
 #include "javagl.h"
 #include "android.h"
 #include "../../../../../../../engine/DDLUtils.hpp"
+#endif
 
 //#define JNI_VERSION_1_6 0x00010006
 
