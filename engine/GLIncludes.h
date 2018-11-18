@@ -29,7 +29,11 @@ SOFTWARE.
 #include <../thirdparty/GL/glu.h>
 #endif
 #ifdef PLATFORM_ANDROID
+#ifdef GAME_RELEASE_DIR_TREE
+#include "../javagl.h"
+#else
 #include "../platform/android/Voxyc/app/src/main/cpp/javagl.h"
+#endif
 #endif
 #ifdef PLATFORM_WINDOWS
 #include "../thirdparty/GL/glew.h"  

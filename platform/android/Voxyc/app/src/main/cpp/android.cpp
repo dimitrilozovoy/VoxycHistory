@@ -20,13 +20,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifdef GAME_RELEASE_DIR_TREE
+#include "engine/Globals.hpp"
+#include "engine/platform.h"
+#include "engine/DDLUtils.hpp"
+#include "engine/Engine2.h"
+#include "app/main.h"
+#else
 #include "../../../../../../../engine/Globals.hpp"
 #include "../../../../../../../engine/platform.h"
-#include <string.h>
-#include <jni.h>
 #include "../../../../../../../engine/DDLUtils.hpp"
 #include "../../../../../../../engine/Engine2.h"
 #include "../../../../../../../app/main.h"
+#endif
 
 #define JNI_VERSION_1_6 0x00010006
 

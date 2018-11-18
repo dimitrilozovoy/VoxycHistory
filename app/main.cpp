@@ -62,14 +62,22 @@ SOFTWARE.
 #include <iostream>
 #include <thread>
 #ifdef USE_JAVAGL
+#ifdef GAME_RELEASE_DIR_TREE
+#include "../javagl.h"
+#else
 #include "../platform/android/Voxyc/app/src/main/cpp/javagl.h"
+#endif
 #else
 #include "EGL/egl.h"
 #include "GLES3/gl3.h"
 #include "android.h"
 #include "android/log.h"
 #endif
+#ifdef GAME_RELEASE_DIR_TREE
+#include "../android.h"
+#else
 #include "../platform/android/Voxyc/app/src/main/cpp/android.h"
+#endif
 #include "../engine/AndroidAudio.h"
 #include <jni.h>
 #endif

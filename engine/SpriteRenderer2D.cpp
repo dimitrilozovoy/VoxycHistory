@@ -47,7 +47,11 @@ SOFTWARE.
 
 #ifdef PLATFORM_ANDROID
 #ifdef USE_JAVAGL
+#ifdef GAME_RELEASE_DIR_TREE
+#include "../javagl.h"
+#else
 #include "../platform/android/Voxyc/app/src/main/cpp/javagl.h"
+#endif
 #else
 #include "EGL/egl.h"
 #include "GLES3/gl3.h"
