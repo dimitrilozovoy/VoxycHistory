@@ -36,7 +36,7 @@ typedef struct TextItem
 	float size = 0.1;
 	bool visible = true;
 	std::string onClickExtra;
-	glm::vec4 color = glm::vec4(0.0, 0.0, 0.0, 0.0);
+	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 };
 
 class TextPrinter

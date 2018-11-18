@@ -239,63 +239,28 @@ void Editor::tick() {
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
             timer = 50;
-            gui->showFileSelector("sc");
+            gui->showFileSelector("sc", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "loadscene";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Save Scene") {
             timer = 50;
-            gui->showFileSelector("sc");
+            gui->showFileSelector("sc", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "savescene";
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import voxel texture") {
-            timer = 50;
-            gui->showFileSelector("png");
-            engine->setExtraStr("listmenuoptionclicked", "");
-            fileSelectorAction = "importvoxeltexture";
-        }
-
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import terrain texture") {
-            timer = 50;
-            gui->showFileSelector("png");
-            engine->setExtraStr("listmenuoptionclicked", "");
-            fileSelectorAction = "importterraintexture";
-        }
-
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import sky texture") {
-            timer = 50;
-            gui->showFileSelector("png");
-            engine->setExtraStr("listmenuoptionclicked", "");
-            fileSelectorAction = "importskytexture";
-        }
-
-        if (engine->getExtraStr("listmenuoptionclicked") == "Import OBJ") {
-            timer = 50;
-            gui->showFileSelector("obj");
-            engine->setExtraStr("listmenuoptionclicked", "");
-            fileSelectorAction = "importobj";
-        }
-
-        if (engine->getExtraStr("listmenuoptionclicked") == "Export OBJ") {
-            timer = 50;
-            gui->showFileSelector("obj");
-            engine->setExtraStr("listmenuoptionclicked", "");
-            fileSelectorAction = "writeobj";
-        }
-
         if (engine->getExtraStr("listmenuoptionclicked") == "Run script") {
             timer = 50;
-            gui->showFileSelector("lua");
+            gui->showFileSelector("lua", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "runscript";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Clear and run script") {
             timer = 50;
-            gui->showFileSelector("lua");
+            gui->showFileSelector("lua", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "clearandrunscript";
         }
@@ -358,21 +323,21 @@ void Editor::tick() {
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Model") {
             timer = 50;
-            gui->showFileSelector("obj");
+            gui->showFileSelector("obj", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "addmodel";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Sprite") {
             timer = 50;
-            gui->showFileSelector("png");
+            gui->showFileSelector("png", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "addsprite";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Set Sky") {
             timer = 50;
-            gui->showFileSelector("png");
+            gui->showFileSelector("png", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "setskybox";
         }
@@ -471,6 +436,7 @@ void Editor::tick() {
 					engine->setSize(name, 1.0, 1.0, 1.0);
 
 					placingObj = true;
+                    objPreviewDist = defaultObjPreviewDist;
 				}
 
 				engine->setExtraStr("fileselected", "");
@@ -494,6 +460,7 @@ void Editor::tick() {
 					engine->setSize(name, 1.0, 1.0, 1.0);
 
 					placingObj = true;
+                    objPreviewDist = defaultObjPreviewDist;
 				}
 				
 				engine->setExtraStr("fileselected", "");
@@ -556,6 +523,7 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
+            objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraInt("newterrainparams_entered", 0);
         }
@@ -583,6 +551,7 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
+            objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -603,6 +572,7 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
+            objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -818,13 +788,13 @@ void Editor::tick() {
     Object *playerObj = engine->getPlayerObj();
 
     if (movingForward)
-        playerObj->MoveForward(0.5);
+        playerObj->MoveForward(0.3);
 //		ctrl->setBtn(BTN_UP, 1);
 //	else
 //		ctrl->setBtn(BTN_UP, 0);
 
     if (movingBackward)
-        playerObj->MoveForward(-0.5);
+        playerObj->MoveForward(-0.3);
 //		ctrl->setBtn(BTN_DOWN, 1);
 //	else
 //		ctrl->setBtn(BTN_DOWN, 0);
@@ -1063,6 +1033,7 @@ void Editor::tick() {
                     mode = EM_VOX;
                     engine->setText("msg2", "voxel mode");
                     msg2Timer = msgTimerDelay;
+                    rayLength = defaultRayLength;
                 }
 
                 newObj->visible = true;
@@ -1234,7 +1205,7 @@ void Editor::tick() {
 	// Set texture
 
     if (engine->getExtraStr("listmenuoptionclicked") == "Set texture") {
-        gui->showFileSelector("png");
+        gui->showFileSelector("png", g_assetsDir);
         engine->setExtraStr("listmenuoptionclicked", "");
         fileSelectorAction = "settexture";
     }
@@ -1483,6 +1454,8 @@ void Editor::tick() {
 
     if ((engine->getExtraInt("objmodeclicked") == 1
          || engine->getExtraInt("objmodeclicked") == 2)) {
+
+        objPreviewDist = defaultObjPreviewDist;
         mode = EM_OBJ;
         engine->setText("msg2", "object mode");
         msg2Timer = msgTimerDelay;
@@ -1495,6 +1468,8 @@ void Editor::tick() {
 
     if ((engine->getExtraInt("voxmodeclicked") == 1
          || engine->getExtraInt("voxmodeclicked") == 2)) {
+
+        rayLength = defaultRayLength;
         selectOnly = false;
         mode = EM_VOX;
         engine->setText("msg2", "voxel mode");
@@ -1562,9 +1537,9 @@ void Editor::tick() {
             }
         }
 
-        if (selectedObj == nullptr) {
-            engine->setText("msg", "");
-        }
+//        if (selectedObj == nullptr) {
+//            engine->setText("msg", "");
+//        }
     }
 
     // Guides; they must exist by now so they can be lit up
@@ -2099,10 +2074,10 @@ bool Editor::verifySourceDir(std::string filename)
 
 	if (g_assetsDir != newDir)
 	{
-		engine->setText("msg", "files must be");
+		engine->setText("msg", "file must be");
 		engine->setText("msg2", "in scene folder");
-		msgTimer = 100;
-		msg2Timer = 100;
+		msgTimer = 150;
+		msg2Timer = 150;
 
 		return false;
 	}

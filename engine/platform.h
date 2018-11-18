@@ -53,7 +53,7 @@ void PLAT_StopTrack();
 
 //void PLAT_CopyPixelsToScreen(unsigned char *pixels, int width, int height);
 
-void PLAT_LoadTextureInJava(int glTexID, std::string filename, bool external, bool isFilenameFull = false);
+void PLAT_LoadTextureInJava(int glTexID, std::string filename, std::string assetsDir);
 
 int PLAT_GetWindowWidth();
 int PLAT_GetWindowHeight();
@@ -62,7 +62,7 @@ long PLAT_GetTime();
 int PLAT_stoi(std::string s, int fallback = 0);
 float PLAT_stof(std::string s, float fallback = 0.0f);
 
-void PLAT_ShowFileSelector(std::string ext);
+void PLAT_ShowFileSelector(std::string ext, std::string dir = "");
 void PLAT_ClearListMenu();
 void PLAT_AddListMenuOption(std::string title, std::string desc);
 void PLAT_ShowListMenuInDialog(std::string title, std::string options);

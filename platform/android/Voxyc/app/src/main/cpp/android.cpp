@@ -124,7 +124,7 @@ extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIE
 	g_log = jni->GetMethodID(g_classMainActivity, "log", "(Ljava/lang/String;)V");
 	g_getSurfaceView = jni->GetMethodID(g_classMainActivity, "getSurfaceView", "()Landroid/opengl/GLSurfaceView;");
 	g_getSurface = jni->GetMethodID(g_classMainActivity, "getSurface", "()Landroid/view/Surface;");
-	g_loadTextureInJava = jni->GetMethodID(g_classMainActivity, "loadTextureInJava", "(ILjava/lang/String;ZZ)V");
+	g_loadTextureInJava = jni->GetMethodID(g_classMainActivity, "loadTextureInJava", "(ILjava/lang/String;Ljava/lang/String;)V");
 	g_getWindowWidth = jni->GetMethodID(g_classMainActivity, "getWindowWidth", "()I");
 	g_getWindowHeight = jni->GetMethodID(g_classMainActivity, "getWindowHeight", "()I");
 	g_getTime = jni->GetMethodID(g_classMainActivity, "getTime", "()J");
@@ -144,7 +144,7 @@ extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIE
 	g_oobjloaderGetNormalZ = jni->GetMethodID(g_classMainActivity, "oobjloaderGetNormalZ", "(I)F");
 	g_oobjloaderGetNumFaces = jni->GetMethodID(g_classMainActivity, "oobjloaderGetNumFaces", "()I");
 	g_oobjloaderGetFaceElement = jni->GetMethodID(g_classMainActivity, "oobjloaderGetFaceElement", "(II)I");*/
-	g_showFileSelector = jni->GetMethodID(g_classMainActivity, "showFileSelector", "(Ljava/lang/String;)V");
+	g_showFileSelector = jni->GetMethodID(g_classMainActivity, "showFileSelector", "(Ljava/lang/String;Ljava/lang/String;)V");
 	g_clearListMenu = jni->GetMethodID(g_classMainActivity, "clearListMenu", "()V");
     g_addListMenuOption = jni->GetMethodID(g_classMainActivity, "addListMenuOption", "(Ljava/lang/String;Ljava/lang/String;)V");
     g_showListMenuInDialog = jni->GetMethodID(g_classMainActivity, "showListMenuInDialog", "(Ljava/lang/String;Ljava/lang/String;)V");
@@ -501,14 +501,16 @@ void PLAT_CopyPixelsToScreen(unsigned char *pixels, int width, int height)
 {
 }
 
-void PLAT_LoadTextureInJava(int glTexID, std::string filename, bool external, bool isFilenameFull)
+void PLAT_LoadTextureInJava(int glTexID, std::string filename, std::string assetsdir)
 {
     JNIEnv *env;
     g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
 
     jstring jfilename = env->NewStringUTF(filename.c_str());
-    env->CallVoidMethod(g_objMainActivity, g_loadTextureInJava, glTexID, jfilename, external, isFilenameFull);
+    jstring jassetsdir = env->NewStringUTF(assetsdir.c_str());
+    env->CallVoidMethod(g_objMainActivity, g_loadTextureInJava, glTexID, jfilename, jassetsdir);
     env->DeleteLocalRef(jfilename);
+    env->DeleteLocalRef(jassetsdir);
 }
 
 int PLAT_GetWindowWidth()
@@ -676,13 +678,15 @@ int PLAT_oobjloaderGetFaceElement(int face, int element)
     return env->CallIntMethod(g_objMainActivity, g_oobjloaderGetFaceElement, face, element);
 }
 
-void PLAT_ShowFileSelector(std::string ext)
+void PLAT_ShowFileSelector(std::string ext, std::string dir)
 {
     JNIEnv *env;
     g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
 
     jstring jext = env->NewStringUTF(ext.c_str());
-    env->CallVoidMethod(g_objMainActivity, g_showFileSelector, jext);
+    jstring jdir = env->NewStringUTF(dir.c_str());
+    env->CallVoidMethod(g_objMainActivity, g_showFileSelector, jext, jdir);
+    env->DeleteLocalRef(jdir);
     env->DeleteLocalRef(jext);
 }
 

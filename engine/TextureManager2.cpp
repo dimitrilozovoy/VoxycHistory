@@ -79,16 +79,7 @@ void TextureManager2::load(std::string name, bool external)
     std::string fullfname = g_assetsDir + "/" + name;
     PLAT_LoadTextureInJava(glTexID, fullfname, true);
 #else
-    if (g_assetsDirExplicit)
-	{
-		// Asset dir is forced; do not use built-in assets
-//		Log("explicit");
-//		Log(g_assetsDir + "/" + name);
-		PLAT_LoadTextureInJava(glTexID, g_assetsDir + "/" + name, false, true);
-	}
-	else
-		// Assets dir is tenative; use built-in assets
-	    PLAT_LoadTextureInJava(glTexID, name, false, false);
+	PLAT_LoadTextureInJava(glTexID, name, g_assetsDir);
 #endif
 #endif
 

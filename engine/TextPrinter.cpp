@@ -100,6 +100,7 @@ void TextPrinter::addText(std::string name, std::string text, glm::vec4 position
 	t->position = position;
 	t->size = size;
 	t->onClickExtra = onClickExtra;
+	t->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 
 	items.push_back(t);
 }

@@ -58,6 +58,7 @@ private:
 	const float defaultObjPreviewDist = 15.0;
 	float objPreviewDist = defaultObjPreviewDist;
 	const float selectAngleThresh = 5.0;
+	const float defaultRayLength = 20.0;
 	const float minRayLength = 4.0;
 	const float maxRayLength = 50.0;
 	const float rayDeltaMultiplier = 0.1;

@@ -347,7 +347,7 @@ void GUI::show()
 void GUI::showFileSelector(std::string ext, std::string sdir)
 {
 	if (nativeWidgets)
-		PLAT_ShowFileSelector(ext);
+		PLAT_ShowFileSelector(ext, sdir);
 	else
 	{
 #ifdef PLATFORM_WINDOWS
