@@ -49,6 +49,8 @@ public:
 	void enterScreenShotMode();
 	void exitScreenShotMode();
 	void processHWButtons();
+	int btn2key(int btn);
+	void processExtraKeys();
 	void worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, int &z);
 	bool verifySourceDir(std::string filename);
 

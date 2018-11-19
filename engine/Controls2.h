@@ -29,6 +29,8 @@ SOFTWARE.
 #include "TextureManager2.h"
 #include "EditorController.h"
 
+#define NUM_KBD_KEYS 1024
+
 typedef enum BtnNames
 {
 	BTN_A,
@@ -138,6 +140,8 @@ public:
 	std::vector<TouchBtnBind> getTouchBtnBinds() { return touchBtnBinds; };
 	void setAxis(int axis, float value);
 	float getAxis(int axis) { return axes[axis]; };
+	void setKey(int key, int val);
+	int getKey(int key);
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
@@ -155,6 +159,7 @@ private:
     int screenWidth = 0;
     int screenHeight = 0;
 
+	// Touchscreen joysticks
 	bool jdown = false;
 	float jlastdownx = 0;
     float jlastdowny = 0;
@@ -187,10 +192,18 @@ private:
 	int afterGestureTimer = 0;
 	bool actionUp = false;
 
+	// Buttons
 	int buttons[MAX_BUTTONS];
 	std::vector<TouchBtnBind> touchBtnBinds;
 
+	// Gamepad
 	float axes[MAX_AXES];
+
+	// Mouse
+	float mouseX, mouseY = 0.0;
+
+	// Keyboard keys
+	int keys[NUM_KBD_KEYS];
 };
 
 #endif //FATELESS_CONTROLS2_H

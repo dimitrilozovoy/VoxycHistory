@@ -428,7 +428,7 @@ void updateControls()
 		else
 			controls->setBtn(BTN_RIGHT, 0);
 
-		if ((joy && getJoyBtn(controls, buttons, 6, BTN_GUIDE, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_TAB))
+		if ((joy && getJoyBtn(controls, buttons, 6, BTN_GUIDE, count)))
 			controls->setBtn(BTN_GUIDE, 1);
 		else
 			controls->setBtn(BTN_GUIDE, 0);
@@ -458,22 +458,22 @@ void updateControls()
 		else
 			controls->setBtn(BTN_RIGHT_THUMB, 0);
 
-		if ((joy && getJoyBtn(controls, buttons, 0, BTN_A, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_ENTER))
+		if ((joy && getJoyBtn(controls, buttons, 0, BTN_A, count)))
 			controls->setBtn(BTN_A, 1);
 		else
 			controls->setBtn(BTN_A, 0);
 
-		if ((joy && getJoyBtn(controls, buttons, 1, BTN_B, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_ESCAPE))
+		if ((joy && getJoyBtn(controls, buttons, 1, BTN_B, count)))
 			controls->setBtn(BTN_B, 1);
 		else
 			controls->setBtn(BTN_B, 0);
 
-		if ((joy && getJoyBtn(controls, buttons, 2, BTN_X, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_LEFT_BRACKET))
+		if ((joy && getJoyBtn(controls, buttons, 2, BTN_X, count)))
 			controls->setBtn(BTN_X, 1);
 		else
 			controls->setBtn(BTN_X, 0);
 
-		if ((joy && getJoyBtn(controls, buttons, 3, BTN_Y, count)) || glfwGetKey(g_glfwWindow, GLFW_KEY_RIGHT_BRACKET))
+		if ((joy && getJoyBtn(controls, buttons, 3, BTN_Y, count)))
 			controls->setBtn(BTN_Y, 1);
 		else
 			controls->setBtn(BTN_Y, 0);
@@ -552,11 +552,17 @@ void updateControls()
 		processCharInput('9');
 		processCharInput(' ');
 
+		// Give all key presses to the controls
+		for (int i = 32; i < GLFW_KEY_LAST; i++)
+		{
+			int val = glfwGetKey(g_glfwWindow, i);
+			controls->setKey(i, val);
+		}
+
 	//
 	// Mouse
 	//
 
-	// Rotate camera
 	const float mouseSensitivity = 0.1f;
 	double mouseX, mouseY;
 
@@ -601,13 +607,15 @@ void processJoyAxis(Controls2 *controls, const float *axes, int inAxis, int outA
 void processCharInput(char c)
 {
 	GUI *gui = g_engine2->getGUI();
+	Controls2 *ctrl = g_engine2->getControls();
 
 	if (glfwGetKey(g_glfwWindow, c))
 	{
 		gui->charEntered(c);
 	}
-	else
+	if (!glfwGetKey(g_glfwWindow, c))
 	{
+		gui->charEntered(c);
 	}
 }
 

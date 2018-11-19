@@ -205,8 +205,11 @@ void Editor::tick() {
     // UI CALLBACKS
     //
 
-    if (!touchControls)
-    	processHWButtons();
+	if (!touchControls)
+	{
+		processExtraKeys();
+		processHWButtons();
+	}
 
     if (timer == 0) {
         // File menu
@@ -1891,7 +1894,7 @@ void Editor::processHWButtons()
 
 	if (timer == 0)
 	{
-		if (ctrl->getBtn(BTN_A))
+		if (ctrl->getBtn(BTN_A) || ctrl->getKey(btn2key(BTN_A)))
 		{
 			if (gui->nonNativeWidgetsShown())
 			{
@@ -1904,7 +1907,7 @@ void Editor::processHWButtons()
 		else
 			g_engine2->setExtraInt("addclicked", 0);
 
-		if (ctrl->getBtn(BTN_B))
+		if (ctrl->getBtn(BTN_B) || ctrl->getKey(btn2key(BTN_B)))
 		{
 			if (gui->nonNativeWidgetsShown())
 			{
@@ -1917,7 +1920,7 @@ void Editor::processHWButtons()
 		else
 			g_engine2->setExtraInt("removeclicked", 0);
 
-		if (ctrl->getBtn(BTN_GUIDE))
+		if (ctrl->getBtn(BTN_GUIDE) || ctrl->getKey(btn2key(BTN_GUIDE)))
 		{
 			g_engine2->setExtraInt("objbtnclicked", 1);
 			timer = 20;
@@ -1925,7 +1928,7 @@ void Editor::processHWButtons()
 		else
 			g_engine2->setExtraInt("objbtnclicked", 0);
 
-		if (ctrl->getBtn(BTN_START))
+		if (ctrl->getBtn(BTN_START) || ctrl->getKey(btn2key(BTN_START)))
 		{
 			g_engine2->setExtraInt("filebtnclicked", 1);
 			timer = 20;
@@ -1933,7 +1936,7 @@ void Editor::processHWButtons()
 		else
 			g_engine2->setExtraInt("filebtnclicked", 0);
 
-		if (ctrl->getBtn(BTN_LEFT_BUMPER))
+		if (ctrl->getBtn(BTN_LEFT_BUMPER) || ctrl->getKey(btn2key(BTN_LEFT_BUMPER)))
 		{
 			g_engine2->setExtraInt("optionsclicked", 1);
 			timer = 20;
@@ -1943,7 +1946,7 @@ void Editor::processHWButtons()
 
 		if (mode == EM_OBJ)
 		{
-			if (ctrl->getBtn(BTN_RIGHT_BUMPER))
+			if (ctrl->getBtn(BTN_RIGHT_BUMPER) || ctrl->getKey(btn2key(BTN_RIGHT_BUMPER)))
 			{
 				g_engine2->setExtraInt("moveclicked", 1);
 				timer = 20;
@@ -1972,10 +1975,10 @@ void Editor::processHWButtons()
 		}
 	}
 
-	if (ctrl->getBtn(BTN_X))
+	if (ctrl->getBtn(BTN_X) || ctrl->getKey(btn2key(BTN_X)))
 		engine->setExtraInt("objmodeclicked", 1);
 
-	if (ctrl->getBtn(BTN_Y))
+	if (ctrl->getBtn(BTN_Y) || ctrl->getKey(btn2key(BTN_Y)))
 		engine->setExtraInt("voxmodeclicked", 1);
 
 	Object *playerObj = g_engine2->getPlayerObj();
@@ -2044,6 +2047,37 @@ void Editor::processHWButtons()
 		ctrl->setEnabled(false);
 	else
 		ctrl->setEnabled(true);
+}
+
+int Editor::btn2key(int btn)
+{
+#ifdef PLATFORM_WINDOWS
+	if (btn == BTN_A) return GLFW_KEY_ENTER;
+	if (btn == BTN_B) return GLFW_KEY_ESCAPE;
+	if (btn == BTN_X) return GLFW_KEY_LEFT_BRACKET;
+	if (btn == BTN_Y) return GLFW_KEY_RIGHT_BRACKET;
+	if (btn == BTN_GUIDE) return GLFW_KEY_INSERT;
+	if (btn == BTN_START) return GLFW_KEY_TAB;
+	if (btn == BTN_LEFT_BUMPER) return GLFW_KEY_BACKSPACE;
+	if (btn == BTN_RIGHT_BUMPER) return GLFW_KEY_BACKSLASH;
+#endif
+
+	return 0;
+}
+
+void Editor::processExtraKeys()
+{
+#ifdef PLATFORM_WINDOWS
+	Controls2 *ctrl = g_engine2->getControls();
+
+	// Movement back and forward with keys
+	Object *player = g_engine2->getPlayerObj();
+
+	if (ctrl->getKey(GLFW_KEY_APOSTROPHE))
+		player->MoveForward(0.4);
+	if (ctrl->getKey(GLFW_KEY_SLASH))
+		player->MoveBackward(0.4);
+#endif
 }
 
 void Editor::worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, int &z)

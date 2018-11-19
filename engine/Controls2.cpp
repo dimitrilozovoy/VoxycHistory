@@ -341,10 +341,21 @@ void Controls2::tick() {
 	g_common.gamepadLeftY = axes[AX_LEFT_Y];
 	g_common.gamepadRightX = axes[AX_RIGHT_X];
 	g_common.gamepadRightY = axes[AX_RIGHT_Y];
+
+	//
+	// Mouse
+	//
+
+	switch (controlScheme)
+	{
+	case CTRL_EDITOR:
+		playerObj->yaw += mouseX;
+		playerObj->pitch -= mouseY;
+		break;
+	}
 }
 
-void
-Controls2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2) {
+void Controls2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2) {
     float width = screenWidth;
     float height = screenHeight;
 
@@ -928,8 +939,9 @@ bool Controls2::checkActionUp() {
 }
 
 void Controls2::mouse(float mouseX, float mouseY) {
-
-}
+	this->mouseX = mouseX * 0.5;
+	this->mouseY = mouseY * 0.5;
+ }
 
 void Controls2::setBtn(int which, int state) {
 	if (which < MAX_BUTTONS)
@@ -957,4 +969,18 @@ void Controls2::addTouchBtnBind(int btn, float x, float y, float size) {
 void Controls2::setAxis(int axis, float value)
 {
 	axes[axis] = value;
+}
+
+void Controls2::setKey(int key, int val)
+{
+	if (key < NUM_KBD_KEYS)
+		keys[key] = val;
+}
+
+int Controls2::getKey(int key)
+{
+	if (key < NUM_KBD_KEYS)
+		return keys[key];
+	else
+		return 0;
 }
