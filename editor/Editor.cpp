@@ -1581,7 +1581,96 @@ void Editor::tick() {
         selectedObj->position = player->position;
         selectedObj->setDeltaXYZ(player->yaw, player->pitch, distToSelected);
         selectedObj->move();
-    }
+
+		//
+		// Snap voxels to nearby voxels
+		//
+
+		bool snapX = false;
+		bool snapY = false;
+		bool snapZ = false;
+		float snapPosX = 0.0;
+		float snapPosY = 0.0;
+		float snapPosZ = 0.0;
+
+		if (isVoxels(selectedObj->name))
+		{
+			for (const auto &pair: engine->getObjects()) {
+				std::string name = pair.first;
+				Object *obj = pair.second;
+
+				if (obj != nullptr && !obj->system && isVoxels(obj->name) && obj != selectedObj)
+				{
+					// X
+
+					float gapX = abs(selectedObj->position.x - obj->position.x) - selectedObj->scale.x / 2.0 - obj->scale.x / 2.0;
+
+					if (abs(gapX) < selectedObj->scale.x * snapFactor)
+					{
+						snapX = true;
+						if (snapX)
+							if (selectedObj->position.x > obj->position.x)
+								snapPosX = obj->position.x + obj->scale.x / 2.0 + selectedObj->scale.x / 2.0;
+							else
+								snapPosX = obj->position.x - obj->scale.x / 2.0 - selectedObj->scale.x / 2.0;
+					}
+					else if (abs(selectedObj->position.x - obj->position.x) < selectedObj->scale.x * snapFactor)
+					{
+						snapX = true;
+						if (snapX)
+							snapPosX = obj->position.x;
+					}
+
+					// Y
+
+					float gapy = abs(selectedObj->position.y - obj->position.y) - selectedObj->scale.y / 2.0 - obj->scale.y / 2.0;
+
+					if (abs(gapy) < selectedObj->scale.y * snapFactor)
+					{
+						snapY = true;
+						if (snapY)
+							if (selectedObj->position.y > obj->position.y)
+								snapPosY = obj->position.y + obj->scale.y / 2.0 + selectedObj->scale.y / 2.0;
+							else
+								snapPosY = obj->position.y - obj->scale.y / 2.0 - selectedObj->scale.y / 2.0;
+					}
+					else if (abs(selectedObj->position.y - obj->position.y) < selectedObj->scale.y * snapFactor)
+					{
+						snapY = true;
+						if (snapY)
+							snapPosY = obj->position.y;
+					}
+
+					// Z
+
+					float gapz = abs(selectedObj->position.z - obj->position.z) - selectedObj->scale.z / 2.0 - obj->scale.z / 2.0;
+
+					if (abs(gapz) < selectedObj->scale.z * snapFactor)
+					{
+						snapZ = true;
+						if (snapZ)
+							if (selectedObj->position.z > obj->position.z)
+								snapPosZ = obj->position.z + obj->scale.z / 2.0 + selectedObj->scale.z / 2.0;
+							else
+								snapPosZ = obj->position.z - obj->scale.z / 2.0 - selectedObj->scale.z / 2.0;
+					}
+					else if (abs(selectedObj->position.z - obj->position.z) < selectedObj->scale.z * snapFactor)
+					{
+						snapZ = true;
+						if (snapZ)
+							snapPosZ = obj->position.z;
+					}
+				}
+			}
+		}
+
+		if (snapX)
+			selectedObj->position.x = snapPosX;
+		if (snapY)
+			selectedObj->position.y = snapPosY;
+		if (snapZ)
+			selectedObj->position.z = snapPosZ;
+	}
 
     // Message indicator
     msgTimer--;
