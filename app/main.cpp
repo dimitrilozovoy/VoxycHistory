@@ -582,13 +582,9 @@ bool getJoyBtn(Controls2 *controls, const unsigned char *buttons, int inBtn, int
 		return false;
 
 	if (buttons[inBtn] == GLFW_PRESS)
-	{
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 #endif
 
 	return false;
@@ -610,13 +606,7 @@ void processCharInput(char c)
 	Controls2 *ctrl = g_engine2->getControls();
 
 	if (glfwGetKey(g_glfwWindow, c))
-	{
 		gui->charEntered(c);
-	}
-	if (!glfwGetKey(g_glfwWindow, c))
-	{
-		gui->charEntered(c);
-	}
 }
 
 #endif
