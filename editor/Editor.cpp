@@ -1108,6 +1108,12 @@ void Editor::tick() {
 				engine->setVisible("objpreview", false);
 		}
 
+		if (linkCopy)
+		{
+			linkCopy = false;
+			rmObjTimer = 30;
+		}
+
         if (mode == EM_VOX) {
 
 			//
@@ -1157,8 +1163,6 @@ void Editor::tick() {
 
 				rmObjTimer = 30;
             }
-
-//			g_engine2->setExtraInt("removeclicked", 0);
 		}
 
         exitScreenShotMode();
@@ -1381,9 +1385,11 @@ void Editor::tick() {
             objPreview->system = true;
             engine->setObjInt("objpreview", "hasguides", 0);
             engine->setColor("objpreview", 1.0f, 1.0f, 1.0f, 1.0f);
-            selectedObj = nullptr;
+			objPreviewDist = playerObj->distanceTo(selectedObj);
+			selectedObj = nullptr;
             selectOnly = false;
             linkCopy = true;
+			placingObj = true;
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1535,7 +1541,7 @@ void Editor::tick() {
                 float yawToObj = player->getYawTo(obj);
                 float pitchToObj = player->getPitchTo(obj);
 
-                while (yawToObj > 360.0)
+/*                while (yawToObj > 360.0)
                     yawToObj -= 360.0;
 
                 while (yawToObj < 0.0)
@@ -1557,7 +1563,7 @@ void Editor::tick() {
                     player->pitch -= 360.0;
 
                 while (player->pitch < 0.0)
-                    player->pitch += 360.0;
+                    player->pitch += 360.0;*/
 
                 if (compareAngle(yawToObj, player->yaw, selectAngleThresh)
                     && compareAngle(pitchToObj, player->pitch, selectAngleThresh)) {
@@ -1629,7 +1635,8 @@ void Editor::tick() {
 				std::string name = pair.first;
 				Object *obj = pair.second;
 
-				if (obj != nullptr && !obj->system && isVoxels(obj->name) && obj != selectedObj)
+				if (obj != nullptr && !obj->system && isVoxels(obj->name) && obj != selectedObj
+					&& obj->distanceTo(selectedObj) < (obj->scale.x + obj->scale.y + obj->scale.z) / 1.5)
 				{
 					// X
 
@@ -2143,9 +2150,9 @@ void Editor::processHWButtons()
 	if (mode == EM_VOX)
 	{
 		if (rayLength > minRayLength)
-			rayLength -= leftTrigger * rayDeltaMultiplier;
+			rayLength -= (1.0 + leftTrigger) * rayDeltaMultiplier;
 		if (rayLength < maxRayLength)
-			rayLength += rightTrigger * rayDeltaMultiplier;
+			rayLength += (1.0 + rightTrigger) * rayDeltaMultiplier;
 
 		rayLength += rayDeltaMultiplier * mWheel;
 	}
@@ -2153,9 +2160,9 @@ void Editor::processHWButtons()
 	if (mode == EM_OBJ)
 	{
 		if (distToSelected > minRayLength)
-			distToSelected -= leftTrigger * rayDeltaMultiplier;
+			distToSelected -= (1.0 + leftTrigger) * rayDeltaMultiplier;
 		if (distToSelected < maxRayLength)
-			distToSelected += rightTrigger * rayDeltaMultiplier;
+			distToSelected += (1.0 + rightTrigger) * rayDeltaMultiplier;
 
 		distToSelected += rayDeltaMultiplier * mWheel;
 	}
@@ -2163,9 +2170,9 @@ void Editor::processHWButtons()
 	if (placingObj)
 	{
 		if (objPreviewDist > minRayLength) 
-			objPreviewDist -= leftTrigger * rayDeltaMultiplier;
+			objPreviewDist -= (1.0 + leftTrigger) * rayDeltaMultiplier;
 		if (objPreviewDist < maxRayLength)
-			objPreviewDist += rightTrigger * rayDeltaMultiplier;
+ 			objPreviewDist += (1.0 + rightTrigger) * rayDeltaMultiplier;
 
 		objPreviewDist += rayDeltaMultiplier * mWheel;
 	}
