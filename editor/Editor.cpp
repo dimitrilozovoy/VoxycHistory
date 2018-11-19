@@ -439,6 +439,7 @@ void Editor::tick() {
 					engine->setSize(name, 1.0, 1.0, 1.0);
 
 					placingObj = true;
+					linkCopy = false;
                     objPreviewDist = defaultObjPreviewDist;
 				}
 
@@ -463,7 +464,8 @@ void Editor::tick() {
 					engine->setSize(name, 1.0, 1.0, 1.0);
 
 					placingObj = true;
-                    objPreviewDist = defaultObjPreviewDist;
+					linkCopy = false;
+					objPreviewDist = defaultObjPreviewDist;
 				}
 				
 				engine->setExtraStr("fileselected", "");
@@ -526,7 +528,8 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
-            objPreviewDist = defaultObjPreviewDist;
+			linkCopy = false;
+			objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraInt("newterrainparams_entered", 0);
         }
@@ -554,7 +557,8 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
-            objPreviewDist = defaultObjPreviewDist;
+			linkCopy = false;
+			objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -575,7 +579,8 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
-            objPreviewDist = defaultObjPreviewDist;
+			linkCopy = false;
+			objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -1006,6 +1011,7 @@ void Editor::tick() {
             Shape *shape = curVoxels->shape;
             engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, curVoxel);
             shape->needsRebuild = true;
+			linkCopy = false;
 
         } else if (mode == EM_OBJ) {
 
@@ -1075,8 +1081,6 @@ void Editor::tick() {
 
                 placeObjTimer = 30;
             }
-
-            linkCopy = false;
 		}
 
         exitScreenShotMode();
@@ -1488,8 +1492,8 @@ void Editor::tick() {
         mode = EM_OBJ;
         engine->setText("msg2", "object mode");
         msg2Timer = msgTimerDelay;
-        engine->setVisible("voxpreview", false);
-        engine->setVisible("objpreview", true);
+//        engine->setVisible("voxpreview", false);
+//        engine->setVisible("objpreview", true);
         exitScreenShotMode();
 
 		engine->setExtraInt("objmodeclicked", 0);
@@ -1515,7 +1519,7 @@ void Editor::tick() {
     //
 
     // See if we are pointing at an object; select it if so
-    if (!movingSelected && mode == EM_OBJ && !screenshotMode && !linkCopy) {
+     if (!movingSelected && mode == EM_OBJ && !screenshotMode && !linkCopy) {
         lastSelectedObj = selectedObj;
         selectedObj = nullptr;
 

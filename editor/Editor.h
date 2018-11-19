@@ -55,7 +55,7 @@ public:
 	bool verifySourceDir(std::string filename);
 
 private:
-	const float snapFactor = 0.3;
+	const float snapFactor = 0.2;
 
     Engine2 *engine;
 	LuaBridge luaBridge;
