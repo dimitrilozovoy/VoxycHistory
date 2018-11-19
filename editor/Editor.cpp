@@ -90,7 +90,7 @@ void Editor::load() {
     engine->setPos(name, 0, 0, 0);
     engine->setSize(name, 100, 100, 100);
     engine->setOrientation(name, 90.0, 0.0, 0.0);
-    engine->setColor(name, 1.0, 1.0, 1.0, 1.0);
+    engine->setColor(name, 0.5, 0.5, 0.5, 1.0);
     engine->setVisible(name, 1);
     engine->setSystem(name, true);
 
@@ -653,24 +653,50 @@ void Editor::tick() {
         engine->setExtraInt("voxelparamsselected", 0);
     }
 
-    float rayDelta = 0.1;
-#ifdef PLATFORM_ANDROID
-    rayDelta = 0.3;
-#else
-    rayDelta = 0.1;
-#endif
+    float rayDelta = 2.0;
 
     if (engine->getExtraInt("shortenrayclicked") == 1
         || engine->getExtraInt("shortenrayclicked") == 2) {
-        if (rayLength > minRayLength)
-            rayLength -= rayDelta;
+        if (mode == EM_VOX)
+        {
+            if (rayLength > minRayLength)
+                rayLength -= rayDelta * rayDeltaMultiplier;
+        }
+
+        if (mode == EM_OBJ)
+        {
+            if (distToSelected > minRayLength)
+                distToSelected -= rayDelta * rayDeltaMultiplier;
+        }
+
+        if (placingObj)
+        {
+            if (objPreviewDist > minRayLength)
+                objPreviewDist -= rayDelta * rayDeltaMultiplier;
+        }
+
         engine->setExtraInt("shortenrayclicked", 0);
     }
 
     if (engine->getExtraInt("lengthenrayclicked") == 1
         || engine->getExtraInt("lengthenrayclicked") == 2) {
-        if (rayLength < maxRayLength)
-            rayLength += rayDelta;
+        if (mode == EM_VOX)
+        {
+            if (rayLength > minRayLength)
+                rayLength += rayDelta * rayDeltaMultiplier;
+        }
+
+        if (mode == EM_OBJ)
+        {
+            if (distToSelected > minRayLength)
+                distToSelected += rayDelta * rayDeltaMultiplier;
+        }
+
+        if (placingObj)
+        {
+            if (objPreviewDist > minRayLength)
+                objPreviewDist += rayDelta * rayDeltaMultiplier;
+        }
         engine->setExtraInt("lengthenrayclicked", 0);
     }
 
@@ -2046,7 +2072,7 @@ void Editor::processHWButtons()
 
 		if (mode == EM_VOX)
 		{
-			if (ctrl->getBtn(BTN_LEFT_THUMB) || ctrl->getKey(GLFW_KEY_MINUS))
+			if (ctrl->getBtn(BTN_LEFT_THUMB) || ctrl->getKey(btn2key(BTN_LEFT_THUMB)))
 			{
 				g_engine2->setExtraInt("prevbtnclicked", 1);
 				timer = 25;
@@ -2054,7 +2080,7 @@ void Editor::processHWButtons()
 			else
 				g_engine2->setExtraInt("prevbtnclicked", 0);
 
-			if (ctrl->getBtn(BTN_RIGHT_THUMB) || ctrl->getKey(GLFW_KEY_EQUAL))
+			if (ctrl->getBtn(BTN_RIGHT_THUMB) || ctrl->getKey(btn2key(BTN_RIGHT_THUMB)))
 			{
 				g_engine2->setExtraInt("nextbtnclicked", 1);
 				timer = 25;
@@ -2157,6 +2183,8 @@ int Editor::btn2key(int btn)
 	if (btn == BTN_START) return GLFW_KEY_TAB;
 	if (btn == BTN_LEFT_BUMPER) return GLFW_KEY_BACKSPACE;
 	if (btn == BTN_RIGHT_BUMPER) return GLFW_KEY_BACKSLASH;
+    if (btn == BTN_LEFT_THUMB) return GLFW_KEY_MINUS;
+	if (btn == BTN_RIGHT_THUMB) return GLFW_KEY_EQUAL;
 #endif
 
 	return 0;
