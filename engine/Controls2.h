@@ -131,6 +131,8 @@ public:
 	void load();
 	bool checkActionUp();
 	void mouse(float mouseX, float mouseY);
+	void setMouseScroll(float val) { mouseScroll = val; };
+	float getMouseScroll() { return mouseScroll; };
 	void setBtn(int which, int state);
 	int getBtn(BtnNames which);
 	float getRJDistX() { return rjlastmovex - rjlastdownx; };
@@ -142,6 +144,8 @@ public:
 	float getAxis(int axis) { return axes[axis]; };
 	void setKey(int key, int val);
 	int getKey(int key);
+	void setMouseBtn(int which, int state);
+	int getMouseBtn(int which);
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
@@ -201,6 +205,8 @@ private:
 
 	// Mouse
 	float mouseX, mouseY = 0.0;
+	float mouseScroll = 0.0;
+	int mouseButtons[3];
 
 	// Keyboard keys
 	int keys[NUM_KBD_KEYS];

@@ -816,7 +816,6 @@ void Controls2::BtnUp(int which) {
 void Controls2::minus() {
     switch (controlScheme) {
         case CTRL_EDITOR:
-            editorController->minus();
             break;
     }
 }
@@ -824,7 +823,6 @@ void Controls2::minus() {
 void Controls2::equals() {
     switch (controlScheme) {
         case CTRL_EDITOR:
-            editorController->plus();
             break;
     }
 }
@@ -983,4 +981,18 @@ int Controls2::getKey(int key)
 		return keys[key];
 	else
 		return 0;
+}
+
+void Controls2::setMouseBtn(int which, int state)
+{
+	if (which < 3)
+		mouseButtons[which] = state;
+}
+
+int Controls2::getMouseBtn(int which)
+{
+	if (which < 3)
+		return mouseButtons[which];
+
+	return 0;
 }

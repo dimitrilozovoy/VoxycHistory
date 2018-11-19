@@ -217,9 +217,9 @@ int main(int argc, const char * argv[]) {
 	// GLFW settings
 	glfwSetInputMode(g_glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPos(g_glfwWindow, 0, 0);
-	//    glfwSetScrollCallback(g_glfwWindow, OnScroll);
 	glfwMakeContextCurrent(g_glfwWindow);
 	glfwSetMouseButtonCallback(g_glfwWindow, mouse_button_callback);
+	glfwSetScrollCallback(g_glfwWindow, scroll_callback);
 
 	// Initialize GLEW
 	glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
@@ -353,17 +353,24 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	if (action == GLFW_PRESS)
 	{
 		if (button == GLFW_MOUSE_BUTTON_LEFT)
-			controls->BtnDown(0);
+			controls->setMouseBtn(0, 1);
 		if (button == GLFW_MOUSE_BUTTON_RIGHT)
-			controls->BtnDown(1);
+			controls->setMouseBtn(1, 1);
 	}
 	if (action == GLFW_RELEASE)
 	{
 		if (button == GLFW_MOUSE_BUTTON_LEFT)
-			controls->BtnUp(0);
+			controls->setMouseBtn(0, 0);
 		if (button == GLFW_MOUSE_BUTTON_RIGHT)
-			controls->BtnUp(1);
+			controls->setMouseBtn(1, 0);
 	}
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	Controls2 *controls = g_engine2->getControls();
+
+	controls->setMouseScroll(yoffset);
 }
 #endif
 

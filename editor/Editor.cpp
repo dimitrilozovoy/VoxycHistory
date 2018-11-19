@@ -1894,7 +1894,7 @@ void Editor::processHWButtons()
 
 	if (timer == 0)
 	{
-		if (ctrl->getBtn(BTN_A) || ctrl->getKey(btn2key(BTN_A)))
+		if (ctrl->getBtn(BTN_A) || ctrl->getKey(btn2key(BTN_A)) || ctrl->getMouseBtn(0))
 		{
 			if (gui->nonNativeWidgetsShown())
 			{
@@ -1907,7 +1907,7 @@ void Editor::processHWButtons()
 		else
 			g_engine2->setExtraInt("addclicked", 0);
 
-		if (ctrl->getBtn(BTN_B) || ctrl->getKey(btn2key(BTN_B)))
+		if (ctrl->getBtn(BTN_B) || ctrl->getKey(btn2key(BTN_B)) || ctrl->getMouseBtn(1))
 		{
 			if (gui->nonNativeWidgetsShown())
 			{
@@ -1957,7 +1957,7 @@ void Editor::processHWButtons()
 
 		if (mode == EM_VOX)
 		{
-			if (ctrl->getBtn(BTN_LEFT_THUMB))
+			if (ctrl->getBtn(BTN_LEFT_THUMB) || ctrl->getKey(GLFW_KEY_MINUS))
 			{
 				g_engine2->setExtraInt("prevbtnclicked", 1);
 				timer = 25;
@@ -1965,7 +1965,7 @@ void Editor::processHWButtons()
 			else
 				g_engine2->setExtraInt("prevbtnclicked", 0);
 
-			if (ctrl->getBtn(BTN_RIGHT_THUMB))
+			if (ctrl->getBtn(BTN_RIGHT_THUMB) || ctrl->getKey(GLFW_KEY_EQUAL))
 			{
 				g_engine2->setExtraInt("nextbtnclicked", 1);
 				timer = 25;
@@ -2015,9 +2015,11 @@ void Editor::processHWButtons()
 			playerObj->MoveRight(0.1);
 	}
 
-	// Triggers control ray length
+	// Triggers and mouse wheel control ray length
 	float leftTrigger = ctrl->getAxis(AX_LEFT_TRIGGER);
 	float rightTrigger = ctrl->getAxis(AX_RIGHT_TRIGGER);
+	float mWheel = ctrl->getMouseScroll() * 2;
+	ctrl->setMouseScroll(0.0);
 
 	if (mode == EM_VOX)
 	{
@@ -2025,6 +2027,8 @@ void Editor::processHWButtons()
 			rayLength -= leftTrigger * rayDeltaMultiplier;
 		if (rayLength < maxRayLength)
 			rayLength += rightTrigger * rayDeltaMultiplier;
+
+		rayLength += rayDeltaMultiplier * mWheel;
 	}
 
 	if (mode == EM_OBJ)
@@ -2033,6 +2037,8 @@ void Editor::processHWButtons()
 			distToSelected -= leftTrigger * rayDeltaMultiplier;
 		if (distToSelected < maxRayLength)
 			distToSelected += rightTrigger * rayDeltaMultiplier;
+
+		distToSelected += rayDeltaMultiplier * mWheel;
 	}
 
 	if (placingObj)
@@ -2041,6 +2047,8 @@ void Editor::processHWButtons()
 			objPreviewDist -= leftTrigger * rayDeltaMultiplier;
 		if (objPreviewDist < maxRayLength)
 			objPreviewDist += rightTrigger * rayDeltaMultiplier;
+
+		objPreviewDist += rayDeltaMultiplier * mWheel;
 	}
 
 	if (gui->nonNativeWidgetsShown())

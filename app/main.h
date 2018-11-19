@@ -40,20 +40,6 @@ SOFTWARE.
 #include <openvr.h>
 #endif
 
-enum GameState
-{
-	GS_NONE,
-	GS_SPLASH,
-	GS_MENU,
-	GS_LEVEL,
-	GS_INTERMISSION,
-	GS_FINALE
-};
-
-extern GameState g_gameState;  
-extern GameState g_nextGameState;
-extern bool g_switchingGameState;
-
 void StartApp(int step);
 void LoadApp(int step);
 void AppTick();
@@ -65,6 +51,7 @@ bool getJoyBtn(Controls2 *controls, const unsigned char *buttons, int inBtn, int
 void processJoyAxis(Controls2 *controls, const float *axes, int inAxis, int outAxis, int count);
 void processCharInput(char c);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 #endif
 void updateControls();
 
