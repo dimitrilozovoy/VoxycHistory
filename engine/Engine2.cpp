@@ -777,12 +777,19 @@ void Engine2::resetOnClickExtras()
     }
 }
 
-void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2)
+void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex)
 {
 //	Log("x1", (int)(x1 * 100), "y1", (int)(y1 * 100));
 //	Log("x2", (int)(x2 * 100), "y1", (int)(y2 * 100));
 
-	//
+/*    if (action1 == 3) {
+        std::string log = "action " + ToString(action1) + " x1 " + ToString((int) x1) + " y1 " +
+                          ToString((int) y1) + " x2 " + ToString((int) x2) + " y2 " +
+                          ToString((int) y2);
+        Log(log);
+    }*/
+
+    //
 	// Touch button binds
 	//
 	
@@ -804,7 +811,7 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 		{
 		    if (action1 == 1 || action1 == 2)
 			    controls.setBtn(tbb.btn, 1);
-		    if (action1 == 3)
+		    if (action1 == 4)
 			    controls.setBtn(tbb.btn, 0);
 		}
 		
@@ -815,12 +822,12 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
         {
 			if (action2 == 1 || action2 == 2)
 			    controls.setBtn(tbb.btn, 1);
-		    if (action2 == 3)
+		    if (action2 == 4)
 			    controls.setBtn(tbb.btn, 0);
 	    }
     }
 
-	if (action1 == 3 || action2 == 3)
+	if (action1 == 4 || action2 == 4)
 	{
 		for (int i = 0; i < 32; i++)
 		    controls.setBtn(i, 0);
@@ -844,7 +851,7 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 	
 	if (/*touchBtnBinds.size() > 0 || */ extra1 == "")
 	{
-		controls.touchEvent(count, action1, x1, y1, action2, x2, y2);
+		controls.touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
 	}
 	
 	setExtraInt("touchaction1", action1);

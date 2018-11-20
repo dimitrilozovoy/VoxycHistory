@@ -51,43 +51,39 @@ void Controls2::tick() {
 
     // New schemes
 
-	float targetYaw = 1000000;
-	
-	switch (controlScheme) {
-	case CTRL_EDITOR:
+    float targetYaw = 1000000;
 
-		if (buttons[BTN_UP] == 1)
-			playerObj->MoveUp(getMoveFactor() / 4.0);
-		if (buttons[BTN_DOWN] == 1)
-			playerObj->MoveDown(getMoveFactor() / 4.0);
-		if (buttons[BTN_LEFT] == 1)
-			playerObj->MoveLeft(getMoveFactor() / 2.0);
-		if (buttons[BTN_RIGHT] == 1)
-			playerObj->MoveRight(getMoveFactor() / 2.0);
+    switch (controlScheme) {
+        case CTRL_EDITOR:
 
-		if (buttons[BTN_UP] == 1 && buttons[BTN_LEFT] == 1)
-		{
-			playerObj->MoveUp(getMoveFactor() / 4.0);
-			playerObj->MoveLeft(getMoveFactor());
-		}
-		if (buttons[BTN_UP] == 1 && buttons[BTN_RIGHT] == 1)
-		{
-			playerObj->MoveUp(getMoveFactor() / 4.0);
-			playerObj->MoveRight(getMoveFactor());
-		}
-		if (buttons[BTN_DOWN] == 1 && buttons[BTN_LEFT] == 1)
-		{
-			playerObj->MoveDown(getMoveFactor() / 4.0);
-			playerObj->MoveLeft(getMoveFactor() / 4.0);
-		}
-		if (buttons[BTN_DOWN] == 1 && buttons[BTN_RIGHT] == 1)
-		{
-			playerObj->MoveDown(getMoveFactor() / 4.0);
-			playerObj->MoveRight(getMoveFactor() / 4.0);
-		}
+            if (buttons[BTN_UP] == 1)
+                playerObj->MoveUp(getMoveFactor() / 4.0);
+            if (buttons[BTN_DOWN] == 1)
+                playerObj->MoveDown(getMoveFactor() / 4.0);
+            if (buttons[BTN_LEFT] == 1)
+                playerObj->MoveLeft(getMoveFactor() / 2.0);
+            if (buttons[BTN_RIGHT] == 1)
+                playerObj->MoveRight(getMoveFactor() / 2.0);
 
-		break;
-	case CTRL_THIRDPERSON:
+            if (buttons[BTN_UP] == 1 && buttons[BTN_LEFT] == 1) {
+                playerObj->MoveUp(getMoveFactor() / 4.0);
+                playerObj->MoveLeft(getMoveFactor());
+            }
+            if (buttons[BTN_UP] == 1 && buttons[BTN_RIGHT] == 1) {
+                playerObj->MoveUp(getMoveFactor() / 4.0);
+                playerObj->MoveRight(getMoveFactor());
+            }
+            if (buttons[BTN_DOWN] == 1 && buttons[BTN_LEFT] == 1) {
+                playerObj->MoveDown(getMoveFactor() / 4.0);
+                playerObj->MoveLeft(getMoveFactor() / 4.0);
+            }
+            if (buttons[BTN_DOWN] == 1 && buttons[BTN_RIGHT] == 1) {
+                playerObj->MoveDown(getMoveFactor() / 4.0);
+                playerObj->MoveRight(getMoveFactor() / 4.0);
+            }
+
+            break;
+        case CTRL_THIRDPERSON:
 
             if (buttons[BTN_UP] == 1)
                 targetYaw = camera->yaw;
@@ -108,12 +104,10 @@ void Controls2::tick() {
                 targetYaw = camera->yaw + 135;
 
             if (targetYaw != 1000000) {
-				if (!compareYaw(playerObj->yaw, targetYaw, 10))
-				{
-					playerObj->yaw = RotateAngleTowards(playerObj->yaw, targetYaw, 5);
-					playerObj->MoveForward(getMoveFactor() * 0.3);
-				}
-                else {
+                if (!compareYaw(playerObj->yaw, targetYaw, 10)) {
+                    playerObj->yaw = RotateAngleTowards(playerObj->yaw, targetYaw, 5);
+                    playerObj->MoveForward(getMoveFactor() * 0.3);
+                } else {
                     playerObj->yaw = targetYaw;
                     playerObj->MoveForward(getMoveFactor() * 0.5);
                 }
@@ -315,51 +309,50 @@ void Controls2::tick() {
         }
     }
 
-	//
-	// Gamepad control for new schemes
-	//
+    //
+    // Gamepad control for new schemes
+    //
 
-	switch (controlScheme)
-	{
-	case CTRL_EDITOR:
-		playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);
-		playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
-		playerObj->MoveForward(axes[AX_LEFT_Y] / 2.0);
-		break;
-	case CTRL_THIRDPERSON:
-		// Movement
-		break;
-	}
+    switch (controlScheme) {
+        case CTRL_EDITOR:
+            playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);
+            playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
+            playerObj->MoveForward(axes[AX_LEFT_Y] / 2.0);
+            break;
+        case CTRL_THIRDPERSON:
+            // Movement
+            break;
+    }
 
-	if (afterGestureTimer > 0) {
+    if (afterGestureTimer > 0) {
         afterGestureTimer--;
         return;
     }
 
-	// Write axes into common
-	g_common.gamepadLeftX = axes[AX_LEFT_X];
-	g_common.gamepadLeftY = axes[AX_LEFT_Y];
-	g_common.gamepadRightX = axes[AX_RIGHT_X];
-	g_common.gamepadRightY = axes[AX_RIGHT_Y];
+    // Write axes into common
+    g_common.gamepadLeftX = axes[AX_LEFT_X];
+    g_common.gamepadLeftY = axes[AX_LEFT_Y];
+    g_common.gamepadRightX = axes[AX_RIGHT_X];
+    g_common.gamepadRightY = axes[AX_RIGHT_Y];
 
-	//
-	// Mouse
-	//
+    //
+    // Mouse
+    //
 
-	switch (controlScheme)
-	{
-	case CTRL_EDITOR:
-		playerObj->yaw += mouseX;
-		playerObj->pitch -= mouseY;
-		break;
-	}
+    switch (controlScheme) {
+        case CTRL_EDITOR:
+            playerObj->yaw += mouseX;
+            playerObj->pitch -= mouseY;
+            break;
+    }
 }
 
-void Controls2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2) {
+void Controls2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2,
+                      int actionIndex) {
     float width = screenWidth;
     float height = screenHeight;
 
-    if (action1 == 3 || action2 == 3) {
+    if (action1 == 4 || action2 == 4) {
         actionUp = true;
     }
 
@@ -370,7 +363,7 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
         return;
     }
 
-    if (count == 1 && lastCount == 2) {
+    if (count == 1 && lastCount == 3) {
         lastCount = count;
         jdown = false;
         jlastdownx = 0;
@@ -394,20 +387,6 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
     static float lastdownx = 0;
     static float lastdowny = 0;
 
-//	std::string log = "x1 " + ToString((int)x1) + " y1 " + ToString((int)y1) + " x2 " + ToString((int)x2) + " y2 " + ToString((int)y2);
-//  Log(log);
-
-//	Log("glToScrY(scrToGlY(y))", glToScrY(scrToGlY(y)));
-
-//	Log("x", (int)glToScrX(x));
-//	Log("y", (int)glToScrY(y));
-
-//  if (action == 2)
-//  {
-//    rjdown = false;
-//    ljdown = false;
-//  }
-
     if (action == 1) {
         lastdownx = x;
         lastdowny = y;
@@ -420,7 +399,7 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
 
     // Pinches
 
-    if (action == 2 && controlScheme == CTRL_EDITOR && count == 2) {
+    if (action == 3 && controlScheme == CTRL_EDITOR && count == 2) {
         static float lastdistx = 0;
         static float lastdisty = 0;
 
@@ -477,7 +456,7 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
 
             lastavgy = avgy;
         }
-            // Pinch forward and backward
+        // Pinch forward and backward
         else if (lastdistx != 0) {
             if (distxdiff > 0)
                 playerObj->MoveForward(distx / 200);
@@ -491,35 +470,36 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
         jdown = false;
     }
 
-//        lastavgx = 0;
     float hsize = 0.12;
 
     // Main joystick
-    if (action == 1) {
+    if (action == 1 || action == 2) {
         jlastdownx = x;
         jlastdowny = y;
         jdown = true;
     }
 
-    if (action == 2) {
+    if (action == 3) {
         jlastmovex = x;
         jlastmovey = y;
     }
 
-    if (action == 3) {
+    if (action == 4) {
         jlastdownx = 0;
         jlastdowny = 0;
         jdown = false;
     }
 
     lrjwentup = false;
-    processTouchJoystick(false, action, x1, y1);
-    processTouchJoystick(true, action, x2, y2);
-    processTouchJoystick(false, action, x2, y2);
-    processTouchJoystick(true, action, x1, y1);
 
-//	rjdown = true;
-//	ljdown = true;
+    if ((action != 2 && action != 5) || actionIndex == 0)
+        processTouchJoystick(false, action, x1, y1);
+    if ((action != 2 && action != 5) || actionIndex == 1)
+        processTouchJoystick(true, action, x2, y2);
+    if ((action != 2 && action != 5) || actionIndex == 1)
+        processTouchJoystick(false, action, x2, y2);
+    if ((action != 2 && action != 5) || actionIndex == 0)
+        processTouchJoystick(true, action, x1, y1);
 
     // Fingers up
 
@@ -538,10 +518,6 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
     if (tapTimer > 0)
         tapTimer--;
 
-    if (tapTimer == 0 && action == 3 && controlScheme == CTRL_EDITOR && count == 1) {
-//		editorController->tap(scrToGlX(x), scrToGlY(y));
-    }
-
     lastx = x;
     lasty = y;
 }
@@ -557,19 +533,24 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
                 rjlastdownx = x;
                 rjlastdowny = y;
                 rjdown = true;
-//				Log("rjdown = true");
             }
 
             if (action == 2) {
+                rjlastdownx = x;
+                rjlastdowny = y;
                 rjlastmovex = x;
                 rjlastmovey = y;
                 rjdown = true;
             }
 
             if (action == 3) {
+                rjlastmovex = x;
+                rjlastmovey = y;
+                rjdown = true;
+            }
+
+            if (action == 4 || action == 5) {
                 rjdown = false;
-                ljdown = false;
-//				Log("rjdown = false");
             }
         }
     } else {
@@ -579,19 +560,24 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
                 ljlastdownx = x;
                 ljlastdowny = y;
                 ljdown = true;
-//				Log("ljdown = true");
             }
 
             if (action == 2) {
+                ljlastdownx = x;
+                ljlastdowny = y;
                 ljlastmovex = x;
                 ljlastmovey = y;
                 ljdown = true;
             }
 
             if (action == 3) {
+                ljlastmovex = x;
+                ljlastmovey = y;
+                ljdown = true;
+            }
+
+            if (action == 4 || action == 5) {
                 ljdown = false;
-                rjdown = false;
-//				Log("ljdown = false");
             }
         }
     }
@@ -937,12 +923,12 @@ bool Controls2::checkActionUp() {
 }
 
 void Controls2::mouse(float mouseX, float mouseY) {
-	this->mouseX = mouseX * 0.5;
-	this->mouseY = mouseY * 0.5;
- }
+    this->mouseX = mouseX * 0.5;
+    this->mouseY = mouseY * 0.5;
+}
 
 void Controls2::setBtn(int which, int state) {
-	if (which < MAX_BUTTONS)
+    if (which < MAX_BUTTONS)
         buttons[which] = state;
 }
 
@@ -964,35 +950,30 @@ void Controls2::addTouchBtnBind(int btn, float x, float y, float size) {
     touchBtnBinds.push_back(tbb);
 }
 
-void Controls2::setAxis(int axis, float value)
-{
-	axes[axis] = value;
+void Controls2::setAxis(int axis, float value) {
+    axes[axis] = value;
 }
 
-void Controls2::setKey(int key, int val)
-{
-	if (key < NUM_KBD_KEYS)
-		keys[key] = val;
+void Controls2::setKey(int key, int val) {
+    if (key < NUM_KBD_KEYS)
+        keys[key] = val;
 }
 
-int Controls2::getKey(int key)
-{
-	if (key < NUM_KBD_KEYS)
-		return keys[key];
-	else
-		return 0;
+int Controls2::getKey(int key) {
+    if (key < NUM_KBD_KEYS)
+        return keys[key];
+    else
+        return 0;
 }
 
-void Controls2::setMouseBtn(int which, int state)
-{
-	if (which < 3)
-		mouseButtons[which] = state;
+void Controls2::setMouseBtn(int which, int state) {
+    if (which < 3)
+        mouseButtons[which] = state;
 }
 
-int Controls2::getMouseBtn(int which)
-{
-	if (which < 3)
-		return mouseButtons[which];
+int Controls2::getMouseBtn(int which) {
+    if (which < 3)
+        return mouseButtons[which];
 
-	return 0;
+    return 0;
 }

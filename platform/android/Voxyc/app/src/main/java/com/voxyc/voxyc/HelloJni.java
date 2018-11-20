@@ -76,7 +76,7 @@ public class HelloJni extends Activity
 	public static native void AppTick();
 	public static native void Draw();
 	public static native void AppFree();
-	public static native void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2);
+	public static native void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
 	public static native void enterCommand(String str);
 	public static native void setFilesDir(String str, String str2, String str3);
 	public static native void setExtraInt(String name, int value);
@@ -92,7 +92,7 @@ public class HelloJni extends Activity
 	LinearLayout llConsoleInput;
 	EditText consoleInput;
 	Button consoleEnter;
-	public static final boolean DEBUG_BUILD = false;
+	public static final boolean DEBUG_BUILD = true;
 	int mConsoleMaxTotalLines = 25;
 	int mConsoleTotalLines = 0;
 	int bytesRead = 0;

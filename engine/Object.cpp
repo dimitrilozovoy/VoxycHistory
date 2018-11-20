@@ -260,7 +260,7 @@ void Object::move()
 			if (checkCollision(other, 1.0)
 				&& (other->category == "voxels"
 					|| other->category == "model"
-					/*|| other->category == "sprite"*/))
+					|| other->category == "block"))
 			{
 				okToMove = false;
 				stuckOn = other->name;

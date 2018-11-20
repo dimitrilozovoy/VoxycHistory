@@ -117,7 +117,7 @@ public:
     void setSkybox(std::string textureName);
 
 	void resetOnClickExtras();
-    void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2);
+    void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
 
 	Controls2 *getControls() { return &controls; };
     EditorController *getEditorController() { return &editorController; };

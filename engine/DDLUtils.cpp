@@ -838,18 +838,12 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 			ccWiseDist = angle - targetAngle;
 		}
 
-		char str[1024];
-		snprintf(str, 1024, "cWiseDist %d, ccWiseDist %d", (int)cWiseDist, (int)ccWiseDist);
-		Log(str);
-
 		if (cWiseDist > ccWiseDist)
 		{
-			Log("angle--");
 			angle -= step;
 		}
 		else
 		{
-			Log("angle++");
 			angle += step;
 		}
 

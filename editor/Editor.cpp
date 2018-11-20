@@ -215,7 +215,7 @@ void Editor::tick() {
         // File menu
 
         if (engine->getExtraInt("filebtnclicked") == 1
-            || engine->getExtraInt("filebtnclicked") == 2) {
+            || engine->getExtraInt("filebtnclicked") == 3) {
             gui->clearListMenu();
             gui->addListMenuOption("New Scene", "");
             gui->addListMenuOption("Load Scene", "");
@@ -291,7 +291,7 @@ void Editor::tick() {
         // Object menu
 
         if (engine->getExtraInt("objbtnclicked") == 1
-            || engine->getExtraInt("objbtnclicked") == 2) {
+            || engine->getExtraInt("objbtnclicked") == 3) {
             gui->clearListMenu();
             gui->addListMenuOption("Select Only", "");
             gui->addListMenuOption("Add Voxels", "");
@@ -594,7 +594,7 @@ void Editor::tick() {
             switchVoxTimer--;
 
         if ((engine->getExtraInt("prevbtnclicked") == 1
-             || engine->getExtraInt("prevbtnclicked") == 2)) {
+             || engine->getExtraInt("prevbtnclicked") == 3)) {
             if (mode == EM_VOX && curVoxel > 0 && switchVoxTimer == 0) {
                 curVoxel--;
                 switchVoxTimer = 40;
@@ -612,7 +612,7 @@ void Editor::tick() {
         }
 
         if ((engine->getExtraInt("nextbtnclicked") == 1
-             || engine->getExtraInt("nextbtnclicked") == 2)) {
+             || engine->getExtraInt("nextbtnclicked") == 3)) {
             if (mode == EM_VOX && curVoxel < 255 && switchVoxTimer == 0) {
                 curVoxel++;
                 switchVoxTimer = 40;
@@ -630,7 +630,7 @@ void Editor::tick() {
         }
 
         if ((engine->getExtraInt("camerabtnclicked") == 1
-             || engine->getExtraInt("camerabtnclicked") == 2)) {
+             || engine->getExtraInt("camerabtnclicked") == 3)) {
             std::string fname = PLAT_GetCameraPic();
 
             engine->setExtraStr("camerapicfilename", fname);
@@ -661,7 +661,7 @@ void Editor::tick() {
     float rayDelta = 2.0;
 
     if (engine->getExtraInt("shortenrayclicked") == 1
-        || engine->getExtraInt("shortenrayclicked") == 2) {
+        || engine->getExtraInt("shortenrayclicked") == 3) {
         if (mode == EM_VOX)
         {
             if (rayLength > minRayLength)
@@ -684,7 +684,7 @@ void Editor::tick() {
     }
 
     if (engine->getExtraInt("lengthenrayclicked") == 1
-        || engine->getExtraInt("lengthenrayclicked") == 2) {
+        || engine->getExtraInt("lengthenrayclicked") == 3) {
         if (mode == EM_VOX)
         {
             if (rayLength > minRayLength)
@@ -719,7 +719,7 @@ void Editor::tick() {
     // Moving left
 
     if (engine->getExtraInt("moveleftclicked") == 1
-        || engine->getExtraInt("moveleftclicked") == 2) {
+        || engine->getExtraInt("moveleftclicked") == 3) {
         movingLeft = true;
         movingRight = false;
         movingBackward = false;
@@ -732,7 +732,7 @@ void Editor::tick() {
     // Moving right
 
     else if (engine->getExtraInt("moverightclicked") == 1
-             || engine->getExtraInt("moverightclicked") == 2) {
+             || engine->getExtraInt("moverightclicked") == 3) {
         movingLeft = false;
         movingRight = true;
         movingBackward = false;
@@ -745,7 +745,7 @@ void Editor::tick() {
     // Moving backward
 
     else if (engine->getExtraInt("movebackwardclicked") == 1
-             || engine->getExtraInt("movebackwardclicked") == 2) {
+             || engine->getExtraInt("movebackwardclicked") == 3) {
         movingLeft = false;
         movingRight = false;
         movingBackward = true;
@@ -758,7 +758,7 @@ void Editor::tick() {
     // Moving forward
 
     else if (engine->getExtraInt("moveforwardclicked") == 1
-             || engine->getExtraInt("moveforwardclicked") == 2) {
+             || engine->getExtraInt("moveforwardclicked") == 3) {
         movingLeft = false;
         movingRight = false;
         movingBackward = false;
@@ -771,7 +771,7 @@ void Editor::tick() {
     // Moving down
 
     else if (engine->getExtraInt("movedownclicked") == 1
-             || engine->getExtraInt("movedownclicked") == 2) {
+             || engine->getExtraInt("movedownclicked") == 3) {
         movingLeft = false;
         movingRight = false;
         movingBackward = false;
@@ -784,7 +784,7 @@ void Editor::tick() {
     // Moving up
 
     else if (engine->getExtraInt("moveupclicked") == 1
-             || engine->getExtraInt("moveupclicked") == 2) {
+             || engine->getExtraInt("moveupclicked") == 3) {
         movingLeft = false;
         movingRight = false;
         movingBackward = false;
@@ -796,8 +796,8 @@ void Editor::tick() {
 
     // Stop if finger up
 
-    if (engine->getExtraInt("touchaction1") == 3
-        || engine->getExtraInt("touchaction2") == 3) {
+    if (engine->getExtraInt("touchaction1") == 4
+        || engine->getExtraInt("touchaction2") == 4) {
         movingLeft = false;
         movingRight = false;
         movingBackward = false;
@@ -806,17 +806,17 @@ void Editor::tick() {
         movingUp = false;
     }
 
-    if (engine->getExtraInt("movedownclicked") == 3)
+    if (engine->getExtraInt("movedownclicked") == 4)
         movingDown = false;
-    if (engine->getExtraInt("moveleftclicked") == 3)
+    if (engine->getExtraInt("moveleftclicked") == 4)
         movingLeft = false;
-    if (engine->getExtraInt("moverightclicked") == 3)
+    if (engine->getExtraInt("moverightclicked") == 4)
         movingRight = false;
-    if (engine->getExtraInt("movebackwardclicked") == 3)
+    if (engine->getExtraInt("movebackwardclicked") == 4)
         movingBackward = false;
-    if (engine->getExtraInt("moveforwardclicked") == 3)
+    if (engine->getExtraInt("moveforwardclicked") == 4)
         movingForward = false;
-    if (engine->getExtraInt("moveupclicked") == 3)
+    if (engine->getExtraInt("moveupclicked") == 4)
         movingUp = false;
 
     Object *playerObj = engine->getPlayerObj();

@@ -55,8 +55,15 @@ void Camera::tick()
 		break;
 	case CAMERA_THIRDPERSON:
 		
-		if (g_common.touchCtrlRJDown)
+		if (g_common.touchCtrlRJDown && g_common.touchCtrlRJDistX)
 		{
+			const float limit = 500;
+
+			if (g_common.touchCtrlRJDistX < -300)
+				g_common.touchCtrlRJDistX = 0;
+			if (g_common.touchCtrlRJDistX > 300)
+				g_common.touchCtrlRJDistX = 0;
+
 		    yaw += g_common.touchCtrlRJDistX / 20.0;
 
 		    if (playerObj != nullptr)

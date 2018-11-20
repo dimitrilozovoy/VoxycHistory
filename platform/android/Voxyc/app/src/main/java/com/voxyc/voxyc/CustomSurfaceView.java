@@ -86,19 +86,25 @@ public class CustomSurfaceView extends GLSurfaceView {
 	int action2 = 0;
 	float x2 = 0;
 	float y2 = 0;
-	
+
 //	if (count >= 1)
 //	{
-		switch (ev.getAction())
+		switch (ev.getActionMasked())
 		{
 			case MotionEvent.ACTION_DOWN:
 				action1 = 1;
 				break;
-			case MotionEvent.ACTION_MOVE:
+			case MotionEvent.ACTION_POINTER_DOWN:
 				action1 = 2;
 				break;
-			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_MOVE:
 				action1 = 3;
+				break;
+			case MotionEvent.ACTION_UP:
+				action1 = 4;
+				break;
+			case MotionEvent.ACTION_POINTER_UP:
+				action1 = 5;
 				break;
 		}
 		
@@ -108,24 +114,31 @@ public class CustomSurfaceView extends GLSurfaceView {
 	
 	if (count >= 2)
 	{
-		switch (ev.getAction())
+		switch (ev.getActionMasked())
 		{
 			case MotionEvent.ACTION_DOWN:
 				action2 = 1;
 				break;
-			case MotionEvent.ACTION_MOVE:
+			case MotionEvent.ACTION_POINTER_DOWN:
 				action2 = 2;
 				break;
-			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_MOVE:
 				action2 = 3;
 				break;
+			case MotionEvent.ACTION_UP:
+				action2 = 4;
+				break;
+			case MotionEvent.ACTION_POINTER_UP:
+				action2 = 5;
+				break;
+
 		}
 
 		x2 = ev.getX(1);
 		y2 = ev.getY(1);
 	}
-	
-	HelloJni.touchEvent(ev.getPointerCount(), action1, x1, y1, action2, x2, y2);
+
+	HelloJni.touchEvent(ev.getPointerCount(), action1, x1, y1, action2, x2, y2, ev.getActionIndex());
 		
 /*	for (int i = 0; i < ev.getPointerCount(); i++)
 	{
