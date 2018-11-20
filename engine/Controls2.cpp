@@ -363,7 +363,7 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
         return;
     }
 
-    if (count == 1 && lastCount == 3) {
+    if (count == 1 && lastCount == 2) {
         lastCount = count;
         jdown = false;
         jlastdownx = 0;
@@ -429,12 +429,16 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
         float distxdiff = distx - lastdistx;
         float disty = uppery - lowery;
         float distydiff = disty - lastdisty;
+		
+/*	    Log("distx ", (int)distx * 100);
+		Log("distxdiff ", (int)distxdiff * 100);
+        Log("lastavgx ", (int)lastavgx * 100);*/
 
         // Pinch side to side
         if (distxdiff > -3 && distxdiff < 3) {
             if (lastavgx != 0) {
                 float diffx = avgx - lastavgx;
-
+			
                 if (diffx < 0)
                     playerObj->MoveRight(diffx / 20.0);
                 else
@@ -503,7 +507,7 @@ void Controls2::touchEvent(int count, int action1, float x1, float y1, int actio
 
     // Fingers up
 
-    if (action == 3) {
+    if (action == 4) {
         lastavgx = 0;
         lastavgy = 0;
     }

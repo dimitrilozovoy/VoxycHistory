@@ -76,7 +76,7 @@ public class HelloJni extends Activity
 	public static native void AppTick();
 	public static native void Draw();
 	public static native void AppFree();
-	public static native void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2);
+	public static native void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
 	public static native void enterCommand(String str);
 	public static native void setFilesDir(String str, String str2, String str3);
 	public static native void setExtraInt(String name, int value);
@@ -118,9 +118,6 @@ public class HelloJni extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-		
-	    TextView  tv = new TextView(this);
-	    setContentView(tv);
 		
 		SetUpBridge(this);
 		
@@ -220,7 +217,7 @@ public class HelloJni extends Activity
 		HelloJni.onShowFileSelector = new Handler(Looper.getMainLooper()) {
 			@Override
 			public void handleMessage(Message msg) {
-				showFileSelector2(msg.getData().getString("ext"));
+				showFileSelector2(msg.getData().getString("ext"), msg.getData().getString("dir"));
 			}
 		};
 		
@@ -298,7 +295,7 @@ public class HelloJni extends Activity
 	{
 		super.onResume();
 
-//		playTrack(curTrackFilename);
+		playTrack(curTrackFilename);
 	}
 
 	@Override
@@ -306,7 +303,7 @@ public class HelloJni extends Activity
 	{
 		super.onPause();
 
-//		player.stop();
+		player.stop();
 	}
 
 	@Override
@@ -314,7 +311,6 @@ public class HelloJni extends Activity
 	{
 		super.onStop();
 	}
-	
     /* A native method that is implemented by the
      * 'hello-jni' native library, which is packaged
      * with this application.
@@ -617,36 +613,24 @@ public class HelloJni extends Activity
 		return surfaceView.getHolder().getSurface();
 	}
 	
-	public void loadTextureInJava(int tex, String filename, boolean external, boolean isFilenameFull) {
+	public void loadTextureInJava(int tex, String filename, String assetsDir) {
 
 		try
 		{
 			InputStream inputStream = null;
 			Bitmap bitmap = null;
 
-			// Check if external exists
-			String checkFilename  = getExternalFilesDir(null) + "/" + filename;
-			File checkf = new File(checkFilename);
-			if (checkf.exists())
-				external = true;
 
-			if (isFilenameFull)
+			// Assets dir
+			try
 			{
-				filename = filename;
 				File f = new File(filename);
-				FileInputStream fin = new FileInputStream(filename);
+				FileInputStream fin = new FileInputStream(assetsDir + "/" + filename);
 				bitmap = android.graphics.BitmapFactory.decodeStream(fin);
 			}
-			else if (external)
+			catch (IOException e)
 			{
-				filename = getExternalFilesDir(null) + "/" + filename;
-//				filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename;
-				File f = new File(filename);
-				FileInputStream fin = new FileInputStream(filename);
-				bitmap = android.graphics.BitmapFactory.decodeStream(fin);
-		    }
-			else
-			{
+				// Fall back to build-in assets
 				inputStream = amgr.open(filename);
 				bitmap = android.graphics.BitmapFactory.decodeStream(inputStream);
 				inputStream.close();
@@ -901,21 +885,26 @@ public class HelloJni extends Activity
 	// File selector
 	//
 	
-	public void showFileSelector(String ext)
+	public void showFileSelector(String ext, String dir)
 	{
 		Message msg = new Message();
 
 		msg.getData().putString("ext", ext);
+		msg.getData().putString("dir", dir);
 
 		onShowFileSelector.sendMessage(msg);
 	}
 	
-	public void showFileSelector2(String ext)
+	public void showFileSelector2(String ext, String sdir)
 	{
-		File dir = getExternalFilesDir(null);
+		File dir;
+		dir = getExternalFilesDir(null);
+
+		if (sdir == null || sdir.equals(""))
+			sdir = dir.getAbsolutePath();
 
 		DDLUtils.mainActivity = this;
-        DDLUtils.showFileSelectorWithPrompt("Enter filename", dir.getAbsolutePath() + "/default." + ext,
+        DDLUtils.showFileSelectorWithPrompt("Enter filename", sdir + "/default." + ext,
 			new RespondToNode() {
 				@Override
 				public void respondToNode() {

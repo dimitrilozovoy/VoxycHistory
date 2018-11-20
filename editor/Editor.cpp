@@ -999,7 +999,7 @@ void Editor::tick() {
         placeObjTimer--;
 
     if ((engine->getExtraInt("addclicked") == 1
-         || engine->getExtraInt("addclicked") == 2)
+         || engine->getExtraInt("addclicked") == 3)
         && addTimer == 0 && !selectOnly) {
 
         if (mode == EM_VOX && curVoxels != nullptr) {
@@ -1096,7 +1096,7 @@ void Editor::tick() {
         rmObjTimer--;
 
     if ((engine->getExtraInt("removeclicked") == 1
-         || engine->getExtraInt("removeclicked") == 2)) {
+         || engine->getExtraInt("removeclicked") == 3)) {
 
 		if (placingObj)
 		{
@@ -1178,7 +1178,7 @@ void Editor::tick() {
         optTimer--;
 
     if ((engine->getExtraInt("optionsclicked") == 1
-         || engine->getExtraInt("optionsclicked") == 2)
+         || engine->getExtraInt("optionsclicked") == 3)
         && optTimer == 0) {
         if (mode == EM_OBJ) {
             gui->clearListMenu();
