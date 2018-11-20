@@ -668,6 +668,9 @@ bool compareAngle(float angle1, float angle2, float threshold)
 	while (angle2 > 360.0)
 		angle2 -= 360.0;
 
+	angle1 += 360;
+	angle2 += 360;
+
     if (abs(abs(angle1) - abs(angle2)) < threshold)
         return true;
     
@@ -807,6 +810,10 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 	angle = Limit360(angle);
 	targetAngle = Limit360(targetAngle);
 
+	char str[1024];
+	snprintf(str, 1024, "angle %d, targetAngle %d", (int)angle, (int)targetAngle);
+	Log(str);
+
 	if (targetAngle == 0)
 	{
 		if (angle > 180)
@@ -819,7 +826,7 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 		float cWiseDist = 0;
 		float ccWiseDist = 0;
 
-		if (targetAngle >angle)
+		if (targetAngle > angle)
 		{
 			cWiseDist = targetAngle - angle;
 			ccWiseDist = angle + (360 - targetAngle);
@@ -827,14 +834,24 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 
 		if (targetAngle < angle)
 		{
-			cWiseDist = (360 - targetAngle) + angle;
+			cWiseDist = (360 - angle) + targetAngle;
 			ccWiseDist = angle - targetAngle;
 		}
 
+		char str[1024];
+		snprintf(str, 1024, "cWiseDist %d, ccWiseDist %d", (int)cWiseDist, (int)ccWiseDist);
+		Log(str);
+
 		if (cWiseDist > ccWiseDist)
+		{
+			Log("angle--");
 			angle -= step;
+		}
 		else
+		{
+			Log("angle++");
 			angle += step;
+		}
 
 		angle = Limit360(angle);
 	}
