@@ -21,6 +21,9 @@ SOFTWARE.
 */
 
 #include <sstream>
+#include <string>
+#include <locale>
+#include <algorithm>
 #include "../engine/Globals.hpp"
 #include "Editor.h"
 #include "../engine/Engine2.h"
@@ -216,15 +219,19 @@ void Editor::tick() {
 
         if (engine->getExtraInt("filebtnclicked") == 1
             || engine->getExtraInt("filebtnclicked") == 3) {
-            gui->clearListMenu();
-            gui->addListMenuOption("New Scene", "");
-            gui->addListMenuOption("Load Scene", "");
-            gui->addListMenuOption("Save Scene", "");
-            gui->addListMenuOption("Run script", "");
-            gui->addListMenuOption("Clear and run script", "");
-            gui->addListMenuOption("README", "");
-            gui->addListMenuOption("Simple Mode", "");
-            gui->showListMenuInDialog("File", "");
+
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearListMenu();
+				gui->addListMenuOption("New Scene", "");
+				gui->addListMenuOption("Load Scene", "");
+				gui->addListMenuOption("Save Scene", "");
+				gui->addListMenuOption("Run script", "");
+				gui->addListMenuOption("Clear and run script", "");
+				gui->addListMenuOption("README", "");
+				gui->addListMenuOption("Simple Mode", "");
+				gui->showListMenuInDialog("File", "");
+			}
 
             engine->setExtraInt("filebtnclicked", 0);
 
@@ -292,15 +299,19 @@ void Editor::tick() {
 
         if (engine->getExtraInt("objbtnclicked") == 1
             || engine->getExtraInt("objbtnclicked") == 3) {
-            gui->clearListMenu();
-            gui->addListMenuOption("Select Only", "");
-            gui->addListMenuOption("Add Voxels", "");
-            gui->addListMenuOption("Add Shape", "");
-            gui->addListMenuOption("Add Model", "");
-            gui->addListMenuOption("Add Sprite", "");
-            gui->addListMenuOption("Set Sky", "");
-            gui->addListMenuOption("Hide GUI and Guides", "");
-            gui->showListMenuInDialog("Object", "");
+
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearListMenu();
+				gui->addListMenuOption("Select Only", "");
+				gui->addListMenuOption("Add Voxels", "");
+				gui->addListMenuOption("Add Shape", "");
+				gui->addListMenuOption("Add Model", "");
+				gui->addListMenuOption("Add Sprite", "");
+				gui->addListMenuOption("Set Sky", "");
+				gui->addListMenuOption("Hide GUI and Guides", "");
+				gui->showListMenuInDialog("Object", "");
+			}
 
             engine->setExtraInt("objbtnclicked", 0);
 
@@ -315,10 +326,14 @@ void Editor::tick() {
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Shape") {
-            gui->clearListMenu();
-            gui->addListMenuOption("Add Terrain", "");
-            gui->addListMenuOption("Add Block", "");
-            gui->showListMenuInDialog("Add Shape", "");
+
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearListMenu();
+				gui->addListMenuOption("Add Terrain", "");
+				gui->addListMenuOption("Add Block", "");
+				gui->showListMenuInDialog("Add Shape", "");
+			}
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -491,15 +506,19 @@ void Editor::tick() {
             selectOnly = false;
             mode = EM_OBJ;
 
-            gui->clearDialog();
-
-            gui->addDialogPart("size", "1000", "size");
-            gui->addDialogPart("detail", "16", "detail");
-            gui->addDialogPart("valley y", "8", "valleysizex");
-            gui->addDialogPart("valley z", "8", "valleysizez");
-            gui->addDialogPart("height", "25", "height");
-
-            gui->showDialog("New Terrain", "OK", "Cancel", "newterrainparams_entered");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				if (!gui->nonNativeWidgetsShown())
+				{
+					gui->clearDialog();
+					gui->addDialogPart("size", "1000", "size");
+					gui->addDialogPart("detail", "16", "detail");
+					gui->addDialogPart("valley y", "8", "valleysizex");
+					gui->addDialogPart("valley z", "8", "valleysizez");
+					gui->addDialogPart("height", "25", "height");
+					gui->showDialog("New Terrain", "OK", "Cancel", "newterrainparams_entered");
+				}
+			}
 
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
@@ -542,9 +561,15 @@ void Editor::tick() {
             selectOnly = false;
             mode = EM_OBJ;
 
-            gui->clearDialog();
-            gui->addDialogPart("Size", "16", "newvoxelssize");
-            gui->showDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				if (!gui->nonNativeWidgetsShown())
+				{
+					gui->clearDialog();
+					gui->addDialogPart("Size", "16", "newvoxelssize");
+					gui->showDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
+				}
+			}
 
             engine->newShape("voxels", SHAPE_VOXELS, 10.0, 0);
 
@@ -1181,21 +1206,29 @@ void Editor::tick() {
          || engine->getExtraInt("optionsclicked") == 3)
         && optTimer == 0) {
         if (mode == EM_OBJ) {
-            gui->clearListMenu();
-            gui->addListMenuOption("Set name", "");
-            gui->addListMenuOption("Set texture", "");
-            gui->addListMenuOption("Set position", "");
-			gui->addListMenuOption("Set orientation", "");
-			gui->addListMenuOption("Set scale", "");
-			gui->addListMenuOption("Link copy", "");
-            gui->showListMenuInDialog("Options", "");
+
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearListMenu();
+				gui->addListMenuOption("Set name", "");
+				gui->addListMenuOption("Set texture", "");
+				gui->addListMenuOption("Set position", "");
+				gui->addListMenuOption("Set orientation", "");
+				gui->addListMenuOption("Set scale", "");
+				gui->addListMenuOption("Link copy", "");
+				gui->showListMenuInDialog("Options", "");
+			}
 
             optTimer = 30;
         } else if (mode == EM_VOX) {
-            gui->clearListMenu();
-            gui->addListMenuOption("Set texture", "");
-            gui->addListMenuOption("Set texture span", "");
-            gui->showListMenuInDialog("Options", "");
+
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearListMenu();
+				gui->addListMenuOption("Set texture", "");
+				gui->addListMenuOption("Set texture span", "");
+				gui->showListMenuInDialog("Options", "");
+			}
 
             optTimer = 30;
         }
@@ -1209,9 +1242,12 @@ void Editor::tick() {
 		
 		if (selectedObj != nullptr)
 		{
-            gui->clearDialog();
-            gui->addDialogPart("Name", selectedObj->name, "newname");
-            gui->showDialog("Set Name", "OK", "Cancel", "setobjname_entered");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearDialog();
+				gui->addDialogPart("Name", selectedObj->name, "newname");
+				gui->showDialog("Set Name", "OK", "Cancel", "setobjname_entered");
+			}
 		}
 		
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1222,7 +1258,8 @@ void Editor::tick() {
         if (selectedObj != nullptr)
         {
             std::string oldname = selectedObj->name;
-            std::string newname = engine->getExtraStr("newname");
+		    std::string newname = engine->getExtraStr("newname");
+			std::transform(newname.begin(), newname.end(), newname.begin(), ::tolower);
 
 			if (oldname != newname)
 			{
@@ -1289,13 +1326,14 @@ void Editor::tick() {
 
         if (selectedObj != nullptr)
         {
-            gui->clearDialog();
-
-            gui->addDialogPart("x", FloatToStr(selectedObj->position.x), "newx");
-            gui->addDialogPart("y", FloatToStr(selectedObj->position.y), "newy");
-            gui->addDialogPart("z", FloatToStr(selectedObj->position.z), "newz");
-
-            gui->showDialog("Set Position", "OK", "Cancel", "setobjposition_entered");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearDialog();
+				gui->addDialogPart("x", FloatToStr(selectedObj->position.x), "newx");
+				gui->addDialogPart("y", FloatToStr(selectedObj->position.y), "newy");
+				gui->addDialogPart("z", FloatToStr(selectedObj->position.z), "newz");
+				gui->showDialog("Set Position", "OK", "Cancel", "setobjposition_entered");
+			}
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1319,13 +1357,14 @@ void Editor::tick() {
 
         if (selectedObj != nullptr)
         {
-            gui->clearDialog();
-
-            gui->addDialogPart("pitch", FloatToStr(selectedObj->pitch), "pitch");
-            gui->addDialogPart("yaw", FloatToStr(selectedObj->yaw), "yaw");
-            gui->addDialogPart("roll", FloatToStr(selectedObj->roll), "roll");
-
-            gui->showDialog("Set Orientation", "OK", "Cancel", "setobjorientation_entered");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearDialog();
+				gui->addDialogPart("pitch", FloatToStr(selectedObj->pitch), "pitch");
+				gui->addDialogPart("yaw", FloatToStr(selectedObj->yaw), "yaw");
+				gui->addDialogPart("roll", FloatToStr(selectedObj->roll), "roll");
+				gui->showDialog("Set Orientation", "OK", "Cancel", "setobjorientation_entered");
+			}
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1349,13 +1388,14 @@ void Editor::tick() {
 
         if (selectedObj != nullptr)
         {
-            gui->clearDialog();
-
-            gui->addDialogPart("x", FloatToStr(selectedObj->scale.x), "scalex");
-            gui->addDialogPart("y", FloatToStr(selectedObj->scale.y), "scaley");
-            gui->addDialogPart("z", FloatToStr(selectedObj->scale.z), "scalez");
-
-            gui->showDialog("Set Scale", "OK", "Cancel", "setobjscale_entered");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearDialog();
+				gui->addDialogPart("x", FloatToStr(selectedObj->scale.x), "scalex");
+				gui->addDialogPart("y", FloatToStr(selectedObj->scale.y), "scaley");
+				gui->addDialogPart("z", FloatToStr(selectedObj->scale.z), "scalez");
+				gui->showDialog("Set Scale", "OK", "Cancel", "setobjscale_entered");
+			}
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");
@@ -1406,12 +1446,13 @@ void Editor::tick() {
             TextureManager2 *texMan = engine->getTextureManager();
             Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
 
-            gui->clearDialog();
-
-            gui->addDialogPart("x", FloatToStr(tex->texSpanX), "texturespanx");
-            gui->addDialogPart("y", FloatToStr(tex->texSpanY), "texturespany");
-
-            gui->showDialog("Set Texture Span", "OK", "Cancel", "settexturespan_entered");
+			if (!gui->nonNativeWidgetsShown())
+			{
+				gui->clearDialog();
+				gui->addDialogPart("x", FloatToStr(tex->texSpanX), "texturespanx");
+				gui->addDialogPart("y", FloatToStr(tex->texSpanY), "texturespany");
+				gui->showDialog("Set Texture Span", "OK", "Cancel", "settexturespan_entered");
+			}
         }
 
         engine->setExtraStr("listmenuoptionclicked", "");

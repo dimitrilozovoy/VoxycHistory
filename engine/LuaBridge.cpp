@@ -753,10 +753,9 @@ static int setplayerobj(lua_State *L)
 
 static int setplayerpos(lua_State *L)
 {
-	std::string name = lua_tostring(L, 1);
-	lua_Number x = lua_tonumber(L, 2);
-    lua_Number y = lua_tonumber(L, 3);
-    lua_Number z = lua_tonumber(L, 4);
+	lua_Number x = lua_tonumber(L, 1);
+    lua_Number y = lua_tonumber(L, 2);
+    lua_Number z = lua_tonumber(L, 3);
 	
     g_engine2->setPlayerPos(x, y, z);
 	

@@ -1693,7 +1693,7 @@ void Engine2::loadScene(std::string fname)
 	for(const auto &pair: objects) {
 		Object *obj = pair.second;
 
-        if (!obj->system) {
+        if (obj != nullptr && !obj->system) {
 			// Assign shape object
             if (obj->shapeName != "") {
                 obj->shape = shapes[obj->shapeName];

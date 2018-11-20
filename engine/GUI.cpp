@@ -426,6 +426,9 @@ void GUI::showListMenuInDialog(std::string title, std::string options)
 		PLAT_ShowListMenuInDialog(title, options);
 	else
 	{
+		if (dialogShown)
+			clearDialog();
+
 		const float lineHeight = 1.6;
 		float typeSize = 0.1;
 
@@ -534,6 +537,9 @@ void GUI::showDialog(std::string title, std::string okText, std::string cancelTe
 		PLAT_ShowDialog(title, okText, cancelText, okExtra);
 	else
 	{
+		if (listMenuShown)
+			clearListMenu();
+
 		const float lineHeight = 1.6;
 		float typeSize = 0.1;
 
