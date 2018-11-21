@@ -21,8 +21,9 @@ SOFTWARE.
 */
 
 #include "../../../../engine/Globals.hpp"
+#include "../../../../engine/DDLUtils.hpp"
 #include "../../../../engine/Audio.h"
-//#include "main.h"
+#include "../../../../thirdparty/SimpleIni/SimpleIni.h"
 
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
 #include <string>
@@ -114,6 +115,34 @@ void PLAT_ShowDialog(std::string s1, std::string s2, std::string s3, std::string
 std::string PLAT_GetCameraPic()
 {
 	return "";
+}
+
+void PLAT_SavePref(std::string section, std::string key, std::string value)
+{
+	CSimpleIniA ini(true, true, true);
+	SI_Error rc = ini.LoadFile(CONFIG_FILENAME);
+	if (rc < 0)
+		Log("Error opening INI file to save");
+
+	rc = ini.SetValue(section.c_str(), key.c_str(), value.c_str());
+	if (rc < 0)
+		Log("Error saving to INI");
+
+	ini.SaveFile(CONFIG_FILENAME);
+	if (rc < 0)
+		Log("Error saving to INI file");
+}
+
+std::string PLAT_LoadPref(std::string section, std::string key, std::string def = "")
+{
+	CSimpleIniA ini(true, true, true);
+	SI_Error rc = ini.LoadFile(CONFIG_FILENAME);
+	if (rc < 0)
+		Log("Error opening INI file to load");
+
+	std::string value = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
+
+	return value;
 }
 
 #endif

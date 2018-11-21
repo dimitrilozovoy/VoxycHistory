@@ -71,8 +71,8 @@ long long g_lastFinishDrawTime = -1;
 long long g_lastFinishTickTime = -1;
 
 //const int g_windowWidth = 1280;
-const int g_windowWidth = 1600;
-const int g_windowHeight = 1024;
+const int g_windowWidth = 1024;
+const int g_windowHeight = 768 ;
 
 int g_numEnemiesPerLevel = DEFAULT_NUM_ENEMIES_PER_LEVEL;
 

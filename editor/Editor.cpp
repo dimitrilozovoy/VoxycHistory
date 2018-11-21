@@ -249,7 +249,12 @@ void Editor::tick() {
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
             timer = 50;
-            gui->showFileSelector("sc", g_assetsDir);
+
+			std::string dir = PLAT_LoadPref("main", "scenedir", "");
+			if (dir == "")
+				dir = g_assetsDir;
+
+            gui->showFileSelector("sc", dir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "loadscene";
         }
@@ -382,7 +387,8 @@ void Editor::tick() {
             if (fileSelectorAction == "savescene") {
 				engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
 				engine->saveScene(engine->getExtraStr("fileselected"));
-                engine->setExtraStr("fileselected", "");
+				PLAT_SavePref("main", "scenedir", GetPath(engine->getExtraStr("fileselected")));
+				engine->setExtraStr("fileselected", "");
             }
 
             if (fileSelectorAction == "importvoxeltexture") {

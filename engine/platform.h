@@ -75,4 +75,7 @@ void PLAT_ShowDialog(std::string s1, std::string s2, std::string s3, std::string
 
 std::string PLAT_GetCameraPic();
 
+void PLAT_SavePref(std::string section, std::string key, std::string value);
+std::string PLAT_LoadPref(std::string section, std::string key, std::string def = "");
+
 #endif

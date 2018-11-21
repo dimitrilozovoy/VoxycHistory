@@ -54,6 +54,18 @@ void Controls2::tick() {
     float targetYaw = 1000000;
 
     switch (controlScheme) {
+		case CTRL_FPS:
+
+			if (buttons[BTN_UP] == 1)
+				playerObj->MoveForward(0.1);
+			if (buttons[BTN_DOWN] == 1)
+				playerObj->MoveBackward(0.1);
+			if (buttons[BTN_LEFT] == 1)
+				playerObj->MoveLeft(0.1);
+			if (buttons[BTN_RIGHT] == 1)
+				playerObj->MoveRight(0.1);
+			break;
+
         case CTRL_EDITOR:
 
             if (buttons[BTN_UP] == 1)
@@ -340,7 +352,8 @@ void Controls2::tick() {
     //
 
     switch (controlScheme) {
-        case CTRL_EDITOR:
+	case CTRL_FPS:
+	case CTRL_EDITOR:
             playerObj->yaw += mouseX;
             playerObj->pitch -= mouseY;
             break;

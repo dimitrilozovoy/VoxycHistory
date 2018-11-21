@@ -798,3 +798,13 @@ std::string PLAT_GetCameraPic()
 	
 	return fname;
 }
+
+void PLAT_SavePref(std::string section, std::string key, std::string value)
+{
+
+}
+
+std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
+{
+    return "";
+}

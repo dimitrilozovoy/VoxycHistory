@@ -409,7 +409,7 @@ void Engine2::setTexture(std::string name, std::string textureName)
     {
 //	    std::string s = "setTexture " + name + " " + textureName + " tex is null; calling load";
 //	    Log(s);
-        texMan.load(textureName);
+        texMan.load(textureName);	
     }
 	else
 	{
