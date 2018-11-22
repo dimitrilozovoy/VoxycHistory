@@ -80,7 +80,7 @@ void Editor::load() {
 
     // Turn off collision detection for player
     Object *player = engine->getPlayerObj();
-    player->ints["ignorecollisions"] = 1;
+//    player->ints["ignorecollisions"] = 1;
 
     // Make main grid sprite
     engine->genTexture("maingrid", "grid", 32);
@@ -250,7 +250,7 @@ void Editor::tick() {
         if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
             timer = 50;
 
-			std::string dir = PLAT_LoadPref("main", "scenedir", "");
+			std::string dir = PLAT_LoadPref("main", "scene", "");
 			if (dir == "")
 				dir = g_assetsDir;
 
@@ -261,21 +261,31 @@ void Editor::tick() {
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Save Scene") {
             timer = 50;
-            gui->showFileSelector("sc", g_assetsDir);
+            gui->showFileSelector("sc", g_assetsDir + "/default.sc");
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "savescene";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Run script") {
             timer = 50;
-            gui->showFileSelector("lua", g_assetsDir);
+			
+			std::string fname = PLAT_LoadPref("main", "script", "");
+			if (fname == "")
+		        fname = g_assetsDir;
+				
+            gui->showFileSelector("lua", fname);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "runscript";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Clear and run script") {
             timer = 50;
-            gui->showFileSelector("lua", g_assetsDir);
+			
+			std::string fname = PLAT_LoadPref("main", "script", "");
+			if (fname == "")
+		        fname = g_assetsDir;
+
+            gui->showFileSelector("lua", fname);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "clearandrunscript";
         }
@@ -376,6 +386,7 @@ void Editor::tick() {
             timer = 50;
 
             if (fileSelectorAction == "loadscene") {
+				PLAT_SavePref("main", "scene", engine->getExtraStr("fileselected"));
                 engine->clear();
                 engine->clearGUI();
                 load();
@@ -385,9 +396,9 @@ void Editor::tick() {
             }
 
             if (fileSelectorAction == "savescene") {
+				PLAT_SavePref("main", "scene", engine->getExtraStr("fileselected"));
 				engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
 				engine->saveScene(engine->getExtraStr("fileselected"));
-				PLAT_SavePref("main", "scenedir", GetPath(engine->getExtraStr("fileselected")));
 				engine->setExtraStr("fileselected", "");
             }
 
@@ -421,13 +432,15 @@ void Editor::tick() {
             }
 
             if (fileSelectorAction == "runscript") {
-                engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
+                PLAT_SavePref("main", "script", engine->getExtraStr("fileselected"));
+				engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
                 std::string fname = GetFileName(engine->getExtraStr("fileselected"));
                 luaBridge.exec(fname);
                 engine->setExtraStr("fileselected", "");
             }
 
             if (fileSelectorAction == "clearandrunscript") {
+				PLAT_SavePref("main", "script", engine->getExtraStr("fileselected"));
                 engine->setExtraInt("switchmodule", 1);
                 engine->setExtraStr("nextmodule", "luaprogram");
                 engine->setExtraStr("loadscript", GetFileName(engine->getExtraStr("fileselected")));

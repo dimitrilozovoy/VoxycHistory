@@ -210,6 +210,7 @@ int main(int argc, const char * argv[]) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+//	g_glfwWindow = glfwCreateWindow(g_windowWidth, g_windowHeight, "Voxyc", glfwGetPrimaryMonitor(), NULL);
 	g_glfwWindow = glfwCreateWindow(g_windowWidth, g_windowHeight, "Voxyc", NULL, NULL);
 	if (!g_glfwWindow)
 		Log("glfwCreateWindow failed. Can your hardware handle OpenGL 3.3?");

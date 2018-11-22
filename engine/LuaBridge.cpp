@@ -773,6 +773,21 @@ static int getplayerpos(lua_State *L)
 	return 3;
 }
 
+static int setplayersize(lua_State *L)
+{
+	Object *player = g_engine2->getPlayerObj();
+
+	lua_Number x = lua_tonumber(L, 1);
+	lua_Number y = lua_tonumber(L, 2);
+	lua_Number z = lua_tonumber(L, 3);
+
+	player->scale.x = x;
+	player->scale.y = y;
+	player->scale.z = z;
+
+	return 0;
+}
+
 static int setplayerorient(lua_State *L)
 {
 	lua_Number pitch = lua_tonumber(L,1);
@@ -1742,6 +1757,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setplayerobj", setplayerobj);
 	lua_register(L, "setplayerpos", setplayerpos);
 	lua_register(L, "getplayerpos", getplayerpos);
+	lua_register(L, "setplayersize", setplayersize);
 	lua_register(L, "setplayerorient", setplayerorient);
 	lua_register(L, "getplayerorient", getplayerorient);
 	lua_register(L, "setplayerpitch", setplayerpitch);

@@ -179,6 +179,27 @@ void Controls2::tick() {
     //
 
     switch (controlScheme) {
+		
+		case CTRL_FPS:
+			
+			if (ljdown) {
+                float xdiff = ljlastmovex - ljlastdownx;
+                float ydiff = ljlastmovey - ljlastdowny;
+				
+				playerObj->MoveBackward(ydiff / 100);
+				playerObj->MoveRight(xdiff / 100);
+            }
+			
+			if (rjdown) {
+                float xdiff = rjlastmovex - rjlastdownx;
+                float ydiff = rjlastmovey - rjlastdowny;
+				
+//				playerObj->MoveBackward(ydiff / 50);
+				playerObj->yaw += xdiff / 10;
+            }
+			
+			break;
+		
         case CTRL_THIRDPERSON:
 
             // Movement

@@ -361,8 +361,14 @@ void GUI::showFileSelector(std::string ext, std::string sdir)
 		DIR *dir;
 		struct dirent *ent;
 
+		if ((dir = opendir((const char *)sdir.c_str())) == NULL)
+		{
+			sdir = GetPath(sdir);
+		}
+			
 		if ((dir = opendir((const char *)sdir.c_str())) != NULL)
 		{
+
 			while ((ent = readdir(dir)) != NULL)
 			{
 				std::string fname = ent->d_name;

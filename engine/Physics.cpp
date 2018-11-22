@@ -85,7 +85,6 @@ void Physics::tick(std::map<std::string, Object*> &objects)
 			bool nearcollz = false;
 			bool nearcoll = false;
 
-
 			if (obj1->checkCollision(obj2, 1.2))
 			{
 				// Collision detected

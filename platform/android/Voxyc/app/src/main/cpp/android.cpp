@@ -91,6 +91,8 @@ jmethodID g_clearDialog = 0;
 jmethodID g_addDialogPart = 0;
 jmethodID g_showDialog = 0;
 jmethodID g_getCameraPic = 0;
+jmethodID g_savePref = 0;
+jmethodID g_loadPref = 0;
 
 jobject g_screen;
 
@@ -160,6 +162,8 @@ extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIE
     g_addDialogPart = jni->GetMethodID(g_classMainActivity, "addDialogPart", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     g_showDialog = jni->GetMethodID(g_classMainActivity, "showDialog", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     g_getCameraPic = jni->GetMethodID(g_classMainActivity, "getCameraPic", "()Ljava/lang/String;");
+    g_savePref = jni->GetMethodID(g_classMainActivity, "savePref", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    g_loadPref = jni->GetMethodID(g_classMainActivity, "loadPref", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
 }
 
 extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetScreen(JNIEnv *jni, jclass clazz, jobject bitmap)
@@ -799,12 +803,33 @@ std::string PLAT_GetCameraPic()
 	return fname;
 }
 
-void PLAT_SavePref(std::string section, std::string key, std::string value)
+void PLAT_SavePref(std::string s1, std::string s2, std::string s3)
 {
+	JNIEnv *env;
+    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
 
+	jstring js1 = env->NewStringUTF(s1.c_str());
+ 	jstring js2 = env->NewStringUTF(s2.c_str());
+ 	jstring js3 = env->NewStringUTF(s3.c_str());
+    env->CallVoidMethod(g_objMainActivity, g_savePref, js1, js2, js3);
+    env->DeleteLocalRef(js1);
+	env->DeleteLocalRef(js2);
+	env->DeleteLocalRef(js3);
 }
 
-std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
+std::string PLAT_LoadPref(std::string s1, std::string s2, std::string s3)
 {
-    return "";
+	JNIEnv *env;
+    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+
+	jstring js1 = env->NewStringUTF(s1.c_str());
+ 	jstring js2 = env->NewStringUTF(s2.c_str());
+ 	jstring js3 = env->NewStringUTF(s3.c_str());
+    jstring jresult = (jstring)env->CallObjectMethod(g_objMainActivity, g_loadPref, js1, js2, js3);
+    const char *result = env->GetStringUTFChars(jresult, NULL);
+	env->DeleteLocalRef(js1);
+	env->DeleteLocalRef(js2);
+	env->DeleteLocalRef(js3);
+	
+    return result;
 }

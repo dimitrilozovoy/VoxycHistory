@@ -107,7 +107,9 @@ void Engine2::tick()
 	ddlsleep(10);
 #endif
 
-    resetOnClickExtras();
+	objects["player"] = playerObj;
+	
+	resetOnClickExtras();
 
 	physics.tick(objects);
     controls.tick();

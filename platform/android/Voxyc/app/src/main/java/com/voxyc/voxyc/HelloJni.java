@@ -904,7 +904,7 @@ public class HelloJni extends Activity
 			sdir = dir.getAbsolutePath();
 
 		DDLUtils.mainActivity = this;
-        DDLUtils.showFileSelectorWithPrompt("Enter filename", sdir + "/default." + ext,
+        DDLUtils.showFileSelectorWithPrompt("Enter filename", sdir,
 			new RespondToNode() {
 				@Override
 				public void respondToNode() {
@@ -1246,5 +1246,29 @@ public class HelloJni extends Activity
 				setExtraInt("camerapicready", 1);
 			}
 		}
+	}
+	
+	// =======================================================================
+    //
+    //   Prefs
+    //
+    // =======================================================================
+	
+	public void savePref(String section, String key, String value)
+	{
+		SharedPreferences prefs = getApplicationContext().getSharedPreferences(section, 0);
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		editor.putString(key, value);
+		editor.commit();
+	}
+	
+	public String loadPref(String section, String key, String def)
+	{
+		SharedPreferences prefs = getApplicationContext().getSharedPreferences(section, 0);
+		
+		String val = prefs.getString(key, def);
+		
+		return prefs.getString(key, def);
 	}
 }

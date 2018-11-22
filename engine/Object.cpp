@@ -257,13 +257,23 @@ void Object::move()
 		// Check for other objects
 		for (auto other : nearCollisions)
 		{
-			if (checkCollision(other, 1.0)
-				&& (other->category == "voxels"
-					|| other->category == "model"
-					|| other->category == "block"))
+			if (other->category == "voxels")
 			{
-				okToMove = false;
-				stuckOn = other->name;
+				if (checkVoxelCollision(other))
+				{
+					okToMove = false;
+					stuckOn = other->name;
+				}
+			}
+			else
+			{
+				if (checkCollision(other, 1.0)
+					&& (other->category == "model"
+						|| other->category == "block"))
+				{
+					okToMove = false;
+					stuckOn = other->name;
+				}
 			}
 		}
 
@@ -752,4 +762,119 @@ bool Object::checkCollision(Object *obj2, float multiplier)
 		return true;
 	else
 		return false;
+}
+
+bool Object::checkVoxelCollision(Object *voxObj)
+{
+	if (voxObj == nullptr)
+		return false;
+
+	Shape *shape = voxObj->shape;
+
+	if (shape == nullptr)
+		return false;
+
+	Voxels *voxels = shape->voxels;
+
+	if (voxels == nullptr)
+		return false;
+
+	bool result = false;
+	int x, y, z = 0;
+
+	float h = scale.x / 2;
+	int steps = 10;
+	float stepx = scale.x / (float)steps;
+	float stepy = scale.y / (float)steps;
+	float stepz = scale.z / (float)steps;
+
+	float wy = position.y - h / 1.5;
+
+	// A
+	for (int s = 0; s < steps; s++)
+	{
+		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z - h, x, y, z);
+		if (voxels->get(x, y, z) != 0)
+			result = true;
+	}
+
+	// B
+	for (int s = 0; s < steps; s++)
+	{
+		worldToVoxelCoords(voxObj, position.x + h, wy, position.z - h + stepz * s, x, y, z);
+		if (voxels->get(x, y, z) != 0)
+			result = true;
+	}
+	
+	// C
+	for (int s = 0; s < steps; s++)
+	{
+		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z - h, x, y, z);
+		if (voxels->get(x, y, z) != 0)
+			result = true;
+	}
+
+	// D
+	for (int s = 0; s < steps; s++)
+	{
+		worldToVoxelCoords(voxObj, position.x - h, wy, position.z - h + stepz * s, x, y, z);
+		if (voxels->get(x, y, z) != 0)
+			result = true;
+	}
+
+/*	worldToVoxelCoords(voxObj, position.x - h, position.y - h, position.z - h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x + h, position.y - h, position.z - h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x + h, position.y + h, position.z - h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x + h, position.y + h, position.z + h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x - h, position.y + h, position.z - h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x - h, position.y + h, position.z + h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x + h, position.y - h, position.z + h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;
+
+	worldToVoxelCoords(voxObj, position.x - h, position.y - h, position.z + h, x, y, z);
+	if (voxels->get(x, y, z) != 0)
+		result = true;*/
+
+	return result;
+}
+
+void Object::worldToVoxelCoords(Object *voxObj, float wx, float wy, float wz, int &x, int &y, int &z)
+{
+	if (voxObj == nullptr)
+		return;
+
+	float rx = (wx - (voxObj->position.x - voxObj->scale.x / 2.0)) /
+		((voxObj->position.x + voxObj->scale.x / 2.0) -
+		(voxObj->position.x - voxObj->scale.x / 2.0));
+	float ry = (wy - (voxObj->position.y - voxObj->scale.y / 2.0)) /
+		((voxObj->position.y + voxObj->scale.y / 2.0) -
+		(voxObj->position.y - voxObj->scale.y / 2.0));
+	float rz = (wz - (voxObj->position.z - voxObj->scale.z / 2.0)) /
+		((voxObj->position.z + voxObj->scale.z / 2.0) -
+		(voxObj->position.z - voxObj->scale.z / 2.0));
+
+	int size = voxObj->shape->voxels->getSize();
+
+	x = (int)((float)size * rx);
+	y = (int)((float)size * ry);
+	z = (int)((float)size * rz);
 }

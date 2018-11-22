@@ -206,8 +206,8 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	cameraTranslate = glm::translate(glm::mat4(), glm::vec3(-camera->position.x, -camera->position.y, -camera->position.z)); // Camera translate
 
 	mvMatrix =
-	    scaleToNDC
-		* cameraRotate
+//	    scaleToNDC
+		cameraRotate
 		* cameraTranslate
 		* glm::translate(glm::mat4(), glm::vec3(object->position.x, object->position.y, object->position.z)) // World translate
 		* rotate
