@@ -71,6 +71,7 @@ public:
 	void addObject(std::string name);
 	void removeObject(std::string name);
 	void removeObject(Object *object);
+	void rename(std::string from, std::string to);
 	void setType(std::string name, ObjType type);
 	void setShape(std::string name, ObjShapeType shape);
     void setShape(std::string name, std::string shapeName);
@@ -85,6 +86,7 @@ public:
 	void setMapTexture(std::string name);
 	void setSize(std::string name, float size);
 	void setSize(std::string name, float sizex, float sizey, float sizez);
+	void setPhysSize(std::string name, float sizex, float sizey, float sizez);
 	void setPos(std::string name, float x, float y, float z);
 	glm::vec4 getPos(std::string name);
 	void setNextPos(std::string name, float x, float y, float z);
@@ -122,6 +124,7 @@ public:
 	Controls2 *getControls() { return &controls; };
     EditorController *getEditorController() { return &editorController; };
     TextureManager2 *getTextureManager() { return &texMan; };
+	Physics *getPhysics() { return &physics; };
 
 	void setCameraPos(float x, float y, float z);
 	void setCameraOrientation(float yaw, float pitch, float roll);

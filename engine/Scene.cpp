@@ -43,7 +43,7 @@ void Scene::save(std::string fname, std::map<std::string, Object*> &objects, std
     {
         Object *obj = pair.second;
 
-        if (!obj->system) {
+        if (obj != nullptr && !obj->system) {
             objectsToWrite[pair.first] = obj;
 
             if (obj->shape != nullptr) {

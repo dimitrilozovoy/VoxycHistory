@@ -117,6 +117,7 @@ public:
 	std::map<std::string, float> floats;
 
 	std::vector<Object *> nearCollisions;
+	glm::vec3 physSize = glm::vec3(0.0, 0.0, 0.0);
 };
 
 #endif //FATELESS_OBJECT_H

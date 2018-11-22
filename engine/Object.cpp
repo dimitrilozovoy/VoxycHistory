@@ -698,6 +698,8 @@ void Object::load(FILE *f)
 	scale.y = getKVFloat("scale.y");
 	scale.z = getKVFloat("scale.z");
 
+	physSize = scale;
+
 	position.x = getKVFloat("position.x");
 	position.y = getKVFloat("position.y");
 	position.z = getKVFloat("position.z");
@@ -736,7 +738,7 @@ void Object::load(FILE *f)
 
 bool Object::checkCollision(Object *obj2, float multiplier)
 {
-	if (obj2 == nullptr || !visible || !obj2->visible)
+	if (obj2 == nullptr || !visible || !obj2->visible || obj2->ints["ignorecollisions"] == 1)
 		return false;
 
 	bool collx = false;
@@ -746,16 +748,16 @@ bool Object::checkCollision(Object *obj2, float multiplier)
 
 	Object *obj1 = this;
 
-	if ((obj1->position.x < obj2->position.x) && (obj1->position.x + ((obj1->scale.x * multiplier) / 2) > obj2->position.x - ((obj2->scale.x * multiplier) / 2))
-		|| (obj1->position.x > obj2->position.x) && (obj1->position.x - ((obj1->scale.x * multiplier) / 2) < obj2->position.x + ((obj2->scale.x * multiplier) / 2)))
+	if ((obj1->position.x < obj2->position.x) && (obj1->position.x + ((obj1->physSize.x * multiplier) / 2) > obj2->position.x - ((obj2->physSize.x * multiplier) / 2))
+		|| (obj1->position.x > obj2->position.x) && (obj1->position.x - ((obj1->physSize.x * multiplier) / 2) < obj2->position.x + ((obj2->physSize.x * multiplier) / 2)))
 		collx = true;
 
-	if ((obj1->position.y < obj2->position.y) && (obj1->position.y + ((obj1->scale.y * multiplier) / 2) > obj2->position.y - ((obj2->scale.y * multiplier) / 2))
-		|| (obj1->position.y > obj2->position.y) && (obj1->position.y - ((obj1->scale.y * multiplier) / 2) < obj2->position.y + ((obj2->scale.y * multiplier) / 2)))
+	if ((obj1->position.y < obj2->position.y) && (obj1->position.y + ((obj1->physSize.y * multiplier) / 2) > obj2->position.y - ((obj2->physSize.y * multiplier) / 2))
+		|| (obj1->position.y > obj2->position.y) && (obj1->position.y - ((obj1->physSize.y * multiplier) / 2) < obj2->position.y + ((obj2->physSize.y * multiplier) / 2)))
 		colly = true;
 
-	if ((obj1->position.z < obj2->position.z) && (obj1->position.z + ((obj1->scale.z * multiplier) / 2) > obj2->position.z - ((obj2->scale.z * multiplier) / 2))
-		|| (obj1->position.z > obj2->position.z) && (obj1->position.z - ((obj1->scale.z * multiplier) / 2) < obj2->position.z + ((obj2->scale.z * multiplier) / 2)))
+	if ((obj1->position.z < obj2->position.z) && (obj1->position.z + ((obj1->physSize.z * multiplier) / 2) > obj2->position.z - ((obj2->physSize.z * multiplier) / 2))
+		|| (obj1->position.z > obj2->position.z) && (obj1->position.z - ((obj1->physSize.z * multiplier) / 2) < obj2->position.z + ((obj2->physSize.z * multiplier) / 2)))
 		collz = true;
 
 	if (collx && colly && collz)
@@ -782,11 +784,11 @@ bool Object::checkVoxelCollision(Object *voxObj)
 	bool result = false;
 	int x, y, z = 0;
 
-	float h = scale.x / 2;
+	float h = physSize.x / 2;
 	int steps = 10;
-	float stepx = scale.x / (float)steps;
-	float stepy = scale.y / (float)steps;
-	float stepz = scale.z / (float)steps;
+	float stepx = physSize.x / (float)steps;
+	float stepy = physSize.y / (float)steps;
+	float stepz = physSize.z / (float)steps;
 
 	float wy = position.y - h / 1.5;
 
@@ -821,38 +823,6 @@ bool Object::checkVoxelCollision(Object *voxObj)
 		if (voxels->get(x, y, z) != 0)
 			result = true;
 	}
-
-/*	worldToVoxelCoords(voxObj, position.x - h, position.y - h, position.z - h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x + h, position.y - h, position.z - h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x + h, position.y + h, position.z - h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x + h, position.y + h, position.z + h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x - h, position.y + h, position.z - h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x - h, position.y + h, position.z + h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x + h, position.y - h, position.z + h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;
-
-	worldToVoxelCoords(voxObj, position.x - h, position.y - h, position.z + h, x, y, z);
-	if (voxels->get(x, y, z) != 0)
-		result = true;*/
 
 	return result;
 }

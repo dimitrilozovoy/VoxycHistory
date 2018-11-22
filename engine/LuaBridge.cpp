@@ -63,6 +63,16 @@ static int remobj(lua_State *L)
 	return 0;
 }
 
+static int rename(lua_State *L)
+{
+	std::string from = lua_tostring(L, 1);
+	std::string to = lua_tostring(L, 2);
+
+	g_engine2->rename(from, to);
+
+	return 0;
+}
+
 static int settype(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -111,6 +121,18 @@ static int setmodel(lua_State *L)
 	g_engine2->setModel(name, model);
 	
 	return 0;
+}
+
+static int getmodel(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object *obj = g_engine2->findObj(name);
+	std::string modelName = obj->modelName;
+
+	lua_pushstring(L, modelName.c_str());
+
+	return 1;
 }
 
 static int setmodelorient(lua_State *L)
@@ -252,6 +274,18 @@ static int getsize(lua_State *L)
 	lua_pushnumber(L, scale.z);
 
 	return 3;
+}
+
+static int setphyssize(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	lua_Number x = lua_tonumber(L, 2);
+	lua_Number y = lua_tonumber(L, 3);
+	lua_Number z = lua_tonumber(L, 4);
+
+	g_engine2->setPhysSize(name, x, y, z);
+
+	return 1;
 }
 
 static int setpos(lua_State *L)
@@ -784,6 +818,10 @@ static int setplayersize(lua_State *L)
 	player->scale.x = x;
 	player->scale.y = y;
 	player->scale.z = z;
+
+	player->physSize.x = x;
+	player->physSize.y = y;
+	player->physSize.z = z;
 
 	return 0;
 }
@@ -1704,9 +1742,11 @@ void LuaBridge::init(Engine2 *engine)
 			
 	lua_register(L, "addobj", addobj);
 	lua_register(L, "remobj", remobj);	
+	lua_register(L, "rename", rename);
     lua_register(L, "settype", settype);
 	lua_register(L, "setshape", setshape);
 	lua_register(L, "setmodel", setmodel);	
+	lua_register(L, "getmodel", getmodel);
 	lua_register(L, "setmodelorient", setmodelorient);
 	lua_register(L, "setcolor", setcolor);
 	lua_register(L, "setmeshcolor", setmeshcolor);
@@ -1717,6 +1757,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getvisible", getvisible);	
 	lua_register(L, "setsize", setsize);
 	lua_register(L, "getsize", getsize);
+	lua_register(L, "setphyssize", setphyssize);
 	lua_register(L, "setpos", setpos);
 	lua_register(L, "getpos", getpos);
 	lua_register(L, "setx", setx);

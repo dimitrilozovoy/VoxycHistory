@@ -57,9 +57,9 @@ void Controls2::tick() {
 		case CTRL_FPS:
 
 			if (buttons[BTN_UP] == 1)
-				playerObj->MoveForward(0.1);
+				playerObj->MoveForward(0.2);
 			if (buttons[BTN_DOWN] == 1)
-				playerObj->MoveBackward(0.1);
+				playerObj->MoveBackward(0.2);
 			if (buttons[BTN_LEFT] == 1)
 				playerObj->MoveLeft(0.1);
 			if (buttons[BTN_RIGHT] == 1)

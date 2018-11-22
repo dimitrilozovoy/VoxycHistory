@@ -105,3 +105,5 @@ bool g_useLegacyTextureSpan = false;
 bool g_simpleMode = false;
 
 Common g_common;
+
+bool g_noGuides = false;

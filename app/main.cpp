@@ -154,11 +154,14 @@ int main(int argc, const char * argv[]) {
 
 	std::string module = "";
 	std::string assets = "";
+	std::string noguides = "";
 
 	auto cli = clara::Opt(module, "module")
 		["-m"]["--module"]
 		| clara::Opt(assets, "assets")
-		["-a"]["--assets"];
+		["-a"]["--assets"]
+		| clara::Opt(noguides, "noguides")
+		["-n"]["--noguides"];
 
 	auto result = cli.parse(clara::Args(argc, argv));
 	if (!result) {
@@ -194,6 +197,8 @@ int main(int argc, const char * argv[]) {
 	}
 	else
 		g_assetsDir = DEFAULT_ASSETS_DIR;
+	if (noguides != "")
+		g_noGuides = true;
 
 	//
 	// Init graphics

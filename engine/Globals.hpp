@@ -282,4 +282,6 @@ extern bool g_simpleMode;
 
 extern Common g_common;
 
+extern bool g_noGuides;
+
 #endif /* Globals_hpp */

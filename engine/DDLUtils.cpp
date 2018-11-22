@@ -841,10 +841,14 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 		if (cWiseDist > ccWiseDist)
 		{
 			angle -= step;
+			if (angle < targetAngle)
+				angle = targetAngle;
 		}
 		else
 		{
 			angle += step;
+			if (angle > targetAngle)
+				angle = targetAngle;
 		}
 
 		angle = Limit360(angle);

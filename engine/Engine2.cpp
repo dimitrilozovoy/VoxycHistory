@@ -69,9 +69,6 @@ void Engine2::init()
 	controls.setPlayerObj(playerObj);
 	physics.init();
 
-#ifndef USE_PLAYEROBJ
-	player.init(&vehicle);
-#endif
 //	map.init(&texMan);
 	audio.init();
 
@@ -97,6 +94,8 @@ void Engine2::init()
 	genTexture("fallback", "grid", 10);
 	
 	initialized = true;
+
+	clear();
 }
 
 void Engine2::tick()
@@ -104,11 +103,11 @@ void Engine2::tick()
 //	makeUpLostFramesOrWait();
 #ifdef PLATFORM_WINDOWS
 	// HACK
-	ddlsleep(10);
+//	ddlsleep(10);
 #endif
 
 	objects["player"] = playerObj;
-	
+
 	resetOnClickExtras();
 
 	physics.tick(objects);
@@ -280,6 +279,22 @@ void Engine2::removeObject(Object *object)
 
 		if (batches.find(name) != batches.end())
 			batches.erase(batches.find(name));
+	}
+}
+
+void Engine2::rename(std::string from, std::string to)
+{
+	Object *fromObj = findObj(from);
+
+	std::string oldname = fromObj->name;
+	std::string newname = to;
+	std::transform(newname.begin(), newname.end(), newname.begin(), ::tolower);
+
+	if (oldname != newname)
+	{
+		objects[newname] = objects[oldname];
+		objects[newname]->name = newname;
+		objects.erase(oldname);
 	}
 }
 
@@ -498,6 +513,18 @@ void Engine2::setSize(std::string name, float sizex, float sizey, float sizez)
 	
     glm::vec3 scale = glm::vec3(sizex, sizey, sizez);
     o->scale = scale;
+	o->physSize = scale;
+}
+
+void Engine2::setPhysSize(std::string name, float sizex, float sizey, float sizez)
+{
+	Object *o = findObj(name);
+
+	if (o == nullptr)
+		return;
+
+	glm::vec3 scale = glm::vec3(sizex, sizey, sizez);
+	o->physSize = scale;
 }
 
 void Engine2::setPos(std::string name, float x, float y, float z)
@@ -673,6 +700,9 @@ public:
 
 Object *Engine2::findObj(std::string name)
 {
+	if (name == "player")
+		return playerObj;
+
     Object *obj = objects[name];
 
     return obj;
@@ -1395,8 +1425,9 @@ void Engine2::clear()
 	}
 	
 	shapes.clear();
-	
 	textPrinter.clear();
+
+	objects["player"] = playerObj;
 }
 
 void Engine2::limitPlayerRange()

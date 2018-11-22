@@ -1812,6 +1812,10 @@ void Editor::tick() {
 //
 
 void Editor::tickGuides() {
+
+	if (g_noGuides)
+		return;
+
     // Go through objects and see if any of them need
     // guides created.
 
@@ -2061,6 +2065,7 @@ void Editor::enterScreenShotMode() {
 }
 
 void Editor::exitScreenShotMode() {
+
     if (screenshotMode) {
         screenshotMode = false;
         engine->getGUI()->show();
