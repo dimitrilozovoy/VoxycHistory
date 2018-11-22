@@ -205,13 +205,14 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	// Translate
 	cameraTranslate = glm::translate(glm::mat4(), glm::vec3(-camera->position.x, -camera->position.y, -camera->position.z)); // Camera translate
 
-	mvMatrix =
-//	    scaleToNDC
-		cameraRotate
-		* cameraTranslate
-		* glm::translate(glm::mat4(), glm::vec3(object->position.x, object->position.y, object->position.z)) // World translate
-		* rotate
-		* scale;
+    mvMatrix =
+            scaleToNDC
+            * cameraRotate
+            * cameraTranslate
+            * glm::translate(glm::mat4(), glm::vec3(object->position.x, object->position.y,
+                                                    object->position.z)) // World translate
+            * rotate
+            * scale;
 //		* glm::scale(glm::mat4(), object->scale); // Scale
 
 	glm::mat4 projMatrix;
