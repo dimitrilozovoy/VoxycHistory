@@ -1591,6 +1591,13 @@ static int batch(lua_State *L)
 	return 0;
 }
 
+static int autobatch(lua_State *L)
+{
+    g_engine2->autoBatch();
+
+    return 0;
+}
+
 static int loadscene(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1882,6 +1889,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setwgcolor", setwgcolor);
 	lua_register(L, "runscript", runscript);
 	lua_register(L, "batch", batch);
+    lua_register(L, "autobatch", autobatch);
 	lua_register(L, "loadscene", loadscene);
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);

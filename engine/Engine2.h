@@ -215,6 +215,7 @@ public:
 	void writeObj(std::string name, std::string fname = "");
 	
 	void batch(std::string batchobjname, std::string addobjname);
+	void autoBatch();
 
     void useLegacyTextureSpan(bool use);
 	

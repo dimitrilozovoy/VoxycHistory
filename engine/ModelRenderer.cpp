@@ -177,7 +177,13 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 #ifdef PLATFORM_OPENVR
 	scaleToNDC = glm::scale(glm::mat4(), glm::vec3(VRSCALE, VRSCALE, VRSCALE));
 #else
-	scaleToNDC = glm::scale(glm::mat4(), glm::vec3(NDC_SCALE, NDC_SCALE, NDC_SCALE));
+/*    // HACK: Fixing cut-off weapon on Android
+    if (object->name == "weapon") {
+        scaleToNDC = glm::scale(glm::mat4(), glm::vec3(0.01, 0.01, 0.01));
+    }
+    else {*/
+        scaleToNDC = glm::scale(glm::mat4(), glm::vec3(NDC_SCALE, NDC_SCALE, NDC_SCALE));
+//    }
 #endif
 
 	// Calculate scale of model based on min and max

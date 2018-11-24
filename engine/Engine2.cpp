@@ -1596,6 +1596,24 @@ void Engine2::batch(std::string batchobjname, std::string addobjname)
 	}
 }
 
+void Engine2::autoBatch() {
+    for (const auto &pair1: objects) {
+        Object *obj1 = pair1.second;
+
+        if (obj1->category == "terrain")
+        {
+            for (const auto &pair2 : objects) {
+                Object *obj2 = pair2.second;
+
+                if (obj1->category == "voxels")
+                {
+                    batch(obj1->name, obj2->name);
+                }
+            }
+        }
+    }
+}
+
 void Engine2::useLegacyTextureSpan(bool use)
 {
     g_useLegacyTextureSpan = use;
