@@ -1045,6 +1045,20 @@ static int checkvoxcoll(lua_State *L)
 	return 1;
 }
 
+static int collray(lua_State *L)
+{
+	std::string name1 = lua_tostring(L, 1);
+
+	Object *obj2 = g_engine2->collisionRay(g_engine2->findObj(name1));
+
+	if (obj2 != nullptr)
+		lua_pushstring(L, obj2->name.c_str());
+	else
+		lua_pushstring(L, "");
+
+	return 1;
+}
+
 static int sethitpts(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1621,6 +1635,17 @@ static int setbtn(lua_State *L)
 	return 0;
 }
 
+static int getmousebtn(lua_State *L)
+{
+	int which = lua_tonumber(L, 1);
+
+	Controls2 *ctrl = g_engine2->getControls();
+
+	lua_pushnumber(L, ctrl->getMouseBtn((BtnNames)which));
+
+	return 1;
+}
+
 static int getallobjs(lua_State *L)
 {
 	// Table for Lua to know what each object is approximately
@@ -1815,6 +1840,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "playtrack", playtrack);
 	lua_register(L, "checkcoll", checkcoll);
 	lua_register(L, "checkvoxcoll", checkvoxcoll);
+	lua_register(L, "collray", collray);
 	lua_register(L, "sethitpts", sethitpts);
     lua_register(L, "gethitpts", gethitpts);
 	lua_register(L, "addtext", addtext);
@@ -1860,6 +1886,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
 	lua_register(L, "setbtn", setbtn);
+	lua_register(L, "getmousebtn", getmousebtn);
 	lua_register(L, "getallobjs", getallobjs);
 	lua_register(L, "setplayarea", setplayarea);
 	lua_register(L, "addtouchbtnbind", addtouchbtnbind);

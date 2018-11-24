@@ -107,6 +107,7 @@ void Engine2::tick()
 #endif
 
 	objects["player"] = playerObj;
+	playerObj->name = "player";
 
 	resetOnClickExtras();
 
@@ -1188,6 +1189,40 @@ bool Engine2::checkVoxelCollisionPt(Object *voxobj, float x, float y, float z)
 	    return false;
 }
 
+Object *Engine2::collisionRay(Object *source)
+{
+	Object ray;
+
+	ray.position = source->position;
+	ray.pitch = source->pitch;
+	ray.yaw = source->yaw;
+	ray.roll = source->roll;
+
+	int iter = 0;
+	bool hit = false;
+
+	while (!hit && iter < 100)
+	{
+		for (const auto &pair2 : objects)
+		{
+			Object *obj2 = pair2.second;
+
+			if (obj2 == nullptr || obj2->category == "terrain")
+				continue;
+
+			if (ray.checkCollision(obj2, 1.0))
+			{
+				return obj2;
+			}
+		}
+
+		ray.MoveForward(0.5);
+		iter++;
+	}
+
+	return nullptr;
+}
+
 void Engine2::moveObjectsByVelocity()
 {
     for(const auto &pair: objects)
@@ -1428,6 +1463,7 @@ void Engine2::clear()
 	textPrinter.clear();
 
 	objects["player"] = playerObj;
+	playerObj->name = "player";
 }
 
 void Engine2::limitPlayerRange()

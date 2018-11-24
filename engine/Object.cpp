@@ -257,23 +257,14 @@ void Object::move()
 		// Check for other objects
 		for (auto other : nearCollisions)
 		{
-			if (other->category == "voxels")
+			if (checkCollision(other, 1.0)
+				&& (other->category == "model"
+					|| other->category == "block"
+					|| other->category == "voxels"
+					|| other->name == "player"))
 			{
-				if (checkVoxelCollision(other))
-				{
-					okToMove = false;
-					stuckOn = other->name;
-				}
-			}
-			else
-			{
-				if (checkCollision(other, 1.0)
-					&& (other->category == "model"
-						|| other->category == "block"))
-				{
-					okToMove = false;
-					stuckOn = other->name;
-				}
+				okToMove = false;
+				stuckOn = other->name;
 			}
 		}
 
@@ -738,8 +729,14 @@ void Object::load(FILE *f)
 
 bool Object::checkCollision(Object *obj2, float multiplier)
 {
-	if (obj2 == nullptr || !visible || !obj2->visible || obj2->ints["ignorecollisions"] == 1)
+	if (obj2 == nullptr || obj2->ints["ignorecollisions"] == 1)
 		return false;
+
+//	if (obj2 == nullptr || !visible || !obj2->visible || obj2->ints["ignorecollisions"] == 1)
+//		return false;
+
+	if (obj2->shape != nullptr && obj2->shape->voxels != nullptr)
+		return checkVoxelCollision(obj2, multiplier);
 
 	bool collx = false;
 	bool colly = false;
@@ -766,7 +763,7 @@ bool Object::checkCollision(Object *obj2, float multiplier)
 		return false;
 }
 
-bool Object::checkVoxelCollision(Object *voxObj)
+bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 {
 	if (voxObj == nullptr)
 		return false;
@@ -784,7 +781,7 @@ bool Object::checkVoxelCollision(Object *voxObj)
 	bool result = false;
 	int x, y, z = 0;
 
-	float h = physSize.x / 2;
+	float h = (physSize.x / 2) * multiplier;
 	int steps = 10;
 	float stepx = physSize.x / (float)steps;
 	float stepy = physSize.y / (float)steps;

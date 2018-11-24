@@ -61,9 +61,9 @@ void Controls2::tick() {
 			if (buttons[BTN_DOWN] == 1)
 				playerObj->MoveBackward(0.2);
 			if (buttons[BTN_LEFT] == 1)
-				playerObj->MoveLeft(0.1);
+				playerObj->MoveLeft(0.15);
 			if (buttons[BTN_RIGHT] == 1)
-				playerObj->MoveRight(0.1);
+				playerObj->MoveRight(0.15);
 			break;
 
         case CTRL_EDITOR:

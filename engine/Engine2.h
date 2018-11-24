@@ -164,6 +164,8 @@ public:
 	bool checkCollision(Object *obj1, Object *obj2, float factorx = 1.0, float factory = 1.0, float factorz = 1.0);
 	bool checkVoxelCollision(Object *obj, float multx, float multy, float multz);
     bool checkVoxelCollisionPt(Object *voxobj, float x, float y, float z);
+	Object *collisionRay(Object *source);
+
 	void moveObjectsByVelocity();
 	void moveObjectsTowardsNextPosition();
 	void moveObjectsSmoothly();
@@ -242,7 +244,7 @@ public:
 	void setAssetsDir(std::string dir);
 
 	void refreshObjectCategories();
-	
+
 private:
 	ShapeRenderer shapeRenderer;
     SkyboxRenderer skyboxRenderer;
