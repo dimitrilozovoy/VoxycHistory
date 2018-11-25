@@ -131,7 +131,7 @@ char Voxels::get(int x, int y, int z)
 	if (stack == NULL)
 		return 0;
 
-	if (stack->height <= y)
+	if (x < 0 || y < 0 || z < 0 || stack->height <= y)
 	{
 		return 0;
 	}

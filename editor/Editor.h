@@ -75,7 +75,7 @@ private:
 	bool movingSelected = false;
 	float distToSelected = 0.0;
 	Object *curVoxels = nullptr;
-	int newVoxelsSize = 16;
+	int newVoxelResolution = 16;
 	bool selectOnly = true;
 	bool gotvox = false;
     int curVoxel = 1;
@@ -84,6 +84,7 @@ private:
 	bool touchControls = true;
 	int msgTimer = 0;
 	int msg2Timer = 0;
+	bool showGuides = true;
 };
 
 #endif

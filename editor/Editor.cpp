@@ -80,7 +80,7 @@ void Editor::load() {
 
     // Turn off collision detection for player
     Object *player = engine->getPlayerObj();
-//    player->ints["ignorecollisions"] = 1;
+    player->ints["ignorecollisions"] = 1;
 
     // Make main grid sprite
     engine->genTexture("maingrid", "grid", 32);
@@ -250,18 +250,23 @@ void Editor::tick() {
         if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
             timer = 50;
 
-			std::string dir = PLAT_LoadPref("main", "scene", "");
-			if (dir == "")
-				dir = g_assetsDir;
+			std::string fname = PLAT_LoadPref("main", "scene", "");
+			if (fname == "")
+                fname = g_assetsDir;
 
-            gui->showFileSelector("sc", dir);
+            gui->showFileSelector("sc", fname);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "loadscene";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Save Scene") {
             timer = 50;
-            gui->showFileSelector("sc", g_assetsDir + "/default.sc");
+            std::string fname = PLAT_LoadPref("main", "scene", "");
+
+            if (fname == "")
+                g_assetsDir + "/default.sc";
+
+            gui->showFileSelector("sc", fname);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "savescene";
         }
@@ -324,6 +329,7 @@ void Editor::tick() {
 				gui->addListMenuOption("Add Model", "");
 				gui->addListMenuOption("Add Sprite", "");
 				gui->addListMenuOption("Set Sky", "");
+                gui->addListMenuOption("Toggle Guides", "");
 				gui->addListMenuOption("Hide GUI and Guides", "");
 				gui->showListMenuInDialog("Object", "");
 			}
@@ -375,6 +381,17 @@ void Editor::tick() {
             fileSelectorAction = "setskybox";
         }
 
+        if (engine->getExtraStr("listmenuoptionclicked") == "Toggle Guides") {
+            showGuides = !showGuides;
+
+            if (showGuides)
+                showSystemObjects();
+            else
+                hideSystemObjects();
+
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
+
         if (engine->getExtraStr("listmenuoptionclicked") == "Hide GUI and Guides") {
             enterScreenShotMode();
             engine->setExtraStr("listmenuoptionclicked", "");
@@ -399,6 +416,12 @@ void Editor::tick() {
 				PLAT_SavePref("main", "scene", engine->getExtraStr("fileselected"));
 				engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
 				engine->saveScene(engine->getExtraStr("fileselected"));
+
+                char msg[1024];
+                snprintf(msg, 1024, "%s saved", GetFileName(engine->getExtraStr("fileselected")).c_str());
+                engine->setText("msg", msg);
+                msgTimer = msgTimerDelay;
+
 				engine->setExtraStr("fileselected", "");
             }
 
@@ -582,12 +605,10 @@ void Editor::tick() {
 
 			if (!gui->nonNativeWidgetsShown())
 			{
-				if (!gui->nonNativeWidgetsShown())
-				{
 					gui->clearDialog();
-					gui->addDialogPart("Size", "16", "newvoxelssize");
+					gui->addDialogPart("Resolution", "16", "newvoxelsresolution");
+                    gui->addDialogPart("Size", "10", "newvoxelssize");
 					gui->showDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
-				}
 			}
 
             engine->newShape("voxels", SHAPE_VOXELS, 10.0, 0);
@@ -694,11 +715,20 @@ void Editor::tick() {
 
     if (engine->getExtraInt("voxelparamsselected") == 1) {
         selectOnly = false;
-        newVoxelsSize = PLAT_stoi(engine->getExtraStr("newvoxelssize"));
-        if (newVoxelsSize <= 0)
-            newVoxelsSize = 16;
-        if (newVoxelsSize > 32)
-            newVoxelsSize = 32;
+
+        // Resolution
+        newVoxelResolution = PLAT_stoi(engine->getExtraStr("newvoxelsresolution"));
+
+        if (newVoxelResolution <= 0)
+            newVoxelResolution = 16;
+        if (newVoxelResolution > 64)
+            newVoxelResolution = 64;
+
+        // Size
+        std::string name = "objpreview";
+        int size = PLAT_stoi(engine->getExtraStr("newvoxelssize"));
+        engine->setSize(name, size, size, size);
+
         engine->setExtraInt("voxelparamsselected", 0);
     }
 
@@ -1077,7 +1107,7 @@ void Editor::tick() {
 
                 // Added voxels? Create new voxel shape for it
                 if (shape != nullptr && shape->voxels != nullptr && !linkCopy) {
-                    engine->newShape(newName, SHAPE_VOXELS, newVoxelsSize, 0.0);
+                    engine->newShape(newName, SHAPE_VOXELS, newVoxelResolution, 0.0);
                     engine->setShape(newName, newName);
 
                     // Default voxel texture values
@@ -1121,7 +1151,7 @@ void Editor::tick() {
                 snprintf(msg, 1024, "%s placed", newName.c_str());
                 engine->setText("msg", msg);
                 msgTimer = msgTimerDelay;
-                Log(msg);
+//                Log(msg);
 
                 placeObjTimer = 30;
             }
@@ -1813,7 +1843,7 @@ void Editor::tick() {
 
 void Editor::tickGuides() {
 
-	if (g_noGuides)
+	if (g_noGuides || !showGuides)
 		return;
 
     // Go through objects and see if any of them need
@@ -2309,8 +2339,7 @@ bool Editor::verifySourceDir(std::string filename)
 
 	if (g_assetsDir != newDir)
 	{
-		engine->setText("msg", "file must be");
-		engine->setText("msg2", "in scene folder");
+		engine->setText("msg2", "must use same dir");
 		msgTimer = 150;
 		msg2Timer = 150;
 

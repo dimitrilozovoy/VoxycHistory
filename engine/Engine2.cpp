@@ -1464,6 +1464,9 @@ void Engine2::clear()
 
 	objects["player"] = playerObj;
 	playerObj->name = "player";
+
+	// Turn on collision detection for player
+	playerObj->ints["ignorecollisions"] = 0;
 }
 
 void Engine2::limitPlayerRange()
