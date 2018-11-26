@@ -27,6 +27,8 @@ SOFTWARE.
 #include "Batch.h"
 #include "TextureAtlas.h"
 
+#define MAX_BATCH_SIZE 8
+
 class Batcher
 {
 	public:

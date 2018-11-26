@@ -30,7 +30,7 @@ SOFTWARE.
 
 #ifdef PLATFORM_ANDROID
 //#define NDC_SCALE	0.001f
-#define NDC_SCALE	0.01f
+ #define NDC_SCALE	0.01f
 //#define NDC_SCALE	1.00f
 #else
 #define NDC_SCALE	1.0f

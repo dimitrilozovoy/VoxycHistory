@@ -147,15 +147,15 @@ void Engine2::draw(int eye)
 	    skyboxRenderer.draw(&camera, skyboxGLTexID);
 
     glEnable(GL_DEPTH_TEST);
-	glDepthRange(0.001, 1000.0);
-//	glClearDepth(1.0);
+	glDepthRange(0.1, 1000.0);
+    //	glClearDepth(1.0);
     glClear(GL_DEPTH_BUFFER_BIT);
-	//	glDepthMask(true);
+    //	glDepthMask(true);
 	
-//	texAtlas.refresh();
+	texAtlas.refresh();
 
-	modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
+    modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 
 // HACK: Sprite renderer is broken on Windows; ShapeRenderer takes care as fallback
 #ifndef PLATFORM_WINDOWS
@@ -1600,17 +1600,21 @@ void Engine2::batch(std::string batchobjname, std::string addobjname)
 }
 
 void Engine2::autoBatch() {
+
     for (const auto &pair1: objects) {
         Object *obj1 = pair1.second;
 
         if (obj1->category == "terrain")
         {
-            for (const auto &pair2 : objects) {
+        	int idx = 1;
+
+            for (const auto &pair2: objects) {
                 Object *obj2 = pair2.second;
 
-                if (obj1->category == "voxels")
+                if (obj2->category == "voxels" && idx <= MAX_BATCH_SIZE)
                 {
                     batch(obj1->name, obj2->name);
+                    idx++;
                 }
             }
         }

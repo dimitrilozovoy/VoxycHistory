@@ -196,6 +196,9 @@ void Voxels::build(TextureManager2 *texMan)
 {
 //	Log("Build(): Start");
 
+	if (g_common.extraInts["legacytexturespan"] == 1)
+		g_useLegacyTextureSpan = true;
+
 	calcMinMax();
 	
 /*	minx = 0;
@@ -902,10 +905,10 @@ void Voxels::addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Verte
 
 //	addVertex(texture, ll.x, ll.y, ll.z, ll.w, (ll.x + 1.0) / 2.0, (ll.y + 1.0) / 2.0);
 	
-/*	float texspan = 1.0;
-	
-	if (g_useLegacyTextureSpan)
-		texspan = 6.0;*/
+	if (g_useLegacyTextureSpan) {
+		texSpanX = 1.0;
+		texSpanY = 1.0;
+	}
 
 	if (dir == 1)
 	{

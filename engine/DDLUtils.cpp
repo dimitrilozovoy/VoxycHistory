@@ -810,9 +810,9 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 	angle = Limit360(angle);
 	targetAngle = Limit360(targetAngle);
 
-	char str[1024];
-	snprintf(str, 1024, "angle %d, targetAngle %d", (int)angle, (int)targetAngle);
-	Log(str);
+//	char str[1024];
+//	snprintf(str, 1024, "angle %d, targetAngle %d", (int)angle, (int)targetAngle);
+//	Log(str);
 
 	if (targetAngle == 0)
 	{
