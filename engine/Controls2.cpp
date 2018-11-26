@@ -186,8 +186,8 @@ void Controls2::tick() {
                 float xdiff = ljlastmovex - ljlastdownx;
                 float ydiff = ljlastmovey - ljlastdowny;
 				
-				playerObj->MoveBackward(ydiff / 150);
-				playerObj->MoveRight(xdiff / 150);
+				playerObj->MoveBackward(ydiff / 200);
+				playerObj->MoveRight(xdiff / 200);
             }
 			
 			if (rjdown) {

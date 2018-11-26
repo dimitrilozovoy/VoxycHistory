@@ -1451,6 +1451,7 @@ void Engine2::loadVoxels(std::string name, std::string filename)
 void Engine2::clear()
 {
 	objects.clear();
+	batches.clear();
 
 	for (const auto &pair: shapes)
 	{
@@ -1607,11 +1608,21 @@ void Engine2::autoBatch() {
         if (obj1->category == "terrain")
         {
         	int idx = 1;
+        	int numv = 0;
 
             for (const auto &pair2: objects) {
                 Object *obj2 = pair2.second;
 
-                if (obj2->category == "voxels" && idx <= MAX_BATCH_SIZE)
+                if (obj2->category == "voxels")
+                {
+                    numv++;
+                }
+            }
+
+            for (const auto &pair2: objects) {
+                Object *obj2 = pair2.second;
+
+                if (obj2->category == "voxels" && idx <= numv - 3)
                 {
                     batch(obj1->name, obj2->name);
                     idx++;
