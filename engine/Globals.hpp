@@ -40,8 +40,8 @@ SOFTWARE.
 
 #define PRODUCT_EARTH2084
 
-//#define DEBUG_BUILD
-#define RELEASE_BUILD
+#define DEBUG_BUILD
+//#define RELEASE_BUILD
 
 #define USE_OPENGL
 
@@ -143,30 +143,6 @@ SOFTWARE.
 #define MAX_TILEMAP_SIZE 128
 #define MAX_ACTOR_PROJECTILES 64
 #endif
-
-#if defined PLATFORM_OSX || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
-#define MAX_TILES                   128
-#define MAX_COORDS_PER_TILE         10000000 // 24576
-#define MAX_COORDS_PER_TILE_EXPORT  10000000 // 49149
-#define COORDS_ALLOC_INCREMENT      100000 // 24576
-#endif
-#ifdef PLATFORM_ANDROID
-#define MAX_TILES                   128
-#define MAX_COORDS_PER_TILE         1000000 // 24576
-#define MAX_COORDS_PER_TILE_EXPORT  1000000 // 49149
-#define COORDS_ALLOC_INCREMENT      100000 // 24576
-#endif
-#ifdef PLATFORM_GVR
-#define MAX_TILES                   128
-#define MAX_COORDS_PER_TILE         1000000 // 24576
-#define MAX_COORDS_PER_TILE_EXPORT  1000000 // 49149
-#define COORDS_ALLOC_INCREMENT      100000 // 24576
-#endif
-
-#define PLAYER_TEAM 0
-#define COMPUTER_TEAM 1
-
-//#define UFO_TRACE
 
 #ifdef PLATFORM_ANDROID
 #define GLINT int

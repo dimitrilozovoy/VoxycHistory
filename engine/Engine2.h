@@ -245,6 +245,8 @@ public:
 	void setAssetsDir(std::string dir);
 
 	void refreshObjectCategories();
+    
+    void checkGLError(char *tag);
 
 private:
 	ShapeRenderer shapeRenderer;

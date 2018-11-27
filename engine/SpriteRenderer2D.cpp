@@ -308,7 +308,7 @@ int SpriteRenderer2D::loadVertices()
 #endif
     
     // Make and bind the VBO
-#if defined PLATFORM_GVR || defined PLATFORM_ANDROID
+#if defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_IOS
     glGenBuffers(3, (GLuint *)m_vbos);
 #endif
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
@@ -323,21 +323,21 @@ int SpriteRenderer2D::loadVertices()
     glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);
     checkError("glBindBuffer");
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * NUM_CTRL_SEGMENTS * 3 * 4, circleVerts, GL_STATIC_DRAW);
-    checkError("SpriteRenderer2D glBufferData");
+    checkError("glBufferData");
 	
 	// Sprite
 	
     glBindBuffer(GL_ARRAY_BUFFER, m_vbos[1]);
     checkError("glBindBuffer");
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * 3 * 6, spriteVerts, GL_STATIC_DRAW);
-    checkError("SpriteRenderer2D glBufferData");
+    checkError("glBufferData");
 
     // Quad
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vbos[2]);
     checkError("glBindBuffer");
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * 3 * 6, quadVerts, GL_STATIC_DRAW);
-    checkError("SpriteRenderer2D glBufferData");
+    checkError("glBufferData");
 
 	// Free
 	
@@ -414,21 +414,26 @@ void SpriteRenderer2D::compileShaders()
 #endif
     
     glLinkProgram(m_program);                  // Creates OpenGL ES program executables
+    checkError("glLinkProgram");
     
     // Throw exception if linking failed
     GLint status;
     glGetProgramiv(m_program, GL_LINK_STATUS, &status);
+    checkError("glGetProgramiv");
     if (status == GL_FALSE) {
         Log("Program linking failure: ");
         
         GLint infoLogLength;
         glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &infoLogLength);
+        checkError("glGetProgramiv");
         char* strInfoLog = new char[infoLogLength + 1];
         glGetProgramInfoLog(m_program, infoLogLength, NULL, strInfoLog);
+        checkError("glGetProgramInfoLog");
         Log(strInfoLog);
         delete[] strInfoLog;
         
         glDeleteProgram(m_program);
+        checkError("glDeleteProgram");
         m_program = 0;
     }
 }
@@ -533,6 +538,7 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
     checkError("glBlendFunc");*/
 	
 	glDisable(GL_CULL_FACE);
+    checkError();
 	
 	// Use program
 	glUseProgram(m_program);
@@ -541,12 +547,14 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
     glBindVertexArray(m_vao);
+    checkError();
 #endif
     // Bind the VBO
     if (noaspect)
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[2]);
     else
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[1]);
+    checkError();
 	
 	// Scale
     glm::mat4 scaleMatrix;
@@ -618,7 +626,8 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
 	// Texture
 	
 	glBindTexture(GL_TEXTURE_2D, glTexID);
-            
+    checkError("glBindTexture");
+    
     //
     // Draw the triangles
     //
@@ -630,7 +639,9 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
     glBindVertexArray(0);
 #endif
     glBindTexture(GL_TEXTURE_2D, 0);
+    checkError("glBindTexture");
     glUseProgram(0);
+    checkError("glUseProgram");
 }
 
 void SpriteRenderer2D::checkError()
@@ -665,7 +676,7 @@ void SpriteRenderer2D::checkError()
 
 void SpriteRenderer2D::checkError(char *str)
 {
-#if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
+#if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR || defined PLATFORM_IOS
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 

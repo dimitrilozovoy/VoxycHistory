@@ -32,6 +32,10 @@ SOFTWARE.
 
 #include "../thirdparty/glm/glm.hpp"
 
+#if defined PLATFORM_IOS
+#import <Foundation/Foundation.h>
+#endif
+
 #ifdef PLATFORM_OSX
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreServices/CoreServices.h>
@@ -249,7 +253,11 @@ void Log_Write(char *str)
     
 #ifdef DEBUG_BUILD
 #ifndef WDL_OL_PLUGIN
-#ifdef PLATFORM_OSX
+#if defined PLATFORM_IOS
+    NSString *nsStr = [NSString stringWithFormat:@"%s", str];
+    NSLog(@"%@", nsStr);
+#endif
+#if defined PLATFORM_OSX
     std::cout << str << "\n";
 #endif
 #else

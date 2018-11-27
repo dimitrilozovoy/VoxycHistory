@@ -49,9 +49,12 @@ void TextureAtlas::refresh()
 	fb.bind();
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
+    checkGLError("glClearColor");
 	glClear(GL_COLOR_BUFFER_BIT);
+    checkGLError("glClear");
 	
 	glDisable(GL_BLEND);
+    checkGLError("glDisable");
 
 	int numTex = textures.size();
 	
@@ -104,6 +107,7 @@ void TextureAtlas::refresh()
 //    renderer->DrawSprite(0.0, 0.0, 2.0, 2.0, tex->glTexID);
 
 	glEnable(GL_BLEND);
+    checkGLError("glEnable");
 	
 	fb.unbind();
 	

@@ -147,16 +147,22 @@ void Engine2::draw(int eye)
 	    skyboxRenderer.draw(&camera, skyboxGLTexID);
 
     glEnable(GL_DEPTH_TEST);
+    checkGLError("glEnable");
 #ifdef PLATFORM_IOS
 	glDepthRangef(0.1, 1000.0);
+    checkGLError("glDepthRangef");
 #else
     glDepthRange(0.1, 1000.0);
+    checkGLError("glDepthRange");
 #endif
     //	glClearDepth(1.0);
     glClear(GL_DEPTH_BUFFER_BIT);
+    checkGLError("glClear");
     //	glDepthMask(true);
 	
+#ifndef PLATFORM_IOS
 	texAtlas.refresh();
+#endif
 
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
     modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
@@ -176,14 +182,21 @@ void Engine2::draw(int eye)
 #endif
 
     glEnable(GL_BLEND);
+    checkGLError("glEnable");
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    checkGLError("glBlendFunc");
 
 	textPrinter.draw();
 	gui.draw();
 
 	if (healthBarsVisible)
 		drawHealthBars();
-
+    
+#ifdef PLATFORM_IOS
+    glFlush();
+    checkGLError("glFlush");
+#endif
+    
 //	calcFrameRate();
 }
 
@@ -1890,4 +1903,34 @@ void Engine2::refreshObjectCategories()
 		}
 	}
 
+}
+
+void Engine2::checkGLError(char *tag)
+{
+#ifdef USE_OPENGL
+    GLenum err = glGetError();
+    
+    switch (err)
+    {
+        case GL_NO_ERROR:
+            break;
+        case GL_INVALID_ENUM:
+            Log("GL error GL_INVALID_ENUM", tag);
+            break;
+        case GL_INVALID_VALUE:
+            Log("GL error GL_INVALID_VALUE", tag);
+            break;
+        case GL_INVALID_OPERATION:
+            Log("GL error GL_INVALID_OPERATION", tag);
+            break;
+#ifndef USE_OPENGL_3
+        case GL_INVALID_FRAMEBUFFER_OPERATION:
+            Log("GL error GL_INVALID_FRAMEBUFFER_OPERATION", str);
+            break;
+#endif
+        case GL_OUT_OF_MEMORY:
+            Log("GL error GL_OUT_OF_MEMORY", tag);
+            break;
+    }
+#endif
 }

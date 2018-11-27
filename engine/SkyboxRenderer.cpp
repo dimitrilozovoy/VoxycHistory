@@ -48,6 +48,7 @@ void SkyboxRenderer::draw(Object *camera, int glTexID)
 #endif
 
     glDisable(GL_DEPTH_TEST);
+    checkGLError("glDisable");
 //	glDepthMask(false);
 
     glEnable(GL_CULL_FACE);
@@ -129,7 +130,9 @@ void SkyboxRenderer::draw(Object *camera, int glTexID)
     glBindVertexArray(0);
 #endif
     glBindTexture(GL_TEXTURE_2D, 0);
+    checkGLError("glBindTexture");
     glUseProgram(0);
+    checkGLError("glUseProgram");
 }
 
 void SkyboxRenderer::setMatrix(char *name, glm::mat4 matrix)

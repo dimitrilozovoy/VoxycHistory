@@ -160,13 +160,15 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 	{
 		// Simple shape
 		glEnable(GL_DEPTH_TEST);
-
+        checkGLError("glEnable");
+        
 		drawMesh(object, nullptr, nullptr, camera, toShadowMap, useShadowMap, shadowMap, nullptr);
 	}
 	else
 	{
 		// Complex shape
 		glEnable(GL_DEPTH_TEST);
+        checkGLError("glEnable");
 
 		Shape *shape = object->shape;
 
@@ -261,6 +263,7 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 //		glCullFace(GL_FRONT);
 		checkGLError("glCullFace");
 		glEnable(GL_DEPTH_TEST);
+        checkGLError("glEnable");
 	}
 	else
 	{
@@ -284,7 +287,7 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 		curProgram = programMain;
 
 	glUseProgram(curProgram);
-	checkGLError("ShapeRenderer glUseProgram");
+	checkGLError("glUseProgram");
 
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
@@ -524,7 +527,9 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
     glBindVertexArray(0);
 #endif    
     glBindTexture(GL_TEXTURE_2D, 0);
+    checkGLError("glBindTexture");
     glUseProgram(0);
+    checkGLError("glUseProgram");
 }
 
 void ShapeRenderer::loadVertices()

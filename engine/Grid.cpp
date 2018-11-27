@@ -119,7 +119,7 @@ void Grid::drawLine(float x1, float y1, float x2, float y2)
 
 void Grid::checkGLError(char *str)
 {
-#if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
+#if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR || defined PLATFORM_IOS
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
