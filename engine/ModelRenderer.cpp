@@ -59,7 +59,7 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 		snprintf(fragmentShaderStr, len, "#version 330 core\n%s", fragmentShaderCodeDesktop);
 	}
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
 	snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
 #endif

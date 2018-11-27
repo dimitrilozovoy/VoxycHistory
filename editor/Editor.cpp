@@ -39,7 +39,7 @@ void Editor::init() {
     g_simpleMode = false;
     g_assetsDirExplicit = false;
 
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	touchControls = true;
 #else
 	touchControls = false;
@@ -57,7 +57,7 @@ void Editor::init() {
 
 	GUI *gui = g_engine2->getGUI();
 
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	gui->setNativeWidgets(true);
 #else
 	gui->setNativeWidgets(false);

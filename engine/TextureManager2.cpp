@@ -65,9 +65,41 @@ void TextureManager2::load(std::string name, bool external)
     Texture *t = new Texture();
     t->name = name;
 
+#ifdef PLATFORM_IOS
+    if (name == "")
+        return;
+    
+    int dotPos = name.find(".");
+
+    std::string nameNoExt = "";
+    std::string ext = "";
+
+    if (dotPos != -1)
+    {
+        nameNoExt = name.substr(0, dotPos);
+        ext = name.substr(dotPos, name.length());
+    }
+    else
+    {
+        return;
+    }
+    
+    NSString *nsNameNoExt = [NSString stringWithFormat:@"%s", nameNoExt.c_str()];
+    NSString *nsExt = [NSString stringWithFormat:@"%s", ext.c_str()];
+    
+    GLKTextureInfo *spriteTexture;
+    NSError *theError;
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:nsNameNoExt ofType:nsExt];
+    
+    spriteTexture = [GLKTextureLoader textureWithContentsOfFile:filePath options:nil error:&theError]; // 2
+    t->glTexID = spriteTexture.name;
+#else
     int glTexID;
     glGenTextures(1, (GLuint *)&glTexID);
 	t->glTexID = glTexID;
+#endif
+    
 	textures[name] = t;
 
 	// If name is blank, do not try to load texture

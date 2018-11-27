@@ -58,7 +58,7 @@ void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	snprintf(vertexShaderStr, len, "#version 330 core\n%s", vertexShaderCodeOpenVR);
 	snprintf(fragmentShaderStr, len, "#version 330 core\n%s", fragmentShaderCodeOpenVR);
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	if (useShadowMap)
 	{
 		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20UseShadowMap);

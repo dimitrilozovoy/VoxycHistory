@@ -652,7 +652,7 @@ void SkyboxRenderer::loadProgram()
 	snprintf(fragmentShaderStr, len, "#version 150\n%s", fragmentShaderCodeDesktop);
 	fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderStr);
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || PLATFORM_IOS
 	vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCodeES20);
 	fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderCodeES20);
 #endif

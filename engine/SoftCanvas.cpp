@@ -120,7 +120,7 @@ int SoftCanvas::genTexture()
 #ifdef PLATFORM_ANDROID
     glTexImage2Db(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 #endif
-#ifdef PLATFORM_WINDOWS
+#if defined PLATFORM_WINDOWS || defined PLATFORM_IOS
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 #endif
 
@@ -131,7 +131,7 @@ int SoftCanvas::genTexture()
 
 void SoftCanvas::checkGLError(char *str)
 {
-#if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
+#if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR || defined PLATFORM_IOS
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 

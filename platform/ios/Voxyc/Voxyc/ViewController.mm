@@ -50,6 +50,7 @@
     [((GLKView *) self.view) bindDrawable];
     
     StartApp(0);
+    LoadApp(0);
 }
 
 - (void)shutdownGL {
