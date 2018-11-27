@@ -69,29 +69,29 @@ void Controls2::tick() {
         case CTRL_EDITOR:
 
             if (buttons[BTN_UP] == 1)
-                playerObj->MoveUp(getMoveFactor() / 4.0);
+                playerObj->MoveUp(getMoveFactor());
             if (buttons[BTN_DOWN] == 1)
-                playerObj->MoveDown(getMoveFactor() / 4.0);
+                playerObj->MoveDown(getMoveFactor());
             if (buttons[BTN_LEFT] == 1)
-                playerObj->MoveLeft(getMoveFactor() / 2.0);
+                playerObj->MoveLeft(getMoveFactor());
             if (buttons[BTN_RIGHT] == 1)
-                playerObj->MoveRight(getMoveFactor() / 2.0);
+                playerObj->MoveRight(getMoveFactor());
 
             if (buttons[BTN_UP] == 1 && buttons[BTN_LEFT] == 1) {
-                playerObj->MoveUp(getMoveFactor() / 4.0);
+                playerObj->MoveUp(getMoveFactor());
                 playerObj->MoveLeft(getMoveFactor());
             }
             if (buttons[BTN_UP] == 1 && buttons[BTN_RIGHT] == 1) {
-                playerObj->MoveUp(getMoveFactor() / 4.0);
+                playerObj->MoveUp(getMoveFactor());
                 playerObj->MoveRight(getMoveFactor());
             }
             if (buttons[BTN_DOWN] == 1 && buttons[BTN_LEFT] == 1) {
-                playerObj->MoveDown(getMoveFactor() / 4.0);
-                playerObj->MoveLeft(getMoveFactor() / 4.0);
+                playerObj->MoveDown(getMoveFactor());
+                playerObj->MoveLeft(getMoveFactor());
             }
             if (buttons[BTN_DOWN] == 1 && buttons[BTN_RIGHT] == 1) {
-                playerObj->MoveDown(getMoveFactor() / 4.0);
-                playerObj->MoveRight(getMoveFactor() / 4.0);
+                playerObj->MoveDown(getMoveFactor());
+                playerObj->MoveRight(getMoveFactor());
             }
 
             break;
@@ -792,9 +792,9 @@ float Controls2::getMoveFactor() {
     switch (controlScheme) {
         case CTRL_EDITOR:
 #ifdef PLATFORM_ANDROID
-            return 0.08;
+            return 0.2;
 #else
-            return 0.5;
+            return 0.2;
 #endif
         case CTRL_FPS:
             if (g_largeScale)

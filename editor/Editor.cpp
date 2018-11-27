@@ -1083,8 +1083,14 @@ void Editor::tick() {
             //
 
             Shape *shape = curVoxels->shape;
-            engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, curVoxel);
-            shape->needsRebuild = true;
+			int vox = engine->getVoxel(shape->name, putvoxx, putvoxy, putvoxz);
+			
+			if (vox != curVoxel)
+			{
+				engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, curVoxel);
+				shape->needsRebuild = true;
+			}
+
 			linkCopy = false;
 
         } else if (mode == EM_OBJ) {
