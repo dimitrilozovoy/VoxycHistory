@@ -43,8 +43,8 @@ SOFTWARE.
 #endif
 
 #ifdef PLATFORM_WINDOWS
-#import "../thirdparty/GL/glew.h"
-#import "../thirdparty/GLFW/glfw3.h"
+#include "../thirdparty/GL/glew.h"
+#include "../thirdparty/GLFW/glfw3.h"
 #endif
 
 #ifdef PLATFORM_OSX
