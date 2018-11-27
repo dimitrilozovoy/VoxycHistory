@@ -88,6 +88,7 @@ public:
 	void setVoxelTexture(int voxel, std::string texture);
 	std::string getVoxelTexture(int voxel);
 	std::map<int, std::string> *getVoxelTextures() { return &voxelTextures; };
+	void copyFrom(Voxels *source);
 
 	bool rebuild = false;
 

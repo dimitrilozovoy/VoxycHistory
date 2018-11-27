@@ -496,7 +496,7 @@ void Editor::tick() {
 					engine->setSize(name, 1.0, 1.0, 1.0);
 
 					placingObj = true;
-					linkCopy = false;
+					objCopy = false;
                     objPreviewDist = defaultObjPreviewDist;
 				}
 
@@ -521,7 +521,7 @@ void Editor::tick() {
 					engine->setSize(name, 1.0, 1.0, 1.0);
 
 					placingObj = true;
-					linkCopy = false;
+					objCopy = false;
 					objPreviewDist = defaultObjPreviewDist;
 				}
 				
@@ -589,7 +589,7 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
-			linkCopy = false;
+			objCopy = false;
 			objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraInt("newterrainparams_entered", 0);
@@ -622,7 +622,7 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
-			linkCopy = false;
+			objCopy = false;
 			objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraStr("listmenuoptionclicked", "");
@@ -644,7 +644,7 @@ void Editor::tick() {
             engine->setAlwaysFacePlayer(name, false);
 
 			placingObj = true;
-			linkCopy = false;
+			objCopy = false;
 			objPreviewDist = defaultObjPreviewDist;
 
             engine->setExtraStr("listmenuoptionclicked", "");
@@ -1091,7 +1091,7 @@ void Editor::tick() {
 				shape->needsRebuild = true;
 			}
 
-			linkCopy = false;
+			objCopy = false;
 
         } else if (mode == EM_OBJ) {
 
@@ -1112,7 +1112,7 @@ void Editor::tick() {
                 Shape *shape = newObj->shape;
 
                 // Added voxels? Create new voxel shape for it
-                if (shape != nullptr && shape->voxels != nullptr && !linkCopy) {
+                if (shape != nullptr && shape->voxels != nullptr && !objCopy) {
                     engine->newShape(newName, SHAPE_VOXELS, newVoxelResolution, 0.0);
                     engine->setShape(newName, newName);
 
@@ -1143,7 +1143,7 @@ void Editor::tick() {
                 }
 
                 // Added voxels? Switch to voxels mode
-                if (shape != nullptr && shape->voxels != nullptr && !linkCopy) {
+                if (shape != nullptr && shape->voxels != nullptr && !objCopy) {
                     // Swtich to voxel mode
                     mode = EM_VOX;
                     engine->setText("msg2", "voxel mode");
@@ -1151,7 +1151,15 @@ void Editor::tick() {
                     rayLength = defaultRayLength;
                 }
 
-                newObj->visible = true;
+				if (shape != nullptr && shape->voxels != nullptr && objCopy && !linkCopy)
+				{
+					// Not link copy? We need to copy the voxels
+					engine->newShape(newName, SHAPE_VOXELS, shape->voxels->getSize(), 0.0);
+					engine->setShape(newName, newName);
+					newObj->shape->voxels->copyFrom(objPreview->shape->voxels);
+				}
+
+				newObj->visible = true;
 
                 char msg[1024];
                 snprintf(msg, 1024, "%s placed", newName.c_str());
@@ -1188,9 +1196,9 @@ void Editor::tick() {
 				engine->setVisible("objpreview", false);
 		}
 
-		if (linkCopy)
+		if (objCopy)
 		{
-			linkCopy = false;
+			objCopy = false;
 			rmObjTimer = 30;
 		}
 
@@ -1270,6 +1278,7 @@ void Editor::tick() {
 				gui->addListMenuOption("Set position", "");
 				gui->addListMenuOption("Set orientation", "");
 				gui->addListMenuOption("Set scale", "");
+				gui->addListMenuOption("Copy", "");
 				gui->addListMenuOption("Link copy", "");
 				gui->showListMenuInDialog("Options", "");
 			}
@@ -1467,14 +1476,18 @@ void Editor::tick() {
             engine->setExtraInt("setobjscale_entered", 0);
         }
     }
+	
+	// Copy
 
-    // Link copy
-
-    if (engine->getExtraStr("listmenuoptionclicked") == "Link copy") {
+    if (engine->getExtraStr("listmenuoptionclicked") == "Copy"
+		|| engine->getExtraStr("listmenuoptionclicked") == "Link copy") {
 
         if (selectedObj != nullptr)
         {
-            engine->removeObject("objpreview");
+			if (engine->getExtraStr("listmenuoptionclicked") == "Link copy")
+				linkCopy = true;
+				
+			engine->removeObject("objpreview");
             engine->copyObj(selectedObj->name, "objpreview");
             objPreview = engine->findObj("objpreview");
             objPreview->system = true;
@@ -1483,7 +1496,7 @@ void Editor::tick() {
 			objPreviewDist = playerObj->distanceTo(selectedObj);
 			selectedObj = nullptr;
             selectOnly = false;
-            linkCopy = true;
+            objCopy = true;
 			placingObj = true;
         }
 
@@ -1621,7 +1634,7 @@ void Editor::tick() {
     //
 
     // See if we are pointing at an object; select it if so
-     if (!movingSelected && mode == EM_OBJ && !screenshotMode && !linkCopy) {
+     if (!movingSelected && mode == EM_OBJ && !screenshotMode && !objCopy) {
         lastSelectedObj = selectedObj;
         selectedObj = nullptr;
 

@@ -1498,3 +1498,19 @@ std::string Voxels::getVoxelTexture(int voxel)
 {
 	return voxelTextures[voxel];
 }
+
+void Voxels::copyFrom(Voxels *source)
+{
+	init(source->size, source->extraStrings);
+
+	for (int z = 0; z < size; z++)
+		for (int y = 0; y < size; y++)
+			for (int x = 0; x < size; x++)
+			{
+				int v = source->get(x, y, z);
+				if (v != 0)
+					set(x, y, z, v);
+			}
+
+	voxelTextures.insert(source->voxelTextures.begin(), source->voxelTextures.end());
+}

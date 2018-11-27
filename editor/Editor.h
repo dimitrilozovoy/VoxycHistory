@@ -80,6 +80,7 @@ private:
 	bool gotvox = false;
     int curVoxel = 1;
 	bool screenshotMode = false;
+	bool objCopy = false;
 	bool linkCopy = false;
 	bool touchControls = true;
 	int msgTimer = 0;
