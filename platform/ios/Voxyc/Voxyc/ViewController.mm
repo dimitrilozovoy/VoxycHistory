@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "../../../../app/main.h"
 
 @interface ViewController () {
 }
@@ -47,6 +48,8 @@
 - (void)initGL {
     [EAGLContext setCurrentContext:self.context];
     [((GLKView *) self.view) bindDrawable];
+    
+    StartApp(0);
 }
 
 - (void)shutdownGL {
@@ -54,8 +57,11 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(0, 1, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+//    glClearColor(0, 1, 0, 1);
+//    glClear(GL_COLOR_BUFFER_BIT);
+
+    AppTick();
+    Draw(0);
 }
 
 @end
