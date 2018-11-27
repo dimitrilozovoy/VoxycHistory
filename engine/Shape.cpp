@@ -29,7 +29,7 @@ SOFTWARE.
 void Shape::generate(std::map<std::string, std::string> *stringExtras)
 {
 	//    if (vertices != nullptr)
-	//        return;
+    //        return;
 
 	if (type == SHAPE_TERRAIN)
 	{
@@ -54,7 +54,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 				// SHAPE_BLOCK
 				//
 
-				// Generate VBO
+        // Generate VBO
 		glGenBuffers(1, (GLuint *)&vbo);
 		checkGLError("glGenBuffers");
 

@@ -1111,7 +1111,7 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 	FILE *file;
 
 	if (f == nullptr) {
-#ifndef PLATFORM_ANDROID
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 		int err = fopen_s(&file, fname.c_str(), "wb+");
 #else
 		file = fopen(fname.c_str(), "wb+");
@@ -1228,7 +1228,7 @@ int Voxels::load(std::string fname, FILE *f = nullptr)
 	FILE *file;
 
 	if (f == nullptr) {
-#ifndef PLATFORM_ANDROID
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 		int err = fopen_s(&file, fname.c_str(), "rb+");
 #else
 		file = fopen(fname.c_str(), "rb+");

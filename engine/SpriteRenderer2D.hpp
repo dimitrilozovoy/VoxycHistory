@@ -113,7 +113,7 @@ private:
 
 
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
     //
     // VERTEX SHADER
     //

@@ -302,8 +302,10 @@ int SpriteRenderer2D::loadVertices()
     glGenVertexArrays(1, (unsigned int *)&m_vao);
 #endif
     checkError("glGenVertexArrays");
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glBindVertexArray(m_vao);
     checkError("glBindVertexArray");
+#endif
     
     // Make and bind the VBO
 #if defined PLATFORM_GVR || defined PLATFORM_ANDROID
@@ -343,8 +345,10 @@ int SpriteRenderer2D::loadVertices()
 	free(circleVerts);
     free(quadVerts);
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Unbind the VAO
     glBindVertexArray(0);
+#endif
     
     return 1;
 }
@@ -389,7 +393,7 @@ void SpriteRenderer2D::compileShaders()
 	int vertexShader = 0;
 	int fragmentShader = 0;
 
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCodeES20);
     fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderCodeES20);
 #else
@@ -435,8 +439,10 @@ void SpriteRenderer2D::DrawCircle(float xshift, float yshift, float cscale)
 	glUseProgram(m_program);
     checkError();
 	
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
     glBindVertexArray(m_vao);
+#endif
     // Bind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, m_vbos[0]);    
 	
@@ -500,7 +506,9 @@ void SpriteRenderer2D::DrawCircle(float xshift, float yshift, float cscale)
     glDrawArrays(GL_TRIANGLES, 0, NUM_CTRL_SEGMENTS * 3);
     checkError("glDrawArrays");
             
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glBindVertexArray(0);
+#endif
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 }
@@ -530,8 +538,10 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
 	glUseProgram(m_program);
     checkError();
 	
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
     glBindVertexArray(m_vao);
+#endif
     // Bind the VBO
     if (noaspect)
         glBindBuffer(GL_ARRAY_BUFFER, m_vbos[2]);
@@ -616,7 +626,9 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
     glDrawArrays(GL_TRIANGLES, 0, 6);
     checkError("glDrawArrays");
             
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glBindVertexArray(0);
+#endif
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 }

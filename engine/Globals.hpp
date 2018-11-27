@@ -69,9 +69,9 @@ SOFTWARE.
 #define USE_OPENAL
 #endif
 
-//#ifndef PLATFORM_WINDOWS
+#ifndef PLATFORM_IOS
 #define USE_ASSIMP
-//#endif
+#endif
 //#ifdef PLATFORM_WINDOWS
 //#define USE_TINYOBJLOADER
 //#endif
@@ -189,7 +189,7 @@ SOFTWARE.
 #if defined PLATFORM_GVR || defined PLATFORM_OPENVR
 #define VIEW_FOV    45.0f
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 #define VIEW_FOV    120.0f
 #endif
 

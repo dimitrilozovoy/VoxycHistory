@@ -28,6 +28,7 @@ SOFTWARE.
 #include <../thirdparty/GL/glew.h>
 #include <../thirdparty/GL/glu.h>
 #endif
+
 #ifdef PLATFORM_ANDROID
 #ifdef GAME_RELEASE_DIR_TREE
 #include "../javagl.h"
@@ -35,10 +36,17 @@ SOFTWARE.
 #include "../platform/android/Voxyc/app/src/main/cpp/javagl.h"
 #endif
 #endif
-#ifdef PLATFORM_WINDOWS
-#include "../thirdparty/GL/glew.h"  
-#include "../thirdparty/GLFW/glfw3.h"
+
+#ifdef PLATFORM_IOS
+#import <UIKit/UIKit.h>
+#import "GLKit/GLKit.h"
 #endif
+
+#ifdef PLATFORM_WINDOWS
+#import "../thirdparty/GL/glew.h"
+#import "../thirdparty/GLFW/glfw3.h"
+#endif
+
 #ifdef PLATFORM_OSX
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

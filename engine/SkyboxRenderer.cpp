@@ -61,10 +61,12 @@ void SkyboxRenderer::draw(Object *camera, int glTexID)
     glUseProgram(program);
     checkGLError("glUseProgram");
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
 	glBindVertexArray(vao);
 	checkGLError("glBindVertexArray");
-
+#endif
+    
 	// Bind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     checkGLError("glBindBuffer");
@@ -122,8 +124,10 @@ void SkyboxRenderer::draw(Object *camera, int glTexID)
     glDrawArrays(GL_TRIANGLES, 0, numCoords);
     checkGLError("glDrawArrays");
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Reset
     glBindVertexArray(0);
+#endif
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 }
@@ -184,7 +188,8 @@ void SkyboxRenderer::setVertexAttrib(char *name, int size, int type, bool normal
 
 void SkyboxRenderer::loadVertices()
 {
-	// Generate VAO
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+    // Generate VAO
 	glGenVertexArrays(1, (GLuint *)&vao);
 	checkGLError("glGenVertexArrays");
 	glBindVertexArray(vao);
@@ -195,6 +200,7 @@ void SkyboxRenderer::loadVertices()
     checkGLError("glGenVertexArrays");
     glBindVertexArray(vao);
     checkGLError("glBindVertexArray");
+#endif
 
     // Generate VBOs
     glGenBuffers(1, (GLuint *)&vbo);

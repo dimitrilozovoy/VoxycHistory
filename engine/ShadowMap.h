@@ -100,7 +100,7 @@ public:
 #ifdef PLATFORM_WINDOWS
 		return depthTexture;
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 		return renderTextureId;
 #endif
 	};
@@ -111,7 +111,7 @@ private:
 	GLuint depthTexture = -1;
 	GLuint FramebufferName = -1;
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	int fboId = -1;
 	int depthTextureId = -1;
 	int renderTextureId = -1;

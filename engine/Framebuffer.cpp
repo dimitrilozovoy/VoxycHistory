@@ -82,6 +82,7 @@ void Framebuffer::bind()
 		checkGLError("glGenTextures");
 	}
 
+#ifndef PLATFORM_IOS
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, fbSize, fbSize);
     checkGLError("glRenderBufferStorage");
 
@@ -90,7 +91,8 @@ void Framebuffer::bind()
 
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffer);
 	checkGLError("glFramebufferRenderbuffer");
-
+#endif
+    
 	// Always check that our framebuffer is ok
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{

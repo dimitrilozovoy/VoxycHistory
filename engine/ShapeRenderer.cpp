@@ -286,9 +286,11 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 	glUseProgram(curProgram);
 	checkGLError("ShapeRenderer glUseProgram");
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
 	glBindVertexArray(vao);
 	checkGLError("glBindVertexArray");
+#endif
 
 	// Bind the VBO
 	if (object->shapeType == SHAPE_SPRITE)
@@ -518,19 +520,23 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
     checkGLError("glDrawArrays");
 
     // Reset
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glBindVertexArray(0);
+#endif    
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 }
 
 void ShapeRenderer::loadVertices()
 {
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Generate VAO
 	glGenVertexArrays(1, (GLuint *)&vao);
 	checkGLError("glGenVertexArrays");
 	glBindVertexArray(vao);
 	checkGLError("glBindVertexArray");
-
+#endif
+    
 	// Generate VBOs
     glGenBuffers(NUM_SHAPES, (GLuint *)&vbos);
     checkGLError("glGenBuffers");

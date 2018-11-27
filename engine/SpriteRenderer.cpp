@@ -43,7 +43,7 @@ void SpriteRenderer::init(TextureManager2 *texMan, SpriteRenderer2D *spr2d)
     snprintf(vertexShaderStr, len, "#version 330 core\n%s", vertexShaderCodeOpenVR);
 	snprintf(fragmentShaderStr, len, "#version 330 core\n%s", fragmentShaderCodeOpenVR);
 #endif
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
     snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
     snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
 #endif
@@ -411,18 +411,20 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 	
 //	Log(q);
 	
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Generate VAO
     glGenVertexArrays(1, (GLuint *)&vao);
     checkGLError("glGenVertexArrays");
     glBindVertexArray(vao);
     checkGLError("glBindVertexArray");
-
+#endif
+    
     // Generate VBO
     glGenBuffers(1, (GLuint *)&vbo);
     checkGLError("glGenBuffers");
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     checkGLError("glBindBuffer");
-
+    
     // Load data into VBO
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * floatsPerVert * q, data, GL_STATIC_DRAW);
     checkGLError("glBufferData");
@@ -464,9 +466,11 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 	
 //	setMatrix(curProgram, "mvMatrix", mvMatrix);
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Bind the VAO
     glBindVertexArray(vao);
     checkGLError("glBindVertexArray");
+#endif
 
     // Bind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -519,14 +523,18 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
     glDrawArrays(GL_TRIANGLES, 0, q * 6);
     checkGLError("glDrawArrays");
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Reset
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
+#endif
 
     // Delete VAO and VBO
     glDeleteBuffers(1, (GLuint *)&vbo);
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glDeleteVertexArrays(1, (GLuint *)&vao);
+#endif
 	
 	dumpFrame = false;
 }

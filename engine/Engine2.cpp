@@ -147,7 +147,11 @@ void Engine2::draw(int eye)
 	    skyboxRenderer.draw(&camera, skyboxGLTexID);
 
     glEnable(GL_DEPTH_TEST);
-	glDepthRange(0.1, 1000.0);
+#ifdef PLATFORM_IOS
+	glDepthRangef(0.1, 1000.0);
+#else
+    glDepthRange(0.1, 1000.0);
+#endif
     //	glClearDepth(1.0);
     glClear(GL_DEPTH_BUFFER_BIT);
     //	glDepthMask(true);
@@ -187,8 +191,12 @@ void Engine2::drawShadowMap(int eye)
 {
 		shadowMap.bind(&camera);
 
+#ifdef PLATFORM_IOS
+        glClearDepthf(1.0);
+#else
 		glClearDepth(1.0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+#endif
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 
 		shapeRenderer.draw(eye, objects, &sun, true, false, &shadowMap);
@@ -1722,7 +1730,7 @@ float Engine2::getObjFloat(std::string name, std::string key)
 	if (o == nullptr)
 		return 0;
 	
-    float val = o->floats[key];
+    return o->floats[key];
 }
 
 void Engine2::setObjStr(std::string name, std::string key, std::string value)

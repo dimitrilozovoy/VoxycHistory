@@ -13,20 +13,22 @@ void Billboarder::init() {
     char fragmentShaderStr[len];
 
     // Compile program
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
     snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
     snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
 #endif
     program = loadProgram(vertexShaderStr, fragmentShaderStr, false);
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Generate VAO
     glGenVertexArrays(1, (GLuint *) &vao);
     checkGLError("glGenVertexArrays");
+#endif
 }
 
 void Billboarder::refresh(std::map<std::string, Object*> objects)
 {
-    for(const auto &pair: objects)
+/*    for(const auto &pair: objects)
     {
         Object *obj = pair.second;
 
@@ -35,7 +37,7 @@ void Billboarder::refresh(std::map<std::string, Object*> objects)
             process(obj->model, obj->glTexID);
             obj->model->billboarded = true;
         }
-    }
+    }*/
 }
 
 void Billboarder::process(Model2 *model, int glTexID)
@@ -74,9 +76,11 @@ int Billboarder::draw(Model2 *model, Mesh *mesh, float yaw, int glTexID) {
     glUseProgram(program);
     checkGLError("ShapeRenderer glUseProgram");
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Bind VAO
     glBindVertexArray(vao);
     checkGLError("glBindVertexArray");
+#endif
 
     // Bind VBO
     glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
@@ -154,7 +158,9 @@ int Billboarder::draw(Model2 *model, Mesh *mesh, float yaw, int glTexID) {
     checkGLError("glDrawElements");
 
     // Reset
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glBindVertexArray(0);
+#endif
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 

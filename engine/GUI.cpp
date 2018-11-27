@@ -715,7 +715,7 @@ void GUI::enter()
 {
 	if (fileSelectorShown == true)
 	{
-#ifndef PLATFORM_ANDROID
+#ifdef PLATFORM_WINDOWS
 		std::string fname = listMenu[listMenuSelectedItem - 1];
 
 		// Check if this is a dir

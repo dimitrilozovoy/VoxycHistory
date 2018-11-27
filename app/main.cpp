@@ -100,7 +100,7 @@ SOFTWARE.
 #include "../thirdparty/clara/clara.hpp"
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifndef PLATFORM_ANDROID
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 #include <conio.h>
 #endif
 
@@ -142,7 +142,7 @@ void OnGLFWError(int errorCode, const char* msg) {
 //
 // =======================================================================
 
-#ifndef PLATFORM_OPENVR
+#if !defined PLATFORM_OPENVR && !defined PLATFORM_IOS
 
 int main(int argc, const char * argv[]) {
 
@@ -590,7 +590,7 @@ void updateControls()
 
 bool getJoyBtn(Controls2 *controls, const unsigned char *buttons, int inBtn, int outBtn, int count)
 {
-#ifndef PLATFORM_ANDROID
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	if (count > MAX_BUTTONS)
 		return false;
 

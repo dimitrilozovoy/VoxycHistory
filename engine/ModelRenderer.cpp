@@ -33,10 +33,12 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 
     loadVertices();
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Generate VAO
 	glGenVertexArrays(1, (GLuint *)&vao);
 	checkGLError("glGenVertexArrays");
-
+#endif
+    
 	// Load shaders
 	const int len = 10000;
 
@@ -152,10 +154,12 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	glUseProgram(curProgram);
 	checkGLError("ModelRenderer glUseProgram");
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Bind the VAO
 	glBindVertexArray(vao);
 	checkGLError("glBindVertexArray");
-
+#endif
+    
 	// Bind the VBOs
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexVBO);
 	checkGLError("glBindBuffer");
@@ -340,7 +344,9 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	checkGLError("glDrawElements");
 
     // Reset
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     glBindVertexArray(0);
+#endif
     glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 
@@ -348,12 +354,14 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 
 void ModelRenderer::loadVertices()
 {
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Generate VAO
     glGenVertexArrays(1, (GLuint *)&vao);
     checkGLError("glGenVertexArrays");
     glBindVertexArray(vao);
     checkGLError("glBindVertexArray");
-
+#endif
+    
     // Generate VBOs
     glGenBuffers(NUM_SHAPES, (GLuint *)&vbos);
     checkGLError("glGenBuffers");
