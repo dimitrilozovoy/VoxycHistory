@@ -271,6 +271,9 @@ void GUI::setWgColor(std::string name, float r, float g, float b, float a)
 
 std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int finger, int count)
 {
+    if (action == 0 || action == 5)
+        return "";
+
 	float yfromtop = (float)PLAT_GetWindowHeight() - y;
 //	yfromtop = yfromtop * 0.85;
 	y = (float)PLAT_GetWindowHeight() - yfromtop;
@@ -296,12 +299,7 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 			{
 		        float textglx = item->position.x;
 		        float textgly = item->position.y;
-		
-/*				Log("textglx", (int)(textglx * 1000));
-				Log("textgly", (int)(textgly * 1000));
-				Log("clickglx", (int)(clickglx * 1000));
-				Log("clickgly", (int)(clickgly * 1000));
-*/			
+
 		        if (clickgly > textgly - item->size.y * 2.0
 		        && clickgly < textgly + item->size.y * 2.0
 		        && clickglx > textglx - (item->text.size() * item->size.x)
@@ -320,6 +318,12 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 		        && clickglx < item->position.x + item->size.x / 1.0
 				&& item->onClickExtra != "")
 			    {
+			        Log("item" + item->onClickExtra);
+    				Log("itemglx", (int)(item->position.x * 100));
+	    			Log("itemgly", (int)(item->position.y * 100));
+                    Log("clickglx", (int)(clickglx * 100));
+                    Log("clickgly", (int)(clickgly * 100));
+
 				    return item->onClickExtra;
 			    }
 			}

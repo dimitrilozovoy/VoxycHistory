@@ -214,12 +214,13 @@ void Editor::tick() {
 		processHWButtons();
 	}
 
+    static int fileBtnTimer = 0;
+
     if (timer == 0) {
         // File menu
 
-        if (engine->getExtraInt("filebtnclicked") == 1
-            || engine->getExtraInt("filebtnclicked") == 3) {
-
+        if (engine->getExtraInt("filebtnclicked") != 0)
+        {
 			if (!gui->nonNativeWidgetsShown())
 			{
 				gui->clearListMenu();
@@ -1183,8 +1184,7 @@ void Editor::tick() {
     if (rmObjTimer > 0)
         rmObjTimer--;
 
-    if ((engine->getExtraInt("removeclicked") == 1
-         || engine->getExtraInt("removeclicked") == 3)) {
+    if (engine->getExtraInt("removeclicked") != 0) {
 
 		if (placingObj)
 		{
@@ -1265,9 +1265,8 @@ void Editor::tick() {
     if (optTimer > 0)
         optTimer--;
 
-    if ((engine->getExtraInt("optionsclicked") == 1
-         || engine->getExtraInt("optionsclicked") == 3)
-        && optTimer == 0) {
+    if (engine->getExtraInt("optionsclicked") != 0 && optTimer == 0)
+    {
         if (mode == EM_OBJ) {
 
 			if (!gui->nonNativeWidgetsShown())
@@ -1568,9 +1567,8 @@ void Editor::tick() {
     if (mvTimer > 0)
         mvTimer--;
 
-    if ((engine->getExtraInt("moveclicked") == 1
-         || engine->getExtraInt("moveclicked") == 2)
-        && mvTimer == 0) {
+    if (engine->getExtraInt("moveclicked") != 0 && mvTimer == 0)
+    {
 
         if (mode == EM_VOX) {
             // Nothing
@@ -1600,8 +1598,7 @@ void Editor::tick() {
     // Mode button
 	//
 
-    if ((engine->getExtraInt("objmodeclicked") == 1
-         || engine->getExtraInt("objmodeclicked") == 2)) {
+    if (engine->getExtraInt("objmodeclicked") != 0) {
 
         objPreviewDist = defaultObjPreviewDist;
         mode = EM_OBJ;
@@ -1614,8 +1611,9 @@ void Editor::tick() {
 		engine->setExtraInt("objmodeclicked", 0);
     }
 
-    if ((engine->getExtraInt("voxmodeclicked") == 1
-         || engine->getExtraInt("voxmodeclicked") == 2)) {
+//    int aa = g_common.extraInts["voxmodeclicked"];
+
+    if (engine->getExtraInt("voxmodeclicked") != 0) {
 
         rayLength = defaultRayLength;
         selectOnly = false;

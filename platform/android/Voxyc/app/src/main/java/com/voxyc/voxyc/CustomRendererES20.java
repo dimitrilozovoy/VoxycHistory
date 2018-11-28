@@ -60,16 +60,18 @@ public class CustomRendererES20 implements android.opengl.GLSurfaceView.Renderer
             }
         };
 
-/*        HelloJni.touchHandler = new Handler(Looper.getMainLooper())
+        HelloJni.touchHandler = new Handler(Looper.getMainLooper())
         {
             @Override
             public void handleMessage(Message msg)
             {
                 Bundle b = msg.getData();
 
-                HelloJni.touchEvent(b.getInt("action"), b.getFloat("x"), b.getFloat("y"));
+				HelloJni.touchEvent(b.getInt("pointerCount"), b.getInt("action1"), b.getFloat("x1"), b.getFloat("y1"), b.getInt("action2"), b.getFloat("x2"), b.getFloat("y2"), b.getInt("actionIndex"));
+
+//                HelloJni.touchEvent(b.getInt("action"), b.getFloat("x"), b.getFloat("y"));
             }
-        };*/
+        };
 	}
 	
 	public void onDrawFrame(GL10 gl)

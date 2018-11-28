@@ -909,7 +909,7 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 	}
 	
 	setExtraInt("touchaction1", action1);
-	setExtraInt("touchaction2", action2);	
+	setExtraInt("touchaction2", action2);
 		
 /*	static int clickTimer = 0;
 	
