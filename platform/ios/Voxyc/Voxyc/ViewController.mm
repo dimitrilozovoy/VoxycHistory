@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "../../../../app/main.h"
+#import "../../../../engine/Engine2.h"
 
 @interface ViewController () {
 }
@@ -63,6 +64,102 @@
 
     AppTick();
     Draw(0);
+}
+
+- (void) touchesBegan:(NSSet *)touches
+            withEvent:(UIEvent *)event {
+    NSUInteger touchCount = [touches count];
+    NSUInteger tapCount = [[touches anyObject] tapCount];
+    
+    NSArray *arrTouches = [touches allObjects];
+    
+    CGFloat x1 = 0;
+    CGFloat y1 = 0;
+    CGFloat x2 = 0;
+    CGFloat y2 = 0;
+    
+    for (int i = 0; i < tapCount; i++)
+    {
+        UITouch *touch = [arrTouches objectAtIndex:i];
+        CGPoint point = [touch locationInView:self.view];
+        
+        if (i == 0)
+        {
+            x1 = point.x;
+            y1 = point.y;
+        }
+        if (i == 1)
+        {
+            x2 = point.x;
+            y2 = point.y;
+        }
+    };
+    
+    g_engine2->touchEvent((int)tapCount, 1, x1, y1, 1, x2, y2, -1);
+}
+
+- (void) touchesMoved:(NSSet *)touches
+            withEvent:(UIEvent *)event {
+    NSUInteger touchCount = [touches count];
+    NSUInteger tapCount = [[touches anyObject] tapCount];
+    
+    NSArray *arrTouches = [touches allObjects];
+    
+    CGFloat x1 = 0;
+    CGFloat y1 = 0;
+    CGFloat x2 = 0;
+    CGFloat y2 = 0;
+    
+    for (int i = 0; i < tapCount; i++)
+    {
+        UITouch *touch = [arrTouches objectAtIndex:i];
+        CGPoint point = [touch locationInView:self.view];
+        
+        if (i == 0)
+        {
+            x1 = point.x;
+            y1 = point.y;
+        }
+        if (i == 1)
+        {
+            x2 = point.x;
+            y2 = point.y;
+        }
+    };
+    
+    g_engine2->touchEvent((int)tapCount, 3, x1, y1, 3, x2, y2, -1);
+}
+
+- (void) touchesEnded:(NSSet *)touches
+            withEvent:(UIEvent *)event {
+    NSUInteger touchCount = [touches count];
+    NSUInteger tapCount = [[touches anyObject] tapCount];
+    
+    NSArray *arrTouches = [touches allObjects];
+    
+    CGFloat x1 = 0;
+    CGFloat y1 = 0;
+    CGFloat x2 = 0;
+    CGFloat y2 = 0;
+    
+    for (int i = 0; i < tapCount; i++)
+    {
+        UITouch *touch = [arrTouches objectAtIndex:i];
+        CGPoint point = [touch locationInView:self.view];
+        
+        if (i == 0)
+        {
+            x1 = point.x;
+            y1 = point.y;
+        }
+        if (i == 1)
+        {
+            x2 = point.x;
+            y2 = point.y;
+        }
+    };
+    
+    g_engine2->touchEvent((int)tapCount, 5, x1, y1, 5, x2, y2, -1);
 }
 
 @end
