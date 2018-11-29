@@ -84,7 +84,7 @@
 		277C94AF21AD613F003A372E /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 277C946221AD613F003A372E /* x.png */; };
 		277C94B021AD613F003A372E /* y.png in Resources */ = {isa = PBXBuildFile; fileRef = 277C946321AD613F003A372E /* y.png */; };
 		277C94B121AD613F003A372E /* z.png in Resources */ = {isa = PBXBuildFile; fileRef = 277C946421AD613F003A372E /* z.png */; };
-		27A441DE21AFB41D00BCF0C6 /* IOSGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A441DC21AFB41D00BCF0C6 /* IOSGUI.cpp */; };
+		27A441DE21AFB41D00BCF0C6 /* IOSGUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27A441DC21AFB41D00BCF0C6 /* IOSGUI.mm */; };
 		27A974CE21ACBF5D00732436 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A974CD21ACBF5D00732436 /* main.m */; };
 		27A974D121ACBF5D00732436 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A974D021ACBF5D00732436 /* AppDelegate.m */; };
 		27A974D421ACBF5D00732436 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27A974D321ACBF5D00732436 /* ViewController.mm */; };
@@ -251,8 +251,8 @@
 		277C946221AD613F003A372E /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = x.png; path = ../../../assets/x.png; sourceTree = "<group>"; };
 		277C946321AD613F003A372E /* y.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = y.png; path = ../../../assets/y.png; sourceTree = "<group>"; };
 		277C946421AD613F003A372E /* z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = z.png; path = ../../../assets/z.png; sourceTree = "<group>"; };
-		27A441DC21AFB41D00BCF0C6 /* IOSGUI.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; path = IOSGUI.cpp; sourceTree = "<group>"; };
-		27A441DD21AFB41D00BCF0C6 /* IOSGUI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IOSGUI.hpp; sourceTree = "<group>"; };
+		27A441DC21AFB41D00BCF0C6 /* IOSGUI.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; path = IOSGUI.mm; sourceTree = "<group>"; };
+		27A441DD21AFB41D00BCF0C6 /* IOSGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSGUI.h; sourceTree = "<group>"; };
 		27A974C921ACBF5D00732436 /* Voxyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voxyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A974CD21ACBF5D00732436 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27A974CF21ACBF5D00732436 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -548,8 +548,8 @@
 				27A974DD21ACBF5D00732436 /* Info.plist */,
 				27A974CC21ACBF5D00732436 /* Supporting Files */,
 				27FFE63421ACE73800925534 /* ios.cpp */,
-				27A441DC21AFB41D00BCF0C6 /* IOSGUI.cpp */,
-				27A441DD21AFB41D00BCF0C6 /* IOSGUI.hpp */,
+				27A441DC21AFB41D00BCF0C6 /* IOSGUI.mm */,
+				27A441DD21AFB41D00BCF0C6 /* IOSGUI.h */,
 			);
 			path = Voxyc;
 			sourceTree = "<group>";
@@ -942,7 +942,7 @@
 				27FFE69021ACE96500925534 /* lstring.c in Sources */,
 				27FFE69621ACE96500925534 /* luac.c in Sources */,
 				27FFE68421ACE96500925534 /* lgc.c in Sources */,
-				27A441DE21AFB41D00BCF0C6 /* IOSGUI.cpp in Sources */,
+				27A441DE21AFB41D00BCF0C6 /* IOSGUI.mm in Sources */,
 				27FFE62021ACCAC900925534 /* TextureAtlas.cpp in Sources */,
 				27FFE67E21ACE96500925534 /* lctype.c in Sources */,
 				27FFE60721ACCAC900925534 /* EditorController.cpp in Sources */,

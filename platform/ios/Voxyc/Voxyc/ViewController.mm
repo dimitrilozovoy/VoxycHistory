@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "../../../../app/main.h"
 #import "../../../../engine/Engine2.h"
-#import "IOSGUI.hpp"
+#import "IOSGUI.h"
 
 @interface ViewController () {
 }
@@ -45,6 +45,7 @@
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     g_viewController = self;
+    g_iosGUI = [[IOSGUI alloc] init];
     
     [self initGL];
 }

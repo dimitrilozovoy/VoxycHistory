@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string>
 #import <UIKit/UIKit.h>
-#include "IOSGUI.hpp"
+#include "IOSGUI.h"
 
 void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
 {
@@ -184,7 +184,10 @@ void PLAT_AddListMenuOption(std::string title, std::string desc)
 
 void PLAT_ShowListMenuInDialog(std::string title, std::string options)
 {
-    g_iosGUI.showListMenuInDialog(title, options);
+    NSString *nsTitle = [NSString stringWithFormat:@"%s", title.c_str()];
+    NSString *nsOptions = [NSString stringWithFormat:@"%s", options.c_str()];
+
+    [g_iosGUI showListMenuInDialog:nsTitle withOptions:nsOptions];
 }
 
 void PLAT_ShowText(std::string text)
