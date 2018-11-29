@@ -57,7 +57,7 @@ void Editor::init() {
 
 	GUI *gui = g_engine2->getGUI();
 
-#if defined PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	gui->setNativeWidgets(true);
 #else
 	gui->setNativeWidgets(false);

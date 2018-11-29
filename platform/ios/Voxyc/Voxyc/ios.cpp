@@ -8,6 +8,8 @@
 
 #include <stdio.h>
 #include <string>
+#import <UIKit/UIKit.h>
+#include "IOSGUI.hpp"
 
 void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
 {
@@ -73,12 +75,12 @@ void PLAT_LoadTextureInJava(int glTexID, std::string filename, std::string asset
 
 int PLAT_GetWindowWidth()
 {
-    return 1024;
+    return [UIScreen mainScreen].bounds.size.width;
 }
 
 int PLAT_GetWindowHeight()
 {
-    return 768;
+    return [UIScreen mainScreen].bounds.size.height;
 }
 
 long PLAT_GetTime()
@@ -182,6 +184,7 @@ void PLAT_AddListMenuOption(std::string title, std::string desc)
 
 void PLAT_ShowListMenuInDialog(std::string title, std::string options)
 {
+    g_iosGUI.showListMenuInDialog(title, options);
 }
 
 void PLAT_ShowText(std::string text)

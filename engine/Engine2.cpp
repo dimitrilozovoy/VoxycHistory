@@ -897,11 +897,14 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 	if (extra1 != "")
 		setExtraInt(extra1, action1);
 	
-	std::string extra2 = textPrinter.getOnClickExtraIfClicked(action2, x2, y2, 0, 1);
-	extra2 = gui.getOnClickExtraIfClicked(action2, x2, y2, 0, 1);
+    if (count >= 2)
+    {
+        std::string extra2 = textPrinter.getOnClickExtraIfClicked(action2, x2, y2, 0, 1);
+        extra2 = gui.getOnClickExtraIfClicked(action2, x2, y2, 0, 1);
 
-	if (action2 != 0 && extra2 != "")
-		setExtraInt(extra2, action2);
+        if (action2 != 0 && extra2 != "")
+            setExtraInt(extra2, action2);
+    }
 	
 	if (/*touchBtnBinds.size() > 0 || */ extra1 == "")
 	{

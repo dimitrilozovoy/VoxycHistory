@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "../../../../app/main.h"
 #import "../../../../engine/Engine2.h"
+#import "IOSGUI.hpp"
 
 @interface ViewController () {
 }
@@ -43,6 +44,8 @@
     
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+    g_viewController = self;
+    
     [self initGL];
 }
 
@@ -59,9 +62,6 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-//    glClearColor(0, 1, 0, 1);
-//    glClear(GL_COLOR_BUFFER_BIT);
-
     AppTick();
     Draw(0);
 }

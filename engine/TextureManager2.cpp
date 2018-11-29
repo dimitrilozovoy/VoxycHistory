@@ -92,7 +92,11 @@ void TextureManager2::load(std::string name, bool external)
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:nsNameNoExt ofType:nsExt];
     
-    spriteTexture = [GLKTextureLoader textureWithContentsOfFile:filePath options:nil error:&theError]; // 2
+    NSDictionary *opts = @{
+                                    @"GLKTextureLoaderOriginBottomLeft" : @"YES"
+                                    };
+
+    spriteTexture = [GLKTextureLoader textureWithContentsOfFile:filePath options:opts error:&theError]; // 2
     t->glTexID = spriteTexture.name;
 #else
     int glTexID;

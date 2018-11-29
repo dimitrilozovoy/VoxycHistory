@@ -84,6 +84,7 @@
 		277C94AF21AD613F003A372E /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 277C946221AD613F003A372E /* x.png */; };
 		277C94B021AD613F003A372E /* y.png in Resources */ = {isa = PBXBuildFile; fileRef = 277C946321AD613F003A372E /* y.png */; };
 		277C94B121AD613F003A372E /* z.png in Resources */ = {isa = PBXBuildFile; fileRef = 277C946421AD613F003A372E /* z.png */; };
+		27A441DE21AFB41D00BCF0C6 /* IOSGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A441DC21AFB41D00BCF0C6 /* IOSGUI.cpp */; };
 		27A974CE21ACBF5D00732436 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A974CD21ACBF5D00732436 /* main.m */; };
 		27A974D121ACBF5D00732436 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A974D021ACBF5D00732436 /* AppDelegate.m */; };
 		27A974D421ACBF5D00732436 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 27A974D321ACBF5D00732436 /* ViewController.mm */; };
@@ -133,7 +134,7 @@
 		27FFE62C21ACCDB200925534 /* VoxycApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE62821ACCDB200925534 /* VoxycApp.cpp */; };
 		27FFE63221ACCDD600925534 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE62E21ACCDD600925534 /* Editor.cpp */; };
 		27FFE63321ACCDD600925534 /* EditorOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE63021ACCDD600925534 /* EditorOld.cpp */; };
-		27FFE63521ACE73800925534 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE63421ACE73800925534 /* osx.cpp */; };
+		27FFE63521ACE73800925534 /* ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE63421ACE73800925534 /* ios.cpp */; };
 		27FFE67821ACE96500925534 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE63A21ACE96500925534 /* lapi.c */; };
 		27FFE67921ACE96500925534 /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE63C21ACE96500925534 /* lauxlib.c */; };
 		27FFE67A21ACE96500925534 /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FFE63E21ACE96500925534 /* lbaselib.c */; };
@@ -250,6 +251,8 @@
 		277C946221AD613F003A372E /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = x.png; path = ../../../assets/x.png; sourceTree = "<group>"; };
 		277C946321AD613F003A372E /* y.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = y.png; path = ../../../assets/y.png; sourceTree = "<group>"; };
 		277C946421AD613F003A372E /* z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = z.png; path = ../../../assets/z.png; sourceTree = "<group>"; };
+		27A441DC21AFB41D00BCF0C6 /* IOSGUI.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; path = IOSGUI.cpp; sourceTree = "<group>"; };
+		27A441DD21AFB41D00BCF0C6 /* IOSGUI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IOSGUI.hpp; sourceTree = "<group>"; };
 		27A974C921ACBF5D00732436 /* Voxyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Voxyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A974CD21ACBF5D00732436 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27A974CF21ACBF5D00732436 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -348,7 +351,7 @@
 		27FFE62F21ACCDD600925534 /* Editor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Editor.h; path = ../../../../editor/Editor.h; sourceTree = "<group>"; };
 		27FFE63021ACCDD600925534 /* EditorOld.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = EditorOld.cpp; path = ../../../../editor/EditorOld.cpp; sourceTree = "<group>"; };
 		27FFE63121ACCDD600925534 /* EditorOld.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EditorOld.h; path = ../../../../editor/EditorOld.h; sourceTree = "<group>"; };
-		27FFE63421ACE73800925534 /* osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osx.cpp; sourceTree = "<group>"; };
+		27FFE63421ACE73800925534 /* ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; fileEncoding = 4; path = ios.cpp; sourceTree = "<group>"; };
 		27FFE63A21ACE96500925534 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lapi.c; path = ../../../../thirdparty/lua/lapi.c; sourceTree = "<group>"; };
 		27FFE63B21ACE96500925534 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lapi.h; path = ../../../../thirdparty/lua/lapi.h; sourceTree = "<group>"; };
 		27FFE63C21ACE96500925534 /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lauxlib.c; path = ../../../../thirdparty/lua/lauxlib.c; sourceTree = "<group>"; };
@@ -544,7 +547,9 @@
 				27A974DA21ACBF5D00732436 /* LaunchScreen.storyboard */,
 				27A974DD21ACBF5D00732436 /* Info.plist */,
 				27A974CC21ACBF5D00732436 /* Supporting Files */,
-				27FFE63421ACE73800925534 /* osx.cpp */,
+				27FFE63421ACE73800925534 /* ios.cpp */,
+				27A441DC21AFB41D00BCF0C6 /* IOSGUI.cpp */,
+				27A441DD21AFB41D00BCF0C6 /* IOSGUI.hpp */,
 			);
 			path = Voxyc;
 			sourceTree = "<group>";
@@ -929,7 +934,7 @@
 				27FFE60F21ACCAC900925534 /* Model2.cpp in Sources */,
 				27FFE68621ACE96500925534 /* liolib.c in Sources */,
 				27FFE60C21ACCAC900925534 /* Grid.cpp in Sources */,
-				27FFE63521ACE73800925534 /* osx.cpp in Sources */,
+				27FFE63521ACE73800925534 /* ios.cpp in Sources */,
 				27FFE68721ACE96500925534 /* llex.c in Sources */,
 				27FFE68B21ACE96500925534 /* lobject.c in Sources */,
 				27FFE67F21ACE96500925534 /* ldblib.c in Sources */,
@@ -937,6 +942,7 @@
 				27FFE69021ACE96500925534 /* lstring.c in Sources */,
 				27FFE69621ACE96500925534 /* luac.c in Sources */,
 				27FFE68421ACE96500925534 /* lgc.c in Sources */,
+				27A441DE21AFB41D00BCF0C6 /* IOSGUI.cpp in Sources */,
 				27FFE62021ACCAC900925534 /* TextureAtlas.cpp in Sources */,
 				27FFE67E21ACE96500925534 /* lctype.c in Sources */,
 				27FFE60721ACCAC900925534 /* EditorController.cpp in Sources */,
