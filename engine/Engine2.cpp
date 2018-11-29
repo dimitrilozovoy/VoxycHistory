@@ -1625,7 +1625,7 @@ void Engine2::batch(std::string batchobjname, std::string addobjname)
 }
 
 void Engine2::autoBatch() {
-
+#ifdef PLATFORM_ANDROID
     for (const auto &pair1: objects) {
         Object *obj1 = pair1.second;
 
@@ -1654,6 +1654,7 @@ void Engine2::autoBatch() {
             }
         }
     }
+#endif
 }
 
 void Engine2::useLegacyTextureSpan(bool use)

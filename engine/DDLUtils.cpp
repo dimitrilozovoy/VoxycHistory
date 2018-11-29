@@ -865,6 +865,54 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 	return angle;
 }
 
+float RotateAngleAwayFrom(float angle, float targetAngle, float step)
+{
+	angle = Limit360(angle);
+	targetAngle = Limit360(targetAngle);
+
+	//	char str[1024];
+	//	snprintf(str, 1024, "angle %d, targetAngle %d", (int)angle, (int)targetAngle);
+	//	Log(str);
+
+	if (targetAngle == 0)
+	{
+		if (angle > 180)
+			angle -= step;
+		else
+			angle += step;
+	}
+	else
+	{
+		float cWiseDist = 0;
+		float ccWiseDist = 0;
+
+		if (targetAngle > angle)
+		{
+			cWiseDist = targetAngle - angle;
+			ccWiseDist = angle + (360 - targetAngle);
+		}
+
+		if (targetAngle < angle)
+		{
+			cWiseDist = (360 - angle) + targetAngle;
+			ccWiseDist = angle - targetAngle;
+		}
+
+		if (cWiseDist > ccWiseDist)
+		{
+			angle += step;
+		}
+		else
+		{
+			angle -= step;
+		}
+
+		angle = Limit360(angle);
+	}
+
+	return angle;
+}
+
 float Limit360(float value)
 {
 	while (value > 360)

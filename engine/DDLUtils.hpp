@@ -93,6 +93,7 @@ float scrToGlY(float screenY);
 float glToScrX(float glX);
 float glToScrY(float glY);
 float RotateAngleTowards(float angle, float targetAngle, float step);
+float RotateAngleAwayFrom(float angle, float targetAngle, float step);
 float Limit360(float value);
 
 #endif /* Utils_hpp */

@@ -736,7 +736,12 @@ bool Object::checkCollision(Object *obj2, float multiplier)
 //		return false;
 
 	if (obj2->shape != nullptr && obj2->shape->voxels != nullptr)
-		return checkVoxelCollision(obj2, multiplier);
+	{
+//		if (name == "player")
+//			return checkVoxelCollisionCircular(obj2, multiplier);
+//		else
+			return checkVoxelCollision(obj2, multiplier);
+	}
 
 	bool collx = false;
 	bool colly = false;
@@ -819,6 +824,61 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 		worldToVoxelCoords(voxObj, position.x - h, wy, position.z - h + stepz * s, x, y, z);
 		if (voxels->get(x, y, z) != 0)
 			result = true;
+	}
+
+	return result;
+}
+
+bool Object::checkVoxelCollisionCircular(Object *voxObj, float multiplier)
+{
+	if (voxObj == nullptr)
+		return false;
+
+	Shape *shape = voxObj->shape;
+
+	if (shape == nullptr)
+		return false;
+
+	Voxels *voxels = shape->voxels;
+
+	if (voxels == nullptr)
+		return false;
+
+	bool result = false;
+	float wx, wy, wz = 0;
+	int x, y, z = 0;
+
+	float rad = scale.x * multiplier / 2.0;
+	int sectors = 12;
+
+	float slideToX = position.x;
+	float slideToZ = position.z;
+
+	for (int s = 0; s < sectors; s++)
+	{
+		float hityaw = (360.0f / (float)sectors) * s;
+
+		wx = position.x + cos(ToRadians(hityaw)) * rad;
+		wz = position.z + sin(ToRadians(hityaw)) * rad;
+
+		worldToVoxelCoords(voxObj, wx, position.y, wz, x, y, z);
+
+		if (voxels->get(x, y, z) != 0)
+			result = true;
+
+		if (result)
+		{
+			// Find where to slide object
+			float newhityaw = RotateAngleAwayFrom(hityaw, yaw, 5);
+
+			slideToX = wx + cos(ToRadians(newhityaw + 180)) * rad;
+			slideToZ = wz + sin(ToRadians(newhityaw + 180)) * rad;
+
+			position.x = slideToX;
+			position.z = slideToZ;
+
+			continue;
+		}
 	}
 
 	return result;

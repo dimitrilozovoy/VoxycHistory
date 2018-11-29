@@ -64,6 +64,7 @@ public:
 	void load(FILE *f);
 	bool checkCollision(Object *other, float multiplier);
 	bool checkVoxelCollision(Object *voxelObj, float multiplier);
+	bool checkVoxelCollisionCircular(Object *voxObj, float multiplier);
 	void worldToVoxelCoords(Object *voxObj, float wx, float wy, float wz, int &x, int &y, int &z);
 
     std::string name;
