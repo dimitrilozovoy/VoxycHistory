@@ -296,6 +296,96 @@ void Object::move()
 	}
 	else
 	{
+		// If player, slide them down the walls if possible instead of stucking them
+		if (name == "player")
+		{
+			const float slide = 0.1f;
+			const int afterDelay = 8;
+			bool notStuck = false;
+
+			yaw = Limit360(yaw);
+
+			static int afterNS = 0;
+			if (afterNS > 0)
+				afterNS--;
+
+			static int afterEW = 0;
+			if (afterEW > 0)
+				afterEW--;
+
+			if ((collNorth || collSouth) && !collEast && !collWest)
+			{
+				if (yaw > 0 && yaw < 180)
+					nextPosition.x += slide;
+				else
+					nextPosition.x -= slide;
+
+				notStuck = true;
+				afterNS = afterDelay;
+			}
+			if (!collNorth && !collSouth && (collEast || collWest))
+			{
+				if (yaw > 90 && yaw < 270)
+					nextPosition.z += slide;
+				else
+					nextPosition.z -= slide;
+
+				notStuck = true;
+				afterEW = afterDelay;
+			}
+			if (collNorth && collEast)
+			{
+				nextPosition.x -= slide;
+				nextPosition.z += slide;
+				notStuck = true;
+			}
+			if (collNorth && collWest)
+			{
+				nextPosition.x += slide;
+				nextPosition.z += slide;
+				notStuck = true;
+			}
+			if (collSouth && collEast)
+			{
+				nextPosition.x -= slide;
+				nextPosition.z -= slide;
+				notStuck = true;
+			}
+			if (collSouth && collWest)
+			{
+				nextPosition.x += slide;
+				nextPosition.z -= slide;
+				notStuck = true;
+			}
+
+			if (afterNS > 0 && !collNorth && !collSouth)
+			{
+				if (collEast && delta.z < 0)
+					nextPosition.x -= slide;
+				if (collEast && delta.z > 0)
+					nextPosition.x -= slide;
+				if (collWest && delta.z < 0)
+					nextPosition.x += slide;
+				if (collWest && delta.z > 0)
+					nextPosition.x += slide;
+			}
+
+			if (afterEW > 0 && !collEast && !collWest)
+			{
+				if (collNorth && delta.x < 0)
+					nextPosition.z += slide;
+				if (collNorth && delta.x > 0)
+					nextPosition.z += slide;
+				if (collSouth && delta.x < 0)
+					nextPosition.z -= slide;
+				if (collSouth && delta.x > 0)
+					nextPosition.z -= slide;
+			}
+
+			if (notStuck)
+				return;
+		}
+
 		ints["stuck"] = 1;
 		strings["stuckon"] = stuckOn;
 	}
@@ -737,10 +827,7 @@ bool Object::checkCollision(Object *obj2, float multiplier)
 
 	if (obj2->shape != nullptr && obj2->shape->voxels != nullptr)
 	{
-//		if (name == "player")
-//			return checkVoxelCollisionCircular(obj2, multiplier);
-//		else
-			return checkVoxelCollision(obj2, multiplier);
+		return checkVoxelCollision(obj2, multiplier);
 	}
 
 	bool collx = false;
@@ -794,36 +881,58 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 
 	float wy = position.y - h / 1.5;
 
+	lastCollNorth = collNorth;
+	lastCollEast = collEast;
+	lastCollSouth = collSouth;
+	lastCollWest = collWest;
+
+	collNorth = false;
+	collEast = false;
+	collSouth = false;
+	collWest = false;
+
 	// A
-	for (int s = 0; s < steps; s++)
+	for (int s = 3; s < steps - 3; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z - h, x, y, z);
 		if (voxels->get(x, y, z) != 0)
+		{
 			result = true;
+			collNorth = true;
+		}
 	}
 
 	// B
-	for (int s = 0; s < steps; s++)
+	for (int s = 3; s < steps - 3; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x + h, wy, position.z - h + stepz * s, x, y, z);
 		if (voxels->get(x, y, z) != 0)
+		{
 			result = true;
+			collEast = true;
+		}
 	}
 	
 	// C
-	for (int s = 0; s < steps; s++)
+	for (int s = 3; s < steps - 3; s++)
 	{
-		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z - h, x, y, z);
+		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z + h, x, y, z);
 		if (voxels->get(x, y, z) != 0)
+		{
 			result = true;
+			collSouth = true;
+		}
 	}
 
 	// D
-	for (int s = 0; s < steps; s++)
+	for (int s = 3; s < steps - 3; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x - h, wy, position.z - h + stepz * s, x, y, z);
 		if (voxels->get(x, y, z) != 0)
+		{
 			result = true;
+			collWest = true;
+		}
 	}
 
 	return result;
@@ -871,13 +980,14 @@ bool Object::checkVoxelCollisionCircular(Object *voxObj, float multiplier)
 			// Find where to slide object
 			float newhityaw = RotateAngleAwayFrom(hityaw, yaw, 5);
 
-			slideToX = wx + cos(ToRadians(newhityaw + 180)) * rad;
-			slideToZ = wz + sin(ToRadians(newhityaw + 180)) * rad;
+			slideToX = wx + cos(ToRadians(newhityaw + 180)) * rad * 1.2;
+			slideToZ = wz + sin(ToRadians(newhityaw + 180)) * rad * 1.2;
 
 			position.x = slideToX;
 			position.z = slideToZ;
 
-			continue;
+			return false;
+//			continue;
 		}
 	}
 

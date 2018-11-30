@@ -119,6 +119,16 @@ public:
 
 	std::vector<Object *> nearCollisions;
 	glm::vec3 physSize = glm::vec3(0.0, 0.0, 0.0);
+
+	bool collNorth = false;
+	bool collEast = false;
+	bool collSouth = false;
+	bool collWest = false;
+
+	bool lastCollNorth = false;
+	bool lastCollEast = false;
+	bool lastCollSouth = false;
+	bool lastCollWest = false;
 };
 
 #endif //FATELESS_OBJECT_H
