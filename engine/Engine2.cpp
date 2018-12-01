@@ -890,14 +890,19 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 	//
 	// End touch button binds
 	//
+    
+    std::string extra1 = "";
 
-	std::string extra1 = textPrinter.getOnClickExtraIfClicked(action1, x1, y1, 0, 1);
-	extra1 = gui.getOnClickExtraIfClicked(action1, x1, y1, 0, 1);
+    if (x1 != 0 && y1 != 0)
+    {
+        extra1 = textPrinter.getOnClickExtraIfClicked(action1, x1, y1, 0, 1);
+        extra1 = gui.getOnClickExtraIfClicked(action1, x1, y1, 0, 1);
 	
-	if (extra1 != "")
-		setExtraInt(extra1, action1);
+        if (extra1 != "")
+            setExtraInt(extra1, action1);
+    }
 	
-    if (count >= 2)
+    if (count >= 2 && x2 != 0 && y2 != 0)
     {
         std::string extra2 = textPrinter.getOnClickExtraIfClicked(action2, x2, y2, 0, 1);
         extra2 = gui.getOnClickExtraIfClicked(action2, x2, y2, 0, 1);

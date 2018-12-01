@@ -181,7 +181,7 @@ void PLAT_ClearListMenu()
 
 void PLAT_AddListMenuOption(std::string title, std::string desc)
 {
-    [g_iosGUI addListMenuOption: title withDsec: desc];
+    [g_iosGUI addListMenuOption: title withDesc: desc];
 }
 
 void PLAT_ShowListMenuInDialog(std::string title, std::string options)

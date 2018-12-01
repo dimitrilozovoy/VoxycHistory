@@ -79,7 +79,7 @@
     CGFloat x2 = 0;
     CGFloat y2 = 0;
     
-    for (int i = 0; i < tapCount; i++)
+    for (int i = 0; i < touchCount; i++)
     {
         UITouch *touch = [arrTouches objectAtIndex:i];
         CGPoint point = [touch locationInView:self.view];
@@ -96,7 +96,7 @@
         }
     };
     
-    g_engine2->touchEvent((int)tapCount, 1, x1, y1, 1, x2, y2, -1);
+    g_engine2->touchEvent((int)touchCount, 1, x1, y1, 1, x2, y2, -1);
 }
 
 - (void) touchesMoved:(NSSet *)touches
@@ -111,7 +111,7 @@
     CGFloat x2 = 0;
     CGFloat y2 = 0;
     
-    for (int i = 0; i < tapCount; i++)
+    for (int i = 0; i < touchCount; i++)
     {
         UITouch *touch = [arrTouches objectAtIndex:i];
         CGPoint point = [touch locationInView:self.view];
@@ -128,7 +128,7 @@
         }
     };
     
-    g_engine2->touchEvent((int)tapCount, 3, x1, y1, 3, x2, y2, -1);
+    g_engine2->touchEvent((int)touchCount, 3, x1, y1, 3, x2, y2, -1);
 }
 
 - (void) touchesEnded:(NSSet *)touches
@@ -143,7 +143,7 @@
     CGFloat x2 = 0;
     CGFloat y2 = 0;
     
-    for (int i = 0; i < tapCount; i++)
+    for (int i = 0; i < touchCount; i++)
     {
         UITouch *touch = [arrTouches objectAtIndex:i];
         CGPoint point = [touch locationInView:self.view];
@@ -160,7 +160,7 @@
         }
     };
     
-    g_engine2->touchEvent((int)tapCount, 5, x1, y1, 5, x2, y2, -1);
+    g_engine2->touchEvent((int)touchCount, 4, x1, y1, 4, x2, y2, -1);
 }
 
 @end

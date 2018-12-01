@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ShapeRenderer::drawShape(Object*, Object*, bool, bool, ShadowMap*):ShapeRenderer.cpp">
+      </ContextState>
+      <ContextState
          contextName = "ShapeRenderer::draw(int, std::__1::map&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, Object*, std::__1::less&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; &gt;, std::__1::allocator&lt;std::__1::pair&lt;std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const, Object*&gt; &gt; &gt;, Object*, bool, bool, ShadowMap*):ShapeRenderer.cpp">
          <PersistentStrings>
             <PersistentString
@@ -14,7 +17,23 @@
          contextName = "ShapeRenderer::drawMesh(Object*, Shape*, Mesh*, Object*, bool, bool, ShadowMap*, std::__1::map&lt;int, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, std::__1::less&lt;int&gt;, std::__1::allocator&lt;std::__1::pair&lt;int const, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; &gt; &gt; &gt;*):ShapeRenderer.cpp">
       </ContextState>
       <ContextState
-         contextName = "ShapeRenderer::drawShape(Object*, Object*, bool, bool, ShadowMap*):ShapeRenderer.cpp">
+         contextName = "::-[IOSGUI tableView:didSelectRowAtIndexPath:](UITableView *, NSIndexPath *):IOSGUI.mm">
+         <PersistentStrings>
+            <PersistentString
+               value = "listMenu.size()">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.item">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "::-[IOSGUI tableView:numberOfRowsInSection:](UITableView *, NSInteger):IOSGUI.mm">
+         <PersistentStrings>
+            <PersistentString
+               value = "listMenu.size()">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

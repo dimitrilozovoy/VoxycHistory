@@ -24,7 +24,7 @@ typedef struct IOSDialogPart
 @interface IOSGUI <UITableViewDelegate> : NSObject
 
 - (void) clearListMenu;
-- (void) addListMenuOption:(std::string) title withDsec:(std::string) desc;
+- (void) addListMenuOption:(std::string) title withDesc:(std::string) desc;
 - (void) showListMenuInDialog:(NSString*) title withOptions:(NSString*) options;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
