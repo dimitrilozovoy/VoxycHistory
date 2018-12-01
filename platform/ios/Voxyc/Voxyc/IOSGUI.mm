@@ -7,6 +7,7 @@
 //
 
 #import "IOSGUI.h"
+#import "Globals.hpp"
 
 IOSGUI *g_iosGUI;
 GLKViewController *g_viewController;
@@ -14,6 +15,19 @@ GLKViewController *g_viewController;
 @implementation IOSGUI
 
 UIAlertController* alert;
+std::vector<std::string> listMenu;
+std::vector<IOSDialogPart> dialogParts;
+
+- (void) clearListMenu
+{
+        listMenu.clear();
+}
+
+- (void) addListMenuOption:(std::string) title withDsec:(std::string) desc
+{
+    listMenu.push_back(title);
+}
+
 
 - (void) showListMenuInDialog:(NSString*) title withOptions:(NSString*) options
 {
@@ -24,7 +38,8 @@ UIAlertController* alert;
     UITableView *alertTableView;
     
     CGRect rect;
-    rect = CGRectMake(0, 0, 272, 250);
+    rect = CGRectMake(0, 0, 272, 380);
+
     [alert setPreferredContentSize:rect.size];
     
     alertTableView  = [[UITableView alloc]initWithFrame:rect];
@@ -32,7 +47,6 @@ UIAlertController* alert;
     alertTableView.dataSource = self;
     alertTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     [alertTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-//    [alertTableView setTag:kAlertTableViewTag];
     [alert.view addSubview:alertTableView];
     [alert.view bringSubviewToFront:alertTableView];
     [alert.view setUserInteractionEnabled:YES];
@@ -54,7 +68,7 @@ UIAlertController* alert;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 2;
+    return listMenu.size();
 }
 
 
@@ -68,21 +82,16 @@ UIAlertController* alert;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
-    cell.textLabel.text = @"Option";
+    NSString *nsText = [NSString stringWithFormat:@"%s", listMenu[indexPath.item].c_str()];
+
+    cell.textLabel.text = nsText;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+
+    g_common.extraStrings["listmenuoptionclicked"] = listMenu[indexPath.item];
     
     [alert dismissViewControllerAnimated:YES completion:nil];
 }

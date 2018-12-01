@@ -176,10 +176,12 @@ void PLAT_ShowFileSelector(std::string ext, std::string dir)
 
 void PLAT_ClearListMenu()
 {
+    [g_iosGUI clearListMenu];
 }
 
 void PLAT_AddListMenuOption(std::string title, std::string desc)
 {
+    [g_iosGUI addListMenuOption: title withDsec: desc];
 }
 
 void PLAT_ShowListMenuInDialog(std::string title, std::string options)

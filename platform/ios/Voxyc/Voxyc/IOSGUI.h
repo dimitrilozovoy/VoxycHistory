@@ -11,9 +11,20 @@
 
 #import <Foundation/Foundation.h>
 #import "GLKit/GLKit.h"
+#import <string>
+#import <vector>
+
+typedef struct IOSDialogPart
+{
+    std::string caption = "";
+    std::string value = "";
+    std::string extraKey = "";
+};
 
 @interface IOSGUI <UITableViewDelegate> : NSObject
 
+- (void) clearListMenu;
+- (void) addListMenuOption:(std::string) title withDsec:(std::string) desc;
 - (void) showListMenuInDialog:(NSString*) title withOptions:(NSString*) options;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
