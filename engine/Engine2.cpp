@@ -124,6 +124,7 @@ void Engine2::tick()
 	skyboxRenderer.tick();
 	modelRenderer.tick();
 	shapeRenderer.tick();
+    spriteRenderer.tick();
 
 	editorController.tick();
 	gui.tick();
