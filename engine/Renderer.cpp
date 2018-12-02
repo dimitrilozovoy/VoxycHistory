@@ -197,7 +197,7 @@ int Renderer::loadShader(int type, const char *shaderCode)
 
 void Renderer::setGlobalColor(glm::vec4 globalColor)
 {
-	globalColor = globalColor;
+	this->globalColor = globalColor;
 	targetGlobalColor = globalColor;
 	fadeTimer = 0;
 	fadeLength = 0;
