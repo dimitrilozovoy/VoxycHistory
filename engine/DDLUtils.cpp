@@ -212,7 +212,7 @@ std::string GetFullFilename(std::string filename)
     return [fullFilename UTF8String];
 #endif
     
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS
     return g_assetsDir + "/" + filename;
 #endif
 }

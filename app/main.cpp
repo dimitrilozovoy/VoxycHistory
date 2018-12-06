@@ -78,7 +78,7 @@ SOFTWARE.
 #else
 #include "../platform/android/Voxyc/app/src/main/cpp/android.h"
 #endif
-#include "../engine/AndroidAudio.h"
+#include "../engine/PlatformAudio.h"
 #include <jni.h>
 #endif
 

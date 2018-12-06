@@ -100,7 +100,7 @@ SOFTWARE.
 #define APP_PREFERENCES_DIR "/"
 //#define APP_PREFERENCES_DIR "/Applications/Drumstr.app/"
 //#define APP_PREFERENCES_DIR "~/Library/Preferences/"
-#define CONFIG_FILENAME "drumstr.ini"
+//#define CONFIG_FILENAME "drumstr.ini"
 //#define APP_RESOURCES_DIR "Drumstr.app/Contents/Resources/"
 #define AU_DEBUG_SAMPLES_DIR "/Users/dimitri/Music/Drumstr/"
 #define KIT_SCAN_ROOT "/Users/"

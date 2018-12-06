@@ -151,7 +151,6 @@
     <ClInclude Include="..\..\..\..\app\VoxycApp.h" />
     <ClInclude Include="..\..\..\..\editor\Editor.h" />
     <ClInclude Include="..\..\..\..\editor\EditorOld.h" />
-    <ClInclude Include="..\..\..\..\engine\AndroidAudio.h" />
     <ClInclude Include="..\..\..\..\engine\Audio.h" />
     <ClInclude Include="..\..\..\..\engine\Batch.h" />
     <ClInclude Include="..\..\..\..\engine\Batcher.h" />
@@ -176,6 +175,7 @@
     <ClInclude Include="..\..\..\..\engine\OzzRenderer.h" />
     <ClInclude Include="..\..\..\..\engine\Physics.h" />
     <ClInclude Include="..\..\..\..\engine\platform.h" />
+    <ClInclude Include="..\..\..\..\engine\PlatformAudio.h" />
     <ClInclude Include="..\..\..\..\engine\Renderer.h" />
     <ClInclude Include="..\..\..\..\engine\Scene.h" />
     <ClInclude Include="..\..\..\..\engine\ShadowMap.h" />
@@ -199,7 +199,6 @@
     <ClCompile Include="..\..\..\..\app\VoxycApp.cpp" />
     <ClCompile Include="..\..\..\..\editor\Editor.cpp" />
     <ClCompile Include="..\..\..\..\editor\EditorOld.cpp" />
-    <ClCompile Include="..\..\..\..\engine\AndroidAudio.cpp" />
     <ClCompile Include="..\..\..\..\engine\Audio.cpp" />
     <ClCompile Include="..\..\..\..\engine\Batch.cpp" />
     <ClCompile Include="..\..\..\..\engine\Batcher.cpp" />
@@ -220,6 +219,7 @@
     <ClCompile Include="..\..\..\..\engine\OBJWriter.cpp" />
     <ClCompile Include="..\..\..\..\engine\OzzRenderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\Physics.cpp" />
+    <ClCompile Include="..\..\..\..\engine\PlatformAudio.cpp" />
     <ClCompile Include="..\..\..\..\engine\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\Scene.cpp" />
     <ClCompile Include="..\..\..\..\engine\ShadowMap.cpp" />

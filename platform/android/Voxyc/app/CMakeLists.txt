@@ -34,14 +34,14 @@ add_library( # Sets the name of the library.
              ../../../../engine/DDLUtils.cpp
              ../../../../engine/Globals.cpp
              ../../../../engine/Audio.cpp
-             ../../../../engine/AndroidAudio.cpp
-             ../../../../engine/Camera.cpp
+        ../../../../engine/Camera.cpp
              ../../../../engine/Controls2.cpp
              ../../../../engine/Engine2.cpp
              ../../../../engine/Model2.cpp
              ../../../../engine/ModelRenderer.cpp
              ../../../../engine/Object.cpp
              ../../../../engine/OzzRenderer.cpp
+             ../../../../engine/PlatformAudio.cpp
              ../../../../engine/Renderer.cpp
              ../../../../engine/ShadowMap.cpp
              ../../../../engine/Shape.cpp

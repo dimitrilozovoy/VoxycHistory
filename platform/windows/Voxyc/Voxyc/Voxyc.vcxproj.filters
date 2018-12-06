@@ -54,9 +54,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\engine\AndroidAudio.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\engine\Audio.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -186,6 +183,9 @@
     <ClInclude Include="..\..\..\..\editor\EditorOld.h">
       <Filter>Header Files\editor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\PlatformAudio.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,9 +193,6 @@
     </ClCompile>
     <ClCompile Include="Voxyc.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\engine\AndroidAudio.cpp">
-      <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\Audio.cpp">
       <Filter>Source Files\engine</Filter>
@@ -426,6 +423,9 @@
       <Filter>Source Files\app</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\Physics.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\PlatformAudio.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
