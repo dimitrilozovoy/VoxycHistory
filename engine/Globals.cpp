@@ -102,6 +102,7 @@ extern bool g_assetsDirExplicit = false;
 std::string g_module = DEFAULT_MODULE;
 
 bool g_useLegacyTextureSpan = false;
+
 bool g_simpleMode = false;
 
 Common g_common;

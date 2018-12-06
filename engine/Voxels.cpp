@@ -904,7 +904,7 @@ void Voxels::addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Verte
 	// addVertex(texture, ll.x, ll.y, ll.z, ll.w, (ll.x + 1.0) / 2.0, 0.0);
 
 //	addVertex(texture, ll.x, ll.y, ll.z, ll.w, (ll.x + 1.0) / 2.0, (ll.y + 1.0) / 2.0);
-	
+    
 	if (g_useLegacyTextureSpan) {
 		texSpanX = 1.0;
 		texSpanY = 1.0;
@@ -1029,18 +1029,21 @@ void Voxels::addVertex(std::string texture, float x, float y, float z, float w, 
 
 		buffer->allocatedSize = buffer->size + BUFFER_ALLOC_INCREMENT;
 	}
+    
+    if (buffer->vertices != nullptr)
+    {
+        buffer->vertices[buffer->cursor + 0] = x;
+        buffer->vertices[buffer->cursor + 1] = y;
+        buffer->vertices[buffer->cursor + 2] = z;
+        buffer->vertices[buffer->cursor + 3] = 1.0f;
 
-    buffer->vertices[buffer->cursor + 0] = x;
-	buffer->vertices[buffer->cursor + 1] = y;
-	buffer->vertices[buffer->cursor + 2] = z;
-	buffer->vertices[buffer->cursor + 3] = 1.0f;
+        buffer->vertices[buffer->cursor + 4] = u;
+        buffer->vertices[buffer->cursor + 5] = v;
 
-	buffer->vertices[buffer->cursor + 4] = u;
-	buffer->vertices[buffer->cursor + 5] = v;
-
-	buffer->cursor += 6;
+        buffer->cursor += 6;
 	
-	buffer->size = buffer->cursor;
+        buffer->size = buffer->cursor;
+    }
 }
 
 std::vector<Mesh*> Voxels::getMeshes()
@@ -1160,7 +1163,7 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 	fwrite(texSig, sizeof(char), 3, file);
 
 	// Write total number of texture names recorded
-	const unsigned int numTexturesArr[1] = {voxelTextures.size()};
+	const unsigned int numTexturesArr[1] = {static_cast<unsigned int>(voxelTextures.size())};
 	fwrite(numTexturesArr, sizeof(int), 1, file);
 
 	int t = 0;
@@ -1170,7 +1173,7 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 		std::string texFilename = pair.second;
 
 		// Write length of texture filename
-		const unsigned int texFilenameLengthArr[] = { texFilename.length() };
+		const unsigned int texFilenameLengthArr[] = { static_cast<unsigned int>(texFilename.length()) };
 		fwrite(texFilenameLengthArr, sizeof(int), 1, file);
 
 		// Write texture filename
@@ -1189,7 +1192,7 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 		fwrite(tertexSig, sizeof(char), 6, file);
 
 		// Write length of texture filename
-		const unsigned int tertexFilenameLengthArr[] = {tertex.length()};
+		const unsigned int tertexFilenameLengthArr[] = {static_cast<unsigned int>(tertex.length())};
 		fwrite(tertexFilenameLengthArr, sizeof(int), 1, file);
 
 		// Write texture filename
@@ -1205,7 +1208,7 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 		fwrite(skytexSig, sizeof(char), 6, file);
 
 		// Write length of texture filename
-		const unsigned int skytexFilenameLengthArr[] = {skytex.length()};
+		const unsigned int skytexFilenameLengthArr[] = {static_cast<unsigned int>(skytex.length())};
 		fwrite(skytexFilenameLengthArr, sizeof(int), 1, file);
 
 		// Write texture filename

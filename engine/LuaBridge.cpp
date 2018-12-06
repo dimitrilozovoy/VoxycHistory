@@ -1905,6 +1905,49 @@ void LuaBridge::init(Engine2 *engine)
 
 void LuaBridge::exec(std::string filename)
 {
+#ifdef PLATFORM_IOS
+    if (filename == "")
+        return;
+    
+    int dotPos = filename.find(".");
+    
+    std::string nameNoExt = "";
+    std::string ext = "";
+    
+    if (dotPos != -1)
+    {
+        nameNoExt = filename.substr(0, dotPos);
+        ext = filename.substr(dotPos, filename.length());
+    }
+    else
+    {
+        return;
+    }
+    
+    NSString *nsNameNoExt = [NSString stringWithFormat:@"%s", nameNoExt.c_str()];
+    NSString *nsExt = [NSString stringWithFormat:@"%s", ext.c_str()];
+    
+    GLKTextureInfo *spriteTexture;
+    NSError *theError;
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:nsNameNoExt ofType:nsExt];
+//    NSURL *url = [NSURL fileURLWithPath:path];
+    
+    std::string stdFilePath = std::string([filePath UTF8String]);
+    
+    std::string fullFilename = stdFilePath;
+    if (luaL_dofile(L, fullFilename.c_str()))
+    {
+        errorMsg = lua_tostring(L, -1);
+        Log(errorMsg);
+        PLAT_ShowText(errorMsg);
+    }
+    else
+    {
+        errorMsg = "";
+    }
+#endif
+    
 #ifdef PLATFORM_ANDROID
 	std::string fullFilename = g_assetsDir + "/" + filename;	
 	if (luaL_dofile(L, fullFilename.c_str()))

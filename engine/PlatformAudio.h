@@ -20,42 +20,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef AUDIO_H
-#define AUDIO_H
+#ifndef PLATFORMAUDIO_H
+#define PLATFORMAUDIO_H
 
 #include "Globals.hpp"
-#include "PlatformAudio.h"
 #include <string>
-#ifdef PLATFORM_ANDROID
-#endif
+#include <vector>
 
-#ifdef USE_OPENAL
-#include "../thirdparty/openal/AL/al.h"
-#endif
-
-#define MAX_ALBUFFERS	128 * 4
-#define MAX_ALSOURCES	128 * 4
-#define MAX_FNAMESIZE	256
-
-typedef struct ALBuffer
+typedef struct Sound
 {
-	bool used = false;
-	bool loaded = false;
-	int bufferId = 0;
-	std::string filename;
-} ALBuffer;
+    std::string name;
+    int id;
+};
 
-typedef struct ALSource
-{
-	bool used = false;
-	int sourceId = 0;
-} ALSource;
-
-class Audio
+class PlatformAudio
 {
 public:
 	void init();
-	int loadSound(char *filename, bool stereo, bool music = false);
+	int loadSound(char *filename, bool stereo);
 	void unloadSound(int sndidx);
 	int playSound(std::string filename, bool stereo);
 	int playSound(int idx);
@@ -63,18 +45,10 @@ public:
 	void playTrack(char *filename, bool stereo);
 	void checkError(const char *msg);
 	void tick();
+    Sound *findSound(std::string name);
 
-	ALBuffer buffers[MAX_ALBUFFERS];
-	ALSource sources[MAX_ALSOURCES];
-	int trackBufferIdx = 0;
-	int trackSourceIdx = 0;
-	bool trackPlaying = false;
+private:
+    std::vector<Sound> sounds;
 };
-
-#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
-extern PlatformAudio g_audio;
-#else
-extern Audio g_audio;
-#endif
 
 #endif

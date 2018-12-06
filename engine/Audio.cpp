@@ -20,6 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include "Globals.hpp"
 #include "Audio.h"
 #ifdef USE_OPENAL
 #include "../thirdparty/openal/alhelpers.h"
@@ -31,8 +32,8 @@ SOFTWARE.
 #define MAX_BUFFER_LEN_SFX		16384 * 32
 #define MAX_BUFFER_LEN_MUSIC	16384 * 1200
 
-#ifdef PLATFORM_ANDROID
-AndroidAudio g_audio;
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
+PlatformAudio g_audio;
 #else
 Audio g_audio;
 #endif

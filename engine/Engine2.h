@@ -47,8 +47,8 @@ SOFTWARE.
 #include "OzzRenderer.h"
 #endif
 
-#ifdef PLATFORM_ANDROID
-#include "AndroidAudio.h"
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
+#include "PlatformAudio.h"
 #endif
 
 #include "GUI.h"
@@ -284,8 +284,8 @@ private:
 #else
 	Player player;
 #endif
-#ifdef PLATFORM_ANDROID
-    AndroidAudio audio;
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
+    PlatformAudio audio;
 #else
 	Audio audio;
 #endif

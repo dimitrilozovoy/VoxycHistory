@@ -69,9 +69,7 @@ SOFTWARE.
 #define USE_OPENAL
 #endif
 
-#ifndef PLATFORM_IOS
 #define USE_ASSIMP
-#endif
 //#ifdef PLATFORM_WINDOWS
 //#define USE_TINYOBJLOADER
 //#endif

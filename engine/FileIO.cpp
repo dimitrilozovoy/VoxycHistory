@@ -57,7 +57,7 @@ void FileIO::writeInt(int i)
 void FileIO::writeStr(std::string s)
 {
     // Write length of string
-    const unsigned int texFilenameLengthArr[] = { s.length() };
+    const unsigned int texFilenameLengthArr[] = { static_cast<unsigned int>(s.length()) };
     fwrite(texFilenameLengthArr, sizeof(int), 1, file);
 
     // Write string
@@ -113,7 +113,7 @@ void FileIO::writeKVSet()
 
 bool FileIO::openToRead(std::string fname)
 {
-    file = fopen(fname.c_str(), "rb+");
+    file = fopen(fname.c_str(), "rb");
 
     if (file == nullptr)
         return false;

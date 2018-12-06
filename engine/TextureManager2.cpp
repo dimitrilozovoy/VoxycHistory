@@ -92,12 +92,23 @@ void TextureManager2::load(std::string name, bool external)
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:nsNameNoExt ofType:nsExt];
     
+    if (filePath == nil)
+        return;
+    
     NSDictionary *opts = @{
                                     @"GLKTextureLoaderOriginBottomLeft" : @"YES"
                                     };
-
+    
     spriteTexture = [GLKTextureLoader textureWithContentsOfFile:filePath options:opts error:&theError]; // 2
     t->glTexID = spriteTexture.name;
+    
+    glBindTexture(GL_TEXTURE_2D, t->glTexID);
+    checkGLError("glBindTexture");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    checkGLError("glTexParameterf");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    checkGLError("glTexParameterf");
+    
 #else
     int glTexID;
     glGenTextures(1, (GLuint *)&glTexID);
@@ -155,9 +166,9 @@ void TextureManager2::load(std::string name, bool external)
 	glBindTexture(GL_TEXTURE_2D, glTexID);
 	checkGLError("glBindTexture");
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	checkGLError("glBindTexture");
+	checkGLError("glTexParameterf");
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	checkGLError("glBindTexture");
+	checkGLError("glTexParameterf");
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
 //	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);

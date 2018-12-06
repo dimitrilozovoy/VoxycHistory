@@ -177,7 +177,7 @@ void Engine2::draw(int eye)
 	ozzRenderer.draw();
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
     if (controlsVisible)
 	    controls.Draw2D(&spriteRenderer2D);
 #endif
@@ -1065,12 +1065,30 @@ void Engine2::setTriggerAlwaysOn(bool value)
 
 void Engine2::playSound(std::string name, bool stereo)
 {
-	audio.playSound(name, stereo);
+    std::string ext = "";
+    
+#ifdef PLATFORM_IOS
+    ext = "mp3";
+#else
+    ext = "ogg";
+#endif
+    
+	audio.playSound(name + "." + ext, stereo);
 }
 
 void Engine2::playTrack(std::string name, bool stereo)
 {
-	audio.playTrack((char *)name.c_str(), stereo);
+    std::string ext = "";
+    
+#ifdef PLATFORM_IOS
+    ext = "mp3";
+#else
+    ext = "ogg";
+#endif
+    
+    std::string fnamewext = name + "." + ext;
+    
+	audio.playTrack((char *)fnamewext.c_str(), stereo);
 }
 
 bool Engine2::checkCollision(Object *obj1, Object *obj2, float factorx, float factory, float factorz)
@@ -1820,7 +1838,7 @@ void Engine2::saveScene(std::string fname)
 
 void Engine2::loadScene(std::string fname)
 {
-	std::string fullFilename = g_assetsDir + "/" + fname;
+	std::string fullFilename = GetFullFilename(fname);
 
     scene.load(fullFilename, objects, shapes, &texMan);
     setSkybox(scene.skyboxTextureName);
@@ -1848,7 +1866,8 @@ void Engine2::loadScene(std::string fname)
 			// Assign texture ID
             if (obj->glTexID == -1) {
                 Texture *tex = texMan.find(obj->textureName);
-                obj->glTexID = tex->glTexID;
+                if (tex != nullptr)
+                    obj->glTexID = tex->glTexID;
             }
 
 			// Rebuild voxels

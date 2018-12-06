@@ -186,8 +186,8 @@ void Controls2::tick() {
                 float xdiff = ljlastmovex - ljlastdownx;
                 float ydiff = ljlastmovey - ljlastdowny;
 				
-				playerObj->MoveBackward(ydiff / 200);
-				playerObj->MoveRight(xdiff / 200);
+				playerObj->MoveBackward(ydiff / 300);
+				playerObj->MoveRight(xdiff / 300);
             }
 			
 			if (rjdown) {
@@ -195,7 +195,7 @@ void Controls2::tick() {
                 float ydiff = rjlastmovey - rjlastdowny;
 				
 //				playerObj->MoveBackward(ydiff / 50);
-				playerObj->yaw += xdiff / 15;
+				playerObj->yaw += xdiff / 30;
             }
 			
 			break;

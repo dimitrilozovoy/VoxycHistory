@@ -48,15 +48,17 @@ void Model2::load(std::string filename, int vao)
 	);
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	Assimp::Importer importer;
 
-    char ffname[1024];
-    sprintf(ffname, "%s/%s", g_assetsDir.c_str(), filename.c_str());
+//    char ffname[1024];
+//    sprintf(ffname, "%s/%s", g_assetsDir.c_str(), filename.c_str());
+    
+    std::string ffname = GetFullFilename(filename);
 	
-	Log(ffname);
+//	Log(ffname);
 
-    const aiScene* scene = importer.ReadFile(ffname,
+    const aiScene* scene = importer.ReadFile(ffname.c_str(),
                                              aiProcess_CalcTangentSpace |
                                              aiProcess_Triangulate
                                              | aiProcess_JoinIdenticalVertices
@@ -186,9 +188,12 @@ void Model2::load(std::string filename, int vao)
         // Add mesh to model
         meshes.push_back(outMesh);
 
-		// Bind the VAO
+
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+        // Bind the VAO
 		glBindVertexArray(vao);
 		checkGLError("glBindVertexArray");
+#endif
 
 		// Make and bind the vertex and texcoords VBO
         glGenBuffers(1, (GLuint *)&outMesh->vbo);

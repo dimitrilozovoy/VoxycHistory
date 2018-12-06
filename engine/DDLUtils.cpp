@@ -180,6 +180,43 @@ void printFullExternalResourceFilename(char *shortFilename, char *fullFilename)
 #endif
 }
 
+std::string GetFullFilename(std::string filename)
+{
+#ifdef PLATFORM_IOS
+    if (filename == "")
+        return "";
+    
+    int dotPos = filename.find(".");
+    
+    std::string nameNoExt = "";
+    std::string ext = "";
+    
+    if (dotPos != -1)
+    {
+        nameNoExt = filename.substr(0, dotPos);
+        ext = filename.substr(dotPos, filename.length());
+    }
+    else
+    {
+        return "";
+    }
+    
+    NSString *nsNameNoExt = [NSString stringWithFormat:@"%s", nameNoExt.c_str()];
+    NSString *nsExt = [NSString stringWithFormat:@"%s", ext.c_str()];
+    
+    NSString *fullFilename = [[NSBundle mainBundle] pathForResource:nsNameNoExt ofType:nsExt];
+    
+    if (fullFilename == nullptr)
+        return "";
+
+    return [fullFilename UTF8String];
+#endif
+    
+#ifdef PLATFORM_ANDROID
+    return g_assetsDir + "/" + filename;
+#endif
+}
+
 int FindFile(char *filename, char *folder, char *foundInFolder)
 {
 	int found = false;

@@ -50,6 +50,7 @@ char *MYCFStringCopyUTF8String(CFStringRef aString);
 void printUserFilesDir(char *dest);
 void printFullResourceFilename(char *shortFilename, char *fullFilename);
 void printFullExternalResourceFilename(char *shortFilename, char *fullFilename);
+std::string GetFullFilename(std::string fname);
 int FindFile(char *filename, char *folder, char *foundInFolder);
 void Log_Write(char *str);
 void Log(std::string str);
