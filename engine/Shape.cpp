@@ -33,7 +33,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 
 	if (type == SHAPE_TERRAIN)
 	{
-		Terrain::generate((int)sizeA, (int)sizeB, (int)sizeC);
+		Terrain::generate((int)sizeA, (int)sizeB, (int)sizeC, (int)sizeD, (int)sizeE, (int)sizeF, (int)sizeG);
 		vbo = Terrain::vbo;
 		numCoords = Terrain::numCoords;
 
@@ -586,6 +586,9 @@ void Shape::save(FILE *f)
     addKV("sizeB", sizeB);
     addKV("sizeC", sizeC);
     addKV("sizeD", sizeD);
+	addKV("sizeE", sizeE);
+	addKV("sizeF", sizeF);
+	addKV("sizeG", sizeG);
     writeKVSet();
 
     if (voxels != nullptr)
@@ -615,6 +618,9 @@ void Shape::load(FILE *f)
     sizeB = getKVFloat("sizeB");
     sizeC = getKVFloat("sizeC");
     sizeD = getKVFloat("sizeD");
+	sizeE = getKVFloat("sizeE");
+	sizeF = getKVFloat("sizeF");
+	sizeG = getKVFloat("sizeG");
 
     // Do we have voxels to load?
     int gotVoxels = readInt();

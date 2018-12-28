@@ -59,6 +59,9 @@ public:
     float sizeB;
     float sizeC;
     float sizeD;
+	float sizeE;
+	float sizeF;
+	float sizeG;
 
     int numCoords = 0;
     int vbo = 0;

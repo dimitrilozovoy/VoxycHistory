@@ -27,12 +27,13 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../engine/DDLUtils.cpp\
              ../../../../engine/Globals.cpp\
              ../../../../engine/Audio.cpp\
-             ../../../../engine/AndroidAudio.cpp\
+             ../../../../engine/PlatformAudio.cpp\
              ../../../../engine/Camera.cpp\
              ../../../../engine/Controls2.cpp\
              ../../../../engine/Engine2.cpp\
              ../../../../engine/Model2.cpp\
              ../../../../engine/ModelRenderer.cpp\
+             ../../../../engine/SkeletalRenderer.cpp\
              ../../../../engine/Object.cpp\
              ../../../../engine/OzzRenderer.cpp\
              ../../../../engine/Renderer.cpp\

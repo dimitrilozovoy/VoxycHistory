@@ -591,6 +591,11 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
                 rjdown = false;
             }
         }
+		if (x > width / 2) {
+			if (action == 4 || action == 5)
+				rjdown = false;
+		}
+
     } else {
         // Left joystick
         if (x < width / 3 * 1 && y > height / 3 * 1.8) {
@@ -618,6 +623,10 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
                 ljdown = false;
             }
         }
+        if (x < width / 2) {
+			if (action == 4 || action == 5)
+				ljdown = false;
+		}
     }
 }
 

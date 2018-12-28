@@ -180,7 +180,7 @@ public class HelloJni extends Activity
                 console.setShadowLayer(1, 0, 0, Color.BLACK);
                 rl.addView(console);
 			
-			    llConsoleInput = new LinearLayout(this);
+/*			    llConsoleInput = new LinearLayout(this);
 				llConsoleInput.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 				llConsoleInput.setOrientation(LinearLayout.HORIZONTAL);
 				
@@ -205,7 +205,7 @@ public class HelloJni extends Activity
 				llConsoleInput.addView(consoleInput);
 				llConsoleInput.addView(consoleEnter);
 				
-				rl.addView(llConsoleInput);
+				rl.addView(llConsoleInput);*/
 
                 setContentView(rl);
 		    }

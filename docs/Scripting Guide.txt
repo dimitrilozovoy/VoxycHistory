@@ -1,0 +1,17 @@
+-----------------------------------------
+Voxyc Scripting Guide
+-----------------------------------------
+
+Intro
+
+There are two main scripts in every project,
+load.lua and tick.lua. The load script,
+load.lua, runs once when you launch the game.
+The tick script, tick.lua, runs on every frame,
+repeatedly.
+
+In load.lua, you create the objects. In tick.lua,
+you manipulate and animate the objects
+you created, frame by frame.
+
+To be continued...

@@ -34,11 +34,12 @@ add_library( # Sets the name of the library.
              ../../../../engine/DDLUtils.cpp
              ../../../../engine/Globals.cpp
              ../../../../engine/Audio.cpp
-        ../../../../engine/Camera.cpp
+             ../../../../engine/Camera.cpp
              ../../../../engine/Controls2.cpp
              ../../../../engine/Engine2.cpp
              ../../../../engine/Model2.cpp
              ../../../../engine/ModelRenderer.cpp
+             ../../../../engine/SkeletalRenderer.cpp
              ../../../../engine/Object.cpp
              ../../../../engine/OzzRenderer.cpp
              ../../../../engine/PlatformAudio.cpp
@@ -70,6 +71,7 @@ add_library( # Sets the name of the library.
              ../../../../app/LuaProgram.cpp
              ../../../../editor/Editor.cpp
              ../../../../editor/EditorOld.cpp
+             ../../../../editor/Animator.cpp
              ../../../../thirdparty/lua/lapi.c
              ../../../../thirdparty/lua/lauxlib.c
              ../../../../thirdparty/lua/lbaselib.c

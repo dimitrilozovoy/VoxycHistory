@@ -1,0 +1,23 @@
+-----------------------------------------
+Voxyc User Guide
+-----------------------------------------
+
+Intro
+
+Voxyc editor is the app in which you create
+your game's world by adding objects
+(shapes, models and sprites). You can also
+test-run your game within the editor by running
+it's load script (see scripting guide).
+
+A project may contain several scenes
+(saved and loaded as .sc files from the
+file menu). A scene is a collection of objects
+and shapes, positioned in 3D space, ready
+to be animated by scripts.
+
+Each level / chapter / major screen in your
+game will be a different scene, and possibly
+a different set of scripts.
+
+To be continued...

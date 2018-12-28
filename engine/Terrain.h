@@ -28,13 +28,17 @@ SOFTWARE.
 class Terrain
 {
 public:
-    static void generate(int sizexz, int holeSizeX, int holeSizeZ);
+    static void generate(int sizexz, int holeSizeX, int holeSizeZ, int dropSizeX, int dropSizeZ, int bottomSizeX, int bottomSizeZ);
     static void checkGLError(char *tag);
 
     static int vbo;
     static int numCoords;
-    static int holeSizeX;
-	static int holeSizeZ;
+    static int valleySizeX;
+	static int valleySizeZ;
+	static int dropSizeX;
+	static int dropSizeZ;
+	static int bottomSizeX;
+	static int bottomSizeZ;
 
     static const int verticesSize;
     static float *vertices;

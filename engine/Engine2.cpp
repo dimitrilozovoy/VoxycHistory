@@ -54,6 +54,7 @@ void Engine2::init()
 	skyboxRenderer.init();
 	shapeRenderer.init(&shadowMap, useShadowMap, &mouseLook, &texMan);
 	modelRenderer.init(&shadowMap, useShadowMap, &mouseLook);
+	skeletalRenderer.init(&shadowMap, useShadowMap, &mouseLook);
     spriteRenderer2D.Init();
 	spriteRenderer.init(&texMan, &spriteRenderer2D);
 	textPrinter.init(&texMan, &spriteRenderer2D);
@@ -116,13 +117,14 @@ void Engine2::tick()
 	audio.tick();
 
 	moveObjectsSmoothly();
-//	moveObjectsByVelocity();
+	moveObjectsByVelocity();
 	limitPlayerRange();
 
 	camera.tick();
 
 	skyboxRenderer.tick();
 	modelRenderer.tick();
+	skeletalRenderer.tick();
 	shapeRenderer.tick();
     spriteRenderer.tick();
 
@@ -167,6 +169,7 @@ void Engine2::draw(int eye)
 
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
     modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
+    skeletalRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 
 // HACK: Sprite renderer is broken on Windows and iOS; ShapeRenderer takes care as fallback
 #if !defined PLATFORM_WINDOWS and !defined PLATFORM_IOS
@@ -274,6 +277,7 @@ void Engine2::addObject(std::string name)
     o->scale = glm::vec3(1.0);
     o->position = glm::vec4(0.0, 0.0, 0.0, 0.0);
 	o->velocity = glm::vec4(0.0, 0.0, 0.0, 0.0);
+	o->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 
     objects[name] = o;
 }
@@ -355,11 +359,14 @@ void Engine2::setShape(std::string name, ObjShapeType shape)
 void Engine2::setShape(std::string name, std::string shapeName)
 {
 //	Log("setShape");
+//	Log(shapeName);
 	
     Object *o = findObj(name);
 
     if (o == nullptr)
         return;
+		
+//	Log(o->name);
 
     o->shapeType = SHAPE_CUSTOM;
 
@@ -367,6 +374,8 @@ void Engine2::setShape(std::string name, std::string shapeName)
 
     if (s == nullptr)
         return;
+		
+//	Log(s->name);
 
     o->shape = s;
 }
@@ -731,7 +740,7 @@ Object *Engine2::findObj(std::string name)
     return obj;
 }
 
-void Engine2::newShape(std::string name, ObjShapeType type, float sizeA, float sizeB, float sizeC, float sizeD)
+void Engine2::newShape(std::string name, ObjShapeType type, float sizeA, float sizeB, float sizeC, float sizeD, float sizeE, float sizeF, float sizeG)
 {
 //    Log("newShape");
 //	Log(name.c_str(), sizeA);
@@ -746,6 +755,9 @@ void Engine2::newShape(std::string name, ObjShapeType type, float sizeA, float s
     s->sizeB = sizeB;
     s->sizeC = sizeC;
     s->sizeD = sizeD;
+	s->sizeE = sizeE;
+	s->sizeF = sizeF;
+	s->sizeG = sizeG;
 
     s->generate(&g_common.extraStrings);
 
@@ -865,7 +877,10 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 		&& gly1 < (tbb.y + tbb.size / 2))
 		{
 		    if (action1 == 1 || action1 == 2)
+			{
 			    controls.setBtn(tbb.btn, 1);
+				Log("tbb down");
+			}
 		    if (action1 == 4)
 			    controls.setBtn(tbb.btn, 0);
 		}
@@ -1269,6 +1284,42 @@ Object *Engine2::collisionRay(Object *source)
 	}
 
 	return nullptr;
+}
+
+bool Engine2::checkSight(Object *src, Object *dst)
+{
+	Object ray;
+
+	ray.position = src->position;
+	ray.pitch = src->pitch;
+	ray.yaw = src->getYawTo(dst);
+	ray.roll = src->roll;
+
+	int iter = 0;
+	bool hit = false;
+	int numSteps = 50;
+	float step = src->distanceTo(dst) / (float)numSteps;
+
+	while (!hit && iter < numSteps)
+	{
+		for (const auto &pair2 : objects)
+		{
+			Object *obj2 = pair2.second;
+
+			if (obj2 == nullptr || obj2->category == "terrain")
+				continue;
+
+			if (ray.checkVoxelCollision(obj2, 1.0))
+			{
+				return false;
+			}
+		}
+
+		ray.MoveForward(step);
+		iter++;
+	}
+
+	return true;
 }
 
 void Engine2::moveObjectsByVelocity()

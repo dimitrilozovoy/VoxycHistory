@@ -27,15 +27,30 @@ SOFTWARE.
 
 int Terrain::vbo = 0;
 int Terrain::numCoords = 0;
-int Terrain::holeSizeX = 0;
-int Terrain::holeSizeZ = 0;
+int Terrain::valleySizeX = 0;
+int Terrain::valleySizeZ = 0;
+int Terrain::dropSizeX = 0;
+int Terrain::dropSizeZ = 0;
+int Terrain::bottomSizeX = 0;
+int Terrain::bottomSizeZ = 0;
 const int Terrain::verticesSize = 0;
 float *Terrain::vertices;
 
-void Terrain::generate(int sizexz, int holeSizeX, int holeSizeZ)
+void Terrain::generate(int sizexz, int valleySizeX, int valleySizeZ, int dropSizeX, int dropSizeZ, int bottomSizeX, int bottomSizeZ)
 {
-    Terrain::holeSizeX = holeSizeX;
-	Terrain::holeSizeZ = holeSizeZ;
+    Terrain::valleySizeX = valleySizeX;
+	Terrain::valleySizeZ = valleySizeZ;
+	Terrain::dropSizeX = dropSizeX;
+	Terrain::dropSizeZ = dropSizeZ;
+	Terrain::bottomSizeX = bottomSizeX;
+	Terrain::bottomSizeZ = bottomSizeZ;
+	
+	Log("valleySizeX", valleySizeX);
+    Log("valleySizeZ", valleySizeZ);
+	Log("dropSizeX", dropSizeX);
+    Log("dropSizeZ", dropSizeZ);
+	Log("bottomSizeX", bottomSizeX);
+    Log("bottomSizeZ", bottomSizeZ);
 
     // Generate VBO
     glGenBuffers(1, (GLuint *)&vbo);
@@ -56,14 +71,30 @@ void Terrain::generate(int sizexz, int holeSizeX, int holeSizeZ)
         }
     }
 
-    for (int z = sizexz / 2 - holeSizeZ / 2; z < sizexz / 2 + holeSizeZ / 2; z++)
+    for (int z = sizexz / 2 - valleySizeZ / 2; z < sizexz / 2 + valleySizeZ / 2; z++)
     {
-        for (int x = sizexz / 2 - holeSizeX / 2; x < sizexz / 2 + holeSizeX / 2; x++)
+        for (int x = sizexz / 2 - valleySizeX / 2; x < sizexz / 2 + valleySizeX / 2; x++)
         {
 			heightMap[z][x] = RandomFloat(0.00, 0.00);
 		}
     }
 
+	for (int z = sizexz / 2 - dropSizeZ / 2; z < sizexz / 2 + dropSizeZ / 2; z++)
+    {
+        for (int x = sizexz / 2 - dropSizeX / 2; x < sizexz / 2 + dropSizeX / 2; x++)
+        {
+			heightMap[z][x] = RandomFloat(-0.50, -0.50);
+		}
+    }
+
+	for (int z = sizexz / 2 - bottomSizeZ / 2; z < sizexz / 2 + bottomSizeZ / 2; z++)
+    {
+        for (int x = sizexz / 2 - bottomSizeX / 2; x < sizexz / 2 + bottomSizeX / 2; x++)
+        {
+			heightMap[z][x] = RandomFloat(-1.00, -1.00);
+		}
+    }
+	
 	for (int x = 0; x < sizexz + 1; x++)
 	{
 		heightMap[0][x] = 0.0;

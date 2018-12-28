@@ -29,6 +29,7 @@ SOFTWARE.
 #include <string>
 #include "ShapeRenderer.h"
 #include "ModelRenderer.h"
+#include "SkeletalRenderer.h"
 #include "SpriteRenderer.h"
 #include "TextureManager2.h"
 #include "TextureAtlas.h"
@@ -105,7 +106,7 @@ public:
 	void setFade(std::string name, float near, float far);
 	Object *findObj(std::string name);
 
-    void newShape(std::string name, ObjShapeType type, float sizeA, float sizeB, float sizeC = 1.0, float sizeD = 1.0);
+    void newShape(std::string name, ObjShapeType type, float sizeA, float sizeB, float sizeC = 1.0, float sizeD = 1.0, float sizeE = 1.0, float sizeF = 1.0, float sizeG = 1.0);
     Shape *findShape(std::string name);
 	void deleteShape(std::string name);
 	
@@ -165,6 +166,7 @@ public:
 	bool checkVoxelCollision(Object *obj, float multx, float multy, float multz);
     bool checkVoxelCollisionPt(Object *voxobj, float x, float y, float z);
 	Object *collisionRay(Object *source);
+	bool checkSight(Object *src, Object *dst);
 
 	void moveObjectsByVelocity();
 	void moveObjectsTowardsNextPosition();
@@ -252,6 +254,7 @@ private:
 	ShapeRenderer shapeRenderer;
     SkyboxRenderer skyboxRenderer;
 	ModelRenderer modelRenderer;
+	SkeletalRenderer skeletalRenderer;
 	SpriteRenderer spriteRenderer;
     SpriteRenderer2D spriteRenderer2D;
 	TextPrinter textPrinter;

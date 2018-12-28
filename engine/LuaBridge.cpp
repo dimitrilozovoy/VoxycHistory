@@ -97,6 +97,8 @@ static int setshape(lua_State *L)
 	std::string name = lua_tostring(L, 1);
 	std::string shapeStr = lua_tostring(L, 2);
 	
+//	Log(shapeStr);
+	
 	if (shapeStr == "sprite")
 	{
 //		Log("setshape quad");
@@ -108,7 +110,9 @@ static int setshape(lua_State *L)
 	    g_engine2->setShape(name, SHAPE_QUAD);
 	}
 	else
+	{
 	    g_engine2->setShape(name, shapeStr);
+	}
 	
 	return 0;
 }
@@ -212,15 +216,9 @@ static int settexspan(lua_State *L)
 static int setvisible(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-	lua_Number visible = lua_tonumber(L, 2);
-	bool visb;
-	
-	if (visible == 1)
-		visb = true;
-	else
-		visb = false;
-	
-    g_engine2->setVisible(name, visb);
+	bool visible = lua_toboolean(L, 2);
+
+    g_engine2->setVisible(name, visible);
 	
 	return 0;
 }
@@ -235,13 +233,8 @@ static int getvisible(lua_State *L)
 		return 0;
 	
 	lua_Number visn;
-	
-	if (obj->visible == true)
-		visn = 1;
-	else
-		visn = 0;
-	
-	lua_pushnumber(L, visn);
+
+	lua_pushboolean(L, obj->visible);
 
 	return 1;
 }
@@ -564,16 +557,8 @@ static int moveforward(lua_State *L)
 static int setmovesmoothly(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-	int ival = lua_tonumber(L, 2);
+	bool val = lua_toboolean(L, 2);
 
-	bool val;
-
-	if (ival == 1)
-		val = true;
-	else
-		val = false;
-
-	
 	g_engine2->setMoveSmoothly(name, val);
 	
 	return 1;
@@ -721,8 +706,9 @@ static int newshape(lua_State *L)
     lua_Number b = lua_tonumber(L, 4);
     lua_Number c = lua_tonumber(L, 5);
 	lua_Number d = lua_tonumber(L, 6);
+	lua_Number e = lua_tonumber(L, 7);
 	
-	g_engine2->newShape(name, shape, a, b, c, d);
+	g_engine2->newShape(name, shape, a, b, c, d, e);
 	
 	return 1;
 }
@@ -922,7 +908,7 @@ static int setcontrolscheme(lua_State *L)
 	return 1;
 }
 
-static int setcameracheme(lua_State *L)
+static int setcamerascheme(lua_State *L)
 {
 	std::string schemeStr = lua_tostring(L, 1);
 	
@@ -971,14 +957,7 @@ static int moveobjsx(lua_State *L)
 static int playsound(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-	int iStereo = lua_tonumber(L, 2);
-
-	bool stereo;
-
-	if (iStereo == 1)
-		stereo = true;
-	else
-		stereo = false;
+	bool stereo = lua_toboolean(L, 2);
 
 	g_engine2->playSound(name, stereo);
 
@@ -988,14 +967,7 @@ static int playsound(lua_State *L)
 static int playtrack(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-	int iStereo = lua_tonumber(L, 2);
-
-	bool stereo;
-
-	if (iStereo == 1)
-		stereo = true;
-	else
-		stereo = false;
+	bool stereo = lua_toboolean(L, 2);
 
 	g_engine2->playTrack(name, stereo);
 
@@ -1012,14 +984,7 @@ static int checkcoll(lua_State *L)
 
 	bool result = g_engine2->checkCollision(g_engine2->findObj(name1), g_engine2->findObj(name2), factorx, factory, factorz);
 
-	int iResult;
-
-	if (result)
-		iResult = 1;
-	else
-		iResult = 0;
-
-	lua_pushnumber(L, iResult);
+	lua_pushboolean(L, result);
 
 	return 1;
 }
@@ -1033,14 +998,7 @@ static int checkvoxcoll(lua_State *L)
 
 	bool result = g_engine2->checkVoxelCollision(g_engine2->findObj(name1), multx, multy, multz);
 
-	int iResult;
-
-	if (result)
-		iResult = 1;
-	else
-		iResult = 0;
-
-	lua_pushnumber(L, iResult);
+	lua_pushboolean(L, result);
 
 	return 1;
 }
@@ -1056,6 +1014,18 @@ static int collray(lua_State *L)
 	else
 		lua_pushstring(L, "");
 
+	return 1;
+}
+
+static int checksight(lua_State *L)
+{
+	std::string name1 = lua_tostring(L, 1);
+    std::string name2 = lua_tostring(L, 2);
+	
+	bool result = g_engine2->checkSight(g_engine2->findObj(name1), g_engine2->findObj(name2));
+
+	lua_pushboolean(L, result);
+		
 	return 1;
 }
 
@@ -1107,14 +1077,7 @@ static int settext(lua_State *L)
 static int settextvisible(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-	lua_Number nVisible = lua_tonumber(L, 2);
-
-	bool visible;
-
-	if (nVisible == 1)
-		visible = true;
-	else
-		visible = false;
+	bool visible = lua_toboolean(L, 2);
 
 	g_engine2->setTextVisible(name, visible);
 
@@ -1123,14 +1086,7 @@ static int settextvisible(lua_State *L)
 
 static int setcontrolsenabled(lua_State *L)
 {
-	lua_Number nEnabled = lua_tonumber(L, 1);
-
-	bool enabled;
-
-	if (nEnabled == 1)
-		enabled = true;
-	else
-		enabled = false;
+	bool enabled = lua_tonumber(L, 1);
 
 	g_engine2->setControlsEnabled(enabled);
 
@@ -1174,14 +1130,7 @@ static int setglobalcolor(lua_State *L)
 
 static int sethealthbarsvisible(lua_State *L)
 {
-	lua_Number nVisible = lua_tonumber(L, 1);
-
-	bool visible;
-
-	if (nVisible == 1)
-		visible = true;
-	else
-		visible = false;
+	bool visible = lua_toboolean(L, 1);
 
 	g_engine2->setHealthBarsVisible(visible);
 
@@ -1190,14 +1139,7 @@ static int sethealthbarsvisible(lua_State *L)
 
 static int setcontrolsvisible(lua_State *L)
 {
-	lua_Number nVisible = lua_tonumber(L, 1);
-
-	bool visible;
-
-	if (nVisible == 1)
-		visible = true;
-	else
-		visible = false;
+	bool visible = lua_toboolean(L, 1);
 
 	g_engine2->setControlsVisible(visible);
 
@@ -1525,14 +1467,7 @@ static int addwg(lua_State *L)
 static int setwgvisible(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-	lua_Number nVisible = lua_tonumber(L, 2);
-
-	bool visible;
-
-	if (nVisible == 1)
-		visible = true;
-	else
-		visible = false;
+	bool visible = lua_toboolean(L, 2);
 
 	g_engine2->setWgVisible(name, visible);
 
@@ -1747,6 +1682,20 @@ static int loadtex(lua_State *L)
 	return 0;
 }
 
+static int rebuild(lua_State *L)
+{
+	std::string shname = lua_tostring(L, 1);
+	
+    Shape *shape = g_engine2->findShape(shname);
+	
+	if (shape == nullptr)
+		return 0;
+		
+	shape->needsRebuild = true;
+
+	return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1840,7 +1789,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getplayeryaw", getplayeryaw);
 	lua_register(L, "getplayerroll", getplayerroll);
 	lua_register(L, "setcontrolscheme", setcontrolscheme);
-	lua_register(L, "setcameracheme", setcameracheme);	
+	lua_register(L, "setcamerascheme", setcamerascheme);
 	lua_register(L, "moveobjsz", moveobjsz);	
 	lua_register(L, "moveobjsx", moveobjsx);
 	lua_register(L, "playsound", playsound);
@@ -1848,6 +1797,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "checkcoll", checkcoll);
 	lua_register(L, "checkvoxcoll", checkvoxcoll);
 	lua_register(L, "collray", collray);
+	lua_register(L, "checksight", checksight);
 	lua_register(L, "sethitpts", sethitpts);
     lua_register(L, "gethitpts", gethitpts);
 	lua_register(L, "addtext", addtext);
@@ -1901,10 +1851,15 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "rotateangletowards", rotateangletowards);
 	lua_register(L, "compareyaw", compareyaw);
 	lua_register(L, "loadtex", loadtex);
+	lua_register(L, "rebuild", rebuild);
 }
 
 void LuaBridge::exec(std::string filename)
 {
+	// Error? Don't run anything
+	if (errorMsg != "")
+		return;
+	
 #ifdef PLATFORM_IOS
     if (filename == "")
         return;

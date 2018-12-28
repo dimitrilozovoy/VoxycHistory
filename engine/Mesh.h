@@ -25,6 +25,14 @@ SOFTWARE.
 
 #include "../thirdparty/glm/glm.hpp"
 
+#define BONES_PER_VEREX 4
+
+struct VertexBoneData
+{
+    int ids[BONES_PER_VEREX];
+    float weights[BONES_PER_VEREX];
+};
+
 typedef struct Mesh
 {
 	int index = 0;

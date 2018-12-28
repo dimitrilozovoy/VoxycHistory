@@ -245,7 +245,7 @@ void Editor::tick() {
             engine->clear();
             engine->clearGUI();
             load();
-            engine->setExtraStr("listmenuoptionclicked", "");
+            engine->setExtraStr("lis1tmenuoptionclicked", "");
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
@@ -300,6 +300,8 @@ void Editor::tick() {
             timer = 50;
             std::string t;
             t = t + "Thank you for downloading Voxyc.\n";
+            t = t + "Sample games have been included with this release.\n";
+            t = t + "You can run the sample games by selecting File->\"Clear and run script\" and then selecting the load.lua file inside the sample's folder.\n";
             t = t + "This project is open-source.\n";
             t = t + "If there are certain features you would like,\n";
             t = t + "please feel free to contribute.\n";
@@ -556,9 +558,13 @@ void Editor::tick() {
 					gui->clearDialog();
 					gui->addDialogPart("size", "1000", "size");
 					gui->addDialogPart("detail", "16", "detail");
-					gui->addDialogPart("valley y", "8", "valleysizex");
+					gui->addDialogPart("valley x", "8", "valleysizex");
 					gui->addDialogPart("valley z", "8", "valleysizez");
-					gui->addDialogPart("height", "25", "height");
+					gui->addDialogPart("drop x", "0", "dropsizex");
+					gui->addDialogPart("drop z", "0", "dropsizez");
+					gui->addDialogPart("bottom x", "0", "bottomsizex");
+					gui->addDialogPart("bottom z", "0", "bottomsizez");
+				gui->addDialogPart("height", "25", "height");
 					gui->showDialog("New Terrain", "OK", "Cancel", "newterrainparams_entered");
 				}
 			}
@@ -573,13 +579,17 @@ void Editor::tick() {
             float detail = PLAT_stof(engine->getExtraStr("detail"), 16);
             float valleysizex = PLAT_stof(engine->getExtraStr("valleysizex"), 8);
             float valleysizez = PLAT_stof(engine->getExtraStr("valleysizez"), 8);
+            float dropsizex = PLAT_stof(engine->getExtraStr("dropsizex"), 0);
+            float dropsizez = PLAT_stof(engine->getExtraStr("dropsizez"), 0);
+            float bottomsizex = PLAT_stof(engine->getExtraStr("bottomsizex"), 0);
+            float bottomsizez = PLAT_stof(engine->getExtraStr("bottomsizez"), 0);
             float height = PLAT_stof(engine->getExtraStr("height"), 25);
 
             char newNamec[1024];
             snprintf(newNamec, 1024, "obj%d", RandomInt(0, 10000));
             std::string newName = std::string(newNamec);
 
-            engine->newShape(newName, SHAPE_TERRAIN, detail, valleysizex, valleysizez);
+            engine->newShape(newName, SHAPE_TERRAIN, detail, valleysizex, valleysizez, dropsizex, dropsizez, bottomsizex, bottomsizez);
 
             std::string name = "objpreview";
 
@@ -1895,6 +1905,9 @@ void Editor::tickGuides() {
             if (engine->getObjInt(name, "hasguides") != 1) {
                 // Create guides
                 Log("creating guides");
+				
+				if (shape->voxels->getSize() == 0)
+					continue;
 
                 // Create texture for guides
                 engine->genTexture(gshape, "grid", shape->voxels->getSize());

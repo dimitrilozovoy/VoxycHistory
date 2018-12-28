@@ -306,7 +306,7 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 		        && clickglx < textglx + (item->text.size() * item->size.x)
 				&& item->onClickExtra != "")
 		        {
-					Log(item->onClickExtra);
+//					Log(item->onClickExtra);
 		            return item->onClickExtra;
 		        }
 			}
@@ -318,11 +318,11 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 		        && clickglx < item->position.x + item->size.x / 1.0
 				&& item->onClickExtra != "")
 			    {
-			        Log("item" + item->onClickExtra);
+/*			        Log("item" + item->onClickExtra);
     				Log("itemglx", (int)(item->position.x * 100));
 	    			Log("itemgly", (int)(item->position.y * 100));
                     Log("clickglx", (int)(clickglx * 100));
-                    Log("clickgly", (int)(clickgly * 100));
+                    Log("clickgly", (int)(clickgly * 100));*/
 
 				    return item->onClickExtra;
 			    }
