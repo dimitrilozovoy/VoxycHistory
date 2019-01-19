@@ -428,5 +428,8 @@
     <ClCompile Include="..\..\..\..\engine\PlatformAudio.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\SkeletalRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

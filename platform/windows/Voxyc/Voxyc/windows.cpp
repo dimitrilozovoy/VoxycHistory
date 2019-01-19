@@ -73,6 +73,9 @@ int PLAT_stoi(std::string s, int fallback)
 
 float PLAT_stof(std::string s, float fallback)
 {
+	if (s == "")
+		return fallback;
+
 	return std::stof(s, nullptr);
 }
 

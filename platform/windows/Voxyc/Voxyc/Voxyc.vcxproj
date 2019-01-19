@@ -225,6 +225,7 @@
     <ClCompile Include="..\..\..\..\engine\ShadowMap.cpp" />
     <ClCompile Include="..\..\..\..\engine\Shape.cpp" />
     <ClCompile Include="..\..\..\..\engine\ShapeRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\engine\SkeletalRenderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\SkyboxRenderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\SoftCanvas.cpp" />
     <ClCompile Include="..\..\..\..\engine\SpriteRenderer.cpp" />
