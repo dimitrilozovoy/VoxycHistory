@@ -102,7 +102,7 @@ void Batcher::batch(std::map<std::string, Batch*> batches, TextureAtlas *ta, Tex
 			// Merge meshes
 			int cursor = 0;
 
-            const int vlen = 6;
+            const int vlen = 9;
 
             // Merge main object meshes
 			if (mainObj->visible && mainObj->type == OBJTYPE_SHAPE && mainObj->shapeType != SHAPE_QUAD)
@@ -196,6 +196,10 @@ void Batcher::batch(std::map<std::string, Batch*> batches, TextureAtlas *ta, Tex
 
                                     newMesh->data[cursor + 4] = newuv.u;
 									newMesh->data[cursor + 5] = newuv.v;
+
+									newMesh->data[cursor + 6] = oldMesh->data[v * vlen + 6];
+									newMesh->data[cursor + 7] = oldMesh->data[v * vlen + 7];
+									newMesh->data[cursor + 8] = oldMesh->data[v * vlen + 8];
 
 									cursor += vlen;
 								}

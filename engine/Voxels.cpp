@@ -898,89 +898,104 @@ void Voxels::addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Verte
 			|| ul.x == 1 || ul.y == 1 || ul.z == 1
 			)
 		return;*/
-		
-//	Log("addQuad");
 
-	// addVertex(texture, ll.x, ll.y, ll.z, ll.w, (ll.x + 1.0) / 2.0, 0.0);
+	// Calculate and set normal
+	float nx, ny, nz = 0.0f;
 
-//	addVertex(texture, ll.x, ll.y, ll.z, ll.w, (ll.x + 1.0) / 2.0, (ll.y + 1.0) / 2.0);
-    
+	CalcNormal(ll.x, ll.y, ll.z, lr.x, lr.y, lr.z, ul.x, ul.y, ul.z, nx, ny, nz);
+
+	ll.nx = nx;
+	ll.ny = ny;
+	ll.nz = nz;
+	lr.nx = nx;
+	lr.ny = ny;
+	lr.nz = nz;
+	ul.nx = nx;
+	ul.ny = ny;
+	ul.nz = nz;
+	ur.nx = nx;
+	ur.ny = ny;
+	ur.nz = nz;
+
+	// Legacy texture span
 	if (g_useLegacyTextureSpan) {
 		texSpanX = 1.0;
 		texSpanY = 1.0;
 	}
 
+	// Add vertices
+
 	if (dir == 1)
 	{
 		// Y PLANE FROM TOP
 		
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.z + 1.0) / 2.0) * texSpanY, lr.nx, lr.ny, lr.nz, lr.r, lr.g, lr.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
 
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.z + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
+	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.z + 1.0) / 2.0) * texSpanY, ul.nx, ul.ny, ul.nz, ul.r, ul.g, ul.b);
 	}
 	else if (dir == 2)
 	{
 		// Z PLANE FROM FRONT
 		
-        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
+        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY, lr.nx, lr.ny, lr.nz, lr.r, lr.g, lr.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
 
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
+	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY, ul.nx, ul.ny, ul.nz, ul.r, ul.g, ul.b);
 	}
 	else if (dir == 3)
 	{
 		// X PLANE FROM THE RIGHT
 		
-        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.z + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
+        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.z + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY, lr.nx, lr.ny, lr.nz, lr.r, lr.g, lr.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
 
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.z + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
+	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.z + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY, ul.nx, ul.ny, ul.nz, ul.r, ul.g, ul.b);
 	}
 	else if (dir == 4)
 	{
 		// Y PLANE FROM BOTTOM
 		
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.z + 1.0) / 2.0) * texSpanY, lr.nx, lr.ny, lr.nz, lr.r, lr.g, lr.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
 
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.z + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.z + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.z + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
+	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.z + 1.0) / 2.0) * texSpanY, ul.nx, ul.ny, ul.nz, ul.r, ul.g, ul.b);
 	}
 	else if (dir == 5)
 	{
 		// X PLANE FROM THE LEFT
 		
-        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.z + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
+        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.z + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY, lr.nx, lr.ny, lr.nz, lr.r, lr.g, lr.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
 
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.z + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.z + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.z + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
+	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.z + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY, ul.nx, ul.ny, ul.nz, ul.r, ul.g, ul.b);
 	}
 	else if (dir == 6)
 	{
 		// Z PLANE FROM BACK
 		
-        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
+        addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, lr.x, lr.y, lr.z, lr.w, ((lr.x + 1.0) / 2.0) * texSpanX, ((lr.y + 1.0) / 2.0) * texSpanY, lr.nx, lr.ny, lr.nz, lr.r, lr.g, lr.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
 
-	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY);
-	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY);
+	    addVertex(texture, ll.x, ll.y, ll.z, ll.w, ((ll.x + 1.0) / 2.0) * texSpanX, ((ll.y + 1.0) / 2.0) * texSpanY, ll.nx, ll.ny, ll.nz, ll.r, ll.g, ll.b);
+	    addVertex(texture, ur.x, ur.y, ur.z, ur.w, ((ur.x + 1.0) / 2.0) * texSpanX, ((ur.y + 1.0) / 2.0) * texSpanY, ur.nx, ur.ny, ur.nz, ur.r, ur.g, ur.b);
+	    addVertex(texture, ul.x, ul.y, ul.z, ul.w, ((ul.x + 1.0) / 2.0) * texSpanX, ((ul.y + 1.0) / 2.0) * texSpanY, ul.nx, ul.ny, ul.nz, ul.r, ul.g, ul.b);
 	}
 	
 	/*addVertex(texture, ll.x, ll.y, ll.z, ll.w, 0.0, 0.0);
@@ -992,7 +1007,7 @@ void Voxels::addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Verte
 	addVertex(texture, ul.x, ul.y, ul.z, ul.w, 0.0, 1.0);*/
 }
 
-void Voxels::addVertex(std::string texture, float x, float y, float z, float w, float u, float v)
+void Voxels::addVertex(std::string texture, float x, float y, float z, float w, float u, float v, float nx, float ny, float nz, float r, float g, float b)
 {
 	VertexBuffer *buffer;
 
@@ -1040,7 +1055,15 @@ void Voxels::addVertex(std::string texture, float x, float y, float z, float w, 
         buffer->vertices[buffer->cursor + 4] = u;
         buffer->vertices[buffer->cursor + 5] = v;
 
-        buffer->cursor += 6;
+		buffer->vertices[buffer->cursor + 6] = nx;
+		buffer->vertices[buffer->cursor + 7] = ny;
+		buffer->vertices[buffer->cursor + 8] = nz;
+
+/*		buffer->vertices[buffer->cursor + 9] = r;
+		buffer->vertices[buffer->cursor + 10] = g;
+		buffer->vertices[buffer->cursor + 11] = b;*/
+
+		buffer->cursor += 9;
 	
         buffer->size = buffer->cursor;
     }

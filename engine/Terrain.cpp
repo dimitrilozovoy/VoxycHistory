@@ -109,7 +109,7 @@ void Terrain::generate(int sizexz, int valleySizeX, int valleySizeZ, int dropSiz
 
 	// Allocate memory for x * z quads
 
-    numCoords = 6 * 6 * sizexz * sizexz;
+    numCoords = 9 * 6 * sizexz * sizexz;
     vertices = new float[numCoords];
     int o = 0;
     float quadSizeXZ = 2.0 / (float)sizexz;
@@ -159,27 +159,24 @@ void Terrain::generate(int sizexz, int valleySizeX, int valleySizeZ, int dropSiz
             vertices[o + 4] = 0.0f;
             vertices[o + 5] = 0.0f;
 
-            // Vertex 1
-            vertices[o + 6] = lLeftX;
-            vertices[o + 7] = lLeftY;
-            vertices[o + 8] = lLeftZ;
-            vertices[o + 9] = 1.0f;
+			vertices[o + 6] = 0.0f;
+			vertices[o + 7] = 0.0f;
+			vertices[o + 8] = 0.0f;
 
-            vertices[o + 10] = 0.0f;
-            vertices[o + 11] = 1.0f;
+			// Vertex 1
+            vertices[o + 9] = lLeftX;
+            vertices[o + 10] = lLeftY;
+            vertices[o + 11] = lLeftZ;
+            vertices[o + 12] = 1.0f;
 
-            // Vertex 2
-            vertices[o + 12] = lRightX;
-            vertices[o + 13] = lRightY;
-            vertices[o + 14] = lRightZ;
-            vertices[o + 15] = 1.0f;
+            vertices[o + 13] = 0.0f;
+            vertices[o + 14] = 1.0f;
 
-            vertices[o + 16] = 1.0f;
-            vertices[o + 17] = 1.0f;
-
-            // Triangle 2
-
-            // Vertex 3
+			vertices[o + 15] = 0.0f;
+			vertices[o + 16] = 0.0f;
+			vertices[o + 17] = 0.0f;
+			
+			// Vertex 2
             vertices[o + 18] = lRightX;
             vertices[o + 19] = lRightY;
             vertices[o + 20] = lRightZ;
@@ -188,25 +185,56 @@ void Terrain::generate(int sizexz, int valleySizeX, int valleySizeZ, int dropSiz
             vertices[o + 22] = 1.0f;
             vertices[o + 23] = 1.0f;
 
-            // Vertex 4
-            vertices[o + 24] = uRightX;
-            vertices[o + 25] = uRightY;
-            vertices[o + 26] = uRightZ;
-            vertices[o + 27] = 1.0f;
+			vertices[o + 24] = 0.0f;
+			vertices[o + 25] = 0.0f;
+			vertices[o + 26] = 0.0f;
+			
+			// Triangle 2
 
-            vertices[o + 28] = 1.0f;
-            vertices[o + 29] = 0.0f;
+            // Vertex 3
+            vertices[o + 27] = lRightX;
+            vertices[o + 28] = lRightY;
+            vertices[o + 29] = lRightZ;
+            vertices[o + 30] = 1.0f;
 
-            // Vertex 5
-            vertices[o + 30] = uLeftX;
-            vertices[o + 31] = uLeftY;
-            vertices[o + 32] = uLeftZ;
-            vertices[o + 33] = 1.0f;
+            vertices[o + 31] = 1.0f;
+            vertices[o + 32] = 1.0f;
 
-            vertices[o + 34] = 0.0f;
-            vertices[o + 35] = 0.0f;
+			vertices[o + 33] = 0.0f;
+			vertices[o + 34] = 0.0f;
+			vertices[o + 35] = 0.0f;
+			
+			// Vertex 4
+            vertices[o + 36] = uRightX;
+            vertices[o + 37] = uRightY;
+            vertices[o + 38] = uRightZ;
+            vertices[o + 39] = 1.0f;
 
-            o += 6 * 6;
+            vertices[o + 40] = 1.0f;
+            vertices[o + 41] = 0.0f;
+
+			vertices[o + 42] = 0.0f;
+			vertices[o + 43] = 0.0f;
+			vertices[o + 44] = 0.0f;
+			
+			vertices[o + 42] = 0.0f;
+			vertices[o + 43] = 0.0f;
+			vertices[o + 44] = 0.0f;
+
+			// Vertex 5
+            vertices[o + 45] = uLeftX;
+            vertices[o + 46] = uLeftY;
+            vertices[o + 47] = uLeftZ;
+            vertices[o + 48] = 1.0f;
+
+            vertices[o + 49] = 0.0f;
+            vertices[o + 50] = 0.0f;
+
+			vertices[o + 51] = 0.0f;
+			vertices[o + 52] = 0.0f;
+			vertices[o + 53] = 0.0f;
+			
+			o += 9 * 6;
         }
     }
 

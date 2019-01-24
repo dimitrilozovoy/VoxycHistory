@@ -33,12 +33,12 @@ SOFTWARE.
 typedef struct Voxel
 {
 	char texture;
-/*	char xofs;
-	char yofs;
-	char zofs;
-	char r;
+/*  char r;
 	char g;
-	char b;*/
+	char b;
+    char xofs;
+	char yofs;
+	char zofs;*/
 } Voxel;
 
 typedef struct VoxelStack
@@ -63,6 +63,12 @@ typedef struct Vertex
 	float w;
 	float u;
 	float v;
+	float nx;
+	float ny;
+	float nz;
+	float r;
+	float g;
+	float b;
 };
 
 class Voxels
@@ -75,7 +81,7 @@ public:
 	void setStackHeight(int x, int z, int height);
 	void build(TextureManager2 *texMan);
 	void addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Vertex ul, int dir, float texSpanX, float texSpanY);
-	void addVertex(std::string texture, float x, float y, float z, float w, float u, float v);
+	void addVertex(std::string texture, float x, float y, float z, float w, float u, float v, float nx, float ny, float nz, float r, float g, float b);
 	std::vector<Mesh*> getMeshes();
 	std::map<std::string, VertexBuffer*> getBuffers() { return buffers; };
 	void clear();

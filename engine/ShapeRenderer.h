@@ -58,6 +58,7 @@ private:
 		"precision highp float;" \
 
 		"in vec4 vPosition;" \
+		"in vec3 vNormal;" \
 		"out vec4 posOut; " \
 		"in vec2 vTexCoords;" \
 		"out vec2 vTexCoordsOut; " \
@@ -141,6 +142,7 @@ private:
 		"precision highp float;" \
 
 		"in vec4 vPosition;" \
+		"in vec3 vNormal;" \
 		"out vec4 posOut; " \
 		"in vec2 vTexCoords;" \
 		"out vec2 vTexCoordsOut; " \
@@ -215,6 +217,7 @@ private:
 		"precision highp float;" \
 
 		"in vec4 vPosition;" \
+		"in vec3 vNormal;" \
 		"out vec4 posOut; " \
 		"in vec2 vTexCoords;" \
 		"out vec2 vTexCoordsOut; " \
@@ -281,8 +284,8 @@ private:
 	"attribute vec2 vTexCoords;" \
 	"varying lowp vec2 vTexCoordsOut; " \
     "uniform vec2 vTexSpan;" \
-    "attribute vec4 vNormal;" \
-    "varying vec4 vNormalOut;" \
+    "attribute vec3 vNormal;" \
+    "varying vec3 vNormalOut;" \
 	"attribute vec4 vVertexLight; " \
     "varying vec4 vVertexLightOut; " \
     "uniform mat4 mvMatrix; " \
@@ -297,6 +300,7 @@ private:
     "  gl_Position = projectionMatrix * mvMatrix * vPosition; "
 	"  vTexCoordsOut = vTexCoords * vTexSpan; " \
 	"  posOut = gl_Position; " \
+	"  vNormalOut = vNormal; " \
 
 	"  vec4 posBeforeProj = mvMatrix * vPosition;" \
 	"  distToCamera = -posBeforeProj.z; " \
@@ -358,8 +362,8 @@ private:
 	"attribute vec2 vTexCoords;" \
 	"varying lowp vec2 vTexCoordsOut; " \
     "uniform vec2 vTexSpan;" \
-    "attribute vec4 vNormal;" \
-    "varying vec4 vNormalOut;" \
+    "attribute vec3 vNormal;" \
+    "varying vec3 vNormalOut;" \
 	"attribute vec4 vVertexLight; " \
     "varying vec4 vVertexLightOut; " \
     "uniform mat4 mvMatrix; " \
@@ -371,6 +375,7 @@ private:
     "  gl_Position = projectionMatrix * mvMatrix * vPosition; "
 	"  vTexCoordsOut = vTexCoords * vTexSpan; " \
 	"  posOut = gl_Position; " \
+	"  vNormalOut = vNormal; " \
 
     "  vec4 posBeforeProj = mvMatrix * vPosition;" \
 	"  distToCamera = -posBeforeProj.z; " \
