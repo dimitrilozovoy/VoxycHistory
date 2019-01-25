@@ -50,8 +50,8 @@ void Engine2::init()
 		return;
 	
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-//	useShadowMap = false;
-	useShadowMap = true;
+	useShadowMap = false;
+//	useShadowMap = true;
 #else
 	useShadowMap = false;
 //	useShadowMap = true;
