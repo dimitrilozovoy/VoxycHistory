@@ -141,6 +141,10 @@ void Batcher::batch(std::map<std::string, Batch*> batches, TextureAtlas *ta, Tex
                                 newMesh->data[cursor + 4] = newuv.u;
                                 newMesh->data[cursor + 5] = newuv.v;
 
+								newMesh->data[cursor + 6] = oldMesh->data[v * vlen + 6];
+								newMesh->data[cursor + 7] = oldMesh->data[v * vlen + 7];
+								newMesh->data[cursor + 8] = oldMesh->data[v * vlen + 8];
+
 								cursor += vlen;
 							}
 						}

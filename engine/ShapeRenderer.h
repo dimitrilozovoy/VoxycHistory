@@ -142,10 +142,11 @@ private:
 		"precision highp float;" \
 
 		"in vec4 vPosition;" \
-		"in vec3 vNormal;" \
 		"out vec4 posOut; " \
 		"in vec2 vTexCoords;" \
 		"out vec2 vTexCoordsOut; " \
+		"in vec3 vNormal;" \
+		"out vec3 vNormalOut;" \
 		"uniform vec2 vTexSpan;" \
 		"uniform mat4 mvMatrix; " \
 		"uniform mat4 projectionMatrix; " \
@@ -156,6 +157,7 @@ private:
 		"  gl_Position = projectionMatrix * mvMatrix * vPosition; "
 		"  vTexCoordsOut = vTexCoords * vTexSpan; " \
 		"  posOut = gl_Position; " \
+		"  vNormalOut = vNormal; " \
 
 		"  vec4 posBeforeProj = mvMatrix * vPosition;" \
 		"  distToCamera = abs(posBeforeProj.z); " \

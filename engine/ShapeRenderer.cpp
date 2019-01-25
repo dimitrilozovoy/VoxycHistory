@@ -537,6 +537,688 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 
 void ShapeRenderer::loadVertices()
 {
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+	// Generate VAO
+	glGenVertexArrays(1, (GLuint *)&vao);
+	checkGLError("glGenVertexArrays");
+	glBindVertexArray(vao);
+	checkGLError("glBindVertexArray");
+#endif
+
+	// Generate VBOs
+	glGenBuffers(NUM_SHAPES, (GLuint *)&vbos);
+	checkGLError("glGenBuffers");
+
+	//
+	// SHAPE_QUAD
+	//
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[SHAPE_QUAD]);
+	checkGLError("glBindBuffer");
+
+	float quad[54];
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+
+	// Vertex 0
+	quad[0] = -1.0f;
+	quad[1] = 1.0f;
+	quad[2] = 0.0f;
+	quad[3] = 1.0f;
+
+	quad[4] = 0.0f;
+	quad[5] = 1.0f;
+
+	quad[6] = 0.0f;
+	quad[7] = 0.0f;
+	quad[8] = 1.0f;
+
+	// Vertex 1
+	quad[9] = -1.0f;
+	quad[10] = -1.0f;
+	quad[11] = 0.0f;
+	quad[12] = 1.0f;
+
+	quad[13] = 0.0f;
+	quad[14] = 0.0f;
+
+	quad[15] = 0.0f;
+	quad[16] = 0.0f;
+	quad[17] = 1.0f;
+
+	// Vertex 2
+	quad[18] = 1.0f;
+	quad[19] = -1.0f;
+	quad[20] = 0.0f;
+	quad[21] = 1.0f;
+
+	quad[22] = 1.0f;
+	quad[23] = 0.0f;
+
+	quad[24] = 0.0f;
+	quad[25] = 0.0f;
+	quad[26] = 1.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	quad[27] = 1.0f;
+	quad[28] = -1.0f;
+	quad[29] = 0.0f;
+	quad[30] = 1.0f;
+
+	quad[31] = 1.0f;
+	quad[32] = 0.0f;
+
+	quad[33] = 0.0f;
+	quad[34] = 0.0f;
+	quad[35] = 1.0f;
+
+	// Vertex 4
+	quad[36] = 1.0f;
+	quad[37] = 1.0f;
+	quad[38] = 0.0f;
+	quad[39] = 1.0f;
+
+	quad[40] = 1.0f;
+	quad[41] = 1.0f;
+
+	quad[42] = 0.0f;
+	quad[43] = 0.0f;
+	quad[44] = 1.0f;
+
+	// Vertex 5
+	quad[45] = -1.0f;
+	quad[46] = 1.0f;
+	quad[47] = 0.0f;
+	quad[48] = 1.0f;
+
+	quad[49] = 0.0f;
+	quad[50] = 1.0f;
+
+	quad[51] = 0.0f;
+	quad[52] = 0.0f;
+	quad[53] = 1.0f;
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 54, quad, GL_STATIC_DRAW);
+	checkGLError("glBufferData");
+
+	//
+	// SHAPE_BLOCK
+	//
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[SHAPE_BLOCK]);
+	checkGLError("glBindBuffer");
+
+	float block[54 * 6];
+
+	// FRONT
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+
+	// Vertex 0
+	block[0] = -1.0f;
+	block[1] = 1.0f;
+	block[2] = 1.0f;
+	block[3] = 1.0f;
+
+	block[4] = 0.0f;
+	block[5] = 0.0f;
+
+	block[6] = 0.0f;
+	block[7] = 0.0f;
+	block[8] = 1.0f;
+
+	// Vertex 1
+	block[9] = -1.0f;
+	block[10] = -1.0f;
+	block[11] = 1.0f;
+	block[12] = 1.0f;
+
+	block[13] = 0.0f;
+	block[14] = 1.0f;
+
+	block[15] = 0.0f;
+	block[16] = 0.0f;
+	block[17] = 1.0f;
+
+	// Vertex 2
+	block[18] = 1.0f;
+	block[19] = -1.0f;
+	block[20] = 1.0f;
+	block[21] = 1.0f;
+
+	block[22] = 1.0f;
+	block[23] = 1.0f;
+
+	block[24] = 0.0f;
+	block[25] = 0.0f;
+	block[26] = 1.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	block[27] = 1.0f;
+	block[28] = -1.0f;
+	block[29] = 1.0f;
+	block[30] = 1.0f;
+
+	block[31] = 1.0f;
+	block[32] = 1.0f;
+
+	block[33] = 0.0f;
+	block[34] = 0.0f;
+	block[35] = 1.0f;
+
+	// Vertex 4
+	block[36] = 1.0f;
+	block[37] = 1.0f;
+	block[38] = 1.0f;
+	block[39] = 1.0f;
+
+	block[40] = 1.0f;
+	block[41] = 0.0f;
+
+	block[42] = 0.0f;
+	block[43] = 0.0f;
+	block[44] = 1.0f;
+
+	// Vertex 5
+	block[45] = -1.0f;
+	block[46] = 1.0f;
+	block[47] = 1.0f;
+	block[48] = 1.0f;
+
+	block[49] = 0.0f;
+	block[50] = 0.0f;
+
+	block[51] = 0.0f;
+	block[52] = 0.0f;
+	block[53] = 1.0f;
+
+	// RIGHT SIDE
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+	int o = 54;
+
+	// Vertex 0
+	block[o + 0] = 1.0f;
+	block[o + 1] = 1.0f;
+	block[o + 2] = 1.0f;
+	block[o + 3] = 1.0f;
+
+	block[o + 4] = 0.0f;
+	block[o + 5] = 0.0f;
+
+	block[o + 6] = 1.0f;
+	block[o + 7] = 0.0f;
+	block[o + 8] = 0.0f;
+
+	// Vertex 1
+	block[o + 9] = 1.0f;
+	block[o + 10] = -1.0f;
+	block[o + 11] = 1.0f;
+	block[o + 12] = 1.0f;
+
+	block[o + 13] = 0.0f;
+	block[o + 14] = 1.0f;
+
+	block[o + 15] = 1.0f;
+	block[o + 16] = 0.0f;
+	block[o + 17] = 0.0f;
+
+	// Vertex 2
+	block[o + 18] = 1.0f;
+	block[o + 19] = -1.0f;
+	block[o + 20] = -1.0f;
+	block[o + 21] = 1.0f;
+
+	block[o + 22] = 1.0f;
+	block[o + 23] = 1.0f;
+
+	block[o + 24] = 1.0f;
+	block[o + 25] = 0.0f;
+	block[o + 26] = 0.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	block[o + 27] = 1.0f;
+	block[o + 28] = -1.0f;
+	block[o + 29] = -1.0f;
+	block[o + 30] = 1.0f;
+
+	block[o + 31] = 1.0f;
+	block[o + 32] = 1.0f;
+
+	block[o + 33] = 1.0f;
+	block[o + 34] = 0.0f;
+	block[o + 35] = 0.0f;
+
+	// Vertex 4
+	block[o + 36] = 1.0f;
+	block[o + 37] = 1.0f;
+	block[o + 38] = -1.0f;
+	block[o + 39] = 1.0f;
+
+	block[o + 40] = 1.0f;
+	block[o + 41] = 0.0f;
+
+	block[o + 42] = 1.0f;
+	block[o + 43] = 0.0f;
+	block[o + 44] = 0.0f;
+
+	// Vertex 5
+	block[o + 45] = 1.0f;
+	block[o + 46] = 1.0f;
+	block[o + 47] = 1.0f;
+	block[o + 48] = 1.0f;
+
+	block[o + 49] = 0.0f;
+	block[o + 50] = 0.0f;
+
+	block[o + 51] = 1.0f;
+	block[o + 52] = 0.0f;
+	block[o + 53] = 0.0f;
+
+	// BACK SIDE
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+	o = 54 * 2;
+
+	// Vertex 0
+	block[o + 0] = 1.0f;
+	block[o + 1] = 1.0f;
+	block[o + 2] = -1.0f;
+	block[o + 3] = 1.0f;
+
+	block[o + 4] = 0.0f;
+	block[o + 5] = 0.0f;
+
+	block[o + 6] = 0.0f;
+	block[o + 7] = 0.0f;
+	block[o + 8] = -1.0f;
+
+	// Vertex 1
+	block[o + 9] = 1.0f;
+	block[o + 10] = -1.0f;
+	block[o + 11] = -1.0f;
+	block[o + 12] = 1.0f;
+
+	block[o + 13] = 0.0f;
+	block[o + 14] = 1.0f;
+
+	block[o + 15] = 0.0f;
+	block[o + 16] = 0.0f;
+	block[o + 17] = -1.0f;
+
+	// Vertex 2
+	block[o + 18] = -1.0f;
+	block[o + 19] = -1.0f;
+	block[o + 20] = -1.0f;
+	block[o + 21] = 1.0f;
+
+	block[o + 22] = 1.0f;
+	block[o + 23] = 1.0f;
+
+	block[o + 24] = 0.0f;
+	block[o + 25] = 0.0f;
+	block[o + 26] = -1.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	block[o + 27] = -1.0f;
+	block[o + 28] = -1.0f;
+	block[o + 29] = -1.0f;
+	block[o + 30] = 1.0f;
+
+	block[o + 31] = 1.0f;
+	block[o + 32] = 1.0f;
+
+	block[o + 33] = 0.0f;
+	block[o + 34] = 0.0f;
+	block[o + 35] = -1.0f;
+
+	// Vertex 4
+	block[o + 36] = -1.0f;
+	block[o + 37] = 1.0f;
+	block[o + 38] = -1.0f;
+	block[o + 39] = 1.0f;
+
+	block[o + 40] = 1.0f;
+	block[o + 41] = 0.0f;
+
+	block[o + 42] = 0.0f;
+	block[o + 43] = 0.0f;
+	block[o + 44] = -1.0f;
+
+	// Vertex 5
+	block[o + 45] = 1.0f;
+	block[o + 46] = 1.0f;
+	block[o + 47] = -1.0f;
+	block[o + 48] = 1.0f;
+
+	block[o + 49] = 0.0f;
+	block[o + 50] = 0.0f;
+
+	block[o + 51] = 0.0f;
+	block[o + 52] = 0.0f;
+	block[o + 53] = -1.0f;
+
+	// LEFT SIDE
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+	o = 54 * 3;
+
+	// Vertex 0
+	block[o + 0] = -1.0f;
+	block[o + 1] = 1.0f;
+	block[o + 2] = -1.0f;
+	block[o + 3] = 1.0f;
+
+	block[o + 4] = 0.0f;
+	block[o + 5] = 0.0f;
+
+	block[o + 6] = -1.0f;
+	block[o + 7] = 0.0f;
+	block[o + 8] = 0.0f;
+
+	// Vertex 1
+	block[o + 9] = -1.0f;
+	block[o + 10] = -1.0f;
+	block[o + 11] = -1.0f;
+	block[o + 12] = 1.0f;
+
+	block[o + 13] = 0.0f;
+	block[o + 14] = 1.0f;
+
+	block[o + 15] = -1.0f;
+	block[o + 16] = 0.0f;
+	block[o + 17] = 0.0f;
+
+	// Vertex 2
+	block[o + 18] = -1.0f;
+	block[o + 19] = -1.0f;
+	block[o + 20] = 1.0f;
+	block[o + 21] = 1.0f;
+
+	block[o + 22] = 1.0f;
+	block[o + 23] = 1.0f;
+
+	block[o + 24] = -1.0f;
+	block[o + 25] = 0.0f;
+	block[o + 26] = 0.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	block[o + 27] = -1.0f;
+	block[o + 28] = -1.0f;
+	block[o + 29] = 1.0f;
+	block[o + 30] = 1.0f;
+
+	block[o + 31] = 1.0f;
+	block[o + 32] = 1.0f;
+
+	block[o + 33] = -1.0f;
+	block[o + 34] = 0.0f;
+	block[o + 35] = 0.0f;
+
+	// Vertex 4
+	block[o + 36] = -1.0f;
+	block[o + 37] = 1.0f;
+	block[o + 38] = 1.0f;
+	block[o + 39] = 1.0f;
+
+	block[o + 40] = 1.0f;
+	block[o + 41] = 0.0f;
+
+	block[o + 42] = -1.0f;
+	block[o + 43] = 0.0f;
+	block[o + 44] = 0.0f;
+
+	// Vertex 5
+	block[o + 45] = -1.0f;
+	block[o + 46] = 1.0f;
+	block[o + 47] = -1.0f;
+	block[o + 48] = 1.0f;
+
+	block[o + 49] = 0.0f;
+	block[o + 50] = 0.0f;
+
+	block[o + 51] = -1.0f;
+	block[o + 52] = 0.0f;
+	block[o + 53] = 0.0f;
+
+	// BOTTOM SIDE
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+	o = 54 * 4;
+
+	// Vertex 0
+	block[o + 0] = -1.0f;
+	block[o + 1] = -1.0f;
+	block[o + 2] = 1.0f;
+	block[o + 3] = 1.0f;
+
+	block[o + 4] = 0.0f;
+	block[o + 5] = 0.0f;
+
+	block[o + 6] = 0.0f;
+	block[o + 7] = -1.0f;
+	block[o + 8] = 0.0f;
+
+	// Vertex 1
+	block[o + 9] = -1.0f;
+	block[o + 10] = -1.0f;
+	block[o + 11] = -1.0f;
+	block[o + 12] = 1.0f;
+
+	block[o + 13] = 0.0f;
+	block[o + 14] = 1.0f;
+
+	block[o + 15] = 0.0f;
+	block[o + 16] = -1.0f;
+	block[o + 17] = 0.0f;
+
+	// Vertex 2
+	block[o + 18] = 1.0f;
+	block[o + 19] = -1.0f;
+	block[o + 20] = -1.0f;
+	block[o + 21] = 1.0f;
+
+	block[o + 22] = 1.0f;
+	block[o + 23] = 1.0f;
+
+	block[o + 24] = 0.0f;
+	block[o + 25] = -1.0f;
+	block[o + 26] = 0.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	block[o + 27] = 1.0f;
+	block[o + 28] = -1.0f;
+	block[o + 29] = -1.0f;
+	block[o + 30] = 1.0f;
+
+	block[o + 31] = 1.0f;
+	block[o + 32] = 1.0f;
+
+	block[o + 33] = 0.0f;
+	block[o + 34] = -1.0f;
+	block[o + 35] = 0.0f;
+
+	// Vertex 4
+	block[o + 36] = 1.0f;
+	block[o + 37] = -1.0f;
+	block[o + 38] = 1.0f;
+	block[o + 39] = 1.0f;
+
+	block[o + 40] = 1.0f;
+	block[o + 41] = 0.0f;
+
+	block[o + 42] = 0.0f;
+	block[o + 43] = -1.0f;
+	block[o + 44] = 0.0f;
+
+	// Vertex 5
+	block[o + 45] = -1.0f;
+	block[o + 46] = -1.0f;
+	block[o + 47] = 1.0f;
+	block[o + 48] = 1.0f;
+
+	block[o + 49] = 0.0f;
+	block[o + 50] = 0.0f;
+
+	block[o + 51] = 0.0f;
+	block[o + 52] = -1.0f;
+	block[o + 53] = 0.0f;
+
+	// TOP SIDE
+
+	//   ______
+	// |\\5   4|
+	// |0\\    |
+	// |  \\   |
+	// |   \\  |
+	// |    \\3|
+	// |1__2_\\|
+
+	// Triangle 1
+	o = 54 * 5;
+
+	// Vertex 0
+	block[o + 0] = -1.0f;
+	block[o + 1] = 1.0f;
+	block[o + 2] = -1.0f;
+	block[o + 3] = 1.0f;
+
+	block[o + 4] = 0.0f;
+	block[o + 5] = 0.0f;
+
+	block[o + 6] = 0.0f;
+	block[o + 7] = 1.0f;
+	block[o + 8] = 0.0f;
+
+	// Vertex 1
+	block[o + 9] = -1.0f;
+	block[o + 10] = 1.0f;
+	block[o + 11] = 1.0f;
+	block[o + 12] = 1.0f;
+
+	block[o + 13] = 0.0f;
+	block[o + 14] = 1.0f;
+
+	block[o + 15] = 0.0f;
+	block[o + 16] = 1.0f;
+	block[o + 17] = 0.0f;
+
+	// Vertex 2
+	block[o + 18] = 1.0f;
+	block[o + 19] = 1.0f;
+	block[o + 20] = 1.0f;
+	block[o + 21] = 1.0f;
+
+	block[o + 22] = 1.0f;
+	block[o + 23] = 1.0f;
+
+	block[o + 24] = 0.0f;
+	block[o + 25] = 1.0f;
+	block[o + 26] = 0.0f;
+
+	// Triangle 2
+
+	// Vertex 3
+	block[o + 27] = 1.0f;
+	block[o + 28] = 1.0f;
+	block[o + 29] = 1.0f;
+	block[o + 30] = 1.0f;
+
+	block[o + 31] = 1.0f;
+	block[o + 32] = 1.0f;
+
+	block[o + 33] = 0.0f;
+	block[o + 34] = 1.0f;
+	block[o + 35] = 0.0f;
+
+	// Vertex 4
+	block[o + 36] = 1.0f;
+	block[o + 37] = 1.0f;
+	block[o + 38] = -1.0f;
+	block[o + 39] = 1.0f;
+
+	block[o + 40] = 1.0f;
+	block[o + 41] = 0.0f;
+
+	block[o + 42] = 0.0f;
+	block[o + 43] = 1.0f;
+	block[o + 44] = 0.0f;
+
+	// Vertex 5
+	block[o + 45] = -1.0f;
+	block[o + 46] = 1.0f;
+	block[o + 47] = -1.0f;
+	block[o + 48] = 1.0f;
+
+	block[o + 49] = 0.0f;
+	block[o + 50] = 0.0f;
+
+	block[o + 51] = 0.0f;
+	block[o + 52] = 1.0f;
+	block[o + 53] = 0.0f;
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 36 * 6, block, GL_STATIC_DRAW);
+	checkGLError("glBufferData");
 }
 
 void ShapeRenderer::freeVertices()
