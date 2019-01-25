@@ -25,9 +25,9 @@ SOFTWARE.
 #include "platform.h"
 #include "DDLUtils.hpp"
 
-void ShadowMap::bind(Object *lightSource)
+void ShadowMap::bind(float lightSize)
 {
-	this->lightSource = lightSource;
+	this->lightSize = lightSize;
 
 #ifdef PLATFORM_WINDOWS
 
@@ -160,7 +160,7 @@ void ShadowMap::unbind()
 
 glm::mat4 ShadowMap::getProjectionMatrix()
 {
-	return glm::ortho<float>(-lightSource->scale.x, lightSource->scale.x, -lightSource->scale.y, lightSource->scale.y, -lightSource->scale.z, lightSource->scale.z);
+	return glm::ortho<float>(-lightSize, lightSize, -lightSize, lightSize, -lightSize, lightSize);
 };
 
 void ShadowMap::checkGLError(char *tag)

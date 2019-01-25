@@ -279,6 +279,7 @@ private:
 
     Camera camera;
 	Object sun;
+	float sunSize = 100.0f;
     Controls2 controls;
 
 #ifdef USE_PLAYEROBJ

@@ -92,7 +92,7 @@ public:
 		"      fragmentDepth = gl_FragCoord.z; " \
 		"}\n";
 
-	void bind(Object *lightSource);
+	void bind(float lightSize);
 	void unbind();
 	void checkGLError(char *tag);
 
@@ -117,7 +117,7 @@ private:
 	int renderTextureId = -1;
 #endif
 
-	Object *lightSource = nullptr;
+	float lightSize = 100.0f;
 };
 
 #endif

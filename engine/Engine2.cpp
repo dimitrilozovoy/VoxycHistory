@@ -238,7 +238,7 @@ drawShadowMap()
 
 void Engine2::drawShadowMap(int eye)
 {
-		shadowMap.bind(&sun);
+		shadowMap.bind(sunSize);
 
 #ifdef PLATFORM_IOS
         glClearDepthf(1.0);
@@ -940,7 +940,7 @@ void Engine2::setSun(glm::vec4 position, float yaw, float pitch, float roll, flo
 	sun.yaw = yaw;
 	sun.pitch = pitch;
 	sun.roll = roll;
-	sun.scale = glm::vec3(size, size, size);
+	sunSize = size;
 }
 
 /*
