@@ -27,7 +27,7 @@ SOFTWARE.
 #include "GLIncludes.h"
 #include "Camera.h"
 
-#define PROJMATSIZE 500
+#define PROJMATSIZE 100
 
 class ShadowMap
 {
@@ -92,7 +92,7 @@ public:
 		"      fragmentDepth = gl_FragCoord.z; " \
 		"}\n";
 
-	void bind(Camera *camera);
+	void bind(Object *lightSource);
 	void unbind();
 	void checkGLError(char *tag);
 
@@ -117,7 +117,7 @@ private:
 	int renderTextureId = -1;
 #endif
 
-	Camera *camera = nullptr;
+	Object *lightSource = nullptr;
 };
 
 #endif

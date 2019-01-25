@@ -38,14 +38,20 @@ SOFTWARE.
 
 Engine2 *g_engine2 = nullptr;
 
+/*
+========================================
+init()
+========================================
+*/
+
 void Engine2::init()
 {
 	if (initialized)
 		return;
 	
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-	useShadowMap = false;
-//	useShadowMap = true;
+//	useShadowMap = false;
+	useShadowMap = true;
 #else
 	useShadowMap = false;
 //	useShadowMap = true;
@@ -99,6 +105,12 @@ void Engine2::init()
 	clear();
 }
 
+/*
+========================================
+tick()
+========================================
+*/
+
 void Engine2::tick()
 {
 //	makeUpLostFramesOrWait();
@@ -134,21 +146,32 @@ void Engine2::tick()
 //	spriteRenderer2D.tick();
 }
 
+/*
+========================================
+draw()
+========================================
+*/
+
 void Engine2::draw(int eye)
 {
+	// Need to redraw shadowmap on every frame
 	shadowMapReady = false;
 
+	// Combine meshes into one to decrease draw calls
 	batcher.batch(batches, &texAtlas, &texMan);
 
+	// Draw shadowmap
 	if (useShadowMap && !shadowMapReady)
 	{
 		drawShadowMap(eye);
 		shadowMapReady = true;
 	}
 
+	// Draw skybox
 	if (skyboxGLTexID != -1)
 	    skyboxRenderer.draw(&camera, skyboxGLTexID);
 
+	// GL setup for 3D
     glEnable(GL_DEPTH_TEST);
     checkGLError("glEnable");
 #ifdef PLATFORM_IOS
@@ -162,11 +185,13 @@ void Engine2::draw(int eye)
     glClear(GL_DEPTH_BUFFER_BIT);
     checkGLError("glClear");
     //	glDepthMask(true);
-	
+
+	// Refresh texture atlas
 #ifndef PLATFORM_IOS
 	texAtlas.refresh();
 #endif
 
+	// Draw 3D objects
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
     modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
     skeletalRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
@@ -185,6 +210,7 @@ void Engine2::draw(int eye)
 	    controls.Draw2D(&spriteRenderer2D);
 #endif
 
+	// Draw 2D overlays
     glEnable(GL_BLEND);
     checkGLError("glEnable");
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -204,9 +230,15 @@ void Engine2::draw(int eye)
 //	calcFrameRate();
 }
 
+/*
+========================================
+drawShadowMap()
+========================================
+*/
+
 void Engine2::drawShadowMap(int eye)
 {
-		shadowMap.bind(&camera);
+		shadowMap.bind(&sun);
 
 #ifdef PLATFORM_IOS
         glClearDepthf(1.0);
@@ -221,6 +253,12 @@ void Engine2::drawShadowMap(int eye)
 		
 		shadowMap.unbind();
 }
+
+/*
+========================================
+drawHealthBars()
+========================================
+*/
 
 void Engine2::drawHealthBars()
 {
@@ -239,6 +277,12 @@ void Engine2::drawHealthBars()
 	spriteRenderer2D.DrawSprite(.59, .8, fullWidth + 0.05, .06, tex->glTexID, 0.8, 0.9, 1.2, 0.1);
 	spriteRenderer2D.DrawSprite(.58 + ((fullWidth - width2) / 2.0) + (fullWidth - width2) / 3.35, .8, width2, .04, tex->glTexID, 0.8, 0.9, 1.2, 0.5);
 }
+
+/*
+========================================
+free()
+========================================
+*/
 
 void Engine2::free()
 {
@@ -265,6 +309,12 @@ void Engine2::free()
 	initialized = false;
 }
 
+/*
+========================================
+addObject()
+========================================
+*/
+
 void Engine2::addObject(std::string name)
 {
 //	Log("addObject " + name);
@@ -282,11 +332,23 @@ void Engine2::addObject(std::string name)
     objects[name] = o;
 }
 
+/*
+========================================
+removeObject()
+========================================
+*/
+
 void Engine2::removeObject(std::string name)
 {
 	objects.erase(name);
 	batches.erase(name);
 }
+
+/*
+========================================
+removeObject()
+========================================
+*/
 
 void Engine2::removeObject(Object *object)
 {
@@ -309,6 +371,12 @@ void Engine2::removeObject(Object *object)
 	}
 }
 
+/*
+========================================
+rename()
+========================================
+*/
+
 void Engine2::rename(std::string from, std::string to)
 {
 	Object *fromObj = findObj(from);
@@ -325,6 +393,12 @@ void Engine2::rename(std::string from, std::string to)
 	}
 }
 
+/*
+========================================
+setType()
+========================================
+*/
+
 void Engine2::setType(std::string name, ObjType type)
 {
 //	Log("setType " + name);
@@ -339,6 +413,12 @@ void Engine2::setType(std::string name, ObjType type)
 	if (type == OBJTYPE_SPRITE)
 		o->shapeType = SHAPE_SPRITE;
 }
+
+/*
+========================================
+setShape()
+========================================
+*/
 
 void Engine2::setShape(std::string name, ObjShapeType shape)
 {
@@ -355,6 +435,12 @@ void Engine2::setShape(std::string name, ObjShapeType shape)
 
     o->shapeType = shape;
 }
+
+/*
+========================================
+setShape()
+========================================
+*/
 
 void Engine2::setShape(std::string name, std::string shapeName)
 {
@@ -380,6 +466,12 @@ void Engine2::setShape(std::string name, std::string shapeName)
     o->shape = s;
 }
 
+/*
+========================================
+setModel()
+========================================
+*/
+
 void Engine2::setModel(std::string name, std::string modelName)
 {
 //	Log("setModel");
@@ -402,6 +494,12 @@ void Engine2::setModel(std::string name, std::string modelName)
     o->model = m;
 }
 
+/*
+========================================
+setModelOrientation
+========================================
+*/
+
 void Engine2::setModelOrientation(std::string modelName, float pitch, float yaw, float roll)
 {
 	Model2 *m = findModel(modelName);
@@ -412,6 +510,12 @@ void Engine2::setModelOrientation(std::string modelName, float pitch, float yaw,
 		m->roll = roll;
 	}
 }
+
+/*
+========================================
+setColor
+========================================
+*/
 
 void Engine2::setColor(std::string name, float r, float g, float b, float a)
 {
@@ -425,6 +529,12 @@ void Engine2::setColor(std::string name, float r, float g, float b, float a)
     glm::vec4 color = glm::vec4(r, g, b, a);
     o->color = color;
 }
+
+/*
+========================================
+setMeshColor
+========================================
+*/
 
 void Engine2::setMeshColor(std::string name, int mesh, float r, float g, float b, float a)
 {
@@ -446,6 +556,12 @@ void Engine2::setMeshColor(std::string name, int mesh, float r, float g, float b
     if (mesh < o->model->meshes.size())
     	o->model->meshes[mesh]->color = color;
 }
+
+/*
+========================================
+setTexture
+========================================
+*/
 
 void Engine2::setTexture(std::string name, std::string textureName)
 {
@@ -481,6 +597,12 @@ void Engine2::setTexture(std::string name, std::string textureName)
     }
 }
 
+/*
+========================================
+setTextureSpan
+========================================
+*/
+
 void Engine2::setTextureSpan(std::string name, float textureSpanX, float textureSpanY)
 {
     Texture *tex = texMan.find(name);
@@ -491,6 +613,12 @@ void Engine2::setTextureSpan(std::string name, float textureSpanX, float texture
     tex->texSpanX = textureSpanX;
 	tex->texSpanY = textureSpanY;
 }
+
+/*
+========================================
+setVisible
+========================================
+*/
 
 void Engine2::setVisible(std::string name, bool visible)
 {
@@ -504,6 +632,12 @@ void Engine2::setVisible(std::string name, bool visible)
 	}
 }
 
+/*
+========================================
+getVisible
+========================================
+*/
+
 bool Engine2::getVisible(std::string name)
 {
 	Object *o = findObj(name);
@@ -513,6 +647,12 @@ bool Engine2::getVisible(std::string name)
 
 	return o->visible;
 }
+
+/*
+========================================
+setMapTexture
+========================================
+*/
 
 void Engine2::setMapTexture(std::string name)
 {
@@ -526,6 +666,12 @@ void Engine2::setMapTexture(std::string name)
 	}
 }
 
+/*
+========================================
+setSize
+========================================
+*/
+
 void Engine2::setSize(std::string name, float size)
 {
     Object *o = findObj(name);
@@ -535,6 +681,12 @@ void Engine2::setSize(std::string name, float size)
 	
     o->size = size;
 }
+
+/*
+========================================
+setSize
+========================================
+*/
 
 void Engine2::setSize(std::string name, float sizex, float sizey, float sizez)
 {
@@ -548,6 +700,12 @@ void Engine2::setSize(std::string name, float sizex, float sizey, float sizez)
 	o->physSize = scale;
 }
 
+/*
+========================================
+setPhysSize
+========================================
+*/
+
 void Engine2::setPhysSize(std::string name, float sizex, float sizey, float sizez)
 {
 	Object *o = findObj(name);
@@ -558,6 +716,12 @@ void Engine2::setPhysSize(std::string name, float sizex, float sizey, float size
 	glm::vec3 scale = glm::vec3(sizex, sizey, sizez);
 	o->physSize = scale;
 }
+
+/*
+========================================
+setPos
+========================================
+*/
 
 void Engine2::setPos(std::string name, float x, float y, float z)
 {
@@ -574,6 +738,12 @@ void Engine2::setPos(std::string name, float x, float y, float z)
 	o->nextPosition = pos;
 }
 
+/*
+========================================
+getPos
+========================================
+*/
+
 glm::vec4 Engine2::getPos(std::string name)
 {
 	Object *o = findObj(name);
@@ -583,6 +753,12 @@ glm::vec4 Engine2::getPos(std::string name)
 	
 	return o->position;
 }
+
+/*
+========================================
+setNextPos
+========================================
+*/
 
 void Engine2::setNextPos(std::string name, float x, float y, float z)
 {
@@ -596,6 +772,12 @@ void Engine2::setNextPos(std::string name, float x, float y, float z)
 	o->nextPosition = pos;
 }
 
+/*
+========================================
+getNextPos
+========================================
+*/
+
 glm::vec4 Engine2::getNextPos(std::string name)
 {
 	Object *o = findObj(name);
@@ -605,6 +787,12 @@ glm::vec4 Engine2::getNextPos(std::string name)
 	
 	return o->nextPosition;
 }
+
+/*
+========================================
+setOrientation
+========================================
+*/
 
 void Engine2::setOrientation(std::string name, float pitch, float yaw, float roll)
 {
@@ -618,6 +806,12 @@ void Engine2::setOrientation(std::string name, float pitch, float yaw, float rol
     o->roll = roll;
 }
 
+/*
+========================================
+setYaw
+========================================
+*/
+
 void Engine2::setYaw(std::string name, float yaw)
 {
     Object *o = findObj(name);
@@ -627,6 +821,12 @@ void Engine2::setYaw(std::string name, float yaw)
 	
     o->yaw = yaw;
 }
+
+/*
+========================================
+setPitch
+========================================
+*/
 
 void Engine2::setPitch(std::string name, float pitch)
 {
@@ -638,6 +838,12 @@ void Engine2::setPitch(std::string name, float pitch)
     o->pitch = pitch;
 }
 
+/*
+========================================
+setRoll
+========================================
+*/
+
 void Engine2::setRoll(std::string name, float roll)
 {
     Object *o = findObj(name);
@@ -647,6 +853,12 @@ void Engine2::setRoll(std::string name, float roll)
 	
     o->roll = roll;
 }
+
+/*
+========================================
+getYaw
+========================================
+*/
 
 float Engine2::getYaw(std::string name)
 {
@@ -658,6 +870,12 @@ float Engine2::getYaw(std::string name)
     return o->yaw;
 }
 
+/*
+========================================
+getPitch
+========================================
+*/
+
 float Engine2::getPitch(std::string name)
 {
     Object *o = findObj(name);
@@ -667,6 +885,12 @@ float Engine2::getPitch(std::string name)
 	
     return o->pitch;
 }
+
+/*
+========================================
+getRoll
+========================================
+*/
 
 float Engine2::getRoll(std::string name)
 {
@@ -678,6 +902,12 @@ float Engine2::getRoll(std::string name)
     return o->roll;
 }
 
+/*
+========================================
+setAlwaysFacePlayer
+========================================
+*/
+
 void Engine2::setAlwaysFacePlayer(std::string name, bool value)
 {
 	Object *o = findObj(name);
@@ -688,17 +918,36 @@ void Engine2::setAlwaysFacePlayer(std::string name, bool value)
 	o->alwaysFacePlayer = value;
 }
 
+/*
+========================================
+setCamera
+========================================
+*/
+
 void Engine2::setCamera(glm::vec4 position, glm::vec4 orientation)
 {
 }
 
-void Engine2::setSun(glm::vec4 position, float yaw, float pitch, float roll)
+/*
+========================================
+setSun
+========================================
+*/
+
+void Engine2::setSun(glm::vec4 position, float yaw, float pitch, float roll, float size)
 {
 	sun.position = position;
 	sun.yaw = yaw;
 	sun.pitch = pitch;
 	sun.roll = roll;
+	sun.scale = glm::vec3(size, size, size);
 }
+
+/*
+========================================
+setMoveSmoothly
+========================================
+*/
 
 void Engine2::setMoveSmoothly(std::string name, bool value)
 {
@@ -710,6 +959,12 @@ void Engine2::setMoveSmoothly(std::string name, bool value)
 	o->moveSmoothly = value;
 }
 
+/*
+========================================
+setFade
+========================================
+*/
+
 void Engine2::setFade(std::string name, float near, float far)
 {
 	Object *o = findObj(name);
@@ -720,6 +975,12 @@ void Engine2::setFade(std::string name, float near, float far)
 	o->fadeNearDistance = near;
 	o->fadeFarDistance = near;
 }
+
+/*
+========================================
+findObj
+========================================
+*/
 
 class ObjectCompare
 {
@@ -739,6 +1000,12 @@ Object *Engine2::findObj(std::string name)
 
     return obj;
 }
+
+/*
+========================================
+newShape
+========================================
+*/
 
 void Engine2::newShape(std::string name, ObjShapeType type, float sizeA, float sizeB, float sizeC, float sizeD, float sizeE, float sizeF, float sizeG)
 {
@@ -764,12 +1031,24 @@ void Engine2::newShape(std::string name, ObjShapeType type, float sizeA, float s
     shapes[name] = s;
 }
 
+/*
+========================================
+findShape
+========================================
+*/
+
 Shape *Engine2::findShape(std::string name)
 {
     Shape *shape = shapes[name];
 
 	return shape;
 }
+
+/*
+========================================
+deleteShape
+========================================
+*/
 
 void Engine2::deleteShape(std::string name)
 {
@@ -800,6 +1079,13 @@ void Engine2::batch(std::string batchName, std::string shapeName)
 	
 }
 */
+
+/*
+========================================
+loadModel
+========================================
+*/
+
 void Engine2::loadModel(std::string fileName)
 {
     Model2 *m = new Model2();
@@ -807,12 +1093,24 @@ void Engine2::loadModel(std::string fileName)
     models[fileName] = m;
 }
 	
+/*
+========================================
+findModel
+========================================
+*/
+
 Model2 *Engine2::findModel(std::string modelName)
 {
     Model2 *model = models[modelName];
 
 	return model;
 }
+
+/*
+========================================
+setSkybox
+========================================
+*/
 
 void Engine2::setSkybox(std::string textureName)
 {
@@ -832,6 +1130,12 @@ void Engine2::setSkybox(std::string textureName)
     skyboxTextureName = textureName;
 }
 
+/*
+========================================
+resetOnClickExtras
+========================================
+*/
+
 void Engine2::resetOnClickExtras()
 {
     std::map<std::string, Widget*> widgets = gui.getWidgets();
@@ -843,6 +1147,12 @@ void Engine2::resetOnClickExtras()
         setExtraInt(item->onClickExtra, 0);
     }
 }
+
+/*
+========================================
+touchEvent
+========================================
+*/
 
 void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex)
 {
@@ -949,11 +1259,23 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 		clickTimer--;*/
 }
 
+/*
+========================================
+setCameraPos
+========================================
+*/
+
 void Engine2::setCameraPos(float x, float y, float z)
 {
 	glm::vec4 pos = glm::vec4(x, y, z, 1.0);
 	camera.position = pos;
 }
+
+/*
+========================================
+setCameraOrientation
+========================================
+*/
 
 void Engine2::setCameraOrientation(float yaw, float pitch, float roll)
 {
@@ -961,6 +1283,12 @@ void Engine2::setCameraOrientation(float yaw, float pitch, float roll)
 	camera.pitch = pitch;
 	camera.roll = roll;
 }
+
+/*
+========================================
+setPlayerObj
+========================================
+*/
 
 void Engine2::setPlayerObj(std::string name)
 {
@@ -973,10 +1301,22 @@ void Engine2::setPlayerObj(std::string name)
 #endif
 }
 
+/*
+========================================
+getPlayerObj
+========================================
+*/
+
 Object *Engine2::getPlayerObj()
 {
 	return playerObj;
 }
+
+/*
+========================================
+setPlayerPos
+========================================
+*/
 
 void Engine2::setPlayerPos(float x, float y, float z)
 {
@@ -984,6 +1324,12 @@ void Engine2::setPlayerPos(float x, float y, float z)
 	playerObj->position = pos;
 	playerObj->nextPosition = pos;
 }
+
+/*
+========================================
+setPlayerOrientation
+========================================
+*/
 
 void Engine2::setPlayerOrientation(float pitch, float yaw, float roll)
 {
@@ -998,50 +1344,110 @@ void Engine2::setPlayerOrientation(float pitch, float yaw, float roll)
 #endif
 }
 
+/*
+========================================
+setPlayerPitch
+========================================
+*/
+
 void Engine2::setPlayerPitch(float pitch)
 {
 	playerObj->pitch = pitch;
 }
+
+/*
+========================================
+setPlayerYaw
+========================================
+*/
 
 void Engine2::setPlayerYaw(float yaw)
 {
 	playerObj->yaw = yaw;
 }
 
+/*
+========================================
+setPlayerRoll
+========================================
+*/
+
 void Engine2::setPlayerRoll(float roll)
 {
 	playerObj->roll = roll;
 }
+
+/*
+========================================
+getPlayerPitch
+========================================
+*/
 
 float Engine2::getPlayerPitch()
 {
 	return playerObj->pitch;
 }
 
+/*
+========================================
+getPlayerYaw
+========================================
+*/
+
 float Engine2::getPlayerYaw()
 {
 	return playerObj->yaw;
 }
+
+/*
+========================================
+getPlayerRoll
+========================================
+*/
 
 float Engine2::getPlayerRoll()
 {
 	return playerObj->roll;
 }
 
+/*
+========================================
+setControlScheme
+========================================
+*/
+
 void Engine2::setControlScheme(ControlSchemes scheme)
 {
 	controls.setControlScheme(scheme);
 }
+
+/*
+========================================
+setCameraScheme
+========================================
+*/
 
 void Engine2::setCameraScheme(CameraSchemes scheme)
 {
 	camera.setCameraScheme(scheme);
 }
 
+/*
+========================================
+setUseShadowMap
+========================================
+*/
+
 void Engine2::setUseShadowMap(bool value)
 {
 	useShadowMap = value;
 }
+
+/*
+========================================
+moveObjectsZ
+========================================
+*/
 
 void Engine2::moveObjectsZ(float fromZ, float fromRadius, float toZ)
 {
@@ -1058,6 +1464,12 @@ void Engine2::moveObjectsZ(float fromZ, float fromRadius, float toZ)
 	}
 }
 
+/*
+========================================
+moveObjectsX
+========================================
+*/
+
 void Engine2::moveObjectsX(float fromX, float fromRadius, float toX)
 {
     for(const auto &pair: objects)
@@ -1073,10 +1485,22 @@ void Engine2::moveObjectsX(float fromX, float fromRadius, float toX)
 	}
 }
 
+/*
+========================================
+setTriggerAlwaysOn
+========================================
+*/
+
 void Engine2::setTriggerAlwaysOn(bool value)
 {
     controls.setTriggerAlwaysOn(value);
 }
+
+/*
+========================================
+playSound
+========================================
+*/
 
 void Engine2::playSound(std::string name, bool stereo)
 {
@@ -1090,6 +1514,12 @@ void Engine2::playSound(std::string name, bool stereo)
     
 	audio.playSound(name + "." + ext, stereo);
 }
+
+/*
+========================================
+playTrack
+========================================
+*/
 
 void Engine2::playTrack(std::string name, bool stereo)
 {
@@ -1105,6 +1535,12 @@ void Engine2::playTrack(std::string name, bool stereo)
     
 	audio.playTrack((char *)fnamewext.c_str(), stereo);
 }
+
+/*
+========================================
+checkCollision
+========================================
+*/
 
 bool Engine2::checkCollision(Object *obj1, Object *obj2, float factorx, float factory, float factorz)
 {
@@ -1123,6 +1559,12 @@ bool Engine2::checkCollision(Object *obj1, Object *obj2, float factorx, float fa
 
 	return false;*/
 }
+
+/*
+========================================
+checkVoxelCollision
+========================================
+*/
 
 bool Engine2::checkVoxelCollision(Object *obj, float multx, float multy, float multz)
 {
@@ -1227,6 +1669,12 @@ bool Engine2::checkVoxelCollision(Object *obj, float multx, float multy, float m
 	return false;
 }
 
+/*
+========================================
+checkVoxelCollisionPt
+========================================
+*/
+
 bool Engine2::checkVoxelCollisionPt(Object *voxobj, float x, float y, float z)
 {
 	float minwx = voxobj->position.x - voxobj->scale.x;
@@ -1251,6 +1699,12 @@ bool Engine2::checkVoxelCollisionPt(Object *voxobj, float x, float y, float z)
 	else
 	    return false;
 }
+
+/*
+========================================
+collisionRay
+========================================
+*/
 
 Object *Engine2::collisionRay(Object *source)
 {
@@ -1285,6 +1739,12 @@ Object *Engine2::collisionRay(Object *source)
 
 	return nullptr;
 }
+
+/*
+========================================
+checkSight
+========================================
+*/
 
 bool Engine2::checkSight(Object *src, Object *dst)
 {
@@ -1322,6 +1782,12 @@ bool Engine2::checkSight(Object *src, Object *dst)
 	return true;
 }
 
+/*
+========================================
+moveObjectsByVelocity
+========================================
+*/
+
 void Engine2::moveObjectsByVelocity()
 {
     for(const auto &pair: objects)
@@ -1332,6 +1798,12 @@ void Engine2::moveObjectsByVelocity()
 			obj->moveByVelocity();
 	}
 }
+
+/*
+========================================
+moveObjectsTowardsNextPosition
+========================================
+*/
 
 void Engine2::moveObjectsTowardsNextPosition()
 {
@@ -1344,6 +1816,12 @@ void Engine2::moveObjectsTowardsNextPosition()
 	}
 }
 
+/*
+========================================
+moveObjectsSmoothly
+========================================
+*/
+
 void Engine2::moveObjectsSmoothly()
 {
     for(const auto &pair: objects)
@@ -1355,6 +1833,12 @@ void Engine2::moveObjectsSmoothly()
 	}
 }
 
+/*
+========================================
+setHitPoints
+========================================
+*/
+
 void Engine2::setHitPoints(std::string name, int pts)
 {
 	Object *o = findObj(name);
@@ -1365,6 +1849,12 @@ void Engine2::setHitPoints(std::string name, int pts)
 	o->hitPoints = pts;
 }
 
+/*
+========================================
+addText
+========================================
+*/
+
 void Engine2::addText(std::string name, std::string text, float x, float y, float size, std::string onClickExtra)
 {
 	glm::vec4 pos = glm::vec4(x, y, 1.0, 1.0);
@@ -1372,20 +1862,44 @@ void Engine2::addText(std::string name, std::string text, float x, float y, floa
 	textPrinter.addText(name, text, pos, size, onClickExtra);
 }
 
+/*
+========================================
+setText
+========================================
+*/
+
 void Engine2::setText(std::string name, std::string text)
 {
 	textPrinter.setText(name, text);
 }
+
+/*
+========================================
+setTextVisible
+========================================
+*/
 
 void Engine2::setTextVisible(std::string name, bool visible)
 {
 	textPrinter.setVisible(name, visible);
 }
 
+/*
+========================================
+setControlsEnabled
+========================================
+*/
+
 void Engine2::setControlsEnabled(bool enabled)
 {
 	controls.setEnabled(enabled);
 }
+
+/*
+========================================
+setHealthBar
+========================================
+*/
 
 void Engine2::setHealthBar(int idx, float value)
 {
@@ -1396,6 +1910,12 @@ void Engine2::setHealthBar(int idx, float value)
 		healthBar2Value = value;
 }
 
+/*
+========================================
+setGlobalColor
+========================================
+*/
+
 void Engine2::setGlobalColor(glm::vec4 target)
 {
 	skyboxRenderer.setGlobalColor(target);
@@ -1404,6 +1924,12 @@ void Engine2::setGlobalColor(glm::vec4 target)
 	spriteRenderer.setGlobalColor(target);
 //	spriteRenderer2D.fadeGlobalColor(target, fadeLength);
 }
+
+/*
+========================================
+fadeGlobalColor
+========================================
+*/
 
 void Engine2::fadeGlobalColor(glm::vec4 target, int length)
 {
@@ -1416,20 +1942,44 @@ void Engine2::fadeGlobalColor(glm::vec4 target, int length)
 //	spriteRenderer2D.fadeGlobalColor(target, fadeLength);
 }
 
+/*
+========================================
+setHealthBarsVisible
+========================================
+*/
+
 void Engine2::setHealthBarsVisible(bool value)
 {
 	healthBarsVisible = value;
 }
+
+/*
+========================================
+setControlsVisible
+========================================
+*/
 
 void Engine2::setControlsVisible(bool value)
 {
 	controlsVisible = value;
 }
 
+/*
+========================================
+setExtraInt
+========================================
+*/
+
 void Engine2::setExtraInt(std::string name, int value)
 {
 	g_common.extraInts[name] = value;
 }
+
+/*
+========================================
+getExtraInt
+========================================
+*/
 
 int Engine2::getExtraInt(std::string name)
 {
@@ -1439,10 +1989,22 @@ int Engine2::getExtraInt(std::string name)
 	return g_common.extraInts[name];
 }
 
+/*
+========================================
+setExtraStr
+========================================
+*/
+
 void Engine2::setExtraStr(std::string name, std::string value)
 {
 	g_common.extraStrings[name] = value;
 }
+
+/*
+========================================
+getExtraStr
+========================================
+*/
 
 std::string Engine2::getExtraStr(std::string name)
 {
@@ -1451,6 +2013,12 @@ std::string Engine2::getExtraStr(std::string name)
 
 	return g_common.extraStrings[name];
 }
+
+/*
+========================================
+setVoxel
+========================================
+*/
 
 void Engine2::setVoxel(std::string shapeName, int x, int y, int z, char texture)
 {
@@ -1472,6 +2040,12 @@ void Engine2::setVoxel(std::string shapeName, int x, int y, int z, char texture)
 	s->needsRebuild = true;
 }
 
+/*
+========================================
+getVoxel
+========================================
+*/
+
 char Engine2::getVoxel(std::string shapeName, int x, int y, int z)
 {
 	Shape *s = findShape(shapeName);
@@ -1490,6 +2064,12 @@ char Engine2::getVoxel(std::string shapeName, int x, int y, int z)
 	return voxels->get(x, y, z);
 }
 
+/*
+========================================
+setVoxelTexture
+========================================
+*/
+
 void Engine2::setVoxelTexture(std::string shapeName, int voxel, std::string texture)
 {
 	Shape *shape = findShape(shapeName);
@@ -1504,6 +2084,12 @@ void Engine2::setVoxelTexture(std::string shapeName, int voxel, std::string text
 
 	voxels->setVoxelTexture(voxel, texture);
 }
+
+/*
+========================================
+getVoxelTexture
+========================================
+*/
 
 std::string Engine2::getVoxelTexture(std::string shapeName, int voxel)
 {
@@ -1520,15 +2106,33 @@ std::string Engine2::getVoxelTexture(std::string shapeName, int voxel)
 	return voxels->getVoxelTexture(voxel);
 }
 
+/*
+========================================
+clearVoxels
+========================================
+*/
+
 void Engine2::clearVoxels(std::string name)
 {
 	
 }
 
+/*
+========================================
+rebuildShape
+========================================
+*/
+
 void Engine2::rebuildShape(std::string shapeName)
 {
     shapes[shapeName]->needsRebuild = true;
 }
+
+/*
+========================================
+loadVoxels
+========================================
+*/
 
 void Engine2::loadVoxels(std::string name, std::string filename)
 {
@@ -1546,6 +2150,12 @@ void Engine2::loadVoxels(std::string name, std::string filename)
 	voxels->crop();
 	shape->needsRebuild = true;
 }
+
+/*
+========================================
+clear
+========================================
+*/
 
 void Engine2::clear()
 {
@@ -1568,6 +2178,12 @@ void Engine2::clear()
 	// Turn on collision detection for player
 	playerObj->ints["ignorecollisions"] = 0;
 }
+
+/*
+========================================
+limitPlayerRange
+========================================
+*/
 
 void Engine2::limitPlayerRange()
 {
@@ -1596,6 +2212,12 @@ void Engine2::limitPlayerRange()
 }
 
 	
+/*
+========================================
+setEditVoxelsObj
+========================================
+*/
+
 void Engine2::setEditVoxelsObj(std::string name)
 {
 	Object *obj = findObj(name);
@@ -1603,25 +2225,55 @@ void Engine2::setEditVoxelsObj(std::string name)
 	editorController.setEditVoxelsObj(obj);
 }
 
+/*
+========================================
+addWg
+========================================
+*/
+
 void Engine2::addWg(std::string name, WidgetType type, std::string texture, std::string text, std::string onClickExtra, std::string group, float x, float y, float sizex, float sizey)
 {
 	gui.addWg(name, type, texture, text, onClickExtra, group, x, y, sizex, sizey);
 }
+
+/*
+========================================
+setWgVisible
+========================================
+*/
 
 void Engine2::setWgVisible(std::string name, bool val)
 {
 	gui.setWgVisible(name, val);
 }
 
+/*
+========================================
+setWgColor
+========================================
+*/
+
 void Engine2::setWgColor(std::string name, float r, float g, float b, float a)
 {
 	gui.setWgColor(name, r, g, b, a);
 }
 
+/*
+========================================
+clearGUI
+========================================
+*/
+
 void Engine2::clearGUI()
 {
 	gui.clear();
 }
+
+/*
+========================================
+save
+========================================
+*/
 
 void Engine2::save(std::string fname)
 {
@@ -1639,6 +2291,12 @@ void Engine2::save(std::string fname)
 #endif
 }
 
+/*
+========================================
+load
+========================================
+*/
+
 void Engine2::load(std::string fname)
 {
 #ifdef PLATFORM_ANDROID
@@ -1655,6 +2313,12 @@ void Engine2::load(std::string fname)
 #endif
 }
 
+/*
+========================================
+writeObj
+========================================
+*/
+
 void Engine2::writeObj(std::string name, std::string fname)
 {
     Object *obj = objects[name];
@@ -1663,6 +2327,12 @@ void Engine2::writeObj(std::string name, std::string fname)
 
     objWriter.write(voxels->getBuffers(), fname);
 }
+
+/*
+========================================
+batch
+========================================
+*/
 
 void Engine2::batch(std::string batchobjname, std::string addobjname)
 {
@@ -1699,6 +2369,12 @@ void Engine2::batch(std::string batchobjname, std::string addobjname)
 	}
 }
 
+/*
+========================================
+autoBatch
+========================================
+*/
+
 void Engine2::autoBatch() {
 #ifdef PLATFORM_ANDROID
     for (const auto &pair1: objects) {
@@ -1732,10 +2408,22 @@ void Engine2::autoBatch() {
 #endif
 }
 
+/*
+========================================
+useLegacyTextureSpan
+========================================
+*/
+
 void Engine2::useLegacyTextureSpan(bool use)
 {
     g_useLegacyTextureSpan = use;
 }
+
+/*
+========================================
+genTexture
+========================================
+*/
 
 void Engine2::genTexture(std::string name, std::string type, float arg1)
 {
@@ -1755,6 +2443,12 @@ void Engine2::genTexture(std::string name, std::string type, float arg1)
 	}
 }
 
+/*
+========================================
+copyObj
+========================================
+*/
+
 void Engine2::copyObj(std::string src, std::string dst)
 {
 	Object *srcObj = findObj(src);
@@ -1765,26 +2459,56 @@ void Engine2::copyObj(std::string src, std::string dst)
 //	Log(dst);
 }
 
+/*
+========================================
+getObject
+========================================
+*/
+
 Object *Engine2::getObject(std::string name)
 {
 	return objects[name];
 }
+
+/*
+========================================
+
+========================================
+*/
 
 std::map<std::string, Object*> &Engine2::getObjects()
 {
 	return objects;
 }
 
+/*
+========================================
+setObjects
+========================================
+*/
+
 void Engine2::setObjects(std::map<std::string, Object*> newObjs)
 {
     objects = newObjs;
 }
+
+/*
+========================================
+setSystem
+========================================
+*/
 
 void Engine2::setSystem(std::string name, bool system)
 {
 	objects[name]->system = system;
 }
  
+/*
+========================================
+setObjInt
+========================================
+*/
+
 void Engine2::setObjInt(std::string name, std::string key, int value)
 {
 	Object *o = g_engine2->findObj(name);
@@ -1794,6 +2518,12 @@ void Engine2::setObjInt(std::string name, std::string key, int value)
 
 	o->ints[key] = value;
 }
+
+/*
+========================================
+getObjInt
+========================================
+*/
 
 int Engine2::getObjInt(std::string name, std::string key)
 {
@@ -1805,6 +2535,12 @@ int Engine2::getObjInt(std::string name, std::string key)
     return o->ints[key];
 }
 
+/*
+========================================
+setObjFloat
+========================================
+*/
+
 void Engine2::setObjFloat(std::string name, std::string key, float value)
 {
 	Object *o = g_engine2->findObj(name);
@@ -1814,6 +2550,12 @@ void Engine2::setObjFloat(std::string name, std::string key, float value)
 
 	o->floats[key] = value;
 }
+
+/*
+========================================
+getObjFloat
+========================================
+*/
 
 float Engine2::getObjFloat(std::string name, std::string key)
 {
@@ -1825,6 +2567,12 @@ float Engine2::getObjFloat(std::string name, std::string key)
     return o->floats[key];
 }
 
+/*
+========================================
+setObjStr
+========================================
+*/
+
 void Engine2::setObjStr(std::string name, std::string key, std::string value)
 {
 	Object *o = g_engine2->findObj(name);
@@ -1835,6 +2583,12 @@ void Engine2::setObjStr(std::string name, std::string key, std::string value)
 	o->strings[key] = value;
 }
 
+/*
+========================================
+getObjStr
+========================================
+*/
+
 std::string Engine2::getObjStr(std::string name, std::string key)
 {
 	Object *o = g_engine2->findObj(name);
@@ -1844,6 +2598,12 @@ std::string Engine2::getObjStr(std::string name, std::string key)
 	
     return o->strings[key];
 }
+
+/*
+========================================
+objectDump
+========================================
+*/
 
 std::string Engine2::objectDump()
 {
@@ -1859,6 +2619,12 @@ std::string Engine2::objectDump()
 	return dump;
 }
 
+/*
+========================================
+DumpFrame
+========================================
+*/
+
 void Engine2::DumpFrame()
 {
 	shapeRenderer.DumpFrame();
@@ -1867,6 +2633,12 @@ void Engine2::DumpFrame()
 	spriteRenderer.DumpFrame();
     spriteRenderer2D.DumpFrame();
 }
+
+/*
+========================================
+getFrameDump
+========================================
+*/
 
 std::string Engine2::getFrameDump()
 {
@@ -1881,11 +2653,23 @@ std::string Engine2::getFrameDump()
 	return fd;
 }
 
+/*
+========================================
+saveScene
+========================================
+*/
+
 void Engine2::saveScene(std::string fname)
 {
     scene.skyboxTextureName = skyboxTextureName;
     scene.save(fname, objects, shapes, &texMan);
 }
+
+/*
+========================================
+loadScene
+========================================
+*/
 
 void Engine2::loadScene(std::string fname)
 {
@@ -1933,11 +2717,23 @@ void Engine2::loadScene(std::string fname)
 	refreshObjectCategories();
 }
 
+/*
+========================================
+setAssetsDir
+========================================
+*/
+
 void Engine2::setAssetsDir(std::string dir)
 {
 	g_assetsDir = dir;
 	g_assetsDirExplicit = true;
 }
+
+/*
+========================================
+refreshObjectCategories
+========================================
+*/
 
 void Engine2::refreshObjectCategories()
 {
@@ -1984,6 +2780,12 @@ void Engine2::refreshObjectCategories()
 	}
 
 }
+
+/*
+========================================
+checkGLError
+========================================
+*/
 
 void Engine2::checkGLError(char *tag)
 {

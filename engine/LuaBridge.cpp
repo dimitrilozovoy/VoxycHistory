@@ -1417,8 +1417,9 @@ static int setsun(lua_State *L)
 	lua_Number pitch = lua_tonumber(L, 4);
 	lua_Number yaw = lua_tonumber(L, 5);
 	lua_Number roll = lua_tonumber(L, 6);
+	lua_Number size = lua_tonumber(L, 7);
 
-	g_engine2->setSun(glm::vec4(x, y, z, 1.0), yaw, pitch, roll);
+	g_engine2->setSun(glm::vec4(x, y, z, 1.0), yaw, pitch, roll, size);
 
 	return 1;
 }

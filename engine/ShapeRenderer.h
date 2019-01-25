@@ -49,19 +49,24 @@ private:
 	const float drawDistance = 1400.0;
 #endif
 
-	//
+	/*
+	========================================
+	Desktop
+	========================================
+	*/
+
 	// VERTEX SHADER DESKTOP USE SHADOWMAP
-	//
 
 	const char *vertexShaderCodeDesktopUseShadowMap =
 
 		"precision highp float;" \
 
 		"in vec4 vPosition;" \
-		"in vec3 vNormal;" \
 		"out vec4 posOut; " \
 		"in vec2 vTexCoords;" \
 		"out vec2 vTexCoordsOut; " \
+		"in vec3 vNormal;" \
+		"out vec3 vNormalOut;" \
 		"uniform vec2 vTexSpan;" \
 		"uniform mat4 mvMatrix; " \
 		"uniform mat4 projectionMatrix; " \
@@ -80,11 +85,11 @@ private:
 
 		"  vec4 posBeforeProj = mvMatrix * vPosition;" \
 		"  distToCamera = -posBeforeProj.z; " \
+
+		"  vNormalOut = vNormal; " \
 		"}\n";
 
-	//
 	// FRAGMENT SHADER DESKTOP USE SHADOWMAP
-	//
 
 	const char *fragmentShaderCodeDesktopUseShadowMap =
 
@@ -133,9 +138,7 @@ private:
 		"   }" \
 		"}\n";
 
-	//
 	// VERTEX SHADER DESKTOP
-	//
 
 	const char *vertexShaderCodeDesktop =
 
@@ -163,9 +166,7 @@ private:
 		"  distToCamera = abs(posBeforeProj.z); " \
 	"}\n";
 
-	//
 	// FRAGMENT SHADER DESKTOP
-	//
 
 	const char *fragmentShaderCodeDesktop =
 
@@ -210,9 +211,13 @@ private:
 		"   }" \
 		"}\n";
 
-	//
+	/*
+	========================================
+	OpenVR
+	========================================
+	*/
+
 	// VERTEX SHADER OPEN VR
-	//
 
 	const char *vertexShaderCodeOpenVR =
 
@@ -238,9 +243,7 @@ private:
 		"  distToCamera = abs(posBeforeProj.z); " \
 		"}\n";
 
-	//
 	// FRAGMENT SHADER OPENVR
-	//
 
 	const char *fragmentShaderCodeOpenVR =
 
@@ -275,9 +278,13 @@ private:
 		"   }" \
 		"}\n";
 
-	//
+	/*
+	========================================
+	ES 2.0
+	========================================
+	*/
+
 	// VERTEX SHADER ES 2.0 USE SHADOWMAP
-	//
 
 	const char *vertexShaderCodeES20UseShadowMap =
 
@@ -311,9 +318,7 @@ private:
 
     "}\n";
 
-	//
 	// FRAGMENT SHADER ES 2.0 USE SHADOWMAP
-	//
 
 	const char *fragmentShaderCodeES20UseShadowMap =
 
@@ -353,9 +358,7 @@ private:
 	"   }" \
 	"}\n";
 
-	//
     // VERTEX SHADER ES 2.0
-    //
     
     const char *vertexShaderCodeES20 =
     
@@ -384,9 +387,7 @@ private:
     "}\n";
 
 
-    //
     // FRAGMENT SHADER ES 2.0
-    //
     
     const char *fragmentShaderCodeES20 =
     

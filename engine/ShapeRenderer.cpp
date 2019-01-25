@@ -464,6 +464,7 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 				checkGLError("glActiveTexture");
 
 				glBindTexture(GL_TEXTURE_2D, object->glTexID);
+//				glBindTexture(GL_TEXTURE_2D, shadowMap->getRenderedTexture());
 
 				checkGLError("glBindTexture");
 
@@ -484,25 +485,19 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 
 		if (useShadowMap)
 		{
-//			setUniform1f(curProgram, "useShadowMap", 1.0);
-
 			// Set shadow texture
 			glActiveTexture(GL_TEXTURE1);
 			checkGLError("glActiveTexture");
-
-//			int uShadowMap = glGetUniformLocation(curProgram, "shadowMap");
-//			checkGLError("glGetUniformLocation");
 
 			int shadowGLTexID = shadowMap->getRenderedTexture();
 
 			glBindTexture(GL_TEXTURE_2D, shadowGLTexID);
 			checkGLError("glBindTexture");
-//			glUniform1i(uShadowMap, 1);
-//			checkGLError("glUniform1i");
-		}
-		else
-		{
-//			setUniform1f(curProgram, "useShadowMap", 0.0);
+
+			int uShadowMap = glGetUniformLocation(curProgram, "shadowMap");
+			checkGLError("glGetUniformLocation");
+			glUniform1i(uShadowMap, 1);
+			checkGLError("glUniform1i");
 		}
 	}
 

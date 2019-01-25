@@ -49,7 +49,7 @@ void EditorOld::init()
 	engine->setSkybox("skybox.png");
 	engine->setExtraStr("skytexture", "skybox.png");
 
-	engine->setSun(glm::vec4(10.0, 10.0, 10.0, 0.0), -45.0, -45.0, 0.0);
+//	engine->setSun(glm::vec4(10.0, 10.0, 10.0, 0.0), -45.0, -45.0, 0.0);
 	
 	// Grid
 	for (int i = 0; i < 5; i++)

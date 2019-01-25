@@ -101,7 +101,7 @@ public:
     float getRoll(std::string name);
 	void setAlwaysFacePlayer(std::string name, bool value);
 	void setCamera(glm::vec4 position, glm::vec4 orientation);
-	void setSun(glm::vec4 position, float yaw, float pitch, float roll);
+	void setSun(glm::vec4 position, float yaw, float pitch, float roll, float size);
 	void setMoveSmoothly(std::string name, bool value);
 	void setFade(std::string name, float near, float far);
 	Object *findObj(std::string name);
