@@ -286,9 +286,10 @@ void Object::move()
 
 	// Move if OK
 	if (okToMove)
-	{
+	{	
 		ints["stuck"] = 0;
-
+		strings["stuckon"] = "";
+		
 		if (moveSmoothly)
 			nextPosition += delta;
 		else
@@ -389,6 +390,9 @@ void Object::move()
 		ints["stuck"] = 1;
 		strings["stuckon"] = stuckOn;
 	}
+	
+//	if (ints["stuck"] == 1 && category != "voxels")
+//		Log(name + " stuck");
 }
 
 void Object::MoveBackward(float factor)
@@ -934,6 +938,9 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 			collWest = true;
 		}
 	}
+	
+//	if (result)
+//		Log("checkvoxelcoll true");
 
 	return result;
 }

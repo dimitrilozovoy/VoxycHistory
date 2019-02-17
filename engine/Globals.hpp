@@ -40,8 +40,8 @@ SOFTWARE.
 
 #define PRODUCT_EARTH2084
 
-#define DEBUG_BUILD
-//#define RELEASE_BUILD
+//#define DEBUG_BUILD
+#define RELEASE_BUILD
 
 #define USE_OPENGL
 

@@ -50,8 +50,8 @@ void Engine2::init()
 		return;
 	
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-	useShadowMap = false;
-//	useShadowMap = true;
+//	useShadowMap = false;
+	useShadowMap = true;
 #else
 	useShadowMap = false;
 //	useShadowMap = true;
@@ -129,7 +129,6 @@ void Engine2::tick()
 	audio.tick();
 
 	moveObjectsSmoothly();
-	moveObjectsByVelocity();
 	limitPlayerRange();
 
 	camera.tick();
@@ -2737,6 +2736,8 @@ refreshObjectCategories
 
 void Engine2::refreshObjectCategories()
 {
+//	Log("refreshObjectCategories");
+	
 	for (const auto &pair : objects) {
 		Object *obj = pair.second;
 

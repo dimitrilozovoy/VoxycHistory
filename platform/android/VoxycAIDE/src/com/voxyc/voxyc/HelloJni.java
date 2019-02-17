@@ -92,7 +92,7 @@ public class HelloJni extends Activity
 	LinearLayout llConsoleInput;
 	EditText consoleInput;
 	Button consoleEnter;
-	public static final boolean DEBUG_BUILD = false;
+	public static final boolean DEBUG_BUILD = true;
 	int mConsoleMaxTotalLines = 25;
 	int mConsoleTotalLines = 0;
 	int bytesRead = 0;
@@ -722,7 +722,7 @@ public class HelloJni extends Activity
    
 	String m_fullConsole = "";
     String m_visibleConsole = "";
-    int m_visConsoleLen = 1000;
+    int m_visConsoleLen = 200;
 	
     public void console(String str) {
 		if (!DEBUG_BUILD)
@@ -730,7 +730,7 @@ public class HelloJni extends Activity
 			
 		m_visibleConsole += "\n" + str;
 		
-		if (m_visibleConsole.length() > 1000)
+		if (m_visibleConsole.length() > 500)
 		{
 			m_visibleConsole = "";
 		}
