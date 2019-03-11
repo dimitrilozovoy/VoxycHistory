@@ -189,6 +189,7 @@
     <ClInclude Include="..\..\..\..\engine\TextPrinter.h" />
     <ClInclude Include="..\..\..\..\engine\TextureAtlas.h" />
     <ClInclude Include="..\..\..\..\engine\TextureManager2.h" />
+    <ClInclude Include="..\..\..\..\engine\VertexLights.h" />
     <ClInclude Include="..\..\..\..\engine\Voxels.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="..\..\..\..\engine\TextPrinter.cpp" />
     <ClCompile Include="..\..\..\..\engine\TextureAtlas.cpp" />
     <ClCompile Include="..\..\..\..\engine\TextureManager2.cpp" />
+    <ClCompile Include="..\..\..\..\engine\VertexLights.cpp" />
     <ClCompile Include="..\..\..\..\engine\Voxels.cpp" />
     <ClCompile Include="..\..\..\..\thirdparty\lodepng\lodepng.cpp" />
     <ClCompile Include="..\..\..\..\thirdparty\lua\lapi.c" />

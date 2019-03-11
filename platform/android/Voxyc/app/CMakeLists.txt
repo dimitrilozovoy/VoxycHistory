@@ -66,6 +66,7 @@ add_library( # Sets the name of the library.
              ../../../../engine/FileIO.cpp
              ../../../../engine/Scene.cpp
              ../../../../engine/Physics.cpp
+             ../../../../engine/VertexLights.cpp
              ../../../../app/main.cpp
              ../../../../app/VoxycApp.cpp
              ../../../../app/LuaProgram.cpp

@@ -47,4 +47,11 @@ typedef struct Common
 	std::map<std::string, std::string> extraStrings;
 };
 
+typedef struct RenderStats
+{
+	int fps = 0;
+	int drawCalls = 0;
+	int polys = 0;
+};
+
 #endif

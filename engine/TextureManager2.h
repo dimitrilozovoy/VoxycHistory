@@ -34,6 +34,11 @@ typedef struct Texture
     int glTexID;
 	float texSpanX = 1.0;
 	float texSpanY = 1.0;
+	bool lightEnabled = false;
+	float lightRadius = 0.0;
+	float lightr = 1.0;
+	float lightg = 1.0;
+	float lightb = 1.0;
 } Texture;
 
 class TextureManager2

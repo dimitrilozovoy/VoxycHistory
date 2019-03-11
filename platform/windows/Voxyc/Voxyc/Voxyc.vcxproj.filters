@@ -186,6 +186,9 @@
     <ClInclude Include="..\..\..\..\engine\PlatformAudio.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\VertexLights.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -429,6 +432,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\engine\SkeletalRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\VertexLights.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>

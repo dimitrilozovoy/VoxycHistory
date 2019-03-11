@@ -31,6 +31,12 @@ SOFTWARE.
 
 //int Voxels::cursor = 0;
 
+/*
+========================================
+init
+========================================
+*/
+
 void Voxels::init(int size, std::map<std::string, std::string> *extraStrings)
 {
 	if (initialized)
@@ -62,6 +68,12 @@ void Voxels::init(int size, std::map<std::string, std::string> *extraStrings)
 	voxelTextures[0] = "";
 }
 
+/*
+========================================
+clear
+========================================
+*/
+
 void Voxels::clear()
 {
 	for (int z = 0; z < size; z++)
@@ -88,6 +100,12 @@ void Voxels::clear()
 	
 	initialized = false;
 }
+
+/*
+========================================
+set
+========================================
+*/
 
 void Voxels::set(int x, int y, int z, char value)
 {
@@ -124,6 +142,12 @@ void Voxels::set(int x, int y, int z, char value)
 		maxy = y + 2;
 }
 
+/*
+========================================
+get
+========================================
+*/
+
 char Voxels::get(int x, int y, int z)
 {
 	VoxelStack *stack = getStack(x, z);
@@ -138,6 +162,88 @@ char Voxels::get(int x, int y, int z)
 
 	return stack->voxels[y].texture;
 }
+
+/*
+========================================
+setrgb
+========================================
+*/
+
+void Voxels::setrgb(int x, int y, int z, unsigned char r, unsigned char g, unsigned char b)
+{
+	VoxelStack *stack = getStack(x, z);
+
+	if (g_simpleMode)
+	{
+		// HACK
+		if (x == 0 && y == 0 && z == 0)
+			return;
+	}
+
+	if (stack == NULL)
+		return;
+
+	if (stack->height <= y)
+	{
+//		return;
+		setStackHeight(x, z, y + STACK_HEIGHT_ALLOC_PAD);
+	}
+
+#ifdef DO_VERTEX_LIGHTS
+	stack->voxels[y].r = r;
+	stack->voxels[y].g = g;
+	stack->voxels[y].b = b;
+#endif
+
+	if (x < minx)
+		minx = x;
+	if (x >= maxx)
+		maxx = x + 2;
+	if (z < minz)
+		minz = z;
+	if (z >= maxx)
+		maxz = z + 2;
+	if (y < miny)
+		miny = y;
+	if (y >= maxy)
+		maxy = y + 2;
+}
+
+/*
+========================================
+getrgb
+========================================
+*/
+
+void Voxels::getrgb(int x, int y, int z, unsigned char &r, unsigned char &g, unsigned char &b)
+{
+	VoxelStack *stack = getStack(x, z);
+
+	if (stack == NULL)
+		return;
+
+	if (x < 0 || y < 0 || z < 0 || x >= size || y >= size || z >= size || stack->height <= y)
+	{
+#ifdef DO_VERTEX_LIGHTS
+        r = 128.0;
+		g = 128.0;
+		b = 128.0;
+#endif
+		return;
+	}
+
+#ifdef DO_VERTEX_LIGHTS
+	r = stack->voxels[y].r;
+	g = stack->voxels[y].g;
+	b = stack->voxels[y].b;
+#endif
+}
+
+/*
+========================================
+getStack
+========================================
+*/
 
 VoxelStack *Voxels::getStack(int x, int z)
 {
@@ -160,12 +266,12 @@ void Voxels::setStackHeight(int x, int z, int height)
 	for (int y = 0; y < height; y++)
 	{
 		newVoxels[y].texture = 0;
-/*		newVoxels[y].xofs = 0;
-		newVoxels[y].yofs = 0;
-		newVoxels[y].zofs = 0;
+//		newVoxels[y].xofs = 0;
+//		newVoxels[y].yofs = 0;
+//		newVoxels[y].zofs = 0;
 		newVoxels[y].r = 1.0;
 		newVoxels[y].g = 1.0;
-		newVoxels[y].b = 1.0;*/
+		newVoxels[y].b = 1.0;
 	}
 
 	// Copy old voxel stack into new one
@@ -176,10 +282,10 @@ void Voxels::setStackHeight(int x, int z, int height)
 			newVoxels[y].texture = stack->voxels[y].texture;
 			/*		newVoxels[y].xofs = stack->voxels[y].xofs;
 					newVoxels[y].yofs = stack->voxels[y].yofs;
-					newVoxels[y].zofs = stack->voxels[y].zofs;
+					newVoxels[y].zofs = stack->voxels[y].zofs;*/
 					newVoxels[y].r = stack->voxels[y].r;
 					newVoxels[y].g = stack->voxels[y].g;
-					newVoxels[y].b = stack->voxels[y].b;*/
+					newVoxels[y].b = stack->voxels[y].b;
 		}
 	}
 
@@ -191,6 +297,12 @@ void Voxels::setStackHeight(int x, int z, int height)
 	stack->voxels = newVoxels;
 	stack->height = height;
 }
+
+/*
+========================================
+build
+========================================
+*/
 
 void Voxels::build(TextureManager2 *texMan)
 {
@@ -307,28 +419,39 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
+						unsigned char r = 128.0, g = 128.0, b = 128.0;
 
 						ll.x = -1.0 + (float)qstartx * voxSize;
 						ll.y = -1.0 + (float)y * voxSize + voxSize;
 						ll.z = -1.0 + (float)qendz * voxSize;
 						ll.w = 1.0;
 
+						getrgb(qstartx, y + 1, qendz, r, g, b);
+						ll.r = UCharToFloat(r); ll.g = UCharToFloat(g); ll.b = UCharToFloat(b);
+
 						lr.x = -1.0 + (float)qendx * voxSize;
 						lr.y = -1.0 + (float)y * voxSize + voxSize;
 						lr.z = -1.0 + (float)qendz * voxSize;
 						lr.w = 1.0;
+
+						getrgb(qendx, y + 1, qendz, r, g, b);
+						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)qendx * voxSize;
 						ur.y = -1.0 + (float)y * voxSize + voxSize;
 						ur.z = -1.0 + (float)qstartz * voxSize;
 						ur.w = 1.0;
 
+						getrgb(qendx, y + 1, qstartz, r, g, b);
+						ur.r = UCharToFloat(r); ur.g = UCharToFloat(g); ur.b = UCharToFloat(b);
+
 						ul.x = -1.0 + (float)qstartx * voxSize;
 						ul.y = -1.0 + (float)y * voxSize + voxSize;
 						ul.z = -1.0 + (float)qstartz * voxSize;
 						ul.w = 1.0;
 
-//						Log("addQuad y from top");
+						getrgb(qstartx, y + 1, qstartz, r, g, b);
+						ul.r = UCharToFloat(r); ul.g = UCharToFloat(g); ul.b = UCharToFloat(b);
 
 						addQuad(texture, ll, lr, ur, ul, 1, t->texSpanX, t->texSpanY);
 
@@ -415,28 +538,39 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
+                        unsigned char r = 128.0, g = 128.0, b = 128.0;
 
 						ll.x = -1.0 + (float)qstartx * voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
 						ll.z = -1.0 + (float)z * voxSize + voxSize;
 						ll.w = 1.0;
 
+						getrgb(qstartx, qstarty, z + 1, r, g, b);
+						ll.r = UCharToFloat(r); ll.g = UCharToFloat(g); ll.b = UCharToFloat(b);
+
 						lr.x = -1.0 + (float)qendx * voxSize;
 						lr.y = -1.0 + (float)qstarty * voxSize;
 						lr.z = -1.0 + (float)z * voxSize + voxSize;
 						lr.w = 1.0;
+
+						getrgb(qendx, qstarty, z + 1, r, g, b);
+						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)qendx * voxSize;
 						ur.y = -1.0 + (float)qendy * voxSize;
 						ur.z = -1.0 + (float)z * voxSize + voxSize;
 						ur.w = 1.0;
 
+						getrgb(qendx, qendy, z + 1, r, g, b);
+						ur.r = UCharToFloat(r); ur.g = UCharToFloat(g); ur.b = UCharToFloat(b);
+
 						ul.x = -1.0 + (float)qstartx * voxSize;
 						ul.y = -1.0 + (float)qendy * voxSize;
 						ul.z = -1.0 + (float)z * voxSize + voxSize;
 						ul.w = 1.0;
 
-//						Log("addQuad z from front");
+						getrgb(qstartx, qendy, z + 1, r, g, b);
+						ul.r = UCharToFloat(r); ul.g = UCharToFloat(g); ul.b = UCharToFloat(b);
 
 						addQuad(texture, ll, lr, ur, ul, 2, t->texSpanX, t->texSpanY);
 
@@ -523,26 +657,39 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
+                        unsigned char r = 128.0, g = 128.0, b = 128.0;
 
 						ll.x = -1.0 + (float)x * voxSize + voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
 						ll.z = -1.0 + (float)qendz * voxSize;
 						ll.w = 1.0;
 
+						getrgb(x + 1, qstarty, qendz, r, g, b);
+						ll.r = UCharToFloat(r); ll.g = UCharToFloat(g); ll.b = UCharToFloat(b);
+
 						lr.x = -1.0 + (float)x * voxSize + voxSize;
 						lr.y = -1.0 + (float)qstarty * voxSize;
 						lr.z = -1.0 + (float)qstartz * voxSize;
 						lr.w = 1.0;
+
+						getrgb(x + 1, qstarty, qstartz, r, g, b);
+						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)x * voxSize + voxSize;
 						ur.y = -1.0 + (float)qendy * voxSize;
 						ur.z = -1.0 + (float)qstartz * voxSize;
 						ur.w = 1.0;
 
+						getrgb(x + 1, qendy, qstartz, r, g, b);
+						ur.r = UCharToFloat(r); ur.g = UCharToFloat(g); ur.b = UCharToFloat(b);
+
 						ul.x = -1.0 + (float)x * voxSize + voxSize;
 						ul.y = -1.0 + (float)qendy * voxSize;
 						ul.z = -1.0 + (float)qendz * voxSize;
 						ul.w = 1.0;
+
+						getrgb(x + 1, qendy, qendz, r, g, b);
+						ul.r = UCharToFloat(r); ul.g = UCharToFloat(g); ul.b = UCharToFloat(b);
 
 //						Log("addQuad x from right");
 
@@ -631,28 +778,39 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
+                        unsigned char r = 128.0, g = 128.0, b = 128.0;
 
 						ll.x = -1.0 + (float)qstartx * voxSize;
 						ll.y = -1.0 + (float)y * voxSize;
 						ll.z = -1.0 + (float)qstartz * voxSize;
 						ll.w = 1.0;
 
+						getrgb(qstartx, y, qstartz, r, g, b);
+						ll.r = UCharToFloat(r); ll.g = UCharToFloat(g); ll.b = UCharToFloat(b);
+
 						lr.x = -1.0 + (float)qendx * voxSize;
 						lr.y = -1.0 + (float)y * voxSize;
 						lr.z = -1.0 + (float)qstartz * voxSize;
 						lr.w = 1.0;
+
+						getrgb(qendx, y, qstartz, r, g, b);
+						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)qendx * voxSize;
 						ur.y = -1.0 + (float)y * voxSize;
 						ur.z = -1.0 + (float)qendz * voxSize;
 						ur.w = 1.0;
 
+						getrgb(qendx, y, qendz, r, g, b);
+						ur.r = UCharToFloat(r); ur.g = UCharToFloat(g); ur.b = UCharToFloat(b);
+
 						ul.x = -1.0 + (float)qstartx * voxSize;
 						ul.y = -1.0 + (float)y * voxSize;
 						ul.z = -1.0 + (float)qendz * voxSize;
 						ul.w = 1.0;
 
-//						Log("addQuad y from bottom");
+						getrgb(qstartx, y, qendz, r, g, b);
+						ul.r = UCharToFloat(r); ul.g = UCharToFloat(g); ul.b = UCharToFloat(b);
 
 						addQuad(texture, ll, lr, ur, ul, 4, t->texSpanX, t->texSpanY);
 
@@ -739,26 +897,39 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
+                        unsigned char r = 128.0, g = 128.0, b = 128.0;
 
 						ll.x = -1.0 + (float)x * voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
 						ll.z = -1.0 + (float)qstartz * voxSize;
 						ll.w = 1.0;
 
+						getrgb(x, qstarty, qstartz, r, g, b);
+						ll.r = UCharToFloat(r); ll.g = UCharToFloat(g); ll.b = UCharToFloat(b);
+
 						lr.x = -1.0 + (float)x * voxSize;
 						lr.y = -1.0 + (float)qstarty * voxSize;
 						lr.z = -1.0 + (float)qendz * voxSize;
 						lr.w = 1.0;
+
+						getrgb(x, qstarty, qstartz, r, g, b);
+						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)x * voxSize;
 						ur.y = -1.0 + (float)qendy * voxSize;
 						ur.z = -1.0 + (float)qendz * voxSize;
 						ur.w = 1.0;
 
+						getrgb(x, qendy, qendz, r, g, b);
+						ur.r = UCharToFloat(r); ur.g = UCharToFloat(g); ur.b = UCharToFloat(b);
+
 						ul.x = -1.0 + (float)x * voxSize;
 						ul.y = -1.0 + (float)qendy * voxSize;
 						ul.z = -1.0 + (float)qstartz * voxSize;
 						ul.w = 1.0;
+
+						getrgb(x, qendy, qstartz, r, g, b);
+						ul.r = UCharToFloat(r); ul.g = UCharToFloat(g); ul.b = UCharToFloat(b);
 
 //						Log("addQuad x from left");
 
@@ -847,28 +1018,39 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
+                        unsigned char r = 128.0, g = 128.0, b = 128.0;
 
 						ll.x = -1.0 + (float)qendx * voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
 						ll.z = -1.0 + (float)z * voxSize;
 						ll.w = 1.0;
 
+						getrgb(qendx, qstarty, z, r, g, b);
+						ll.r = UCharToFloat(r); ll.g = UCharToFloat(g); ll.b = UCharToFloat(b);
+
 						lr.x = -1.0 + (float)qstartx * voxSize;
 						lr.y = -1.0 + (float)qstarty * voxSize;
 						lr.z = -1.0 + (float)z * voxSize;
 						lr.w = 1.0;
+
+						getrgb(qstartx, qstarty, z, r, g, b);
+						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)qstartx * voxSize;
 						ur.y = -1.0 + (float)qendy * voxSize;
 						ur.z = -1.0 + (float)z * voxSize;
 						ur.w = 1.0;
 
+						getrgb(qstartx, qendy, z, r, g, b);
+						ur.r = UCharToFloat(r); ur.g = UCharToFloat(g); ur.b = UCharToFloat(b);
+
 						ul.x = -1.0 + (float)qendx * voxSize;
 						ul.y = -1.0 + (float)qendy * voxSize;
 						ul.z = -1.0 + (float)z * voxSize;
 						ul.w = 1.0;
 
-//						Log("addQuad z from back");
+						getrgb(qendx, qendy, z, r, g, b);
+						ul.r = UCharToFloat(r); ul.g = UCharToFloat(g); ul.b = UCharToFloat(b);
 
 						addQuad(texture, ll, lr, ur, ul, 6, t->texSpanX, t->texSpanY);
 
@@ -888,6 +1070,12 @@ void Voxels::build(TextureManager2 *texMan)
 
 	free(doneMap);
 }
+
+/*
+========================================
+addQuad
+========================================
+*/
 
 void Voxels::addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Vertex ul, int dir, float texSpanX, float texSpanY)
 {
@@ -1007,6 +1195,12 @@ void Voxels::addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Verte
 	addVertex(texture, ul.x, ul.y, ul.z, ul.w, 0.0, 1.0);*/
 }
 
+/*
+========================================
+addVertex
+========================================
+*/
+
 void Voxels::addVertex(std::string texture, float x, float y, float z, float w, float u, float v, float nx, float ny, float nz, float r, float g, float b)
 {
 	VertexBuffer *buffer;
@@ -1059,15 +1253,25 @@ void Voxels::addVertex(std::string texture, float x, float y, float z, float w, 
 		buffer->vertices[buffer->cursor + 7] = ny;
 		buffer->vertices[buffer->cursor + 8] = nz;
 
-/*		buffer->vertices[buffer->cursor + 9] = r;
+#ifdef DO_VERTEX_LIGHTS
+		buffer->vertices[buffer->cursor + 9] = r;
 		buffer->vertices[buffer->cursor + 10] = g;
-		buffer->vertices[buffer->cursor + 11] = b;*/
+		buffer->vertices[buffer->cursor + 11] = b;
 
-		buffer->cursor += 9;
-	
+        buffer->cursor += 12;
+#else
+        buffer->cursor += 9;
+#endif
+
         buffer->size = buffer->cursor;
     }
 }
+
+/*
+========================================
+getMeshes
+========================================
+*/
 
 std::vector<Mesh*> Voxels::getMeshes()
 {
@@ -1081,6 +1285,11 @@ std::vector<Mesh*> Voxels::getMeshes()
 
 		mesh->texture = pair.first;
 		mesh->data = buf->vertices;
+#ifdef DO_VERTEX_LIGHTS
+		mesh->floatsPerCoord = 12;
+#else
+		mesh->floatsPerCoord = 9;
+#endif
 
 		// Generate VBO
 		glGenBuffers(1, (GLuint *)&mesh->vbo);
@@ -1101,6 +1310,12 @@ std::vector<Mesh*> Voxels::getMeshes()
 
 	return meshes;
 }
+
+/*
+========================================
+checkGLError
+========================================
+*/
 
 void Voxels::checkGLError(char *tag)
 {
@@ -1131,6 +1346,12 @@ void Voxels::checkGLError(char *tag)
     }
 #endif
 }
+
+/*
+========================================
+save
+========================================
+*/
 
 int Voxels::save(std::string fname, FILE *f = nullptr)
 {
@@ -1248,6 +1469,12 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 	return 1;
 //#endif
 }
+
+/*
+========================================
+load
+========================================
+*/
 
 int Voxels::load(std::string fname, FILE *f = nullptr)
 {
@@ -1415,6 +1642,12 @@ int Voxels::load(std::string fname, FILE *f = nullptr)
 //#endif
 }
 
+/*
+========================================
+calcMinMax
+========================================
+*/
+
 void Voxels::calcMinMax()
 {
     if (!g_simpleMode)
@@ -1457,6 +1690,12 @@ void Voxels::calcMinMax()
         }
     }
 }
+
+/*
+========================================
+crop
+========================================
+*/
 
 void Voxels::crop()
 {
@@ -1515,15 +1754,33 @@ void Voxels::crop()
 	stacks = cropped.stacks;
 }
 
+/*
+========================================
+setVoxelTexture
+========================================
+*/
+
 void Voxels::setVoxelTexture(int voxel, std::string texture)
 {
 	voxelTextures[voxel] = texture;
 }
 
+/*
+========================================
+getVoxelTexture
+========================================
+*/
+
 std::string Voxels::getVoxelTexture(int voxel)
 {
 	return voxelTextures[voxel];
 }
+
+/*
+========================================
+copyFrom
+========================================
+*/
 
 void Voxels::copyFrom(Voxels *source)
 {

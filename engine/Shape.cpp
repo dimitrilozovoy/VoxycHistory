@@ -25,6 +25,7 @@ SOFTWARE.
 #include "DDLUtils.hpp"
 #include "Terrain.h"
 #include "Grid.h"
+#include "VertexLights.h"
 
 void Shape::generate(std::map<std::string, std::string> *stringExtras)
 {
@@ -42,6 +43,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		mesh->vbo = Terrain::vbo;
 		mesh->numCoords = Terrain::numCoords;
 		mesh->data = Terrain::vertices;
+		mesh->floatsPerCoord = 9;
 
 		// Add mesh to shape
 		meshes.push_back(mesh);
@@ -626,6 +628,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		Mesh *mesh = new Mesh();
 		mesh->vbo = vbo;
 		mesh->numCoords = 54 * 6;
+		mesh->floatsPerCoord = 9;
 
 		// Add mesh to shape
 		meshes.push_back(mesh);
@@ -653,7 +656,13 @@ void Shape::rebuild(TextureManager2 *texMan)
 		meshes.clear();
 
 		// Rebuild meshes
+#ifdef DO_VERTEX_LIGHTS
+//        Log("rebuild shape " + name);
+		VertexLights vl;
+		vl.process(voxels, texMan);
+#endif
 		voxels->build(texMan);
+
 		meshes = voxels->getMeshes();
 	}
 

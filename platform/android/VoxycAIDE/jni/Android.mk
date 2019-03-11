@@ -59,6 +59,7 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../engine/FileIO.cpp\
              ../../../../engine/Scene.cpp\
              ../../../../engine/Physics.cpp\
+             ../../../../engine/VertexLights.cpp\
              ../../../../app/main.cpp\
              ../../../../app/VoxycApp.cpp\
              ../../../../app/LuaProgram.cpp\

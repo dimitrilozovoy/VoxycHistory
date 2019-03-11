@@ -28,6 +28,12 @@ SOFTWARE.
 #include <string>
 #include "platform.h"
 
+/*
+========================================
+init
+========================================
+*/
+
 void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseLook, TextureManager2 *texMan)
 {
 	this->mouseLook = mouseLook;
@@ -91,6 +97,12 @@ void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 }
 
+/*
+========================================
+draw
+========================================
+*/
+
 void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
 {
 	frameDump = "";
@@ -146,6 +158,12 @@ void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object
 	
 	dumpFrame = false;
 }
+
+/*
+========================================
+drawShape
+========================================
+*/
 
 void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
 {
@@ -204,12 +222,14 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 	}
 }
 
+/*
+========================================
+drawMesh
+========================================
+*/
+
 void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<int, std::string> *voxelTextures)
 {
-	int numCoords = 0;
-	int stride = 9 * sizeof(float);
-	int vbo = -1;
-	
 	// FrameDump stuff
 	if (dumpFrame)
 	{
@@ -217,19 +237,26 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 		frameDump += "Obj: " + object->toString() + "\n";
 	}
 
-//	Log(object->name);
+	int numCoords = 0;
+	int floatsPerCoord = 0;
 	
+	if (mesh != nullptr)
+		floatsPerCoord = mesh->floatsPerCoord;
+
 	if (object->shapeType == SHAPE_SPRITE)
 	{
 		numCoords = 9 * 6;
+		floatsPerCoord = 9;
 	}
 	else if (object->shapeType == SHAPE_QUAD)
 	{
 		numCoords = 9 * 6;
+		floatsPerCoord = 9;
 	}
 	else if (object->shapeType == SHAPE_BLOCK)
 	{
 		numCoords = 9 * 6 * 6;
+		floatsPerCoord = 9;
 	}
 	else if (object->shapeType == SHAPE_CUSTOM)
 	{
@@ -240,7 +267,10 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 //		Log((int)	mesh->vbo);
 		numCoords = mesh->numCoords;
 	}
-	
+
+	int stride = floatsPerCoord * sizeof(float);
+	int vbo = -1;
+
 	float width = PLAT_GetWindowWidth();
 	float height = PLAT_GetWindowHeight();
 #ifdef PLATFORM_OPENVR
@@ -514,10 +544,14 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 	{
 		setVertexAttrib(curProgram, "vTexCoords", 2, GL_FLOAT, false, stride, 4);
 		setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
+#ifdef DO_VERTEX_LIGHTS
+		if (floatsPerCoord == 12)
+			setVertexAttrib(curProgram, "vVertexLight", 3, GL_FLOAT, false, stride, 9);
+#endif
 	}
 
     // Draw
-    glDrawArrays(GL_TRIANGLES, 0, numCoords / 9);
+    glDrawArrays(GL_TRIANGLES, 0, numCoords / floatsPerCoord);
     checkGLError("glDrawArrays");
 
     // Reset
@@ -529,6 +563,12 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
     glUseProgram(0);
     checkGLError("glUseProgram");
 }
+
+/*
+========================================
+loadVertices
+========================================
+*/
 
 void ShapeRenderer::loadVertices()
 {
@@ -1215,6 +1255,12 @@ void ShapeRenderer::loadVertices()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 36 * 6, block, GL_STATIC_DRAW);
 	checkGLError("glBufferData");
 }
+
+/*
+========================================
+freeVertices
+========================================
+*/
 
 void ShapeRenderer::freeVertices()
 {

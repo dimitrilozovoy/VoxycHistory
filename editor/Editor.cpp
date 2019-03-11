@@ -30,9 +30,11 @@ SOFTWARE.
 #include "../engine/DDLUtils.hpp"
 #include "../engine/platform.h"
 
-//
-// init
-//
+/*
+========================================
+init
+========================================
+*/
 
 void Editor::init() {
 
@@ -66,9 +68,11 @@ void Editor::init() {
     g_engine2->draw(0);
 }
 
-//
-// load
-//
+/*
+========================================
+load
+========================================
+*/
 
 void Editor::load() {
     // Reset this in case we are coming back to an old instance
@@ -181,9 +185,11 @@ void Editor::load() {
 	engine->addText("debug4", "debug4", 0.0, 0.3, 0.1);*/
 }
 
-//
-// tick
-//
+/*
+========================================
+tick
+========================================
+*/
 
 void Editor::tick() {
     static int timer = 0;
@@ -673,7 +679,7 @@ void Editor::tick() {
              || engine->getExtraInt("prevbtnclicked") == 3)) {
             if (mode == EM_VOX && curVoxel > 0 && switchVoxTimer == 0) {
                 curVoxel--;
-                switchVoxTimer = 40;
+                switchVoxTimer = 5;
 				engine->setExtraInt("prevbtnclicked", 0);
             } else if (mode == EM_OBJ && selectedObj != nullptr) {
                 selectedObj->scale *= 0.99;
@@ -691,7 +697,7 @@ void Editor::tick() {
              || engine->getExtraInt("nextbtnclicked") == 3)) {
             if (mode == EM_VOX && curVoxel < 255 && switchVoxTimer == 0) {
                 curVoxel++;
-                switchVoxTimer = 40;
+                switchVoxTimer = 5;
 				engine->setExtraInt("nextbtnclicked", 0);
             } else if (mode == EM_OBJ && selectedObj != nullptr) {
                 selectedObj->scale *= 1.01;
@@ -1026,11 +1032,11 @@ void Editor::tick() {
                 putvoxx = x;
                 putvoxy = y;
                 putvoxz = z;
-            }
 
-            previewShape->needsRebuild = true;
-            refreshPreview = false;
-            refreshPreviewTimer = 0;
+                previewShape->needsRebuild = true;
+                refreshPreview = false;
+                refreshPreviewTimer = 0;
+            }
         }
 
     }
@@ -1300,6 +1306,7 @@ void Editor::tick() {
 				gui->clearListMenu();
 				gui->addListMenuOption("Set texture", "");
 				gui->addListMenuOption("Set texture span", "");
+                gui->addListMenuOption("Set texture light", "");
 				gui->showListMenuInDialog("Options", "");
 			}
 
@@ -1552,6 +1559,74 @@ void Editor::tick() {
             }
 
             // Rebuild all voxel shapes since texture spans changed
+            std::map<std::string, Object *> objs = engine->getObjects();
+
+            for (const auto &pair: objs) {
+                Object *obj = pair.second;
+
+                if (isVoxels(obj->name))
+                {
+                    if (obj->shape != nullptr)
+                        obj->shape->needsRebuild = true;
+                }
+            }
+
+            engine->setExtraInt("settexturespan_entered", 0);
+        }
+    }
+
+    // Set texture light
+
+    if (engine->getExtraStr("listmenuoptionclicked") == "Set texture light") {
+
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            TextureManager2 *texMan = engine->getTextureManager();
+            Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
+
+            if (!gui->nonNativeWidgetsShown())
+            {
+                gui->clearDialog();
+                gui->addDialogPart("radius", FloatToStr(tex->lightRadius), "lightradius");
+                gui->addDialogPart("r", FloatToStr(tex->lightr), "lightr");
+                gui->addDialogPart("g", FloatToStr(tex->lightg), "lightg");
+                gui->addDialogPart("b", FloatToStr(tex->lightb), "lightb");
+                gui->showDialog("Set Texture Light", "OK", "Cancel", "settexturelight_entered");
+            }
+        }
+
+        engine->setExtraStr("listmenuoptionclicked", "");
+    }
+
+    if (engine->getExtraInt("settexturelight_entered") == 1)
+    {
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            TextureManager2 *texMan = engine->getTextureManager();
+            Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
+
+            float radius = PLAT_stof(engine->getExtraStr("lightradius"), 0.0f);
+            float r = PLAT_stof(engine->getExtraStr("lightr"), 1.0f);
+            float g = PLAT_stof(engine->getExtraStr("lightg"), 1.0f);
+            float b = PLAT_stof(engine->getExtraStr("lightb"), 1.0f);
+
+            if (tex != nullptr) {
+                if (radius == 0.0 || (r == 1.0 && g == 1.0 && b == 1.0))
+                    tex->lightEnabled = false;
+                else
+                    tex->lightEnabled = true;
+
+                tex->lightRadius = radius;
+                tex->lightr = r;
+                tex->lightg = g;
+                tex->lightb = b;
+            }
+
+            // Rebuild all voxel shapes since texture lights changed
             std::map<std::string, Object *> objs = engine->getObjects();
 
             for (const auto &pair: objs) {
@@ -1864,9 +1939,11 @@ void Editor::tick() {
     }
 }
 
-//
-// tickGuides
-//
+/*
+========================================
+tickGuides
+========================================
+*/
 
 void Editor::tickGuides() {
 
@@ -2045,6 +2122,12 @@ void Editor::tickGuides() {
     }
 }
 
+/*
+========================================
+isVoxels
+========================================
+*/
+
 bool Editor::isVoxels(std::string objName) {
     Object *obj = engine->findObj(objName);
 
@@ -2062,6 +2145,12 @@ bool Editor::isVoxels(std::string objName) {
     return false;
 }
 
+/*
+========================================
+ray
+========================================
+*/
+
 void Editor::ray(Object *src, float dist, float &x, float &y, float &z) {
     Object dst;
 
@@ -2077,6 +2166,12 @@ void Editor::ray(Object *src, float dist, float &x, float &y, float &z) {
     y = dst.position.y;
     z = dst.position.z;
 }
+
+/*
+========================================
+setVoxPreviewTextures
+========================================
+*/
 
 void Editor::setVoxPreviewTextures() {
     if (curVoxels == nullptr)
@@ -2100,6 +2195,12 @@ void Editor::setVoxPreviewTextures() {
     voxPreview->shape->needsRebuild = true;
 }
 
+/*
+========================================
+hideSystemObjects
+========================================
+*/
+
 void Editor::hideSystemObjects() {
     for (const auto &pair: engine->getObjects()) {
         Object *obj = pair.second;
@@ -2108,6 +2209,12 @@ void Editor::hideSystemObjects() {
             obj->visible = false;
     }
 }
+
+/*
+========================================
+showSystemObjects
+========================================
+*/
 
 void Editor::showSystemObjects() {
     for (const auto &pair: engine->getObjects()) {
@@ -2118,11 +2225,23 @@ void Editor::showSystemObjects() {
     }
 }
 
+/*
+========================================
+enterScreenShotMode
+========================================
+*/
+
 void Editor::enterScreenShotMode() {
     screenshotMode = true;
     engine->getGUI()->hide();
     hideSystemObjects();
 }
+
+/*
+========================================
+exitScreenShotMode
+========================================
+*/
 
 void Editor::exitScreenShotMode() {
 
@@ -2132,6 +2251,12 @@ void Editor::exitScreenShotMode() {
         showSystemObjects();
     }
 }
+
+/*
+========================================
+processHWButtons
+========================================
+*/
 
 void Editor::processHWButtons()
 {
@@ -2308,6 +2433,12 @@ void Editor::processHWButtons()
 		ctrl->setEnabled(true);
 }
 
+/*
+========================================
+btn2key
+========================================
+*/
+
 int Editor::btn2key(int btn)
 {
 #ifdef PLATFORM_WINDOWS
@@ -2326,6 +2457,12 @@ int Editor::btn2key(int btn)
 	return 0;
 }
 
+/*
+========================================
+processExtraKeys
+========================================
+*/
+
 void Editor::processExtraKeys()
 {
 #ifdef PLATFORM_WINDOWS
@@ -2340,6 +2477,12 @@ void Editor::processExtraKeys()
 		player->MoveBackward(0.4);
 #endif
 }
+
+/*
+========================================
+worldToVoxelCoords
+========================================
+*/
 
 void Editor::worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, int &z)
 {
@@ -2362,6 +2505,12 @@ void Editor::worldToVoxelCoords(float wx, float wy, float wz, int &x, int &y, in
 	y = (int)((float)size * ry);
 	z = (int)((float)size * rz);
 }
+
+/*
+========================================
+verifySourceDir
+========================================
+*/
 
 bool Editor::verifySourceDir(std::string filename)
 {

@@ -27,16 +27,19 @@ SOFTWARE.
 #include <vector>
 #include "../thirdparty/glm/glm.hpp"
 #include <map>
+#include "Globals.hpp"
 #include "Mesh.h"
 #include "TextureManager2.h"
 
 typedef struct Voxel
 {
 	char texture;
-/*  char r;
-	char g;
-	char b;
-    char xofs;
+#ifdef DO_VERTEX_LIGHTS
+    unsigned char r;
+	unsigned char g;
+	unsigned char b;
+#endif
+/*    char xofs;
 	char yofs;
 	char zofs;*/
 } Voxel;
@@ -77,6 +80,8 @@ public:
     void init(int size, std::map<std::string, std::string> *extraStrings);
 	void set(int x, int y, int z, char value);
 	char get(int x, int y, int z);
+	void setrgb(int x, int y, int z, unsigned char r, unsigned char g, unsigned char b);
+	void getrgb(int x, int y, int z, unsigned char &r, unsigned char &g, unsigned char &b);
 	VoxelStack *getStack(int x, int z);
 	void setStackHeight(int x, int z, int height);
 	void build(TextureManager2 *texMan);

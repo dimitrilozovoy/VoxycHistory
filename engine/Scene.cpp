@@ -91,6 +91,11 @@ void Scene::save(std::string fname, std::map<std::string, Object*> &objects, std
         addKV("name", tex->name);
         addKV("texSpanX", tex->texSpanX);
         addKV("texSpanY", tex->texSpanX);
+		addKV("lightEnabled", tex->lightEnabled);
+		addKV("lightRadius", tex->lightRadius);
+		addKV("lightr", tex->lightr);
+		addKV("lightg", tex->lightg);
+		addKV("lightb", tex->lightb);
         writeKVSet();
     }
 
@@ -166,6 +171,11 @@ void Scene::load(std::string fname, std::map<std::string, Object*> &objects, std
 
 		tex->texSpanX = getKVFloat("texSpanX");
         tex->texSpanY = getKVFloat("texSpanY");
+        tex->lightEnabled = getKVBool("lightEnabled");
+        tex->lightRadius = getKVFloat("lightradius");
+        tex->lightr = getKVFloat("lightr");
+        tex->lightg = getKVFloat("lightg");
+        tex->lightb = getKVFloat("lightb");
     }
 
     closeFile();

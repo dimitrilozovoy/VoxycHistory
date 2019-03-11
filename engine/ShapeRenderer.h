@@ -369,8 +369,8 @@ private:
     "uniform vec2 vTexSpan;" \
     "attribute vec3 vNormal;" \
     "varying vec3 vNormalOut;" \
-	"attribute vec4 vVertexLight; " \
-    "varying vec4 vVertexLightOut; " \
+	"attribute vec3 vVertexLight; " \
+    "varying vec3 vVertexLightOut; " \
     "uniform mat4 mvMatrix; " \
     "uniform mat4 projectionMatrix; " \
 
@@ -381,6 +381,7 @@ private:
 	"  vTexCoordsOut = vTexCoords * vTexSpan; " \
 	"  posOut = gl_Position; " \
 	"  vNormalOut = vNormal; " \
+	"  vVertexLightOut = vVertexLight; " \
 
     "  vec4 posBeforeProj = mvMatrix * vPosition;" \
 	"  distToCamera = -posBeforeProj.z; " \
@@ -397,6 +398,7 @@ private:
 	"varying lowp vec2 vTexCoordsOut; " \
 	"varying lowp vec4 posOut; " \
 	"uniform lowp float useTexture; " \
+	"varying lowp vec3 vVertexLightOut; " \
 
     "uniform lowp float fadeNear; " \
 	"uniform lowp float fadeFar; " \
@@ -419,11 +421,11 @@ private:
 
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0); " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      gl_FragColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      gl_FragColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0); " \
 		"   }" \
 		"}\n";
 

@@ -47,6 +47,7 @@ typedef struct Mesh
     int numIndexes = 0;
     int numPolys = 0;
 	int numCoords = 0;
+	int floatsPerCoord = 0;
 	glm::vec4 color;
 	std::string texture;
 	int glTexID = -1;

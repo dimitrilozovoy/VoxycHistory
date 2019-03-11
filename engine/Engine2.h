@@ -58,6 +58,7 @@ SOFTWARE.
 #include "Batcher.h"
 #include "Scene.h"
 #include "Physics.h"
+#include "VertexLights.h"
 
 class Engine2
 {
@@ -269,6 +270,7 @@ private:
 	ShadowMap shadowMap;
 	Batcher batcher;
 	Physics physics;
+	VertexLights vertexLights;
 
     std::map<std::string, Object*> objects;
     std::map<std::string, Shape*> shapes;
