@@ -43,7 +43,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		mesh->vbo = Terrain::vbo;
 		mesh->numCoords = Terrain::numCoords;
 		mesh->data = Terrain::vertices;
-		mesh->floatsPerCoord = 9;
+		mesh->floatsPerCoord = 12;
 
 		// Add mesh to shape
 		meshes.push_back(mesh);
@@ -61,8 +61,8 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		checkGLError("glBindBuffer");
 
-		float block[54 * 6];
-		numCoords = 54 * 6;
+		float block[72 * 6];
+		numCoords = 72 * 6;
 
 		// FRONT
 
@@ -89,74 +89,98 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		block[7] = 0.0f;
 		block[8] = 1.0f;
 
-		// Vertex 1
-		block[9] = -1.0f;
-		block[10] = -1.0f;
-		block[11] = 1.0f;
-		block[12] = 1.0f;
+        block[9] = 1.0f;
+        block[10] = 1.0f;
+        block[11] = 1.0f;
 
-		block[13] = 0.0f;
+        // Vertex 1
+		block[12] = -1.0f;
+		block[13] = -1.0f;
 		block[14] = 1.0f;
+		block[15] = 1.0f;
 
-		block[15] = 0.0f;
 		block[16] = 0.0f;
 		block[17] = 1.0f;
 
-		// Vertex 2
-		block[18] = 1.0f;
-		block[19] = -1.0f;
+		block[18] = 0.0f;
+		block[19] = 0.0f;
 		block[20] = 1.0f;
-		block[21] = 1.0f;
 
-		block[22] = 1.0f;
-		block[23] = 1.0f;
+        block[21] = 1.0f;
+        block[22] = 1.0f;
+        block[23] = 1.0f;
 
-		block[24] = 0.0f;
-		block[25] = 0.0f;
+		// Vertex 2
+		block[24] = 1.0f;
+		block[25] = -1.0f;
 		block[26] = 1.0f;
+		block[27] = 1.0f;
+
+		block[28] = 1.0f;
+		block[29] = 1.0f;
+
+		block[30] = 0.0f;
+		block[31] = 0.0f;
+		block[32] = 1.0f;
+
+        block[33] = 1.0f;
+        block[34] = 1.0f;
+        block[35] = 1.0f;
 
 		// Triangle 2
 
 		// Vertex 3
-		block[27] = 1.0f;
-		block[28] = -1.0f;
-		block[29] = 1.0f;
-		block[30] = 1.0f;
-
-		block[31] = 1.0f;
-		block[32] = 1.0f;
-
-		block[33] = 0.0f;
-		block[34] = 0.0f;
-		block[35] = 1.0f;
-
-		// Vertex 4
 		block[36] = 1.0f;
-		block[37] = 1.0f;
+		block[37] = -1.0f;
 		block[38] = 1.0f;
 		block[39] = 1.0f;
 
 		block[40] = 1.0f;
-		block[41] = 0.0f;
+		block[41] = 1.0f;
 
 		block[42] = 0.0f;
 		block[43] = 0.0f;
 		block[44] = 1.0f;
 
-		// Vertex 5
-		block[45] = -1.0f;
-		block[46] = 1.0f;
-		block[47] = 1.0f;
+        block[45] = 1.0f;
+        block[46] = 1.0f;
+        block[47] = 1.0f;
+
+		// Vertex 4
 		block[48] = 1.0f;
+		block[49] = 1.0f;
+		block[50] = 1.0f;
+		block[51] = 1.0f;
 
-		block[49] = 0.0f;
-		block[50] = 0.0f;
+		block[52] = 1.0f;
+		block[53] = 0.0f;
 
-		block[51] = 0.0f;
-		block[52] = 0.0f;
-		block[53] = 1.0f;
+		block[54] = 0.0f;
+		block[55] = 0.0f;
+		block[56] = 1.0f;
 
-		// RIGHT SIDE
+        block[57] = 1.0f;
+        block[58] = 1.0f;
+        block[59] = 1.0f;
+
+		// Vertex 5
+		block[60] = -1.0f;
+		block[61] = 1.0f;
+		block[62] = 1.0f;
+		block[63] = 1.0f;
+
+		block[64] = 0.0f;
+		block[65] = 0.0f;
+
+		block[66] = 0.0f;
+		block[67] = 0.0f;
+		block[68] = 1.0f;
+
+        block[69] = 1.0f;
+        block[70] = 1.0f;
+        block[71] = 1.0f;
+
+        // RIGHT SIDE
 
 		//   ______
 		// |\\5   4|
@@ -167,7 +191,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		// |1__2_\\|
 
 		// Triangle 1
-		int o = 54;
+		int o = 72;
 
 		// Vertex 0
 		block[o + 0] = 1.0f;
@@ -182,72 +206,96 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		block[o + 7] = 0.0f;
 		block[o + 8] = 0.0f;
 
+        block[o + 9] = 1.0f;
+        block[o + 10] = 1.0f;
+        block[o + 11] = 1.0f;
+
 		// Vertex 1
-		block[o + 9] = 1.0f;
-		block[o + 10] = -1.0f;
-		block[o + 11] = 1.0f;
 		block[o + 12] = 1.0f;
-
-		block[o + 13] = 0.0f;
+		block[o + 13] = -1.0f;
 		block[o + 14] = 1.0f;
-
 		block[o + 15] = 1.0f;
+
 		block[o + 16] = 0.0f;
-		block[o + 17] = 0.0f;
+		block[o + 17] = 1.0f;
+
+		block[o + 18] = 1.0f;
+		block[o + 19] = 0.0f;
+		block[o + 20] = 0.0f;
+
+        block[o + 21] = 1.0f;
+        block[o + 22] = 1.0f;
+        block[o + 23] = 1.0f;
 
 		// Vertex 2
-		block[o + 18] = 1.0f;
-		block[o + 19] = -1.0f;
-		block[o + 20] = -1.0f;
-		block[o + 21] = 1.0f;
-
-		block[o + 22] = 1.0f;
-		block[o + 23] = 1.0f;
-
 		block[o + 24] = 1.0f;
-		block[o + 25] = 0.0f;
-		block[o + 26] = 0.0f;
+		block[o + 25] = -1.0f;
+		block[o + 26] = -1.0f;
+		block[o + 27] = 1.0f;
+
+		block[o + 28] = 1.0f;
+		block[o + 29] = 1.0f;
+
+		block[o + 30] = 1.0f;
+		block[o + 31] = 0.0f;
+		block[o + 32] = 0.0f;
+
+        block[o + 33] = 1.0f;
+        block[o + 34] = 1.0f;
+        block[o + 35] = 1.0f;
 
 		// Triangle 2
 
 		// Vertex 3
-		block[o + 27] = 1.0f;
-		block[o + 28] = -1.0f;
-		block[o + 29] = -1.0f;
-		block[o + 30] = 1.0f;
-
-		block[o + 31] = 1.0f;
-		block[o + 32] = 1.0f;
-
-		block[o + 33] = 1.0f;
-		block[o + 34] = 0.0f;
-		block[o + 35] = 0.0f;
-
-		// Vertex 4
 		block[o + 36] = 1.0f;
-		block[o + 37] = 1.0f;
+		block[o + 37] = -1.0f;
 		block[o + 38] = -1.0f;
 		block[o + 39] = 1.0f;
 
 		block[o + 40] = 1.0f;
-		block[o + 41] = 0.0f;
+		block[o + 41] = 1.0f;
 
 		block[o + 42] = 1.0f;
 		block[o + 43] = 0.0f;
 		block[o + 44] = 0.0f;
 
-		// Vertex 5
-		block[o + 45] = 1.0f;
-		block[o + 46] = 1.0f;
-		block[o + 47] = 1.0f;
+        block[o + 45] = 1.0f;
+        block[o + 46] = 1.0f;
+        block[o + 47] = 1.0f;
+
+		// Vertex 4
 		block[o + 48] = 1.0f;
-
-		block[o + 49] = 0.0f;
-		block[o + 50] = 0.0f;
-
+		block[o + 49] = 1.0f;
+		block[o + 50] = -1.0f;
 		block[o + 51] = 1.0f;
-		block[o + 52] = 0.0f;
+
+		block[o + 52] = 1.0f;
 		block[o + 53] = 0.0f;
+
+		block[o + 54] = 1.0f;
+		block[o + 55] = 0.0f;
+		block[o + 56] = 0.0f;
+
+        block[o + 57] = 1.0f;
+        block[o + 58] = 1.0f;
+        block[o + 59] = 1.0f;
+
+		// Vertex 5
+		block[o + 60] = 1.0f;
+		block[o + 61] = 1.0f;
+		block[o + 62] = 1.0f;
+		block[o + 63] = 1.0f;
+
+		block[o + 64] = 0.0f;
+		block[o + 65] = 0.0f;
+
+		block[o + 66] = 1.0f;
+		block[o + 67] = 0.0f;
+		block[o + 68] = 0.0f;
+
+        block[o + 69] = 1.0f;
+        block[o + 70] = 1.0f;
+        block[o + 71] = 1.0f;
 
 		// BACK SIDE
 
@@ -260,7 +308,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		// |1__2_\\|
 
 		// Triangle 1
-		o = 54 * 2;
+		o = 72 * 2;
 
 		// Vertex 0
 		block[o + 0] = 1.0f;
@@ -275,72 +323,96 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		block[o + 7] = 0.0f;
 		block[o + 8] = -1.0f;
 
+        block[o + 9] = 1.0f;
+        block[o + 10] = 1.0f;
+        block[o + 11] = 1.0f;
+
 		// Vertex 1
-		block[o + 9] = 1.0f;
-		block[o + 10] = -1.0f;
-		block[o + 11] = -1.0f;
 		block[o + 12] = 1.0f;
+		block[o + 13] = -1.0f;
+		block[o + 14] = -1.0f;
+		block[o + 15] = 1.0f;
 
-		block[o + 13] = 0.0f;
-		block[o + 14] = 1.0f;
-
-		block[o + 15] = 0.0f;
 		block[o + 16] = 0.0f;
-		block[o + 17] = -1.0f;
+		block[o + 17] = 1.0f;
+
+		block[o + 18] = 0.0f;
+		block[o + 19] = 0.0f;
+		block[o + 20] = -1.0f;
+
+        block[o + 21] = 1.0f;
+        block[o + 22] = 1.0f;
+        block[o + 23] = 1.0f;
 
 		// Vertex 2
-		block[o + 18] = -1.0f;
-		block[o + 19] = -1.0f;
-		block[o + 20] = -1.0f;
-		block[o + 21] = 1.0f;
-
-		block[o + 22] = 1.0f;
-		block[o + 23] = 1.0f;
-
-		block[o + 24] = 0.0f;
-		block[o + 25] = 0.0f;
+		block[o + 24] = -1.0f;
+		block[o + 25] = -1.0f;
 		block[o + 26] = -1.0f;
+		block[o + 27] = 1.0f;
+
+		block[o + 28] = 1.0f;
+		block[o + 29] = 1.0f;
+
+		block[o + 30] = 0.0f;
+		block[o + 31] = 0.0f;
+		block[o + 32] = -1.0f;
+
+        block[o + 33] = 1.0f;
+        block[o + 34] = 1.0f;
+        block[o + 35] = 1.0f;
 
 		// Triangle 2
 
 		// Vertex 3
-		block[o + 27] = -1.0f;
-		block[o + 28] = -1.0f;
-		block[o + 29] = -1.0f;
-		block[o + 30] = 1.0f;
-
-		block[o + 31] = 1.0f;
-		block[o + 32] = 1.0f;
-
-		block[o + 33] = 0.0f;
-		block[o + 34] = 0.0f;
-		block[o + 35] = -1.0f;
-
-		// Vertex 4
 		block[o + 36] = -1.0f;
-		block[o + 37] = 1.0f;
+		block[o + 37] = -1.0f;
 		block[o + 38] = -1.0f;
 		block[o + 39] = 1.0f;
 
 		block[o + 40] = 1.0f;
-		block[o + 41] = 0.0f;
+		block[o + 41] = 1.0f;
 
 		block[o + 42] = 0.0f;
 		block[o + 43] = 0.0f;
 		block[o + 44] = -1.0f;
 
+        block[o + 45] = 1.0f;
+        block[o + 46] = 1.0f;
+        block[o + 47] = 1.0f;
+
+		// Vertex 4
+		block[o + 48] = -1.0f;
+		block[o + 49] = 1.0f;
+		block[o + 50] = -1.0f;
+		block[o + 51] = 1.0f;
+
+		block[o + 52] = 1.0f;
+		block[o + 53] = 0.0f;
+
+		block[o + 54] = 0.0f;
+		block[o + 55] = 0.0f;
+		block[o + 56] = -1.0f;
+
+        block[o + 57] = 1.0f;
+        block[o + 58] = 1.0f;
+        block[o + 59] = 1.0f;
+
 		// Vertex 5
-		block[o + 45] = 1.0f;
-		block[o + 46] = 1.0f;
-		block[o + 47] = -1.0f;
-		block[o + 48] = 1.0f;
+		block[o + 60] = 1.0f;
+		block[o + 61] = 1.0f;
+		block[o + 62] = -1.0f;
+		block[o + 63] = 1.0f;
 
-		block[o + 49] = 0.0f;
-		block[o + 50] = 0.0f;
+		block[o + 64] = 0.0f;
+		block[o + 65] = 0.0f;
 
-		block[o + 51] = 0.0f;
-		block[o + 52] = 0.0f;
-		block[o + 53] = -1.0f;
+		block[o + 66] = 0.0f;
+		block[o + 67] = 0.0f;
+		block[o + 68] = -1.0f;
+
+        block[o + 69] = 1.0f;
+        block[o + 70] = 1.0f;
+        block[o + 71] = 1.0f;
 
 		// LEFT SIDE
 
@@ -353,7 +425,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		// |1__2_\\|
 
 		// Triangle 1
-		o = 54 * 3;
+		o = 72 * 3;
 
 		// Vertex 0
 		block[o + 0] = -1.0f;
@@ -368,72 +440,96 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		block[o + 7] = 0.0f;
 		block[o + 8] = 0.0f;
 
-		// Vertex 1
-		block[o + 9] = -1.0f;
-		block[o + 10] = -1.0f;
-		block[o + 11] = -1.0f;
-		block[o + 12] = 1.0f;
+        block[o + 9] = 1.0f;
+        block[o + 10] = 1.0f;
+        block[o + 11] = 1.0f;
 
-		block[o + 13] = 0.0f;
-		block[o + 14] = 1.0f;
+        // Vertex 1
+		block[o + 12] = -1.0f;
+		block[o + 13] = -1.0f;
+		block[o + 14] = -1.0f;
+		block[o + 15] = 1.0f;
 
-		block[o + 15] = -1.0f;
 		block[o + 16] = 0.0f;
-		block[o + 17] = 0.0f;
+		block[o + 17] = 1.0f;
+
+		block[o + 18] = -1.0f;
+		block[o + 19] = 0.0f;
+		block[o + 20] = 0.0f;
+
+        block[o + 21] = 1.0f;
+        block[o + 22] = 1.0f;
+        block[o + 23] = 1.0f;
 
 		// Vertex 2
-		block[o + 18] = -1.0f;
-		block[o + 19] = -1.0f;
-		block[o + 20] = 1.0f;
-		block[o + 21] = 1.0f;
-
-		block[o + 22] = 1.0f;
-		block[o + 23] = 1.0f;
-
 		block[o + 24] = -1.0f;
-		block[o + 25] = 0.0f;
-		block[o + 26] = 0.0f;
+		block[o + 25] = -1.0f;
+		block[o + 26] = 1.0f;
+		block[o + 27] = 1.0f;
+
+		block[o + 28] = 1.0f;
+		block[o + 29] = 1.0f;
+
+		block[o + 30] = -1.0f;
+		block[o + 31] = 0.0f;
+		block[o + 32] = 0.0f;
+
+        block[o + 33] = 1.0f;
+        block[o + 34] = 1.0f;
+        block[o + 35] = 1.0f;
 
 		// Triangle 2
 
 		// Vertex 3
-		block[o + 27] = -1.0f;
-		block[o + 28] = -1.0f;
-		block[o + 29] = 1.0f;
-		block[o + 30] = 1.0f;
-
-		block[o + 31] = 1.0f;
-		block[o + 32] = 1.0f;
-
-		block[o + 33] = -1.0f;
-		block[o + 34] = 0.0f;
-		block[o + 35] = 0.0f;
-
-		// Vertex 4
 		block[o + 36] = -1.0f;
-		block[o + 37] = 1.0f;
+		block[o + 37] = -1.0f;
 		block[o + 38] = 1.0f;
 		block[o + 39] = 1.0f;
 
 		block[o + 40] = 1.0f;
-		block[o + 41] = 0.0f;
+		block[o + 41] = 1.0f;
 
 		block[o + 42] = -1.0f;
 		block[o + 43] = 0.0f;
 		block[o + 44] = 0.0f;
 
-		// Vertex 5
-		block[o + 45] = -1.0f;
-		block[o + 46] = 1.0f;
-		block[o + 47] = -1.0f;
-		block[o + 48] = 1.0f;
+        block[o + 45] = 1.0f;
+        block[o + 46] = 1.0f;
+        block[o + 47] = 1.0f;
 
-		block[o + 49] = 0.0f;
-		block[o + 50] = 0.0f;
+		// Vertex 4
+		block[o + 48] = -1.0f;
+		block[o + 49] = 1.0f;
+		block[o + 50] = 1.0f;
+		block[o + 51] = 1.0f;
 
-		block[o + 51] = -1.0f;
-		block[o + 52] = 0.0f;
+		block[o + 52] = 1.0f;
 		block[o + 53] = 0.0f;
+
+		block[o + 54] = -1.0f;
+		block[o + 55] = 0.0f;
+		block[o + 56] = 0.0f;
+
+        block[o + 57] = 1.0f;
+        block[o + 58] = 1.0f;
+        block[o + 59] = 1.0f;
+
+        // Vertex 5
+		block[o + 60] = -1.0f;
+		block[o + 61] = 1.0f;
+		block[o + 62] = -1.0f;
+		block[o + 63] = 1.0f;
+
+		block[o + 64] = 0.0f;
+		block[o + 65] = 0.0f;
+
+		block[o + 66] = -1.0f;
+		block[o + 67] = 0.0f;
+		block[o + 68] = 0.0f;
+
+        block[o + 69] = 1.0f;
+        block[o + 70] = 1.0f;
+        block[o + 71] = 1.0f;
 
 		// BOTTOM SIDE
 
@@ -446,7 +542,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		// |1__2_\\|
 
 		// Triangle 1
-		o = 54 * 4;
+		o = 72 * 4;
 
 		// Vertex 0
 		block[o + 0] = -1.0f;
@@ -461,72 +557,96 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		block[o + 7] = -1.0f;
 		block[o + 8] = 0.0f;
 
-		// Vertex 1
-		block[o + 9] = -1.0f;
-		block[o + 10] = -1.0f;
-		block[o + 11] = -1.0f;
-		block[o + 12] = 1.0f;
+        block[o + 9] = 1.0f;
+        block[o + 10] = 1.0f;
+        block[o + 11] = 1.0f;
 
-		block[o + 13] = 0.0f;
-		block[o + 14] = 1.0f;
+        // Vertex 1
+		block[o + 12] = -1.0f;
+		block[o + 13] = -1.0f;
+		block[o + 14] = -1.0f;
+		block[o + 15] = 1.0f;
 
-		block[o + 15] = 0.0f;
-		block[o + 16] = -1.0f;
-		block[o + 17] = 0.0f;
+		block[o + 16] = 0.0f;
+		block[o + 17] = 1.0f;
+
+		block[o + 18] = 0.0f;
+		block[o + 19] = -1.0f;
+		block[o + 20] = 0.0f;
+
+        block[o + 21] = 1.0f;
+        block[o + 22] = 1.0f;
+        block[o + 23] = 1.0f;
 
 		// Vertex 2
-		block[o + 18] = 1.0f;
-		block[o + 19] = -1.0f;
-		block[o + 20] = -1.0f;
-		block[o + 21] = 1.0f;
-
-		block[o + 22] = 1.0f;
-		block[o + 23] = 1.0f;
-
-		block[o + 24] = 0.0f;
+		block[o + 24] = 1.0f;
 		block[o + 25] = -1.0f;
-		block[o + 26] = 0.0f;
+		block[o + 26] = -1.0f;
+		block[o + 27] = 1.0f;
+
+		block[o + 28] = 1.0f;
+		block[o + 29] = 1.0f;
+
+		block[o + 30] = 0.0f;
+		block[o + 31] = -1.0f;
+		block[o + 32] = 0.0f;
+
+        block[o + 33] = 1.0f;
+        block[o + 34] = 1.0f;
+        block[o + 35] = 1.0f;
 
 		// Triangle 2
 
 		// Vertex 3
-		block[o + 27] = 1.0f;
-		block[o + 28] = -1.0f;
-		block[o + 29] = -1.0f;
-		block[o + 30] = 1.0f;
-
-		block[o + 31] = 1.0f;
-		block[o + 32] = 1.0f;
-
-		block[o + 33] = 0.0f;
-		block[o + 34] = -1.0f;
-		block[o + 35] = 0.0f;
-
-		// Vertex 4
 		block[o + 36] = 1.0f;
 		block[o + 37] = -1.0f;
-		block[o + 38] = 1.0f;
+		block[o + 38] = -1.0f;
 		block[o + 39] = 1.0f;
 
 		block[o + 40] = 1.0f;
-		block[o + 41] = 0.0f;
+		block[o + 41] = 1.0f;
 
 		block[o + 42] = 0.0f;
 		block[o + 43] = -1.0f;
 		block[o + 44] = 0.0f;
 
-		// Vertex 5
-		block[o + 45] = -1.0f;
-		block[o + 46] = -1.0f;
-		block[o + 47] = 1.0f;
+        block[o + 45] = 1.0f;
+        block[o + 46] = 1.0f;
+        block[o + 47] = 1.0f;
+
+		// Vertex 4
 		block[o + 48] = 1.0f;
+		block[o + 49] = -1.0f;
+		block[o + 50] = 1.0f;
+		block[o + 51] = 1.0f;
 
-		block[o + 49] = 0.0f;
-		block[o + 50] = 0.0f;
-
-		block[o + 51] = 0.0f;
-		block[o + 52] = -1.0f;
+		block[o + 52] = 1.0f;
 		block[o + 53] = 0.0f;
+
+		block[o + 54] = 0.0f;
+		block[o + 55] = -1.0f;
+		block[o + 56] = 0.0f;
+
+        block[o + 57] = 1.0f;
+        block[o + 58] = 1.0f;
+        block[o + 59] = 1.0f;
+
+        // Vertex 5
+		block[o + 60] = -1.0f;
+		block[o + 61] = -1.0f;
+		block[o + 62] = 1.0f;
+		block[o + 63] = 1.0f;
+
+		block[o + 64] = 0.0f;
+		block[o + 65] = 0.0f;
+
+		block[o + 66] = 0.0f;
+		block[o + 67] = -1.0f;
+		block[o + 68] = 0.0f;
+
+        block[o + 69] = 1.0f;
+        block[o + 70] = 1.0f;
+        block[o + 71] = 1.0f;
 
 		// TOP SIDE
 
@@ -539,7 +659,7 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		// |1__2_\\|
 
 		// Triangle 1
-		o = 54 * 5;
+		o = 72 * 5;
 
 		// Vertex 0
 		block[o + 0] = -1.0f;
@@ -554,81 +674,105 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		block[o + 7] = 1.0f;
 		block[o + 8] = 0.0f;
 
-		// Vertex 1
-		block[o + 9] = -1.0f;
-		block[o + 10] = 1.0f;
-		block[o + 11] = 1.0f;
-		block[o + 12] = 1.0f;
+        block[o + 9] = 1.0f;
+        block[o + 10] = 1.0f;
+        block[o + 11] = 1.0f;
 
-		block[o + 13] = 0.0f;
+        // Vertex 1
+		block[o + 12] = -1.0f;
+		block[o + 13] = 1.0f;
 		block[o + 14] = 1.0f;
+		block[o + 15] = 1.0f;
 
-		block[o + 15] = 0.0f;
-		block[o + 16] = 1.0f;
-		block[o + 17] = 0.0f;
+		block[o + 16] = 0.0f;
+		block[o + 17] = 1.0f;
 
-		// Vertex 2
-		block[o + 18] = 1.0f;
+		block[o + 18] = 0.0f;
 		block[o + 19] = 1.0f;
-		block[o + 20] = 1.0f;
-		block[o + 21] = 1.0f;
+		block[o + 20] = 0.0f;
 
-		block[o + 22] = 1.0f;
-		block[o + 23] = 1.0f;
+        block[o + 21] = 1.0f;
+        block[o + 22] = 1.0f;
+        block[o + 23] = 1.0f;
 
-		block[o + 24] = 0.0f;
+        // Vertex 2
+		block[o + 24] = 1.0f;
 		block[o + 25] = 1.0f;
-		block[o + 26] = 0.0f;
-
-		// Triangle 2
-
-		// Vertex 3
+		block[o + 26] = 1.0f;
 		block[o + 27] = 1.0f;
+
 		block[o + 28] = 1.0f;
 		block[o + 29] = 1.0f;
-		block[o + 30] = 1.0f;
 
+		block[o + 30] = 0.0f;
 		block[o + 31] = 1.0f;
-		block[o + 32] = 1.0f;
+		block[o + 32] = 0.0f;
 
-		block[o + 33] = 0.0f;
-		block[o + 34] = 1.0f;
-		block[o + 35] = 0.0f;
+        block[o + 33] = 1.0f;
+        block[o + 34] = 1.0f;
+        block[o + 35] = 1.0f;
 
-		// Vertex 4
+        // Triangle 2
+
+		// Vertex 3
 		block[o + 36] = 1.0f;
 		block[o + 37] = 1.0f;
-		block[o + 38] = -1.0f;
+		block[o + 38] = 1.0f;
 		block[o + 39] = 1.0f;
 
 		block[o + 40] = 1.0f;
-		block[o + 41] = 0.0f;
+		block[o + 41] = 1.0f;
 
 		block[o + 42] = 0.0f;
 		block[o + 43] = 1.0f;
 		block[o + 44] = 0.0f;
 
-		// Vertex 5
-		block[o + 45] = -1.0f;
-		block[o + 46] = 1.0f;
-		block[o + 47] = -1.0f;
+        block[o + 45] = 1.0f;
+        block[o + 46] = 1.0f;
+        block[o + 47] = 1.0f;
+
+		// Vertex 4
 		block[o + 48] = 1.0f;
+		block[o + 49] = 1.0f;
+		block[o + 50] = -1.0f;
+		block[o + 51] = 1.0f;
 
-		block[o + 49] = 0.0f;
-		block[o + 50] = 0.0f;
-
-		block[o + 51] = 0.0f;
 		block[o + 52] = 1.0f;
 		block[o + 53] = 0.0f;
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 54 * 6, block, GL_STATIC_DRAW);
+		block[o + 54] = 0.0f;
+		block[o + 55] = 1.0f;
+		block[o + 56] = 0.0f;
+
+        block[o + 57] = 1.0f;
+        block[o + 58] = 1.0f;
+        block[o + 59] = 1.0f;
+
+		// Vertex 5
+		block[o + 60] = -1.0f;
+		block[o + 61] = 1.0f;
+		block[o + 62] = -1.0f;
+		block[o + 63] = 1.0f;
+
+		block[o + 64] = 0.0f;
+		block[o + 65] = 0.0f;
+
+		block[o + 66] = 0.0f;
+		block[o + 67] = 1.0f;
+		block[o + 68] = 0.0f;
+
+        block[o + 69] = 1.0f;
+        block[o + 70] = 1.0f;
+        block[o + 71] = 1.0f;
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 72 * 6, block, GL_STATIC_DRAW);
 		checkGLError("glBufferData");
 
 		// New mesh
 		Mesh *mesh = new Mesh();
 		mesh->vbo = vbo;
-		mesh->numCoords = 54 * 6;
-		mesh->floatsPerCoord = 9;
+		mesh->numCoords = 72 * 6;
+		mesh->floatsPerCoord = 12;
 
 		// Add mesh to shape
 		meshes.push_back(mesh);
