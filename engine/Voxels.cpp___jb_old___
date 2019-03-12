@@ -268,9 +268,9 @@ void Voxels::setStackHeight(int x, int z, int height)
 //		newVoxels[y].xofs = 0;
 //		newVoxels[y].yofs = 0;
 //		newVoxels[y].zofs = 0;
-		newVoxels[y].r = 127;
-		newVoxels[y].g = 127;
-		newVoxels[y].b = 127;
+		newVoxels[y].r = 1.0;
+		newVoxels[y].g = 1.0;
+		newVoxels[y].b = 1.0;
 	}
 
 	// Copy old voxel stack into new one

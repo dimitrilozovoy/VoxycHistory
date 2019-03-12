@@ -944,9 +944,9 @@ void Editor::tick() {
     // PREVIEW
     //
 
-    static int putvoxx = 0;
-    static int putvoxy = 0;
-    static int putvoxz = 0;
+    int putvoxx = 0;
+    int putvoxy = 0;
+    int putvoxz = 0;
 
     static bool voxPreviewSetup = false;
 
