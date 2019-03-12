@@ -1020,13 +1020,15 @@ void Editor::tick() {
         if (curVoxels != nullptr) {
             int size = curVoxels->shape->voxels->getSize();
 
-			int x, y, z = 0;
+            static int lastx = -1, lasty = -1, lastz = -1;
+			int x = 0, y = 0, z = 0;
 
 			worldToVoxelCoords(wx, wy, wz, x, y, z);
 
             if (x >= 0 && x < size
                 && y >= 0 && y < size
-                && z >= 0 && z < size) {
+                && z >= 0 && z < size
+                && (x != lastx || y != lasty || z != lastz)) {
                 engine->setVoxel("voxpreview", x, y, z, curVoxel);
 
                 putvoxx = x;
@@ -1037,6 +1039,10 @@ void Editor::tick() {
                 refreshPreview = false;
                 refreshPreviewTimer = 0;
             }
+
+            lastx = x;
+            lasty = y;
+            lastz = z;
         }
 
     }
@@ -1589,10 +1595,10 @@ void Editor::tick() {
             if (!gui->nonNativeWidgetsShown())
             {
                 gui->clearDialog();
-                gui->addDialogPart("radius", FloatToStr(tex->lightRadius), "lightradius");
-                gui->addDialogPart("r", FloatToStr(tex->lightr), "lightr");
-                gui->addDialogPart("g", FloatToStr(tex->lightg), "lightg");
-                gui->addDialogPart("b", FloatToStr(tex->lightb), "lightb");
+                gui->addDialogPart("radius (voxels)", FloatToStr(tex->lightRadius), "lightradius");
+                gui->addDialogPart("r (0.0-2.0)", FloatToStr(tex->lightr), "lightr");
+                gui->addDialogPart("g (0.0-2.0)", FloatToStr(tex->lightg), "lightg");
+                gui->addDialogPart("b (0.0-2.0)", FloatToStr(tex->lightb), "lightb");
                 gui->showDialog("Set Texture Light", "OK", "Cancel", "settexturelight_entered");
             }
         }
@@ -1619,7 +1625,7 @@ void Editor::tick() {
                     tex->lightEnabled = false;
                 else
                     tex->lightEnabled = true;
-
+					
                 tex->lightRadius = radius;
                 tex->lightr = r;
                 tex->lightg = g;
@@ -1639,7 +1645,7 @@ void Editor::tick() {
                 }
             }
 
-            engine->setExtraInt("settexturespan_entered", 0);
+            engine->setExtraInt("settexturelight_entered", 0);
         }
     }
 
@@ -2181,8 +2187,14 @@ void Editor::setVoxPreviewTextures() {
 
     std::string curVoxelsShapeName = curVoxels->shape->name;
 
+    bool changed = false;
+
     for (int i = 0; i < 255; i++) {
-        engine->setVoxelTexture("voxpreview", i, engine->getVoxelTexture(curVoxelsShapeName, i));
+        if (engine->getVoxelTexture(curVoxelsShapeName, i) != engine->getVoxelTexture("voxpreview", i))
+        {
+            engine->setVoxelTexture("voxpreview", i, engine->getVoxelTexture(curVoxelsShapeName, i));
+            changed = true;
+        }
     }
 
     Object *voxPreview = engine->findObj("voxpreview");
@@ -2192,7 +2204,8 @@ void Editor::setVoxPreviewTextures() {
     if (voxPreview->shape == nullptr)
         return;
 
-    voxPreview->shape->needsRebuild = true;
+    if (changed)
+        voxPreview->shape->needsRebuild = true;
 }
 
 /*

@@ -967,5 +967,10 @@ void CalcNormal(float x1, float y1, float z1, float x2, float y2, float z2, floa
 
 float UCharToFloat(unsigned char c)
 {
-	return (float)c / 128.0f;
+	return (float)c / 127.0f;
+}
+
+unsigned char FloatToUChar(float c)
+{
+	return (unsigned char)(c * 127.0f);
 }

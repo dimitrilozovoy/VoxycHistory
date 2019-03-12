@@ -173,6 +173,9 @@ void Voxels::setrgb(int x, int y, int z, unsigned char r, unsigned char g, unsig
 {
 	VoxelStack *stack = getStack(x, z);
 
+    if (stack == NULL || x < 0 || x >= size || y < 0 || y >= size || z < 0 || z >= size)
+        return;
+
 	if (g_simpleMode)
 	{
 		// HACK
@@ -185,7 +188,6 @@ void Voxels::setrgb(int x, int y, int z, unsigned char r, unsigned char g, unsig
 
 	if (stack->height <= y)
 	{
-//		return;
 		setStackHeight(x, z, y + STACK_HEIGHT_ALLOC_PAD);
 	}
 
@@ -225,9 +227,9 @@ void Voxels::getrgb(int x, int y, int z, unsigned char &r, unsigned char &g, uns
 	if (x < 0 || y < 0 || z < 0 || x >= size || y >= size || z >= size || stack->height <= y)
 	{
 #ifdef DO_VERTEX_LIGHTS
-        r = 128.0;
-		g = 128.0;
-		b = 128.0;
+        r = 127.0;
+		g = 127.0;
+		b = 127.0;
 #endif
 		return;
 	}
@@ -257,7 +259,7 @@ void Voxels::setStackHeight(int x, int z, int height)
 {
 	VoxelStack *stack = getStack(x, z);
 
-	if (stack == NULL)
+	if (stack == NULL || x < 0 || x >= size || z < 0 || z >= size)
 		return;
 
 	Voxel *newVoxels = new Voxel[height];
@@ -419,7 +421,7 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
-						unsigned char r = 128.0, g = 128.0, b = 128.0;
+						unsigned char r = 127.0, g = 127.0, b = 127.0;
 
 						ll.x = -1.0 + (float)qstartx * voxSize;
 						ll.y = -1.0 + (float)y * voxSize + voxSize;
@@ -538,7 +540,7 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
-                        unsigned char r = 128.0, g = 128.0, b = 128.0;
+                        unsigned char r = 127.0, g = 127.0, b = 127.0;
 
 						ll.x = -1.0 + (float)qstartx * voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
@@ -657,7 +659,7 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
-                        unsigned char r = 128.0, g = 128.0, b = 128.0;
+                        unsigned char r = 127.0, g = 127.0, b = 127.0;
 
 						ll.x = -1.0 + (float)x * voxSize + voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
@@ -778,7 +780,7 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
-                        unsigned char r = 128.0, g = 128.0, b = 128.0;
+                        unsigned char r = 127.0, g = 127.0, b = 127.0;
 
 						ll.x = -1.0 + (float)qstartx * voxSize;
 						ll.y = -1.0 + (float)y * voxSize;
@@ -897,7 +899,7 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
-                        unsigned char r = 128.0, g = 128.0, b = 128.0;
+                        unsigned char r = 127.0, g = 127.0, b = 127.0;
 
 						ll.x = -1.0 + (float)x * voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;
@@ -912,7 +914,7 @@ void Voxels::build(TextureManager2 *texMan)
 						lr.z = -1.0 + (float)qendz * voxSize;
 						lr.w = 1.0;
 
-						getrgb(x, qstarty, qstartz, r, g, b);
+						getrgb(x, qstarty, qendz, r, g, b);
 						lr.r = UCharToFloat(r); lr.g = UCharToFloat(g); lr.b = UCharToFloat(b);
 
 						ur.x = -1.0 + (float)x * voxSize;
@@ -1018,7 +1020,7 @@ void Voxels::build(TextureManager2 *texMan)
 						float voxSize = 2.0 / (float)size;
 
 						Vertex ll, lr, ur, ul;
-                        unsigned char r = 128.0, g = 128.0, b = 128.0;
+                        unsigned char r = 127.0, g = 127.0, b = 127.0;
 
 						ll.x = -1.0 + (float)qendx * voxSize;
 						ll.y = -1.0 + (float)qstarty * voxSize;

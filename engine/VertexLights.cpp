@@ -30,16 +30,34 @@ void VertexLights::process(Voxels *tm, TextureManager2 *texMan) {
             for (int z = 0; z < tm->getSize(); z++) {
 
                 int tnum = tm->get(x, y, z);
-                std::string texName = tm->getVoxelTexture(tnum);
-                Texture *tex = texMan->find(texName);
+                if (tnum != 0) {
+                    std::string texName = tm->getVoxelTexture(tnum);
 
-                if (tex->lightEnabled)
-                {
-/*                    char r = (char)(((float)x / (float)tm->getSize()) * (float)256);
-                    char g = (char)(((float)y / (float)tm->getSize()) * (float)256);
-                    char b = (char)(((float)z / (float)tm->getSize()) * (float)256);
+//				if (texName != "")
+//				    Log(texName);
 
-                    tm->setrgb(x, y, z, r, g, b);*/
+                    Texture *tex = texMan->find(texName);
+
+                    if (tex->lightEnabled) {
+                        float r = tex->lightr;
+                        float g = tex->lightg;
+                        float b = tex->lightb;
+
+                        int minx = x - (int)tex->lightRadius;
+                        int maxx = x + (int)tex->lightRadius;
+                        int miny = y - (int)tex->lightRadius;
+                        int maxy = y + (int)tex->lightRadius;
+                        int minz = z - (int)tex->lightRadius;
+                        int maxz = z + (int)tex->lightRadius;
+
+                        for (int xx = minx; xx < maxx; xx++) {
+                            for (int yy = miny; yy < maxy; yy++) {
+                                for (int zz = minz; zz < maxz; zz++) {
+                                   tm->setrgb(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b));
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -55,15 +73,34 @@ void VertexLights::process(Voxels *tm, TextureManager2 *texMan) {
 //				char g = (char)RandomInt(0, 256);
 //				char b = (char)RandomInt(0, 256);
 				
-				char r = (char)(((float)x / (float)tm->getSize()) * (float)256);
-				char g = (char)(((float)y / (float)tm->getSize()) * (float)256);
-    			char b = (char)(((float)z / (float)tm->getSize()) * (float)256);
-
+				char r = (char)(((float)x / (float)(tm->getSize())) * (float)256);
+				char g = (char)(((float)y / (float)(tm->getSize())) * (float)256);
+				char b = (char)(((float)z / (float)(tm->getSize())) * (float)256);
+*/
+/*
+                char r, g, b;
+				
+				if (x < tm->getSize() / 2)
+				    r = (char)(((float)x / (float)(tm->getSize() / 2)) * (float)256);
+				else 
+					r = 256 - ((char)(((float)x / (float)(tm->getSize() / 2)) * (float)256));
+	
+				if (y < tm->getSize() / 2)
+				    g = (char)(((float)y / (float)(tm->getSize() / 2)) * (float)256);
+				else
+				    g = 256 - ((char)(((float)y / (float)(tm->getSize() / 2)) * (float)256));
+		
+				if (z < tm->getSize() / 2)
+				    b = (char)(((float)z / (float)(tm->getSize() / 2)) * (float)256);
+				else
+				    b = 256 - ((char)(((float)z / (float)(tm->getSize() / 2)) * (float)256));
+*/
+					
 //              char r = 128;
 //				char g = 128;
 //				char b = 128;
 				
-				tm->setrgb(x, y, z, r, g, b);
+/*				tm->setrgb(x, y, z, r, g, b);
 		    }
         }
     }*/
