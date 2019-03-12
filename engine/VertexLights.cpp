@@ -20,6 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <tgmath.h>
 #include "DDLUtils.hpp"
 #include "VertexLights.h"
 
@@ -33,15 +34,12 @@ void VertexLights::process(Voxels *tm, TextureManager2 *texMan) {
                 if (tnum != 0) {
                     std::string texName = tm->getVoxelTexture(tnum);
 
-//				if (texName != "")
-//				    Log(texName);
-
                     Texture *tex = texMan->find(texName);
 
                     if (tex->lightEnabled) {
-                        float r = tex->lightr;
-                        float g = tex->lightg;
-                        float b = tex->lightb;
+                        float emitr = tex->lightr;
+                        float emitg = tex->lightg;
+                        float emitb = tex->lightb;
 
                         int minx = x - (int)tex->lightRadius;
                         int maxx = x + (int)tex->lightRadius;
@@ -53,7 +51,11 @@ void VertexLights::process(Voxels *tm, TextureManager2 *texMan) {
                         for (int xx = minx; xx < maxx; xx++) {
                             for (int yy = miny; yy < maxy; yy++) {
                                 for (int zz = minz; zz < maxz; zz++) {
-                                   tm->setrgb(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b));
+                                    float hyp = abs(hypot(hypot(x - xx, y - yy), z - zz));
+                                    float r = emitr + (emitr - 1.0) * (hyp / tex->lightRadius);
+                                    float g = emitg + (emitg - 1.0) * (hyp / tex->lightRadius);
+                                    float b = emitb + (emitb - 1.0) * (hyp / tex->lightRadius);
+                                    tm->setrgb(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b));
                                 }
                             }
                         }

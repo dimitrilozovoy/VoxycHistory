@@ -972,5 +972,11 @@ float UCharToFloat(unsigned char c)
 
 unsigned char FloatToUChar(float c)
 {
+	if (c < 0.0)
+		c = 0.0;
+
+	if (c > 2.0)
+		c = 2.0;
+
 	return (unsigned char)(c * 127.0f);
 }
