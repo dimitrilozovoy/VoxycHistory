@@ -196,7 +196,6 @@ void Editor::tick() {
     static bool refreshPreview = false;
     static std::string fileSelectorAction = "";
     static const int msgTimerDelay = 50;
-    static bool curVoxelChanged = false;
 
 	GUI *gui = g_engine2->getGUI();
 	
@@ -692,7 +691,9 @@ void Editor::tick() {
 
             exitScreenShotMode();
             refreshPreview = true;
-            curVoxelChanged = true;
+
+//            Shape *previewShape = engine->findShape("voxpreview");
+//            previewShape->needsRebuild = true;
         }
 
         if ((engine->getExtraInt("nextbtnclicked") == 1
@@ -711,7 +712,9 @@ void Editor::tick() {
 
             exitScreenShotMode();
             refreshPreview = true;
-            curVoxelChanged = true;
+
+//            Shape *previewShape = engine->findShape("voxpreview");
+//            previewShape->needsRebuild = true;
         }
 
         if ((engine->getExtraInt("camerabtnclicked") == 1
@@ -1031,7 +1034,7 @@ void Editor::tick() {
             if (x >= 0 && x < size
                 && y >= 0 && y < size
                 && z >= 0 && z < size
-                && (x != lastx || y != lasty || z != lastz || curVoxelChanged)) {
+                && (x != lastx || y != lasty || z != lastz)) {
                 engine->setVoxel("voxpreview", x, y, z, curVoxel);
 
                 putvoxx = x;
@@ -1041,7 +1044,6 @@ void Editor::tick() {
                 previewShape->needsRebuild = true;
                 refreshPreview = false;
                 refreshPreviewTimer = 0;
-                curVoxelChanged = false;
             }
 
             lastx = x;

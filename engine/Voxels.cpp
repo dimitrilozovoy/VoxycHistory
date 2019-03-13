@@ -430,6 +430,7 @@ void Voxels::build(TextureManager2 *texMan)
 
 						lr.x = -1.0 + (float)qendx * voxSize;
 						lr.y = -1.0 + (float)y * voxSize + voxSize;
+						lr.y = -1.0 + (float)y * voxSize + voxSize;
 						lr.z = -1.0 + (float)qendz * voxSize;
 						lr.w = 1.0;
 
