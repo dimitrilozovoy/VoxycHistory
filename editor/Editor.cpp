@@ -1106,22 +1106,30 @@ void Editor::tick() {
         if (mode == EM_VOX && curVoxels != nullptr) {
 
             //
-            // Place voxel
+            // Place voxel / light voxel
             //
 
-            Shape *shape = curVoxels->shape;
-			int vox = engine->getVoxel(shape->name, putvoxx, putvoxy, putvoxz);
-			
-			if (vox != curVoxel)
-			{
-				engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, curVoxel);
-				shape->needsRebuild = true;
+            if (lightVoxels)
+            {
+                Voxels *voxels = curVoxels->shape->voxels;
+                voxels->setrgb(putvoxx, putvoxy, putvoxz, FloatToUChar(lightr), FloatToUChar(lightg), FloatToUChar(lightb));
+                curVoxels->shape->needsRebuild = true;
+            }
+            else
+            {
+                Shape *shape = curVoxels->shape;
+                int vox = engine->getVoxel(shape->name, putvoxx, putvoxy, putvoxz);
 
-                Object *voxPreview = engine->findObj("voxpreview");
-                voxPreview->shape->needsRebuild = true;
-			}
+                if (vox != curVoxel) {
+                    engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, curVoxel);
+                    shape->needsRebuild = true;
 
-			objCopy = false;
+                    Object *voxPreview = engine->findObj("voxpreview");
+                    voxPreview->shape->needsRebuild = true;
+                }
+
+                objCopy = false;
+            }
 
         } else if (mode == EM_OBJ) {
 
@@ -1282,6 +1290,9 @@ void Editor::tick() {
             }
 		}
 
+		if (lightVoxels)
+		    lightVoxels = false;
+
         exitScreenShotMode();
     }
 
@@ -1320,6 +1331,8 @@ void Editor::tick() {
 				gui->addListMenuOption("Set texture", "");
 				gui->addListMenuOption("Set texture span", "");
                 gui->addListMenuOption("Set texture light", "");
+                gui->addListMenuOption("Light room", "");
+                gui->addListMenuOption("Light voxels", "");
 				gui->showListMenuInDialog("Options", "");
 			}
 
@@ -1656,6 +1669,134 @@ void Editor::tick() {
         }
     }
 
+    // Light room
+
+    if (engine->getExtraStr("listmenuoptionclicked") == "Light room") {
+
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            TextureManager2 *texMan = engine->getTextureManager();
+            Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
+
+            if (!gui->nonNativeWidgetsShown())
+            {
+                gui->clearDialog();
+                gui->addDialogPart("r (0.0-2.0)", "1.0", "lightr");
+                gui->addDialogPart("g (0.0-2.0)", "1.0", "lightg");
+                gui->addDialogPart("b (0.0-2.0)", "1.0", "lightb");
+                gui->showDialog("Light Room", "OK", "Cancel", "lightroom_entered");
+            }
+        }
+
+        engine->setExtraStr("listmenuoptionclicked", "");
+    }
+
+    if (engine->getExtraInt("lightroom_entered") == 1)
+    {
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            float r = PLAT_stof(engine->getExtraStr("lightr"), 1.0f);
+            float g = PLAT_stof(engine->getExtraStr("lightg"), 1.0f);
+            float b = PLAT_stof(engine->getExtraStr("lightb"), 1.0f);
+
+            Voxels *voxels = curVoxels->shape->voxels;
+
+            // Figure out dimensions of the room the cursor is in
+            int minx, miny, minz = 0;
+            int maxx, maxy, maxz = voxels->getSize();
+
+            // Figure out x room coords
+            int x = putvoxx;
+            while (x > 0 && voxels->get(x, putvoxy, putvoxz) == 0)
+                x--;
+            minx = x;
+
+            x = putvoxx;
+            while (x < voxels->getSize() && voxels->get(x, putvoxy, putvoxz) == 0)
+                x++;
+            maxx = x;
+
+            // Figure out y room coords
+            int y = putvoxy;
+            while (y > 0 && voxels->get(putvoxx, y, putvoxz) == 0)
+                y--;
+            miny = y;
+
+            y = putvoxy;
+            while (y < voxels->getSize() && voxels->get(putvoxx, y, putvoxz) == 0)
+                y++;
+            maxy = y;
+
+            // Figure out z room coords
+            int z = putvoxy;
+            while (z > 0 && voxels->get(putvoxx, putvoxy, z) == 0)
+                z--;
+            minz = z;
+
+            z = putvoxz;
+            while (z < voxels->getSize() && voxels->get(putvoxx, putvoxy, z) == 0)
+                z++;
+            maxz = z;
+
+            // Light the room
+            for (int xx = minx + 1; xx <= maxx; xx++)
+                for (int yy = miny + 1; yy <= maxy; yy++)
+                    for (int zz = minz + 1; zz <= maxz; zz++)
+                    {
+                        voxels->setrgb(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b));
+                    }
+
+            // Make sure voxels are rebuilt
+            curVoxels->shape->needsRebuild = true;
+
+            engine->setExtraInt("lightroom_entered", 0);
+        }
+    }
+
+    // Light voxels
+
+    if (engine->getExtraStr("listmenuoptionclicked") == "Light voxels") {
+
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            TextureManager2 *texMan = engine->getTextureManager();
+            Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
+
+            if (!gui->nonNativeWidgetsShown())
+            {
+                gui->clearDialog();
+                gui->addDialogPart("r (0.0-2.0)", "1.0", "lightr");
+                gui->addDialogPart("g (0.0-2.0)", "1.0", "lightg");
+                gui->addDialogPart("b (0.0-2.0)", "1.0", "lightb");
+                gui->showDialog("Light Voxels", "OK", "Cancel", "lightvoxels_entered");
+            }
+        }
+
+        engine->setExtraStr("listmenuoptionclicked", "");
+    }
+
+    if (engine->getExtraInt("lightvoxels_entered") == 1)
+    {
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            lightr = PLAT_stof(engine->getExtraStr("lightr"), 1.0f);
+            lightg = PLAT_stof(engine->getExtraStr("lightg"), 1.0f);
+            lightb = PLAT_stof(engine->getExtraStr("lightb"), 1.0f);
+
+            lightVoxels = true;
+
+            engine->setExtraInt("lightvoxels_entered", 0);
+        }
+    }
+
     //
     // Move button
 	//
@@ -1706,6 +1847,9 @@ void Editor::tick() {
 //        engine->setVisible("objpreview", true);
         exitScreenShotMode();
 
+        if (lightVoxels)
+            lightVoxels = false;
+
 		engine->setExtraInt("objmodeclicked", 0);
     }
 
@@ -1721,6 +1865,9 @@ void Editor::tick() {
         engine->setVisible("voxpreview", true);
         engine->setVisible("objpreview", false);
         exitScreenShotMode();
+
+        if (lightVoxels)
+            lightVoxels = false;
 
 		engine->setExtraInt("voxmodeclicked", 0);
 	}

@@ -86,6 +86,10 @@ private:
 	int msgTimer = 0;
 	int msg2Timer = 0;
 	bool showGuides = true;
+	float lightr = 1.0;
+	float lightg = 1.0;
+	float lightb = 1.0;
+	bool lightVoxels = false;
 };
 
 #endif

@@ -45,6 +45,9 @@ typedef struct Common
 	float gamepadRightY = 0;
 	std::map<std::string, int> extraInts;
 	std::map<std::string, std::string> extraStrings;
+	char readSCVersionA = '1';
+	char readSCVersionB = '0';
+	char readSCVersionC = '1';
 };
 
 typedef struct RenderStats

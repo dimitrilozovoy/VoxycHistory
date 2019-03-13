@@ -1399,6 +1399,29 @@ int Voxels::save(std::string fname, FILE *f = nullptr)
 			fwrite(voxels, sizeof(char), stack->height, file);
 
 			free(voxels);
+
+			// Write RGB if file (format 1.0.1)
+			char *values = (char *)malloc(stack->height);
+
+			// Write r values
+			for (int i = 0; i < stack->height; i++)
+					values[i] = stack->voxels[i].r;
+
+			fwrite(values, sizeof(char), stack->height, file);
+
+			// Write g values
+			for (int i = 0; i < stack->height; i++)
+				values[i] = stack->voxels[i].g;
+
+			fwrite(values, sizeof(char), stack->height, file);
+
+			// Write b values
+			for (int i = 0; i < stack->height; i++)
+				values[i] = stack->voxels[i].b;
+
+			fwrite(values, sizeof(char), stack->height, file);
+
+			free(values);
 		}
 	}
 
@@ -1550,6 +1573,45 @@ int Voxels::load(std::string fname, FILE *f = nullptr)
 			}
 
 			free(voxels);
+
+			// Read RGB if file format 1.0.1
+			if (g_common.readSCVersionA == '1'
+				&& g_common.readSCVersionB == '0'
+				&& g_common.readSCVersionC == '1')
+			{
+				// Alloc voxels byte array to read this stack
+				char *values = (char *)malloc(sizeof(Voxel) * stack->height);
+
+				// Read r
+				fread(values, sizeof(char), stack->height, file);
+
+				// Fill r
+				for (int i = 0; i < stack->height; i++)
+				{
+					stack->voxels[i].r = values[i];
+				}
+
+				// Read g
+				fread(values, sizeof(char), stack->height, file);
+
+				// Fill g
+				for (int i = 0; i < stack->height; i++)
+				{
+					stack->voxels[i].g = values[i];
+				}
+
+				// Read b
+				fread(values, sizeof(char), stack->height, file);
+
+				// Fill b
+				for (int i = 0; i < stack->height; i++)
+				{
+					stack->voxels[i].b = values[i];
+				}
+
+				free(values);
+
+			}
 		}
 	}
 

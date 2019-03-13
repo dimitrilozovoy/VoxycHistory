@@ -57,7 +57,7 @@ function start(scene)
   loadscene(scene)
   
   if curarea == 1 or curarea == 2 then
-    autobatch()
+--    autobatch()
   end
   
   -------------------------------

@@ -29,7 +29,8 @@ void Scene::save(std::string fname, std::map<std::string, Object*> &objects, std
         return;
 
     write3Char('S', 'C', ' ');
-    write3Char('1', '0', '0');
+    write3Char('1', '0', '1');
+//    write3Char('1', '0', '0');
 
     // Write skybox
     write6Char('S', 'K', 'Y', 'B', 'O', 'X');
@@ -119,8 +120,12 @@ void Scene::load(std::string fname, std::map<std::string, Object*> &objects, std
 
     read3Char(c1, c2, c3);
 
-    if (c1 == '1' || c2 == '0' || c3 == '0')
+    if (c1 == '1' || c2 == '0' || c3 == '0' || c3 == '1')
     {
+        g_common.readSCVersionA = c1;
+        g_common.readSCVersionB = c2;
+        g_common.readSCVersionC = c3;
+
         if (!read6CharEquals('S', 'K', 'Y', 'B', 'O', 'X'))
             return;
 
