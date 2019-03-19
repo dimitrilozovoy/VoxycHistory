@@ -335,6 +335,8 @@ void Editor::tick() {
 				gui->clearListMenu();
 				gui->addListMenuOption("Select Only", "");
 				gui->addListMenuOption("Add Voxels", "");
+				gui->addListMenuOption("Import Voxels", "");
+				gui->addListMenuOption("Export Voxels", "");
 				gui->addListMenuOption("Add Shape", "");
 				gui->addListMenuOption("Add Model", "");
 				gui->addListMenuOption("Add Sprite", "");
@@ -354,6 +356,153 @@ void Editor::tick() {
             selectOnly = true;
             engine->setExtraStr("listmenuoptionclicked", "");
 //            timer = 50;
+        }
+
+		if (engine->getExtraStr("listmenuoptionclicked") == "Import Voxels") {
+            timer = 50;
+
+			std::string fname = PLAT_LoadPref("main", "voxels", "");
+			if (fname == "")
+                fname = g_assetsDir;
+
+            gui->showFileSelector("vx", fname);
+            engine->setExtraStr("listmenuoptionclicked", "");
+            fileSelectorAction = "importvoxels";
+        }
+		
+		if (engine->getExtraStr("fileselected") != "") {
+            timer = 50;
+
+            if (fileSelectorAction == "importvoxels") {
+				PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
+				
+		    selectOnly = false;
+            mode = EM_OBJ;
+
+/*			if (!gui->nonNativeWidgetsShown())
+			{
+					gui->clearDialog();
+					gui->addDialogPart("Resolution", "16", "newvoxelsresolution");
+                    gui->addDialogPart("Size", "10", "newvoxelssize");
+					gui->showDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
+			}*/
+
+            engine->newShape("voxels", SHAPE_VOXELS, 10.0, 0);
+
+            std::string name = "objpreview";
+
+            engine->setType(name, OBJTYPE_SHAPE);
+            engine->setShape(name, "voxels");
+            engine->setSize(name, 10, 10, 10);
+            engine->setTexture(name, "bluecube.png");
+            engine->setAlwaysFacePlayer(name, false);
+
+			placingObj = true;
+			objCopy = false;
+			objPreviewDist = defaultObjPreviewDist;
+							
+                char newNamec[1024];
+                snprintf(newNamec, 1024, "obj%d", RandomInt(0, 10000));
+                std::string newName = std::string(newNamec);
+
+                engine->copyObj("objpreview", std::string(newName));
+                Object *newObj = engine->findObj(newName);
+                newObj->name = newName;
+                newObj->system = false;
+
+                Shape *shape = newObj->shape;
+
+                // Added voxels? Create new voxel shape for it
+                if (shape != nullptr && shape->voxels != nullptr && !objCopy) {
+                    engine->newShape(newName, SHAPE_VOXELS, newVoxelResolution, 0.0);
+                    engine->setShape(newName, newName);
+
+                    // Default voxel texture values
+                    engine->setVoxelTexture(newName, 1, "brick3.png");
+                    engine->setVoxelTexture(newName, 2, "brick4.png");
+                    engine->setVoxelTexture(newName, 3, "concrete1.png");
+                    engine->setVoxelTexture(newName, 4, "tile.png");
+                    engine->setVoxelTexture(newName, 5, "stone1.png");
+                    engine->setVoxelTexture(newName, 6, "stone2.png");
+                    engine->setVoxelTexture(newName, 7, "beigestone.png");
+                    engine->setVoxelTexture(newName, 8, "asphalt.png");
+                    engine->setVoxelTexture(newName, 9, "graychips.png");
+                    engine->setVoxelTexture(newName, 10, "leaves.png");
+                    engine->setVoxelTexture(newName, 11, "bluecube.png");
+
+                    engine->setTextureSpan("brick3.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("brick4.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("concrete1.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("tile.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("stone1.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("stone2.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("beigestone.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("asphalt.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("graychips.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("leaves.png", 2.0f, 2.0f);
+                    engine->setTextureSpan("bluecube.png", 2.0f, 2.0f);
+                }
+
+                // Added voxels? Switch to voxels mode
+                if (shape != nullptr && shape->voxels != nullptr && !objCopy) {
+                    // Swtich to voxel mode
+                    mode = EM_VOX;
+                    engine->setText("msg2", "voxel mode");
+                    msg2Timer = msgTimerDelay;
+                    rayLength = defaultRayLength;
+                }
+
+				if (shape != nullptr && shape->voxels != nullptr)
+				{
+					// Not link copy? We need to copy the voxels
+					engine->newShape(newName, SHAPE_VOXELS, shape->voxels->getSize(), 0.0);
+					engine->setShape(newName, newName);
+					newObj->shape->voxels->load(engine->getExtraStr("fileselected"), nullptr);
+				}
+
+				newObj->visible = true;
+
+                char msg[1024];
+                snprintf(msg, 1024, "%s placed", newName.c_str());
+                engine->setText("msg", msg);
+                msgTimer = msgTimerDelay;
+
+                engine->setExtraStr("fileselected", "");
+            }
+        }
+		
+		if (engine->getExtraStr("listmenuoptionclicked") == "Export Voxels") {
+            timer = 50;
+
+			std::string fname = PLAT_LoadPref("main", "voxels", "");
+			if (fname == "")
+                fname = g_assetsDir;
+
+            gui->showFileSelector("vx", fname);
+            engine->setExtraStr("listmenuoptionclicked", "");
+            fileSelectorAction = "exportvoxels";
+        }
+		
+		if (engine->getExtraStr("fileselected") != "") {
+            timer = 50;
+
+            if (fileSelectorAction == "exportvoxels") {
+				PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
+				
+				if (curVoxels != nullptr)
+			    {
+					Voxels *v = curVoxels->shape->voxels;
+					
+					v->save(engine->getExtraStr("fileselected"), nullptr);
+					
+					char msg[1024];
+                    snprintf(msg, 1024, "%s saved", GetFileName(engine->getExtraStr("fileselected")).c_str());
+                    engine->setText("msg", msg);
+                    msgTimer = msgTimerDelay;
+				}
+				
+                engine->setExtraStr("fileselected", "");
+            }
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Shape") {
@@ -646,6 +795,10 @@ void Editor::tick() {
             engine->setExtraStr("listmenuoptionclicked", "");
             timer = 50;
         }
+		
+		//
+		// Add block
+		//
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Add Block") {
             selectOnly = false;
