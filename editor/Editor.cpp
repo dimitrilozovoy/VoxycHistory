@@ -335,6 +335,8 @@ void Editor::tick() {
             gui->addListMenuOption("Run Scrolling Shooter", "");
             gui->addListMenuOption("Run Tanks", "");
             gui->showListMenuInDialog("Run Sample", "");
+
+            engine->setExtraStr("listmenuoptionclicked", "");
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Run FPS") {
