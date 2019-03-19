@@ -901,7 +901,9 @@ public class HelloJni extends Activity
 		dir = getExternalFilesDir(null);
 
 		if (sdir == null || sdir.equals(""))
+		{
 			sdir = dir.getAbsolutePath();
+		}
 
 		DDLUtils.mainActivity = this;
         DDLUtils.showFileSelectorWithPrompt("Enter filename", sdir,

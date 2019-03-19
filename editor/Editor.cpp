@@ -418,7 +418,7 @@ void Editor::tick() {
                     engine->setShape(newName, newName);
 
                     // Default voxel texture values
-                    engine->setVoxelTexture(newName, 1, "brick3.png");
+/*                    engine->setVoxelTexture(newName, 1, "brick3.png");
                     engine->setVoxelTexture(newName, 2, "brick4.png");
                     engine->setVoxelTexture(newName, 3, "concrete1.png");
                     engine->setVoxelTexture(newName, 4, "tile.png");
@@ -428,7 +428,7 @@ void Editor::tick() {
                     engine->setVoxelTexture(newName, 8, "asphalt.png");
                     engine->setVoxelTexture(newName, 9, "graychips.png");
                     engine->setVoxelTexture(newName, 10, "leaves.png");
-                    engine->setVoxelTexture(newName, 11, "bluecube.png");
+                    engine->setVoxelTexture(newName, 11, "bluecube.png");*/
 
                     engine->setTextureSpan("brick3.png", 2.0f, 2.0f);
                     engine->setTextureSpan("brick4.png", 2.0f, 2.0f);
@@ -476,7 +476,7 @@ void Editor::tick() {
 
 			std::string fname = PLAT_LoadPref("main", "voxels", "");
 			if (fname == "")
-                fname = g_assetsDir;
+                fname = g_assetsDir + "/default.vx";
 
             gui->showFileSelector("vx", fname);
             engine->setExtraStr("listmenuoptionclicked", "");
