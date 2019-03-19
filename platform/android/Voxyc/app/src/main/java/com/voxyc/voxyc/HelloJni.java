@@ -129,7 +129,7 @@ public class HelloJni extends Activity
 		// Copy samples and docs
 		copyDirToExternal("samples");
 		copyDirToExternal("samples/scrollingshooter");
-		copyDirToExternal("samples/tankgame");
+		copyDirToExternal("samples/tanks");
 		copyDirToExternal("samples/fps");
 		copyDirToExternal("docs");
 

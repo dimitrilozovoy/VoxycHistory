@@ -30,6 +30,10 @@ SOFTWARE.
 #include "../engine/DDLUtils.hpp"
 #include "../engine/platform.h"
 
+#ifdef PLATFORM_ANDROID
+#include "../platform/android/Voxyc/app/src/main/cpp/android.h"
+#endif
+
 /*
 ========================================
 init
@@ -237,7 +241,9 @@ void Editor::tick() {
 				gui->addListMenuOption("Run script", "");
 				gui->addListMenuOption("Clear and run script", "");
 				gui->addListMenuOption("README", "");
-				gui->addListMenuOption("Simple Mode", "");
+#ifdef PLATFORM_ANDROID
+                gui->addListMenuOption("Run Sample", "");
+#endif
 				gui->showListMenuInDialog("File", "");
 			}
 
@@ -320,10 +326,62 @@ void Editor::tick() {
             engine->setExtraStr("listmenuoptionclicked", "");
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Simple Mode") {
-            engine->setExtraInt("switchmodule", 1);
-            engine->setExtraStr("nextmodule", "editorold");
+#ifdef PLATFORM_ANDROID
+        if (engine->getExtraStr("listmenuoptionclicked") == "Run Sample") {
+            timer = 50;
+
+            gui->clearListMenu();
+            gui->addListMenuOption("Run FPS", "");
+            gui->addListMenuOption("Run Scrolling Shooter", "");
+            gui->addListMenuOption("Run Tanks", "");
+            gui->showListMenuInDialog("Run Sample", "");
         }
+
+        if (engine->getExtraStr("listmenuoptionclicked") == "Run FPS") {
+            timer = 50;
+
+            std::string fname = PLAT_LoadPref("main", "script", "");
+            if (fname == "")
+                fname = g_assetsDir;
+
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "luaprogram");
+            engine->setExtraStr("loadscript", "load.lua");
+            engine->setExtraStr("assetsdir", (std::string)g_externalFilesDir + "/samples/fps");
+
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
+
+        if (engine->getExtraStr("listmenuoptionclicked") == "Run Scrolling Shooter") {
+            timer = 50;
+
+            std::string fname = PLAT_LoadPref("main", "script", "");
+            if (fname == "")
+                fname = g_assetsDir;
+
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "luaprogram");
+            engine->setExtraStr("loadscript", "load.lua");
+            engine->setExtraStr("assetsdir", (std::string)g_externalFilesDir + "/samples/scrollingshooter");
+
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
+
+        if (engine->getExtraStr("listmenuoptionclicked") == "Run Tanks") {
+            timer = 50;
+
+            std::string fname = PLAT_LoadPref("main", "script", "");
+            if (fname == "")
+                fname = g_assetsDir;
+
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "luaprogram");
+            engine->setExtraStr("loadscript", "load.lua");
+            engine->setExtraStr("assetsdir", (std::string)g_externalFilesDir + "/samples/tanks");
+
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
+#endif
 
         // Object menu
 
