@@ -138,7 +138,23 @@ public class CustomSurfaceView extends GLSurfaceView {
 		y2 = ev.getY(1);
 	}
 
-	HelloJni.touchEvent(ev.getPointerCount(), action1, x1, y1, action2, x2, y2, ev.getActionIndex());
+
+	Message msg = new Message();
+	Bundle bundle = new Bundle();
+
+	bundle.putInt("count", count);
+	bundle.putInt("action1", action1);
+	bundle.putFloat("x1", x1);
+	bundle.putFloat("y1", y1);
+	bundle.putInt("action2", action2);
+	bundle.putFloat("x2", x2);
+	bundle.putFloat("y2", y2);
+	bundle.putInt("actionIndex", ev.getActionIndex());
+	msg.setData(bundle);
+
+	HelloJni.touchHandler.sendMessage(msg);
+
+//	HelloJni.touchEvent(ev.getPointerCount(), action1, x1, y1, action2, x2, y2, ev.getActionIndex());
 		
 /*	for (int i = 0; i < ev.getPointerCount(); i++)
 	{

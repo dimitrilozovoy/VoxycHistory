@@ -20,23 +20,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef SPRITERENDERER_H        
-#define SPRITERENDERER_H
-
-#define DO_FAST_SPRITES
+#ifndef SPRITERENDERER2_H        
+#define SPRITERENDERER2_H
 
 #include "Object.h"
 #include "Renderer.h"
 #include "TextureAtlas.h"
 #include "TextureManager2.h"
 
-class SpriteRenderer: public Renderer
+class SpriteRenderer2: public Renderer
 {
 	public:
 	    void init(TextureManager2 *texMan, SpriteRenderer2D *spr2d);
-//		void draw(int eye, std::map<std::string, Object*> objects, Object *camera);
         void draw(int eye, std::map<std::string, Object*> objects, Object *camera);
-//        void drawCall(int eye, std::map<std::string, Object*> objects, Object *camera, int call, int numCalls);
+		void free();
 
 	private:
 
@@ -46,48 +43,31 @@ class SpriteRenderer: public Renderer
 
 	const char *vertexShaderCodeES20 =
 
-	"attribute vec4 vPosition;" \
+	"attribute vec4 vPosition; " \
 	"varying lowp vec4 posOut; " \
-	"attribute vec2 vTexCoords;" \
 	"varying lowp vec2 vTexCoordsOut; " \
-    "uniform vec2 vTexSpan;" \
-    "attribute vec4 vNormal;" \
-    "varying vec4 vNormalOut;" \
-	"attribute vec4 vVertexLight; " \
-    "varying vec4 vVertexLightOut; " \
     "uniform mat4 projectionMatrix; " \
 	"varying lowp float distToCamera; " \
+	"attribute float quadIdx; " \
+	"attribute float vertIdx; " \
 	
-	"attribute vec4 mvMatrixPt1; " \
-	"attribute vec4 mvMatrixPt2; " \
-	"attribute vec4 mvMatrixPt3; " \
-	"attribute vec4 mvMatrixPt4; " \
-	
-	"attribute vec4 vColor; " \
-	"varying vec4 vColorOut;" \
-		
-	"attribute mat4 oldmvMatrix; " \
+	"uniform mat4 mvMatrices[10]; " \
+	"uniform vec2 texCoords[120]; " \
 
-	
 	"void main() {" \
-	
-	"  mat4 mvMatrix; " \
-	
-	"  mvMatrix[0] = mvMatrixPt1; " \
-	"  mvMatrix[1] = mvMatrixPt2; " \
-	"  mvMatrix[2] = mvMatrixPt3; " \
-	"  mvMatrix[3] = mvMatrixPt4; " \
 
-    "  gl_Position = projectionMatrix * mvMatrix * vPosition; "
-					"  vTexCoordsOut = vTexCoords * vTexSpan; " \
+    "  gl_Position = projectionMatrix * mvMatrices[int(quadIdx)] * vPosition; " \
 	"  posOut = gl_Position; " \
 
-					"  vec4 posBeforeProj = mvMatrix * vPosition;" \
+	"  vec4 posBeforeProj = mvMatrices[int(quadIdx)] * vPosition;" \
 	"  distToCamera = -posBeforeProj.z; " \
 	
-	"  vColorOut = vColor; " \
+	"  vTexCoordsOut = texCoords[int(vertIdx)]; " \
+	
     "}\n";
-
+	
+	// "uniform mat4 mvMatrices[8]; " \
+	// "uniform vec2 texCoords[96]; " \
 
 	//
 	// FRAGMENT SHADER ES 2.0
@@ -114,21 +94,21 @@ class SpriteRenderer: public Renderer
 		"   if (f.a == 0.0) " \
 		"       discard; " \
 
-					"	lowp float visibility = 1.0; " \
+		"	lowp float visibility = 1.0; " \
 		"   lowp float alpha = 1.0; " \
 
-					"   if (distToCamera >= fadeFar) discard; " \
+		"   if (distToCamera >= fadeFar) discard; " \
 
-					"   if (distToCamera >= fadeNear) " \
+		"   if (distToCamera >= fadeNear) " \
 		"		alpha = 1.0 - (distToCamera - fadeNear) * 3.0; " \
 
-					"   if (useTexture == 1.0)" \
+		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColorOut * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      gl_FragColor = vColorOut * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      gl_FragColor = vec4(visibility, visibility, visibility, alpha) * globalColor; " \
 		"   }" \
 		"}\n";
 
@@ -228,6 +208,9 @@ class SpriteRenderer: public Renderer
 		"      finalColor = vColorOut * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
 		"   }" \
 		"}\n";
+		
+		// const int maxSprites = 8;
+		const int maxSprites = 10;
 
 		int programMain = -1;
 		int vao = -1;

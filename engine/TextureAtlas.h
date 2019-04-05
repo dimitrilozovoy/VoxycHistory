@@ -53,6 +53,7 @@ public:
 	void checkGLError(char *tag);
     int getSize() { return size; }
 	int getNeedsRefresh() { return needsRefresh; }
+	TextureManager2 *getTexMan() {return texMan; } ;
 	
 private:
     std::vector<std::string> textures;

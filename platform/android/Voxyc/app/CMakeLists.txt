@@ -71,8 +71,8 @@ add_library( # Sets the name of the library.
              ../../../../app/VoxycApp.cpp
              ../../../../app/LuaProgram.cpp
              ../../../../editor/Editor.cpp
+             ../../../../editor/OrthoEditor.cpp
              ../../../../editor/EditorOld.cpp
-             ../../../../editor/Animator.cpp
              ../../../../thirdparty/lua/lapi.c
              ../../../../thirdparty/lua/lauxlib.c
              ../../../../thirdparty/lua/lbaselib.c

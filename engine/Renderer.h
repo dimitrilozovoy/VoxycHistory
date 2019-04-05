@@ -40,8 +40,10 @@ class Renderer
 {
 public:
 	void setMatrix(int program, char *name, glm::mat4 matrix);
+	void setMatrixArray(int program, char *name, int size, glm::mat4 matrix[]);
 	void setUniform1f(int program, char *name, float x);
 	void setUniform2f(int program, char *name, float x, float y);
+	void setUniform2fv(int program, char *name, int size, float *data);
 	void setUniform4f(int program, char *name, float x, float y, float z, float w);
 	void setVertexAttrib(int program, char *name, int size, int type, bool normalized, int stride, int pointer);
 	int loadProgram(char *vertexShaderCode, char *fragmentShaderCode, bool shadowMap);

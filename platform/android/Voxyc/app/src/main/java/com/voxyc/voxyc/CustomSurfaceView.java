@@ -138,10 +138,11 @@ public class CustomSurfaceView extends GLSurfaceView {
 		y2 = ev.getY(1);
 	}
 
-	// Invoke handler so touch is processed on the GL thread
+
 	Message msg = new Message();
 	Bundle bundle = new Bundle();
-	bundle.putInt("pointerCount", ev.getPointerCount());
+
+	bundle.putInt("count", count);
 	bundle.putInt("action1", action1);
 	bundle.putFloat("x1", x1);
 	bundle.putFloat("y1", y1);
@@ -150,9 +151,10 @@ public class CustomSurfaceView extends GLSurfaceView {
 	bundle.putFloat("y2", y2);
 	bundle.putInt("actionIndex", ev.getActionIndex());
 	msg.setData(bundle);
+
 	HelloJni.touchHandler.sendMessage(msg);
 
-	//	HelloJni.touchEvent(ev.getPointerCount(), action1, x1, y1, action2, x2, y2, ev.getActionIndex());
+//	HelloJni.touchEvent(ev.getPointerCount(), action1, x1, y1, action2, x2, y2, ev.getActionIndex());
 		
 /*	for (int i = 0; i < ev.getPointerCount(); i++)
 	{

@@ -111,6 +111,8 @@ void TextureAtlas::refresh()
 	
 	fb.unbind();
 	
+//	Log("textures.size()", textures.size());
+	
 	needsRefresh = false;
 }
 

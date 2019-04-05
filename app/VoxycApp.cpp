@@ -54,8 +54,8 @@ void VoxycApp::init()
 
 	if (module == "editor")
 		editor.init();
-	else if (module == "editorold")
-        editorOld.init();
+	else if (module == "orthoeditor")
+        orthoEditor.init();
 	else if (module == "luaprogram")
 		luaProgram.init();
 
@@ -68,8 +68,8 @@ void VoxycApp::load()
 
 	if (module == "editor")
 		editor.load();
-	else if (module == "editorold")
-		editorOld.load();
+	else if (module == "orthoeditor")
+		orthoEditor.load();
 	else if (module == "luaprogram")
 		luaProgram.load();
 }
@@ -85,8 +85,8 @@ void VoxycApp::tick()
 	
 	if (module == "editor")
 		editor.tick();
-	else if (module == "editorold")
-		editorOld.tick();
+	else if (module == "orthoeditor")
+		orthoEditor.tick();
 	else if (module == "luaprogram")
 		luaProgram.tick();
 
@@ -98,13 +98,11 @@ void VoxycApp::tick()
 	
 	if (switchModule == 1)
 	{
-//		Log("nextmodule", nextModule);
 		lastModule = module;
 		module = nextModule;
 		engine.clear();
 		engine.clearGUI();
 		init();
-//4		load();
 		engine.setExtraInt("switchmodule", 0);
 		loadingModule = true;
 		skipFrame = true;
@@ -120,7 +118,7 @@ void VoxycApp::draw(int eye)
 	}
 	
 	engine.draw(eye);
-
+	
 //#ifdef PLATFORM_ANDROID
 //	calcFrameRate();
 //    makeUpLostFramesOrWait();
@@ -202,3 +200,10 @@ void VoxycApp::free()
 	engine.free();
 }
 
+void VoxycApp::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex)
+{
+	engine.touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
+	
+	if (module == "orthoeditor")
+		orthoEditor.touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
+}

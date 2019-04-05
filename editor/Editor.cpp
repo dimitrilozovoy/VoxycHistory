@@ -146,7 +146,7 @@ void Editor::load() {
 		// Top buttons
 		engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.8, hw, hw);
 		engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.8, hw, hw);
-		//    engine->addWg("drawbtn",      WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", -hw * 1, 0.8, hw, hw);
+	    engine->addWg("orthobtn", WG_BTN, "pixels.png",       "", "orthobtnclicked",      "", -hw * 1, 0.8, hw, hw);
 		//    engine->addWg("scriptbtn",    WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", hw * 1, 0.8, hw, hw);
 		engine->addWg("prevbtn", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3, 0.8, hw, hw);
 		engine->addWg("nextbtn", WG_BTN, "nextkit.png", "", "nextbtnclicked", "", hw * 5, 0.8, hw, hw);
@@ -407,6 +407,18 @@ void Editor::tick() {
 			}
 
             engine->setExtraInt("objbtnclicked", 0);
+
+            exitScreenShotMode();
+            timer = 50;
+        }
+		
+        if (engine->getExtraInt("orthobtnclicked") == 1
+            || engine->getExtraInt("orthobtnclicked") == 3) {
+
+			engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "orthoeditor");
+				
+            engine->setExtraInt("orthobtnclicked", 0);
 
             exitScreenShotMode();
             timer = 50;
@@ -2898,7 +2910,7 @@ bool Editor::verifySourceDir(std::string filename)
 
 	if (g_assetsDir != newDir)
 	{
-		engine->setText("msg2", "must use same dir");
+		engine->setText("msg2", "must use scene dir");
 		msgTimer = 150;
 		msg2Timer = 150;
 

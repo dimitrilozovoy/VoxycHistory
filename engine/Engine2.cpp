@@ -75,8 +75,6 @@ void Engine2::init()
     controls.init(&camera, &mouseLook, &texMan, &editorController);
 	controls.setPlayerObj(playerObj);
 	physics.init();
-
-//	map.init(&texMan);
 	audio.init();
 
 #ifdef USE_PLAYEROBJ
@@ -124,7 +122,9 @@ void Engine2::tick()
 
 	resetOnClickExtras();
 
-	physics.tick(objects);
+	if (physicsEnabled)
+	    physics.tick(objects);
+		
     controls.tick();
 	audio.tick();
 
@@ -155,6 +155,9 @@ void Engine2::draw(int eye)
 {
 	// Need to redraw shadowmap on every frame
 	shadowMapReady = false;
+	
+	if (texAtlas.getNeedsRefresh())
+        texAtlas.refresh();
 
 	// Combine meshes into one to decrease draw calls
 	batcher.batch(batches, &texAtlas, &texMan);
@@ -184,11 +187,6 @@ void Engine2::draw(int eye)
     glClear(GL_DEPTH_BUFFER_BIT);
     checkGLError("glClear");
     //	glDepthMask(true);
-
-	// Refresh texture atlas
-#ifndef PLATFORM_IOS
-	texAtlas.refresh();
-#endif
 
 	// Draw 3D objects
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
@@ -2176,6 +2174,8 @@ void Engine2::clear()
 
 	// Turn on collision detection for player
 	playerObj->ints["ignorecollisions"] = 0;
+	
+	physicsEnabled = true;
 }
 
 /*

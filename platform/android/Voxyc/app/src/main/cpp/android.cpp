@@ -236,23 +236,10 @@ extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_registerEnv(JNIEnv *e
 
 extern "C" JNIEXPORT jint JNICALL Java_com_voxyc_voxyc_HelloJni_touchEvent(JNIEnv *env, jobject thiz, jint count, jint action1, jfloat x1, jfloat y1, jint action2, jfloat x2, jfloat y2, jint actionIndex)
 {
-#ifdef DO_ENGINE2
-    if (g_engine2 == nullptr)
+    if (g_engineApp == nullptr)
         return 0;
 
-    g_engine2->touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
-#else
-	Controls *controls = g_app->GetControls();
-	
-	if (g_gameState == GS_LEVEL)
-	{
-	    controls->touchEvent(action, x, y);
-	}
-	else if (g_gameState == GS_MENU)
-	{
-	    g_menu.touchEvent(action, x, y);
-	}
-#endif
+    g_engineApp->touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
 	
 	return 0;
 }

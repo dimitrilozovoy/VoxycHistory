@@ -549,10 +549,14 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 			setVertexAttrib(curProgram, "vVertexLight", 3, GL_FLOAT, false, stride, 9);
 #endif
 	}
-
+	
+//  char cstr[1000];
+//	sprintf(cstr, "numCoords %d", numCoords);
+	
     // Draw
     glDrawArrays(GL_TRIANGLES, 0, numCoords / floatsPerCoord);
-    checkGLError("glDrawArrays");
+//	checkGLError(cstr);
+    checkGLError("ShapeRenderer glDrawArrays");
 
     // Reset
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX

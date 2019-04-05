@@ -22,6 +22,7 @@ SOFTWARE.
 
 #include "Renderer.h"
 #include "DDLUtils.hpp"
+#include "platform.h"
 
 void Renderer::setMatrix(int program, char *name, glm::mat4 matrix)
 {
@@ -43,6 +44,36 @@ void Renderer::setMatrix(int program, char *name, glm::mat4 matrix)
 	if (handle != -1)
 	{
 		glUniformMatrix4fv(handle, 1, false, arr);
+		checkGLError("glUniformMatrix4fv");
+	}
+}
+
+void Renderer::setMatrixArray(int program, char *name, int size, glm::mat4 matrices[])
+{
+	float arr[16 * size];
+
+	for (int m = 0; m < size; m++)
+	{
+	    const float *p = (const float *)glm::value_ptr(matrices[m]);
+	    for (int i = 0; i < 16; i++)
+		    arr[m * 16 + i] = p[i];
+	}
+	
+//	Log("qqq");
+//	Log("matrices[1]", matrices[1]);
+
+	int handle = glGetUniformLocation(program, name);
+	checkGLError("glGetUniformLocation");
+
+	if (handle == -1)
+	{
+		Log(name, "is -1");
+		return;
+	}
+
+	if (handle != -1)
+	{
+		glUniformMatrix4fv(handle, size, false, arr);
 		checkGLError("glUniformMatrix4fv");
 	}
 }
@@ -75,6 +106,21 @@ void Renderer::setUniform2f(int program, char *name, float x, float y)
 
 	glUniform2f(handle, x, y);
 	checkGLError("glUniform2f");
+}
+
+void Renderer::setUniform2fv(int program, char *name, int count, float *data)
+{
+	int handle = glGetUniformLocation(program, name);
+	checkGLError("glGetUniformLocation");
+
+	if (handle == -1)
+	{
+		Log(name, "is -1");
+		return;
+	}
+
+	glUniform2fv(handle, count, data);
+	checkGLError("glUniform2fv");
 }
 
 void Renderer::setUniform4f(int program, char *name, float x, float y, float z, float w)
@@ -154,6 +200,9 @@ int Renderer::loadProgram(char *vertexShaderCode, char *fragmentShaderCode, bool
 		char* strInfoLog = new char[infoLogLength + 1];
 		glGetProgramInfoLog(program, infoLogLength, NULL, strInfoLog);
 		Log(strInfoLog);
+		
+		PLAT_ShowText((std::string)strInfoLog);
+		
 		delete[] strInfoLog;
 
 		glDeleteProgram(program);
@@ -189,6 +238,9 @@ int Renderer::loadShader(int type, const char *shaderCode)
 		glGetShaderInfoLog(shader, MAX_STR_LEN, &len, errorMsg);
 		Log(errorMsg);
 		Log("len =", len);
+		
+		PLAT_ShowText((std::string)errorMsg);
+		
 		free(errorMsg);
 	}
 

@@ -101,6 +101,7 @@ jmethodID g_glTexParameteri = 0;
 jmethodID g_glUniform1f = 0;
 jmethodID g_glUniform1i = 0;
 jmethodID g_glUniform2f = 0;
+jmethodID g_glUniform2fv = 0;
 jmethodID g_glUniform4f = 0;
 jmethodID g_glUniformMatrix4fv = 0;
 jmethodID g_glUseProgram = 0;
@@ -167,6 +168,7 @@ void SetUpGLBridge(JNIEnv *jni, jclass clazz, jobject activity)
     g_glUniform1f = jni->GetMethodID(g_classCustomRenderer, "glUniform1f", "(IF)V");
     g_glUniform1i = jni->GetMethodID(g_classCustomRenderer, "glUniform1i", "(II)V");
     g_glUniform2f = jni->GetMethodID(g_classCustomRenderer, "glUniform2f", "(IFF)V");
+    g_glUniform2fv = jni->GetMethodID(g_classCustomRenderer, "glUniform2fv", "(II[F)V");
     g_glUniform4f = jni->GetMethodID(g_classCustomRenderer, "glUniform4f", "(IFFFF)V");
 	g_glUniformMatrix4fv = jni->GetMethodID(g_classCustomRenderer, "glUniformMatrix4fv", "(IIZ[F)V");
     g_glUseProgram = jni->GetMethodID(g_classCustomRenderer, "glUseProgram", "(I)V");
@@ -754,6 +756,19 @@ void glUniform2f(	GLint location,
     env->CallVoidMethod(g_objCustomRenderer, g_glUniform2f, location, v0, v1);
 }
 
+void glUniform2fv(	GLint location,
+ 	int count,
+ 	GLfloat *data)
+{
+    JNIEnv *env;
+    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+	
+    jfloatArray jarray = env->NewFloatArray(count * 2);
+    env->SetFloatArrayRegion(jarray, 0, count * 2, (const jfloat *)data);
+    env->CallVoidMethod(g_objCustomRenderer, g_glUniform2fv, location, count, jarray);
+    env->DeleteLocalRef(jarray);
+}
+
 void glUniform4f(	GLint location,
  	GLfloat v0,
  	GLfloat v1,
@@ -771,8 +786,8 @@ void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, cons
    JNIEnv *env;
    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
    
-   jfloatArray jvalue = env->NewFloatArray(16);
-   env->SetFloatArrayRegion(jvalue, 0, 16, value);
+   jfloatArray jvalue = env->NewFloatArray(16 * count);
+   env->SetFloatArrayRegion(jvalue, 0, 16 * count, value);
    env->CallVoidMethod(g_objCustomRenderer, g_glUniformMatrix4fv, location, count, transpose, jvalue);
    env->DeleteLocalRef(jvalue);
 }

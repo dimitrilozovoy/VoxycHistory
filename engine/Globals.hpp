@@ -40,9 +40,10 @@ SOFTWARE.
 
 #define PRODUCT_EARTH2084
 
-//#define DEBUG_BUILD
+#define DEBUG_BUILD
 
 #define DO_VERTEX_LIGHTS
+#define DO_FAST_SPRITES
 
 #define USE_OPENGL
 #define USE_OPENGL_3

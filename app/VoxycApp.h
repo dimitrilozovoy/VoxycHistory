@@ -26,6 +26,7 @@ SOFTWARE.
 #include <stdio.h>
 #include "../editor/Editor.h"
 #include "../editor/EditorOld.h"
+#include "../editor/OrthoEditor.h"
 #include "../engine/Engine2.h"
 #include "LuaProgram.h"
 
@@ -40,6 +41,8 @@ public:
 	void calcFrameRate();
 	void makeUpLostFramesOrWait();
 	void free();
+	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
+
 
 private:
     Engine2 engine;
@@ -49,6 +52,7 @@ private:
 
 	Editor editor;
 	EditorOld editorOld;
+	OrthoEditor orthoEditor;
 	LuaProgram luaProgram;
 
 	long long lastFinishDrawTime = 0.0;

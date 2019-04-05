@@ -20,6 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include "Globals.hpp"
 #include "SpriteRenderer.h"
 #include "platform.h"
 #include "DDLUtils.hpp"
@@ -49,12 +50,24 @@ void SpriteRenderer::init(TextureManager2 *texMan, SpriteRenderer2D *spr2d)
 #endif
 
     programMain = loadProgram(vertexShaderStr, fragmentShaderStr, false);
+
+#ifdef DO_FAST_SPRITES
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+    // Generate VAO
+    glGenVertexArrays(1, (GLuint *)&vao);
+    checkGLError("glGenVertexArrays");
+#endif
+    
+    // Generate VBO
+    glGenBuffers(1, (GLuint *)&vbo);
+    checkGLError("glGenBuffers");
+#endif
 }
 
 void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera)
 {
 	frameDump = "";
-	
+
 	int numVerts = 0;
 	int numQuads = 0;
 	
@@ -78,12 +91,10 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 
     // Quad/sprite index
     int q = 0;
-	
-//	glm::mat4 mvMatrix;
 
     // Fill data for all sprites
     for(const auto &pair: objects)
-    {
+    {		
         Object *obj = pair.second;
 
         if (obj != nullptr && obj->visible && obj->type == OBJTYPE_SPRITE) {
@@ -92,7 +103,10 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
             texAtlas.add(obj->textureName);
 
             if (texAtlas.getNeedsRefresh())
+			{
+//				Log("texAtlas.refresh();");
                 texAtlas.refresh();
+			}
 				
 			// Set modelview matrix
             glm::mat4 mvMatrix;
@@ -106,7 +120,6 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 #else
             scaleToNDC = glm::scale(glm::mat4(), glm::vec3(NDC_SCALE, NDC_SCALE, NDC_SCALE));
 #endif
-//            obj->alwaysFacePlayer = true;
 
 	        if (obj->alwaysFacePlayer)
 		        rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw), glm::vec3(0, 1, 0)) // Model yaw
@@ -115,14 +128,6 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 		        rotate = glm::rotate(glm::mat4(), glm::radians(-obj->yaw), glm::vec3(0, 1, 0)) // Model yaw
 			    * glm::rotate(glm::mat4(), glm::radians(-obj->pitch), glm::vec3(1, 0, 0)); // Model pitch
 
-/*
-	        if (obj->alwaysFacePlayer)
-		        rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw), glm::vec3(0, 1, 0)) // Model yaw
-			    * glm::rotate(glm::mat4(), glm::radians(camera->pitch), glm::vec3(1, 0, 0)); // Model pitch
-	        else
-                rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw), glm::vec3(0, 1, 0)) // Model yaw
-                * glm::rotate(glm::mat4(), glm::radians(camera->pitch), glm::vec3(1, 0, 0)); // Model pitch
-*/
             cameraRotate = glm::rotate(glm::mat4(), glm::radians(camera->roll), glm::vec3(0, 0, 1)) // Camera roll
                        * glm::rotate(glm::mat4(), -glm::radians(camera->pitch), glm::vec3(1, 0, 0)) // Camera pitch
                        * glm::rotate(glm::mat4(), glm::radians(camera->yaw), glm::vec3(0, 1, 0)); // Camera yaw
@@ -147,10 +152,6 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
                 * rotate
                 * glm::scale(glm::mat4(), obj->scale / glm::vec3(2.0, 2.0, 2.0)); // Scale
 #endif
-
-// mvMatrix = glm::mat4();
-
-//          setMatrix(curProgram, "mvMatrix", mvMatrix);
 
             //   ______
             // |\\5   4|
@@ -409,19 +410,21 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
         }
     }
 	
-//	Log(q);
-	
+#ifndef DO_FAST_SPRITES
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Generate VAO
     glGenVertexArrays(1, (GLuint *)&vao);
     checkGLError("glGenVertexArrays");
-    glBindVertexArray(vao);
-    checkGLError("glBindVertexArray");
 #endif
     
     // Generate VBO
     glGenBuffers(1, (GLuint *)&vbo);
     checkGLError("glGenBuffers");
+#endif
+
+    glBindVertexArray(vao);
+    checkGLError("glBindVertexArray");
+
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     checkGLError("glBindBuffer");
     
@@ -464,8 +467,6 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
     glUseProgram(curProgram);
     checkGLError("SpriteRenderer glUseProgram");
 	
-//	setMatrix(curProgram, "mvMatrix", mvMatrix);
-
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     // Bind the VAO
     glBindVertexArray(vao);
@@ -488,13 +489,12 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
     setMatrix(curProgram, "projectionMatrix", projMatrix);
 
     // Set variables
-//    setUniform4f(curProgram, "vColor", 1.0, 1.0, 1.0, 1.0);
     setUniform4f(curProgram, "globalColor", globalColor.x, globalColor.y, globalColor.z, globalColor.w);
-//        setUniform4f(curProgram, "vColor", object->color.x, object->color.y, object->color.z, object->color.w);
-//        setUniform4f(curProgram, "globalColor", globalColor.x, globalColor.y, globalColor.z, globalColor.w);
 
 	int t = texAtlas.getGlTexId();
-	
+//    Texture * tex = texAtlas.getTexMan()->find("brick3.png");
+//    int t = tex->glTexID;
+
 	glActiveTexture(GL_TEXTURE0);
     checkGLError("glActiveTexture");
 
@@ -505,8 +505,6 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 		
     setUniform1f(curProgram, "fadeNear", 600.0 * NDC_SCALE);
     setUniform1f(curProgram, "fadeFar", 900.0 * NDC_SCALE);
-//    setUniform1f(curProgram, "fadeNear", object->fadeNearDistance * NDC_SCALE);
-//    setUniform1f(curProgram, "fadeFar", object->fadeFarDistance * NDC_SCALE);
 
     // Set attributes
     setVertexAttrib(curProgram, "vPosition", 4, GL_FLOAT, false, floatsPerVert * sizeof(float), 0);
@@ -531,9 +529,9 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 #endif
 
     // Delete VAO and VBO
-    glDeleteBuffers(1, (GLuint *)&vbo);
+ //   glDeleteBuffers(1, (GLuint *)&vbo);
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-    glDeleteVertexArrays(1, (GLuint *)&vao);
+//    glDeleteVertexArrays(1, (GLuint *)&vao);
 #endif
 	
 	dumpFrame = false;

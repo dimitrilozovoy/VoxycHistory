@@ -26,6 +26,7 @@ SOFTWARE.
 #include "../engine/Globals.hpp"
 #include "../engine/Audio.h"
 #include "../engine/Engine2.h"
+#include "../app/VoxycApp.h"
 
 #ifdef PLATFORM_GVR
 #include "OvrApp.h"
@@ -68,5 +69,7 @@ void SetEyeMatrix(OVR::Matrix4f eyeMatrix);
 void SetProjectionMatrix(OVR::Matrix4f projectionMatrix);
 void SetHeadVector(float yaw, float pitch, float roll);
 #endif
+
+extern VoxycApp *g_engineApp;
 
 #endif

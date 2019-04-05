@@ -111,10 +111,6 @@ public:
     Shape *findShape(std::string name);
 	void deleteShape(std::string name);
 	
-//	void newBatch(std::string name);
-//  Batch *findBatch(std::string name);
-//	void batch(std::string batchName, std::string shapeName);
-
 	void loadModel(std::string fileName);
 	Model2 *findModel(std::string modelName);
 
@@ -236,6 +232,7 @@ public:
 	float getObjFloat(std::string name, std::string key);
 	void setObjStr(std::string name, std::string key, std::string value);
 	std::string getObjStr(std::string name, std::string key);
+	void setPhysicsEnabled(bool en) { physicsEnabled = en; };
 	
 	GUI *getGUI() { return &gui; }
 	
@@ -310,7 +307,8 @@ private:
 
 	bool healthBarsVisible = true;
 	bool controlsVisible = true;
-	
+	bool physicsEnabled = true;
+
 	bool initialized = false;
 
 	OBJWriter objWriter;

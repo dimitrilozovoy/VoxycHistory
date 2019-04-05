@@ -20,55 +20,50 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifndef OrthoEditor_h
+#define OrthoEditor_h
+
+#include <stdio.h>
+#include <string>
+#include "../engine/Engine2.h"
+#include "../engine/LuaBridge.h"
 #include "../engine/Globals.hpp"
-#include "LuaProgram.h"
+#include "Editor.h"
 #include "../engine/Engine2.h"
 #include "../engine/DDLUtils.hpp"
+#include "../engine/platform.h"
+#include "../engine/Voxels.h"
 
-void LuaProgram::init()
+class OrthoEditor
 {
-	g_engine2->init();
-	this->engine = g_engine2;
+public:
+    void init();
+	void load();
+	void tick();
+	void loadVoxels(std::string filename);
+    void saveVoxels(std::string filename);
+	void clear();
+	void create();
+	void setDefaultTextures();
+	void refresh();
+	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
+    float scrToGlX(float screenX);
+    float scrToGlY(float screenY);
+    float glToScrX(float glX);
+    float glToScrY(float glY);
 	
-	luaBridge.init(g_engine2);
-
-//	engine->setControlScheme(CTRL_EDITOR);
+private:
+    Engine2 *engine;
+	LuaBridge luaBridge;
+	Voxels voxels;
 	
-	// Draw splash while we are loading
-/*	engine->addText("loading", "loading", 0.0, 0.0, 0.1);
-	engine->setTextVisible("loading", true);
-    engine->setControlsVisible(false);
-    engine->setHealthBarsVisible(false);
-    engine->setSkybox("skybox.png");*/
-	
-	g_engine2->draw(0);
-}
+	int btnTimer = 0;
+	std::string fileSelectorAction = "";
+	int level = 0;
+	int texture = 1;
+	int screenWidth = 1;
+	int screenHeight = 1;
+	bool needsRefresh = false;
+};
 
-void LuaProgram::load()
-{
-	std::string fname;
-
-	if (engine->getExtraStr("assetsdir") != "")
-		engine->setAssetsDir(engine->getExtraStr("assetsdir"));
-
-	if (engine->getExtraStr("loadscript") == "")
-		fname = "load.lua";
-	else
-		fname = engine->getExtraStr("loadscript");
-		
-    luaBridge.exec(fname);
-}
-
-void LuaProgram::tick()
-{
-	std::string fname;
-
-	if (engine->getExtraStr("tickscript") == "")
-		fname = "tick.lua";
-	else
-		fname = engine->getExtraStr("tickscript");
-		
-	engine->setTextVisible("loading", false);
-
-	luaBridge.exec(fname);
-}
+#endif

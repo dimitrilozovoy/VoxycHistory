@@ -112,6 +112,7 @@ void TextureManager2::load(std::string name, bool external)
 #else
     int glTexID;
     glGenTextures(1, (GLuint *)&glTexID);
+    checkGLError("glGenTextures");
 	t->glTexID = glTexID;
 #endif
     

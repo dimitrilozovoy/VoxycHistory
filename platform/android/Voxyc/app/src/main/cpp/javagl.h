@@ -742,6 +742,9 @@ void glUniform1i(GLint location, GLint v0);
 void glUniform2f(GLint location,
  	GLfloat v0,
  	GLfloat v1);
+void glUniform2fv(GLint location,
+ 	int size,
+ 	GLfloat *data);
 void glUniform4f(GLint location,
  	GLfloat v0,
  	GLfloat v1,

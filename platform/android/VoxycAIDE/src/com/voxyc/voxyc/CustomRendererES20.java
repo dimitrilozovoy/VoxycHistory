@@ -60,16 +60,15 @@ public class CustomRendererES20 implements android.opengl.GLSurfaceView.Renderer
             }
         };
 
-/*        HelloJni.touchHandler = new Handler(Looper.getMainLooper())
+        HelloJni.touchHandler = new Handler(Looper.getMainLooper())
         {
             @Override
             public void handleMessage(Message msg)
             {
                 Bundle b = msg.getData();
-
-                HelloJni.touchEvent(b.getInt("action"), b.getFloat("x"), b.getFloat("y"));
+                HelloJni.touchEvent(b.getInt("count"), b.getInt("action1"), b.getFloat("x1"), b.getFloat("y1"), b.getInt("action2"), b.getFloat("x2"), b.getFloat("y2"), b.getInt("actionIndex"));
             }
-        };*/
+        };
 	}
 	
 	public void onDrawFrame(GL10 gl)
@@ -477,6 +476,11 @@ public class CustomRendererES20 implements android.opengl.GLSurfaceView.Renderer
 		GLES20.glUniform2f(location, v0, v1);
 	}
 	
+	public void glUniform2fv(int location, int count, float data[])
+	{
+		GLES20.glUniform2fv(location, count, data, 0);
+	}
+	
 	public void glUniform4f(int location, float v0, float v1, float v2, float v3)
 	{
 		GLES20.glUniform4f(location, v0, v1, v2, v3);
@@ -502,7 +506,7 @@ public class CustomRendererES20 implements android.opengl.GLSurfaceView.Renderer
 
 	public void glUniformMatrix4fv(int location, int count, boolean transpose, float value[])
 	{
-		FloatBuffer buf = FloatBuffer.allocate(16);
+		FloatBuffer buf = FloatBuffer.allocate(16 * count);
 		buf.put(value);
 		buf.position(0);
 		

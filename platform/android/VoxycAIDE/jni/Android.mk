@@ -65,6 +65,7 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../app/LuaProgram.cpp\
              ../../../../editor/Editor.cpp\
              ../../../../editor/EditorOld.cpp\
+             ../../../../editor/OrthoEditor.cpp\
              ../../../../thirdparty/lua/lapi.c\
              ../../../../thirdparty/lua/lauxlib.c\
              ../../../../thirdparty/lua/lbaselib.c\
