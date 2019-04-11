@@ -34,6 +34,13 @@ SOFTWARE.
 #include "../engine/platform.h"
 #include "../engine/Voxels.h"
 
+typedef enum OrthoMode
+{
+	MODE_VOXELS,
+	MODE_PIXELS
+};
+
+
 class OrthoEditor
 {
 public:
@@ -51,6 +58,7 @@ public:
     float scrToGlY(float screenY);
     float glToScrX(float glX);
     float glToScrY(float glY);
+    void exportPNG(std::string filename);
 	
 private:
     Engine2 *engine;
@@ -64,6 +72,12 @@ private:
 	int screenWidth = 1;
 	int screenHeight = 1;
 	bool needsRefresh = false;
+	OrthoMode mode = MODE_VOXELS;
+	float colorr = 1.0;
+	float colorg = 1.0;
+	float colorb = 1.0;
+	float colora = 1.0;
+	bool modified = false;
 };
 
 #endif

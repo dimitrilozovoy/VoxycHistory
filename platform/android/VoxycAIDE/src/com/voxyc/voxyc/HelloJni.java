@@ -92,7 +92,7 @@ public class HelloJni extends Activity
 	LinearLayout llConsoleInput;
 	EditText consoleInput;
 	Button consoleEnter;
-	public static final boolean DEBUG_BUILD = true;
+	public static final boolean DEBUG_BUILD = false;
 	int mConsoleMaxTotalLines = 25;
 	int mConsoleTotalLines = 0;
 	int bytesRead = 0;
@@ -671,18 +671,20 @@ public class HelloJni extends Activity
 
 	public int getWindowWidth()
 	{
-		Display display = getWindowManager().getDefaultDisplay();
+/*		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-		return size.x;
+		return size.x;*/
+		return surfaceView.getWidth();
 	}
 	
 	public int getWindowHeight()
 	{
-		Display display = getWindowManager().getDefaultDisplay();
+/*		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-		return size.y;
+		return size.y;*/
+		return surfaceView.getHeight();
 	}
 	
 	public long getTime()

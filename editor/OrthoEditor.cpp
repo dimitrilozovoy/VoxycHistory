@@ -21,6 +21,8 @@ SOFTWARE.
 */
 
 #include "OrthoEditor.h"
+#include "../engine/SoftCanvas.h"
+#include "../thirdparty/lodepng/lodepng.hpp"
 
 void OrthoEditor::init()
 {
@@ -41,13 +43,14 @@ void OrthoEditor::load()
 
     // Top buttons
 	engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.8, hw, hw);
+	engine->addWg("modebtn", WG_BTN, "m.png", "", "modebtnclicked", "", -hw * 3, 0.8, hw, hw);
+	engine->addWg("colorbtn", WG_BTN, "palette.png", "", "colorbtnclicked", "", hw * 3, 0.8, hw, hw);
     engine->addWg("backbtn", WG_BTN, "redx.png", "", "backbtnclicked", "", hw * 5, 0.8, hw, hw);
 
     // Bottom buttons
-//	engine->addWg("lockbtn", WG_BTN, "lock.png", "", "lockbtnclicked", "", -hw * 5.25, -0.8, hw, hw);
-    engine->addWg("xzbtn", WG_BTN, "xz.png", "", "xzbtnclicked", "", -hw * 5.25, -0.8, hw, hw);
-    engine->addWg("xybtn", WG_BTN, "xy.png", "", "xybtnclicked", "", -hw * 3.50, -0.8, hw, hw);
-    engine->addWg("yzbtn", WG_BTN, "yz.png", "", "yzbtnclicked", "", hw * -1.75, -0.8, hw, hw);
+//    engine->addWg("xzbtn", WG_BTN, "xz.png", "", "xzbtnclicked", "", -hw * 5.25, -0.8, hw, hw);
+//    engine->addWg("xybtn", WG_BTN, "xy.png", "", "xybtnclicked", "", -hw * 3.50, -0.8, hw, hw);
+//    engine->addWg("yzbtn", WG_BTN, "yz.png", "", "yzbtnclicked", "", hw * -1.75, -0.8, hw, hw);
     engine->addWg("down", WG_BTN, "downarrow.png", "", "downbtnclicked", "", hw * 0.0, -0.8, hw, hw);
     engine->addWg("up", WG_BTN, "uparrow.png", "", "upbtnclicked", "", hw * 1.75, -0.8, hw, hw);
     engine->addWg("prev", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3.50, -0.8, hw, hw);
@@ -66,10 +69,16 @@ void OrthoEditor::load()
 	create();
 	setDefaultTextures();
 	refresh();
+
+    engine->addText("msg", "", 0.0, 0.6, 0.08);
+    engine->addText("msg2", "", 0.0, 0.5, 0.08);
 }
 
 void OrthoEditor::tick()
 {
+    static int msgTimer = 0;
+    static const int msgTimerDelay = 50;
+
     if (needsRefresh)
     {
         refresh();
@@ -90,22 +99,80 @@ void OrthoEditor::tick()
 	if (btnTimer == 0 && (engine->getExtraInt("backbtnclicked") == 1
         || engine->getExtraInt("backbtnclicked") == 3)) {
 
-        engine->setExtraInt("switchmodule", 1);
-        engine->setExtraStr("nextmodule", "editor");
+	    if (!modified) {
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "editor");
+        } else {
+            gui->clearListMenu();
+            gui->addListMenuOption("Save and Exit", "");
+            gui->addListMenuOption("Discard and Exit", "");
+            gui->showListMenuInDialog("Voxels not saved!", "");
+	    }
 				
         engine->setExtraInt("backbtnclicked", 0);
 		btnTimer = 30;
     }
-	
+
+    if (engine->getExtraStr("listmenuoptionclicked") == "Save and Exit")
+    {
+        if (PLAT_LoadPref("main", "voxels") == "")
+        {
+            engine->setText("msg", "filename not set");
+            msgTimer = msgTimerDelay;
+        }
+        else
+        {
+            PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
+            saveVoxels(engine->getExtraStr("fileselected"));
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "editor");
+        }
+
+        engine->setExtraStr("listmenuoptionclicked", "");
+    }
+
+    if (engine->getExtraStr("listmenuoptionclicked") == "Discard and Exit")
+    {
+        engine->setExtraInt("switchmodule", 1);
+        engine->setExtraStr("nextmodule", "editor");
+
+        engine->setExtraStr("listmenuoptionclicked", "");
+    }
+
 	if (btnTimer == 0 && (engine->getExtraInt("filebtnclicked") == 1
-        || engine->getExtraInt("filebtnclicked") == 3)) {
+        || engine->getExtraInt("filebtnclicked") == 1)) {
 		gui->clearListMenu();
 		gui->addListMenuOption("New Voxels", "");
 		gui->addListMenuOption("Load Voxels", "");
 		gui->addListMenuOption("Save Voxels", "");
+        gui->addListMenuOption("Export PNG", "");
 		gui->showListMenuInDialog("File", "");
 		
 		engine->setExtraInt("filebtnclicked", 0);
+		btnTimer = 30;
+    }
+	
+	if (btnTimer == 0 && (engine->getExtraInt("modebtnclicked") == 1
+        || engine->getExtraInt("modebtnclicked") == 1)) {
+			
+		if (mode == MODE_VOXELS)
+		{
+			mode = MODE_PIXELS;
+			refresh();
+
+            engine->setText("msg", "pixel mode");
+            msgTimer = msgTimerDelay;
+		}
+		else if (mode == MODE_PIXELS)
+		{
+			mode = MODE_VOXELS;
+			refresh();
+
+            engine->setText("msg", "voxel mode");
+            msgTimer = msgTimerDelay;
+		}
+		
+		engine->setExtraInt("modebtnclicked", 0);
 		btnTimer = 30;
     }
 	
@@ -114,11 +181,12 @@ void OrthoEditor::tick()
 		gui->clearDialog();
 		gui->addDialogPart("Resolution", "16", "newvoxelsresolution");
 		gui->showDialog("Voxel Parameters", "OK", "Cancel", "voxelparamsselected");
-		
+
+        engine->setExtraStr("voxelsfilename", "");
+
         engine->setExtraStr("listmenuoptionclicked", "");
     }
 	
-    if (engine->getExtraInt("voxelparamsselected") == 1)
     if (engine->getExtraInt("voxelparamsselected") == 1)
     {
         // Resolution
@@ -163,31 +231,91 @@ void OrthoEditor::tick()
         engine->setExtraStr("listmenuoptionclicked", "");
         fileSelectorAction = "savevoxels";
     }
-	
-	// File selector actions
+
+    if (engine->getExtraStr("listmenuoptionclicked") == "Export PNG")
+    {
+        std::string fname = PLAT_LoadPref("main", "png", "");
+        if (fname == "")
+            fname = g_assetsDir;
+
+        gui->showFileSelector("png", fname);
+        engine->setExtraStr("listmenuoptionclicked", "");
+        fileSelectorAction = "exportpng";
+    }
+
+    // File selector actions
 
     if (engine->getExtraStr("fileselected") != "") {
  
         if (fileSelectorAction == "loadvoxels") {
+            PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
 			loadVoxels(engine->getExtraStr("fileselected"));
+
+            char msg[1024];
+            snprintf(msg, 1024, "loaded %s", GetFileName(engine->getExtraStr("fileselected")).c_str());
+            engine->setText("msg", msg);
+            msgTimer = msgTimerDelay;
 		}
 		
 		if (fileSelectorAction == "savevoxels") {
+            PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
 			saveVoxels(engine->getExtraStr("fileselected"));
+
+            char msg[1024];
+            snprintf(msg, 1024, "saved %s", GetFileName(engine->getExtraStr("fileselected")).c_str());
+            engine->setText("msg", msg);
+            msgTimer = msgTimerDelay;
 		}
+
+        if (fileSelectorAction == "exportpng") {
+            PLAT_SavePref("main", "png", engine->getExtraStr("fileselected"));
+            exportPNG(engine->getExtraStr("fileselected"));
+
+            char msg[1024];
+            snprintf(msg, 1024, "saved %s", GetFileName(engine->getExtraStr("fileselected")).c_str());
+            engine->setText("msg", msg);
+            msgTimer = msgTimerDelay;
+        }
 
 		engine->setExtraStr("fileselected", "");
 	}
 	
+	// Color select button
+	
+	if (btnTimer == 0 && (engine->getExtraInt("colorbtnclicked") == 1
+	    || engine->getExtraInt("colorbtnclicked") == 3))
+	{
+		gui->clearDialog();
+		gui->addDialogPart("r", FloatToStr(colorr), "colorr");
+        gui->addDialogPart("g", FloatToStr(colorg), "colorg");
+		gui->addDialogPart("b", FloatToStr(colorb), "colorb");
+		gui->addDialogPart("a", FloatToStr(colora), "colora");
+		gui->showDialog("Set Color", "OK", "Cancel", "colorselected");
+		
+		engine->setExtraInt("colorbtnclicked", 0);
+		btnTimer = 30;
+    }
+	
+	if (engine->getExtraInt("colorselected") == 1)
+	{
+		colorr = PLAT_stof(engine->getExtraStr("colorr"), 1.0f);
+        colorg = PLAT_stof(engine->getExtraStr("colorg"), 1.0f);
+        colorb = PLAT_stof(engine->getExtraStr("colorb"), 1.0f);
+        colora = PLAT_stof(engine->getExtraStr("colora"), 1.0f);
+    }
+	
 	// Bottom button actions
 	
     if (btnTimer == 0 && (engine->getExtraInt("downbtnclicked") == 1
-        || engine->getExtraInt("downbtnclicked") == 3)) {
+        || engine->getExtraInt("downbtnclicked") == 1)) {
 
         if (level > 0)
 			level--;
-			
-		Log("level", level);
+
+        char msg[1024];
+        snprintf(msg, 1024, "layer %d", level);
+        engine->setText("msg", msg);
+        msgTimer = msgTimerDelay;
 			
 		refresh();
 			
@@ -196,12 +324,15 @@ void OrthoEditor::tick()
     }
 	
     if (btnTimer == 0 && (engine->getExtraInt("upbtnclicked") == 1
-        || engine->getExtraInt("upbtnclicked") == 3)) {
+        || engine->getExtraInt("upbtnclicked") == 1)) {
 
         if (level < voxels.getSize() - 1)
 			level++;
 			
-		Log("level", level);
+        char msg[1024];
+        snprintf(msg, 1024, "layer %d", level);
+        engine->setText("msg", msg);
+        msgTimer = msgTimerDelay;
 			
 		refresh();
 			
@@ -210,12 +341,15 @@ void OrthoEditor::tick()
     }
 	
 	if (btnTimer == 0 && (engine->getExtraInt("prevbtnclicked") == 1
-        || engine->getExtraInt("prevbtnclicked") == 3)) {
+        || engine->getExtraInt("prevbtnclicked") == 1)) {
 
         if (texture > 0)
 			texture--;
-			
-		Log("texture", texture);
+
+        char msg[1024];
+        snprintf(msg, 1024, "texture %d", texture);
+        engine->setText("msg", msg);
+        msgTimer = msgTimerDelay;
 			
 		refresh();
 			
@@ -224,24 +358,33 @@ void OrthoEditor::tick()
     }
 	
     if (btnTimer == 0 && (engine->getExtraInt("nextbtnclicked") == 1
-        || engine->getExtraInt("nextbtnclicked") == 3)) {
+        || engine->getExtraInt("nextbtnclicked") == 1)) {
 
         if (texture < 255)
 			texture++;
-			
-		Log("texture", texture);
-			
-		refresh();
+
+        char msg[1024];
+        snprintf(msg, 1024, "texture %d", texture);
+        engine->setText("msg", msg);
+        msgTimer = msgTimerDelay;
+
+        refresh();
 			
         engine->setExtraInt("nextbtnclicked", 0);
 		btnTimer = 5;
+    }
+
+    // Message indicator
+
+    msgTimer--;
+
+    if (msgTimer <= 0) {
+        engine->setText("msg", "");
     }
 }
 
 void OrthoEditor::loadVoxels(std::string filename)
 {
-//	Log("loadVoxels");
-	
 	clear();
 	
 	engine->setPlayerPos(0.0, 0.0, 0.0);
@@ -255,6 +398,7 @@ void OrthoEditor::loadVoxels(std::string filename)
 void OrthoEditor::saveVoxels(std::string filename)
 {
 	voxels.save(filename, nullptr);
+	modified = false;
 }
 
 void OrthoEditor::clear()
@@ -272,6 +416,8 @@ void OrthoEditor::clear()
 	}
 	
 	voxels.clear();
+
+    modified = false;
 }
 
 void OrthoEditor::create()
@@ -313,14 +459,58 @@ void OrthoEditor::refresh()
         {
 			int y = 0;	
 			int lastTexture = 0;
+			int lastLevelWithTexture = 0;
+			float pr = 0.0f, pg = 0.0f, pb = 0.0f, pa = 0.0f;
 			
-			lastTexture = voxels.get(x, y, z);
+			if (voxels.get(x, y, z))
+            {
+			    if (mode == MODE_PIXELS)
+			    {
+			        unsigned char ur, ug, ub, ua;
+					
+			        voxels.getrgba(x, y, z, ur, ug, ub, ua);
+				
+				    pr = UCharToFloat255(ur);
+			        pg = UCharToFloat255(ug);
+			        pb = UCharToFloat255(ub);
+			        pa = UCharToFloat255(ua);
+                }
+				
+			    lastTexture = voxels.get(x, y, z);
+			    lastLevelWithTexture = 0;
+			}
 			
-			while (y < voxels.getSize() && y <= level)
+			while (y < voxels.getSize() && y < level)
 			{
-				if (voxels.get(x, y, z))
-				    lastTexture = voxels.get(x, y, z);
 				y++;
+				
+				if (voxels.get(x, y, z))
+				{
+					if (mode == MODE_PIXELS)
+			        {
+					    unsigned char ur, ug, ub, ua;
+					
+			            voxels.getrgba(x, y, z, ur, ug, ub, ua);
+				    
+/*					    float mpr = UCharToFloat(ur);
+					    float mpg = UCharToFloat(ug);
+					    float mpb = UCharToFloat(ub);
+					    float mpa = UCharToFloat(ua);
+					
+                        pr = pr * mpr * mpa;
+                        pg = pg * mpg * mpa;
+                        pb = pb * mpb * mpa;
+						pa = pa;*/
+
+                        pr = UCharToFloat255(ur);
+                        pg = UCharToFloat255(ug);
+                        pb = UCharToFloat255(ub);
+                        pa = UCharToFloat255(ua);
+			        }
+					
+				    lastTexture = voxels.get(x, y, z);
+                    lastLevelWithTexture = y;
+				}
 			}
 			
 			char newNamec[1024];
@@ -334,8 +524,27 @@ void OrthoEditor::refresh()
 			sx = -1.0 + (float)x * voxssize + voxssize / 2.0;
 			sy = -1.0 + (float)z * voxssize + voxssize / 2.0;
 			
-//			Log(voxels.getVoxelTexture(lastTexture));
-			engine->setTexture(name, voxels.getVoxelTexture(lastTexture));
+			if (mode == MODE_VOXELS)
+			{
+			    engine->setTexture(name, voxels.getVoxelTexture(lastTexture));
+			}
+			else
+			{
+			    engine->setTexture(name, "white.png");
+			}
+			
+			if (mode == MODE_VOXELS)
+			{
+			    int levelDiff = level - lastLevelWithTexture;
+			    float darkening = ((float)voxels.getSize() - (float)(voxels.getSize() - levelDiff)) / (float)voxels.getSize();
+
+				engine->setColor(name, 1.0 - darkening, 1.0 - darkening, 1.0 - darkening, 1.0f);
+			}
+			else if (mode == MODE_PIXELS)
+			{
+				engine->setColor(name, pr, pg, pb, pa);
+			}
+			
 			engine->setSize(name, voxssize, voxssize, voxssize);
 			engine->setPos(name, sx, sy, sz);
 		}
@@ -364,12 +573,21 @@ void OrthoEditor::touchEvent(int count, int action1, float x1, float y1, int act
 	
 	int x = (int)(ratioX * (float)voxels.getSize());
 	int z = (int)(ratioY * (float)voxels.getSize());
-	
-	Log("set x", x, "level", level, "z", z);
-	
-    voxels.set(x, level, z, texture);
 
-    needsRefresh = true;
+	if (x >= 0 && x < voxels.getSize() && z >= 0 && z < voxels.getSize()) {
+        voxels.set(x, level, z, texture);
+
+        if (colora != 0.0) {
+            voxels.setrgba(x, level, z, FloatToUChar255(colorr), FloatToUChar255(colorg),
+                           FloatToUChar255(colorb), FloatToUChar255(colora));
+        } else {
+            voxels.set(x, level, z, 0);
+            voxels.setrgba(x, level, z, 127, 127, 127, 127);
+        }
+
+        modified = true;
+        needsRefresh = true;
+    }
 
 	/*
 	
@@ -1181,3 +1399,27 @@ float OrthoEditor::glToScrY(float glY) {
     return screenHeight - abs(((glY + 1.0f) / 2.0f) * screenHeight);
 }
 
+void OrthoEditor::exportPNG(std::string filename)
+{
+    SoftCanvas sc;
+    sc.init(voxels.getSize(), voxels.getSize());
+
+    for (int z = 0; z < voxels.getSize(); z++) {
+        for (int x = 0; x < voxels.getSize(); x++) {
+            int y = 0;
+
+            if (voxels.get(x, y, z))
+            {
+                unsigned char ur, ug, ub, ua;
+                voxels.getrgba(x, y, z, ur, ug, ub, ua);
+                sc.setPx(x, voxels.getSize() - z, ur, ug, ub, ua);
+            }
+        }
+    }
+
+    std::vector<unsigned char> image(sc.getData(), sc.getData() + sc.getWidth() * sc.getHeight() * 4);
+    std::vector<unsigned char> png;
+
+    unsigned error = lodepng::encode(png, image, sc.getWidth(), sc.getHeight());
+    if(!error) lodepng::save_file(png, filename);
+}

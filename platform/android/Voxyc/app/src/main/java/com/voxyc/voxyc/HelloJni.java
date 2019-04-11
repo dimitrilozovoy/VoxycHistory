@@ -678,18 +678,20 @@ public class HelloJni extends Activity
 
 	public int getWindowWidth()
 	{
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		return size.x;
+		/*		Display display = getWindowManager().getDefaultDisplay();
+		 Point size = new Point();
+		 display.getSize(size);
+		 return size.x;*/
+		return surfaceView.getWidth();
 	}
-	
+
 	public int getWindowHeight()
 	{
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		return size.y;
+		/*		Display display = getWindowManager().getDefaultDisplay();
+		 Point size = new Point();
+		 display.getSize(size);
+		 return size.y;*/
+		return surfaceView.getHeight();
 	}
 	
 	public long getTime()

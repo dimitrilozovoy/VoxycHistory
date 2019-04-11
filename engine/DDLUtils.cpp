@@ -980,3 +980,19 @@ unsigned char FloatToUChar(float c)
 
 	return (unsigned char)(c * 127.0f);
 }
+
+float UCharToFloat255(unsigned char c)
+{
+	return (float)c / 255.0f;
+}
+
+unsigned char FloatToUChar255(float c)
+{
+	if (c < 0.0)
+		c = 0.0;
+
+	if (c > 1.0)
+		c = 1.0;
+
+	return (unsigned char)(c * 255.0f);
+}

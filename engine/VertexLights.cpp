@@ -55,7 +55,7 @@ void VertexLights::process(Voxels *tm, TextureManager2 *texMan) {
                                     float r = emitr + (emitr - 1.0) * (hyp / tex->lightRadius);
                                     float g = emitg + (emitg - 1.0) * (hyp / tex->lightRadius);
                                     float b = emitb + (emitb - 1.0) * (hyp / tex->lightRadius);
-                                    tm->setrgb(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b));
+                                    tm->setrgba(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b), 127);
                                 }
                             }
                         }
@@ -176,11 +176,11 @@ void VertexLights::processOld(Voxels *tm)
                 else if (tm->get(x, y, z) == 0 && foundCeiling)
                 {
                     openSpaceUnderCeiling = true;
-                    tm->setrgb(x, y, z + 1, 77, 77, 77);
+                    tm->setrgba(x, y, z + 1, 77, 77, 77, 127);
                 }
                 else if (openSpaceUnderCeiling && tm->get(x, y, z) != 0)
                 {
-                    tm->setrgb(x, y, z + 1, 77, 77, 77);
+                    tm->setrgba(x, y, z + 1, 77, 77, 77, 127);
                 }
 
                 // +-----------+
@@ -207,26 +207,26 @@ void VertexLights::processOld(Voxels *tm)
 
                 //				 Logv("*", z);
 
-                tm->setrgb(x, y, z, r, g, b);
+                tm->setrgba(x, y, z, r, g, b, 127);
 
                 //				 Logv("*", z);
 
                 if (inside && openSpaceUnderCeiling
                     && (tm->get(x, y + 1, z) != 0))
                 {
-                    tm->setrgb(x, y + 1, z, 77, 77, 77);
+                    tm->setrgba(x, y + 1, z, 77, 77, 77, 127);
                 }
 
                 if (inside && openSpaceUnderCeiling
                     && (tm->get(x + 1, y, z) != 0))
                 {
-                    tm->setrgb(x + 1, y, z, 77, 77, 77);
+                    tm->setrgba(x + 1, y, z, 77, 77, 77, 127);
                 }
 
                 if (inside && openSpaceUnderCeiling
                     && (tm->get(x + 1, y + 1, z) != 0))
                 {
-                    tm->setrgb(x + 1, y + 1, z, 77, 77, 77);
+                    tm->setrgba(x + 1, y + 1, z, 77, 77, 77, 127);
                 }
 
                 // if any nearby blocks are empty its a window

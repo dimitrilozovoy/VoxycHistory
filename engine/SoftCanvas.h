@@ -37,11 +37,14 @@ class SoftCanvas
 		void setPx(int x, int y, char r, char g, char b, char a);
 		int genTexture();
 		void checkGLError(char *str);
+		unsigned char *getData() { return data; };
+		int getWidth() { return width; };
+		int getHeight() { return height; };
 
 	private:
 	    const int bytesPerPx = 4;
 	
-	    char *data = nullptr;
+	    unsigned char *data = nullptr;
 		int width = 0;
 		int height = 0;
 	    int glTexId = -1;

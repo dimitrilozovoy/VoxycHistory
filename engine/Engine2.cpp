@@ -1409,6 +1409,17 @@ float Engine2::getPlayerRoll()
 
 /*
 ========================================
+getPlayerRoll
+========================================
+*/
+
+void Engine2::setPlayerMoveSpeed(float speed)
+{
+	g_common.playerMoveSpeed = speed;
+}
+
+/*
+========================================
 setControlScheme
 ========================================
 */

@@ -35,7 +35,6 @@ Texture *TextureManager2::find(std::string name)
 	{
 		load(name);
 		tex = textures[name];
-		//		tex = find(name);
 	}
 
 	if (tex != nullptr)
@@ -179,9 +178,6 @@ void TextureManager2::load(std::string name, bool external)
 
 void TextureManager2::add(std::string name, int glTexId)
 {
-//	std::string s = "TextureManager2::add " + name ;
-//	Log(s);
-	
     Texture *t = new Texture();
     t->name = name;
 	t->glTexID = glTexId;

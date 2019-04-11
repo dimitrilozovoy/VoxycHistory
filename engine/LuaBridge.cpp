@@ -882,6 +882,15 @@ static int getplayerroll(lua_State *L)
 	return 1;
 }
 
+static int setplayermovespeed(lua_State *L)
+{
+	lua_Number speed = lua_tonumber(L, 1);
+
+	g_engine2->setPlayerMoveSpeed(speed);
+
+	return 0;
+}
+
 static int setcontrolscheme(lua_State *L)
 {
 	std::string schemeStr = lua_tostring(L, 1);
@@ -1789,6 +1798,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getplayerpitch", getplayerpitch);
 	lua_register(L, "getplayeryaw", getplayeryaw);
 	lua_register(L, "getplayerroll", getplayerroll);
+	lua_register(L, "setplayermovespeed", setplayermovespeed);
 	lua_register(L, "setcontrolscheme", setcontrolscheme);
 	lua_register(L, "setcamerascheme", setcamerascheme);
 	lua_register(L, "moveobjsz", moveobjsz);	

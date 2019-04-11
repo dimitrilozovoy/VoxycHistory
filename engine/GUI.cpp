@@ -284,7 +284,7 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
 	float clickglx = scrToGlX(x);
 	float clickgly = scrToGlY(y);
 	
-	clickgly -= 0.075;
+//	clickgly -= 0.075;
 	
 	float wwidth = (float)PLAT_GetWindowWidth();
 	float q = 2.0f * (float)x / (float)wwidth - 1.0f;

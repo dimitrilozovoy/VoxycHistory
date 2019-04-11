@@ -798,10 +798,11 @@ void Controls2::MovePitch(float amount) {
 }
 
 float Controls2::getMoveFactor() {
-    switch (controlScheme) {
+    return g_common.playerMoveSpeed;
+/*    switch (controlScheme) {
         case CTRL_EDITOR:
 #ifdef PLATFORM_ANDROID
-            return 0.2;
+            return 0.1;
 #else
             return 0.2;
 #endif
@@ -819,7 +820,7 @@ float Controls2::getMoveFactor() {
             break;
     }
 
-    return 1.0;
+    return 1.0;*/
 }
 
 void Controls2::setControlScheme(ControlSchemes scheme) {

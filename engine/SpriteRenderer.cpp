@@ -501,7 +501,11 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
     glBindTexture(GL_TEXTURE_2D, t);
 
     setUniform2f(curProgram, "vTexSpan", 1.0, 1.0);
-    setUniform1f(curProgram, "useTexture", 1.0);
+	
+	if (g_common.useTexturesOnSprites)
+        setUniform1f(curProgram, "useTexture", 1.0);
+	else
+		setUniform1f(curProgram, "useTexture", 0.0);
 		
     setUniform1f(curProgram, "fadeNear", 600.0 * NDC_SCALE);
     setUniform1f(curProgram, "fadeFar", 900.0 * NDC_SCALE);

@@ -137,6 +137,7 @@ public:
     float getPlayerPitch();
 	float getPlayerYaw();
 	float getPlayerRoll();
+	void setPlayerMoveSpeed(float speed);
 
 	void setVehiclePos(float x, float y, float z);
 	void setVehicleOrientation(float yaw, float pitch, float roll);

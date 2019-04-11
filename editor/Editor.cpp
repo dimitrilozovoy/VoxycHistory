@@ -89,6 +89,7 @@ void Editor::load() {
     // Turn off collision detection for player
     Object *player = engine->getPlayerObj();
     player->ints["ignorecollisions"] = 1;
+    engine->setPlayerMoveSpeed(0.1);
 
     // Make main grid sprite
     engine->genTexture("maingrid", "grid", 32);
@@ -144,12 +145,12 @@ void Editor::load() {
 	if (touchControls)
 	{
 		// Top buttons
-		engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.8, hw, hw);
-		engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.8, hw, hw);
-	    engine->addWg("orthobtn", WG_BTN, "pixels.png",       "", "orthobtnclicked",      "", -hw * 1, 0.8, hw, hw);
+		engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.85, hw, hw);
+		engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.85, hw, hw);
+	    engine->addWg("orthobtn", WG_BTN, "pixels.png",       "", "orthobtnclicked",      "", 0, 0.85, hw, hw);
 		//    engine->addWg("scriptbtn",    WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", hw * 1, 0.8, hw, hw);
-		engine->addWg("prevbtn", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3, 0.8, hw, hw);
-		engine->addWg("nextbtn", WG_BTN, "nextkit.png", "", "nextbtnclicked", "", hw * 5, 0.8, hw, hw);
+		engine->addWg("prevbtn", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3, 0.85, hw, hw);
+		engine->addWg("nextbtn", WG_BTN, "nextkit.png", "", "nextbtnclicked", "", hw * 5, 0.85, hw, hw);
 
 		// Mid buttons
 		engine->addWg("remove", WG_BTN, "redx.png", "", "removeclicked", "", -hw * 5, -0.5, hw, hw);
@@ -905,7 +906,7 @@ void Editor::tick() {
              || engine->getExtraInt("prevbtnclicked") == 3)) {
             if (mode == EM_VOX && curVoxel > 0 && switchVoxTimer == 0) {
                 curVoxel--;
-                switchVoxTimer = 5;
+                switchVoxTimer = 10;
 				engine->setExtraInt("prevbtnclicked", 0);
             } else if (mode == EM_OBJ && selectedObj != nullptr) {
                 selectedObj->scale *= 0.99;
@@ -924,7 +925,7 @@ void Editor::tick() {
              || engine->getExtraInt("nextbtnclicked") == 3)) {
             if (mode == EM_VOX && curVoxel < 255 && switchVoxTimer == 0) {
                 curVoxel++;
-                switchVoxTimer = 5;
+                switchVoxTimer = 10;
 				engine->setExtraInt("nextbtnclicked", 0);
             } else if (mode == EM_OBJ && selectedObj != nullptr) {
                 selectedObj->scale *= 1.01;
@@ -1337,7 +1338,7 @@ void Editor::tick() {
             if (lightVoxels)
             {
                 Voxels *voxels = curVoxels->shape->voxels;
-                voxels->setrgb(putvoxx, putvoxy, putvoxz, FloatToUChar(lightr), FloatToUChar(lightg), FloatToUChar(lightb));
+                voxels->setrgba(putvoxx, putvoxy, putvoxz, FloatToUChar(lightr), FloatToUChar(lightg), FloatToUChar(lightb), 127);
                 curVoxels->shape->needsRebuild = true;
             }
             else
@@ -1972,7 +1973,7 @@ void Editor::tick() {
                 for (int yy = miny + 1; yy <= maxy; yy++)
                     for (int zz = minz + 1; zz <= maxz; zz++)
                     {
-                        voxels->setrgb(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b));
+                        voxels->setrgba(xx, yy, zz, FloatToUChar(r), FloatToUChar(g), FloatToUChar(b), 127);
                     }
 
             // Make sure voxels are rebuilt

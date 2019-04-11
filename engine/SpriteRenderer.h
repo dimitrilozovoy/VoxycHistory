@@ -114,15 +114,15 @@ class SpriteRenderer: public Renderer
 		"   if (f.a == 0.0) " \
 		"       discard; " \
 
-					"	lowp float visibility = 1.0; " \
+		"	lowp float visibility = 1.0; " \
 		"   lowp float alpha = 1.0; " \
 
-					"   if (distToCamera >= fadeFar) discard; " \
+		"   if (distToCamera >= fadeFar) discard; " \
 
-					"   if (distToCamera >= fadeNear) " \
+		"   if (distToCamera >= fadeNear) " \
 		"		alpha = 1.0 - (distToCamera - fadeNear) * 3.0; " \
 
-					"   if (useTexture == 1.0)" \
+		"   if (useTexture == 1.0)" \
 		"   {" \
 		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColorOut * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
 		"   }" \

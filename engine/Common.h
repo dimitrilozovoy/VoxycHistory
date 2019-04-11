@@ -48,6 +48,8 @@ typedef struct Common
 	char readSCVersionA = '1';
 	char readSCVersionB = '0';
 	char readSCVersionC = '1';
+	bool useTexturesOnSprites = true;
+	float playerMoveSpeed = 0.1;
 };
 
 typedef struct RenderStats

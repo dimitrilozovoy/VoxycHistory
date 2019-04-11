@@ -38,6 +38,7 @@ typedef struct Voxel
     unsigned char r;
 	unsigned char g;
 	unsigned char b;
+	unsigned char a;
 #endif
 /*    char xofs;
 	char yofs;
@@ -80,8 +81,8 @@ public:
     void init(int size, std::map<std::string, std::string> *extraStrings);
 	void set(int x, int y, int z, char value);
 	char get(int x, int y, int z);
-	void setrgb(int x, int y, int z, unsigned char r, unsigned char g, unsigned char b);
-	void getrgb(int x, int y, int z, unsigned char &r, unsigned char &g, unsigned char &b);
+	void setrgba(int x, int y, int z, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+	void getrgba(int x, int y, int z, unsigned char &r, unsigned char &g, unsigned char &b, unsigned char &a);
 	VoxelStack *getStack(int x, int z);
 	void setStackHeight(int x, int z, int height);
 	void build(TextureManager2 *texMan);

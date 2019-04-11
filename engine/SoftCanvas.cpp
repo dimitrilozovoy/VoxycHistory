@@ -28,7 +28,7 @@ void SoftCanvas::init(int width, int height)
 	this->width = width;
 	this->height = height;
 	
-	data = new char[bytesPerPx * height * width];
+	data = new unsigned char[bytesPerPx * height * width];
 	
 	memset(data, 0, bytesPerPx * height * width);
 }
