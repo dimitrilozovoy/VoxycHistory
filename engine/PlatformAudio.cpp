@@ -33,7 +33,7 @@ int PlatformAudio::loadSound(char *fname, bool stereo)
     Sound sound;
 
     sound.name = fname;
-    sound.id = PLAT_LoadSound(fname, stereo);
+    sound.id = PLAT_LoadSound(fname, stereo, g_assetsDir);
     sounds.push_back(sound);
 
 	return 0;
@@ -71,7 +71,7 @@ void PlatformAudio::stopSound(int stream)
 
 void PlatformAudio::playTrack(char *filename, bool stereo)
 {
-    PLAT_PlayTrack(filename, stereo);
+    PLAT_PlayTrack(filename, stereo, g_assetsDir);
 
 	return;
 }

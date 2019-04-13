@@ -23,6 +23,7 @@ SOFTWARE.
 #include "VoxycApp.h"
 #include "../engine/DDLUtils.hpp"
 #include "../engine/platform.h"
+#include "../editor/OrthoEditor.h"
 
 #ifdef PLATFORM_ANDROID
 #include "../platform/android/Voxyc/app/src/main/cpp/android.h"
@@ -76,12 +77,17 @@ void VoxycApp::load()
 
 void VoxycApp::tick()
 {
+//	Log("apptick");
+	
 	if (loadingModule)
 	{
 		load();
 		loadingModule = false;
 		return;
 	}
+	
+	// Tick controls before processing scripts
+	engine.getControls()->tick();
 	
 	if (module == "editor")
 		editor.tick();

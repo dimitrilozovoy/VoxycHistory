@@ -306,6 +306,19 @@ static int getpos(lua_State *L)
 	return 3;
 }
 
+static int getendoftickpos(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	
+    glm::vec4 pos = g_engine2->getEndOfTickPos(name);
+	
+	lua_pushnumber(L, pos.x);
+	lua_pushnumber(L, pos.y);
+    lua_pushnumber(L, pos.z);
+	
+	return 3;
+}
+
 static int setx(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -983,6 +996,15 @@ static int playtrack(lua_State *L)
 	return 1;
 }
 
+static int settrackvolume(lua_State *L)
+{
+	float vol = lua_tonumber(L, 1);
+
+	g_engine2->setTrackVolume(vol);
+
+	return 1;
+}
+
 static int checkcoll(lua_State *L)
 {
 	std::string name1 = lua_tostring(L, 1);
@@ -1095,7 +1117,7 @@ static int settextvisible(lua_State *L)
 
 static int setcontrolsenabled(lua_State *L)
 {
-	bool enabled = lua_tonumber(L, 1);
+	bool enabled = lua_toboolean(L, 1);
 
 	g_engine2->setControlsEnabled(enabled);
 
@@ -1751,6 +1773,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setphyssize", setphyssize);
 	lua_register(L, "setpos", setpos);
 	lua_register(L, "getpos", getpos);
+	lua_register(L, "getendoftickpos", getendoftickpos);
 	lua_register(L, "setx", setx);
 	lua_register(L, "getx", getx);
 	lua_register(L, "sety", sety);
@@ -1805,6 +1828,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "moveobjsx", moveobjsx);
 	lua_register(L, "playsound", playsound);
 	lua_register(L, "playtrack", playtrack);
+	lua_register(L, "settrackvolume", settrackvolume);
 	lua_register(L, "checkcoll", checkcoll);
 	lua_register(L, "checkvoxcoll", checkvoxcoll);
 	lua_register(L, "collray", collray);

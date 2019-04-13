@@ -45,11 +45,12 @@ int PLAT_AssetReadInt();
 int PLAT_AssetReadFloat();
 int PLAT_GetBytesRead();
 
-int PLAT_LoadSound(char *filename, bool stereo = false);
+int PLAT_LoadSound(char *filename, bool stereo = false, std::string assetsDir = "");
 int PLAT_PlaySound(int idx);
 void PLAT_StopSound(int stream);
-void PLAT_PlayTrack(char *filename, bool stereo);
+void PLAT_PlayTrack(char *filename, bool stereo, std::string assetsDir);
 void PLAT_StopTrack();
+void PLAT_SetTrackVolume(float vol);
 
 //void PLAT_CopyPixelsToScreen(unsigned char *pixels, int width, int height);
 

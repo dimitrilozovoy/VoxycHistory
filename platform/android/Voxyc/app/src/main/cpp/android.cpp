@@ -27,11 +27,13 @@ SOFTWARE.
 #include "engine/Engine2.h"
 #include "app/main.h"
 #else
+
 #include "../../../../../../../engine/Globals.hpp"
 #include "../../../../../../../engine/platform.h"
 #include "../../../../../../../engine/DDLUtils.hpp"
 #include "../../../../../../../engine/Engine2.h"
 #include "../../../../../../../app/main.h"
+
 #endif
 
 #define JNI_VERSION_1_6 0x00010006
@@ -58,6 +60,7 @@ jmethodID g_playSound = 0;
 jmethodID g_stopSound = 0;
 jmethodID g_playTrack = 0;
 jmethodID g_stopTrack = 0;
+jmethodID g_setTrackVolume = 0;
 jmethodID g_log = 0;
 jmethodID g_getSurfaceView = 0;
 jmethodID g_getSurface = 0;
@@ -102,41 +105,49 @@ char g_filesDir[MAX_STR_LEN];
 char g_externalFilesDir[MAX_STR_LEN];
 char g_externalStorageDir[MAX_STR_LEN];
 
-jint JNI_OnLoad(JavaVM *vm, void *reserved)
-{
-	g_jvm = vm;
+jint JNI_OnLoad(JavaVM *vm, void *reserved) {
+    g_jvm = vm;
 
-	return JNI_VERSION_1_6;
+    return JNI_VERSION_1_6;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIEnv *jni, jclass clazz, jobject activity)
-{
-	g_objMainActivity = jni->NewGlobalRef(activity);
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIEnv *jni, jclass clazz, jobject activity) {
+    g_objMainActivity = jni->NewGlobalRef(activity);
     g_classMainActivity = clazz;
-    g_open = jni->GetMethodID(g_classMainActivity, "open", "(Ljava/lang/String;)Landroid/graphics/Bitmap;");
+    g_open = jni->GetMethodID(g_classMainActivity, "open",
+                              "(Ljava/lang/String;)Landroid/graphics/Bitmap;");
     g_getWidth = jni->GetMethodID(g_classMainActivity, "getWidth", "(Landroid/graphics/Bitmap;)I");
-    g_getHeight = jni->GetMethodID(g_classMainActivity, "getHeight", "(Landroid/graphics/Bitmap;)I");
-    g_getPixels = jni->GetMethodID(g_classMainActivity, "getPixels", "(Landroid/graphics/Bitmap;[I)V");
+    g_getHeight = jni->GetMethodID(g_classMainActivity, "getHeight",
+                                   "(Landroid/graphics/Bitmap;)I");
+    g_getPixels = jni->GetMethodID(g_classMainActivity, "getPixels",
+                                   "(Landroid/graphics/Bitmap;[I)V");
     g_close = jni->GetMethodID(g_classMainActivity, "close", "(Landroid/graphics/Bitmap;)V");
     g_assetOpen = jni->GetMethodID(g_classMainActivity, "assetOpen", "(Ljava/lang/String;)V");
     g_assetReadByte = jni->GetMethodID(g_classMainActivity, "assetReadByte", "()C");
     g_assetReadInt = jni->GetMethodID(g_classMainActivity, "assetReadInt", "()I");
     g_assetReadFloat = jni->GetMethodID(g_classMainActivity, "assetReadFloat", "()F");
-	g_getBytesRead = jni->GetMethodID(g_classMainActivity, "getBytesRead", "()I");
-    g_getAssetManager = jni->GetMethodID(g_classMainActivity, "getAssetManager", "()Landroid/content/res/AssetManager;");
-    g_loadSound = jni->GetMethodID(g_classMainActivity, "loadSound", "(Ljava/lang/String;)I");
+    g_getBytesRead = jni->GetMethodID(g_classMainActivity, "getBytesRead", "()I");
+    g_getAssetManager = jni->GetMethodID(g_classMainActivity, "getAssetManager",
+                                         "()Landroid/content/res/AssetManager;");
+    g_loadSound = jni->GetMethodID(g_classMainActivity, "loadSound",
+                                   "(Ljava/lang/String;Ljava/lang/String;)I");
     g_playSound = jni->GetMethodID(g_classMainActivity, "playSound", "(I)I");
     g_stopSound = jni->GetMethodID(g_classMainActivity, "stopSound", "(I)V");
-    g_playTrack = jni->GetMethodID(g_classMainActivity, "playTrack", "(Ljava/lang/String;)V");
+    g_playTrack = jni->GetMethodID(g_classMainActivity, "playTrack",
+                                   "(Ljava/lang/String;Ljava/lang/String;Z)V");
     g_stopTrack = jni->GetMethodID(g_classMainActivity, "stopTrack", "()V");
-	g_log = jni->GetMethodID(g_classMainActivity, "log", "(Ljava/lang/String;)V");
-	g_getSurfaceView = jni->GetMethodID(g_classMainActivity, "getSurfaceView", "()Landroid/opengl/GLSurfaceView;");
-	g_getSurface = jni->GetMethodID(g_classMainActivity, "getSurface", "()Landroid/view/Surface;");
-	g_loadTextureInJava = jni->GetMethodID(g_classMainActivity, "loadTextureInJava", "(ILjava/lang/String;Ljava/lang/String;)V");
-	g_getWindowWidth = jni->GetMethodID(g_classMainActivity, "getWindowWidth", "()I");
-	g_getWindowHeight = jni->GetMethodID(g_classMainActivity, "getWindowHeight", "()I");
-	g_getTime = jni->GetMethodID(g_classMainActivity, "getTime", "()J");
-	g_stoi = jni->GetMethodID(g_classMainActivity, "stoi", "(Ljava/lang/String;I)I");
+    g_setTrackVolume = jni->GetMethodID(g_classMainActivity, "setTrackVolume", "(F)V");
+    g_log = jni->GetMethodID(g_classMainActivity, "log", "(Ljava/lang/String;)V");
+    g_getSurfaceView = jni->GetMethodID(g_classMainActivity, "getSurfaceView",
+                                        "()Landroid/opengl/GLSurfaceView;");
+    g_getSurface = jni->GetMethodID(g_classMainActivity, "getSurface", "()Landroid/view/Surface;");
+    g_loadTextureInJava = jni->GetMethodID(g_classMainActivity, "loadTextureInJava",
+                                           "(ILjava/lang/String;Ljava/lang/String;)V");
+    g_getWindowWidth = jni->GetMethodID(g_classMainActivity, "getWindowWidth", "()I");
+    g_getWindowHeight = jni->GetMethodID(g_classMainActivity, "getWindowHeight", "()I");
+    g_getTime = jni->GetMethodID(g_classMainActivity, "getTime", "()J");
+    g_stoi = jni->GetMethodID(g_classMainActivity, "stoi", "(Ljava/lang/String;I)I");
     g_stof = jni->GetMethodID(g_classMainActivity, "stof", "(Ljava/lang/String;F)F");
 /*	g_oobjloaderLoad = jni->GetMethodID(g_classMainActivity, "oobjloaderLoad", "(Ljava/lang/String;)V");
 	g_oobjloaderGetNumVertices = jni->GetMethodID(g_classMainActivity, "oobjloaderGetNumVertices", "()I");
@@ -152,56 +163,59 @@ extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIE
 	g_oobjloaderGetNormalZ = jni->GetMethodID(g_classMainActivity, "oobjloaderGetNormalZ", "(I)F");
 	g_oobjloaderGetNumFaces = jni->GetMethodID(g_classMainActivity, "oobjloaderGetNumFaces", "()I");
 	g_oobjloaderGetFaceElement = jni->GetMethodID(g_classMainActivity, "oobjloaderGetFaceElement", "(II)I");*/
-	g_showFileSelector = jni->GetMethodID(g_classMainActivity, "showFileSelector", "(Ljava/lang/String;Ljava/lang/String;)V");
-	g_clearListMenu = jni->GetMethodID(g_classMainActivity, "clearListMenu", "()V");
-    g_addListMenuOption = jni->GetMethodID(g_classMainActivity, "addListMenuOption", "(Ljava/lang/String;Ljava/lang/String;)V");
-    g_showListMenuInDialog = jni->GetMethodID(g_classMainActivity, "showListMenuInDialog", "(Ljava/lang/String;Ljava/lang/String;)V");
+    g_showFileSelector = jni->GetMethodID(g_classMainActivity, "showFileSelector",
+                                          "(Ljava/lang/String;Ljava/lang/String;)V");
+    g_clearListMenu = jni->GetMethodID(g_classMainActivity, "clearListMenu", "()V");
+    g_addListMenuOption = jni->GetMethodID(g_classMainActivity, "addListMenuOption",
+                                           "(Ljava/lang/String;Ljava/lang/String;)V");
+    g_showListMenuInDialog = jni->GetMethodID(g_classMainActivity, "showListMenuInDialog",
+                                              "(Ljava/lang/String;Ljava/lang/String;)V");
     g_showText = jni->GetMethodID(g_classMainActivity, "showText", "(Ljava/lang/String;)V");
     g_showLongText = jni->GetMethodID(g_classMainActivity, "showLongText", "(Ljava/lang/String;)V");
-	g_clearDialog = jni->GetMethodID(g_classMainActivity, "clearDialog", "()V");
-    g_addDialogPart = jni->GetMethodID(g_classMainActivity, "addDialogPart", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    g_showDialog = jni->GetMethodID(g_classMainActivity, "showDialog", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    g_clearDialog = jni->GetMethodID(g_classMainActivity, "clearDialog", "()V");
+    g_addDialogPart = jni->GetMethodID(g_classMainActivity, "addDialogPart",
+                                       "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    g_showDialog = jni->GetMethodID(g_classMainActivity, "showDialog",
+                                    "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     g_getCameraPic = jni->GetMethodID(g_classMainActivity, "getCameraPic", "()Ljava/lang/String;");
-    g_savePref = jni->GetMethodID(g_classMainActivity, "savePref", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    g_loadPref = jni->GetMethodID(g_classMainActivity, "loadPref", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
+    g_savePref = jni->GetMethodID(g_classMainActivity, "savePref",
+                                  "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    g_loadPref = jni->GetMethodID(g_classMainActivity, "loadPref",
+                                  "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_SetScreen(JNIEnv *jni, jclass clazz, jobject bitmap)
-{
-	g_screen = bitmap;
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_SetScreen(JNIEnv *jni, jclass clazz, jobject bitmap) {
+    g_screen = bitmap;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_StartApp(JNIEnv *env, jclass clazz, jint step)
-{
-	StartApp((int)step);
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_StartApp(JNIEnv *env, jclass clazz, jint step) {
+    StartApp((int) step);
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_LoadApp(JNIEnv *env, jclass clazz, jint step)
-{
-    LoadApp((int)step);
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_LoadApp(JNIEnv *env, jclass clazz, jint step) {
+    LoadApp((int) step);
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_AppTick(JNIEnv *env)
-{
-	AppTick();
+extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_AppTick(JNIEnv *env) {
+    AppTick();
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_Draw(JNIEnv *env)
-{
-	Draw(0);
+extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_Draw(JNIEnv *env) {
+    Draw(0);
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_AppFree(JNIEnv *env)
-{
-	AppFree();
+extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_AppFree(JNIEnv *env) {
+    AppFree();
 }
 
 //extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_attachThread(JNIEnv *env, jobject thiz)
 //{
 //}
 
-extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_registerEnv(JNIEnv *env, jobject thiz)
-{
+extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_registerEnv(JNIEnv *env, jobject thiz) {
 //    AttachThread();
 
 //    g_env = env;
@@ -234,62 +248,65 @@ extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_registerEnv(JNIEnv *e
     }
 }*/
 
-extern "C" JNIEXPORT jint JNICALL Java_com_voxyc_voxyc_HelloJni_touchEvent(JNIEnv *env, jobject thiz, jint count, jint action1, jfloat x1, jfloat y1, jint action2, jfloat x2, jfloat y2, jint actionIndex)
-{
+extern "C" JNIEXPORT jint JNICALL
+Java_com_voxyc_voxyc_HelloJni_touchEvent(JNIEnv *env, jobject thiz, jint count, jint action1,
+                                         jfloat x1, jfloat y1, jint action2, jfloat x2, jfloat y2,
+                                         jint actionIndex) {
     if (g_engineApp == nullptr)
         return 0;
 
     g_engineApp->touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
-	
-	return 0;
+
+    return 0;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_enterCommand(JNIEnv *env, jobject thiz, jstring jcmd)
-{
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_enterCommand(JNIEnv *env, jobject thiz, jstring jcmd) {
     const char *cmd = env->GetStringUTFChars(jcmd, 0);
-	
+
 //	g_console.exec((char *)cmd);
 
     env->ReleaseStringUTFChars(jcmd, cmd);
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_setFilesDir(JNIEnv *env, jobject thiz, jstring jdir, jstring jexternaldfilesdir, jstring jexternalstoragedir)
-{
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_setFilesDir(JNIEnv *env, jobject thiz, jstring jdir,
+                                          jstring jexternaldfilesdir, jstring jexternalstoragedir) {
     const char *dir = env->GetStringUTFChars(jdir, 0);
-	const char *externalfilesdir = env->GetStringUTFChars(jexternaldfilesdir, 0);
-	const char *externalstoragedir = env->GetStringUTFChars(jexternalstoragedir, 0);
-	
-	sprintf(g_filesDir, "%s", dir);
-	sprintf(g_externalFilesDir, "%s", externalfilesdir);
-	sprintf(g_externalStorageDir, "%s", externalstoragedir);
+    const char *externalfilesdir = env->GetStringUTFChars(jexternaldfilesdir, 0);
+    const char *externalstoragedir = env->GetStringUTFChars(jexternalstoragedir, 0);
+
+    sprintf(g_filesDir, "%s", dir);
+    sprintf(g_externalFilesDir, "%s", externalfilesdir);
+    sprintf(g_externalStorageDir, "%s", externalstoragedir);
 
     env->ReleaseStringUTFChars(jdir, dir);
-	env->ReleaseStringUTFChars(jexternaldfilesdir, externalfilesdir);
+    env->ReleaseStringUTFChars(jexternaldfilesdir, externalfilesdir);
     env->ReleaseStringUTFChars(jexternalstoragedir, externalstoragedir);
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_setExtraInt(JNIEnv *env, jobject thiz, jstring jname, int jvalue)
-{
-	const char *name = env->GetStringUTFChars(jname, 0);
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_setExtraInt(JNIEnv *env, jobject thiz, jstring jname, int jvalue) {
+    const char *name = env->GetStringUTFChars(jname, 0);
 
-	g_engine2->setExtraInt(name, jvalue);
-	
-	env->ReleaseStringUTFChars(jname, name);
+    g_engine2->setExtraInt(name, jvalue);
+
+    env->ReleaseStringUTFChars(jname, name);
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_voxyc_voxyc_HelloJni_setExtraStr(JNIEnv *env, jobject thiz, jstring jname, jstring jvalue)
-{
-	const char *name = env->GetStringUTFChars(jname, 0);
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_setExtraStr(JNIEnv *env, jobject thiz, jstring jname,
+                                          jstring jvalue) {
+    const char *name = env->GetStringUTFChars(jname, 0);
     const char *value = env->GetStringUTFChars(jvalue, 0);
 
-	g_engine2->setExtraStr(name, value);
-	
-	env->ReleaseStringUTFChars(jname, name);
-	env->ReleaseStringUTFChars(jvalue, value);
+    g_engine2->setExtraStr(name, value);
+
+    env->ReleaseStringUTFChars(jname, name);
+    env->ReleaseStringUTFChars(jvalue, value);
 }
 
-void AttachThread()
-{
+void AttachThread() {
 /*    if (!g_attached)
     {
         g_jvm->AttachCurrentThread((void**)&g_env, NULL);
@@ -297,10 +314,9 @@ void AttachThread()
     }*/
 }
 
-void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
-{
+void PLAT_LoadBitmap(int **out, unsigned *w, unsigned *h, char *path) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring name = env->NewStringUTF(path);
     jobject png = env->CallObjectMethod(g_objMainActivity, g_open, name);
@@ -316,13 +332,12 @@ void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
     jobject garray = env->NewGlobalRef(array);
     env->CallVoidMethod(g_objMainActivity, g_getPixels, png, garray);
 
-    jint *pixels = env->GetIntArrayElements((jintArray)garray, 0);
+    jint *pixels = env->GetIntArrayElements((jintArray) garray, 0);
 
     char bytes[4];
     char bytesOut[4];
 
-    for (int i = 0; i < width * height; i++)
-    {
+    for (int i = 0; i < width * height; i++) {
         int a = pixels[i];
 
         bytes[3] = a & 0xff;
@@ -335,10 +350,10 @@ void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
         bytesOut[2] = bytes[2];
         bytesOut[3] = bytes[1];
 
-        int b = int((unsigned char)(bytesOut[0]) << 24 |
-        (unsigned char)(bytesOut[1]) << 16 |
-        (unsigned char)(bytesOut[2]) << 8 |
-        (unsigned char)(bytesOut[3]));
+        int b = int((unsigned char) (bytesOut[0]) << 24 |
+                    (unsigned char) (bytesOut[1]) << 16 |
+                    (unsigned char) (bytesOut[2]) << 8 |
+                    (unsigned char) (bytesOut[3]));
 
         pixels[i] = b;
     }
@@ -347,7 +362,7 @@ void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
     *w = width;
     *h = height;
 
-    env->ReleaseIntArrayElements((jintArray)garray, pixels, 0);
+    env->ReleaseIntArrayElements((jintArray) garray, pixels, 0);
     env->DeleteGlobalRef(garray);
 
     // Free image
@@ -355,151 +370,146 @@ void PLAT_LoadBitmap(int** out, unsigned* w, unsigned* h, char *path)
     env->DeleteGlobalRef(gpng);
 }
 
-void PLAT_AssetOpen(char *filename)
-{
+void PLAT_AssetOpen(char *filename) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jfilename = env->NewStringUTF(filename);
     env->CallVoidMethod(g_objMainActivity, g_assetOpen, jfilename);
     env->DeleteLocalRef(jfilename);
 }
 
-char PLAT_AssetReadByte()
-{
+char PLAT_AssetReadByte() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallCharMethod(g_objMainActivity, g_assetReadByte);
 }
 
-int PLAT_AssetReadInt()
-{
+int PLAT_AssetReadInt() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_assetReadInt);
 }
 
-int PLAT_AssetReadFloat()
-{
+int PLAT_AssetReadFloat() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_assetReadFloat);
 }
 
-int PLAT_GetBytesRead()
-{
+int PLAT_GetBytesRead() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_getBytesRead);
 }
 
 
-jobject PLAT_GetAssetManager()
-{
+jobject PLAT_GetAssetManager() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
-	
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+
 //    return env->CallObjectMethod(g_objMainActivity, g_getAssetManager);
-	
-	jobject am = env->CallObjectMethod(g_objMainActivity, g_getAssetManager);
+
+    jobject am = env->CallObjectMethod(g_objMainActivity, g_getAssetManager);
     jobject gam = env->NewGlobalRef(am);
-	
-	return gam;
+
+    return gam;
 }
 
-JNIEnv *PLAT_GetEnv()
-{
+JNIEnv *PLAT_GetEnv() {
     JNIEnv *env;
-	
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env;
 }
 
-int PLAT_LoadSound(char *filename, bool stereo)
-{
+int PLAT_LoadSound(char *filename, bool stereo, std::string assetsdir) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jfilename = env->NewStringUTF(filename);
-    int sound = env->CallIntMethod(g_objMainActivity, g_loadSound, jfilename);
+    jstring jassetsdir = env->NewStringUTF(assetsdir.c_str());
+    int sound = env->CallIntMethod(g_objMainActivity, g_loadSound, jfilename, jassetsdir);
+    env->DeleteLocalRef(jassetsdir);
     env->DeleteLocalRef(jfilename);
 
     return sound;
 }
 
-int PLAT_PlaySound(int idx)
-{
+int PLAT_PlaySound(int idx) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_playSound, idx);
 }
 
-void PLAT_StopSound(int stream)
-{
+void PLAT_StopSound(int stream) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     env->CallVoidMethod(g_objMainActivity, g_stopSound, stream);
 }
 
-void PLAT_PlayTrack(char *filename, bool stereo)
-{
+void PLAT_PlayTrack(char *filename, bool stereo, std::string assetsdir) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jfilename = env->NewStringUTF(filename);
-    env->CallVoidMethod(g_objMainActivity, g_playTrack, jfilename);
+    jstring jassetsdir = env->NewStringUTF(assetsdir.c_str());
+    env->CallVoidMethod(g_objMainActivity, g_playTrack, jfilename, jassetsdir, false);
+    env->DeleteLocalRef(jassetsdir);
     env->DeleteLocalRef(jfilename);
 }
 
-void PLAT_StopTrack()
-{
+void PLAT_StopTrack() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     env->CallVoidMethod(g_objMainActivity, g_stopTrack);
 }
 
-void PLAT_Log(char *str)
+void PLAT_SetTrackVolume(float vol)
 {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+
+    env->CallVoidMethod(g_objMainActivity, g_setTrackVolume, vol);
+}
+
+void PLAT_Log(char *str) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jstr = env->NewStringUTF(str);
     env->CallVoidMethod(g_objMainActivity, g_log, jstr);
     env->DeleteLocalRef(jstr);
 }
 
-jobject PLAT_GetSurfaceView()
-{
+jobject PLAT_GetSurfaceView() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallObjectMethod(g_objMainActivity, g_getSurfaceView);
 }
 
-jobject PLAT_GetSurface()
-{
+jobject PLAT_GetSurface() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallObjectMethod(g_objMainActivity, g_getSurface);
 }
 
-void PLAT_CopyPixelsToScreen(unsigned char *pixels, int width, int height)
-{
+void PLAT_CopyPixelsToScreen(unsigned char *pixels, int width, int height) {
 }
 
-void PLAT_LoadTextureInJava(int glTexID, std::string filename, std::string assetsdir)
-{
+void PLAT_LoadTextureInJava(int glTexID, std::string filename, std::string assetsdir) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jfilename = env->NewStringUTF(filename.c_str());
     jstring jassetsdir = env->NewStringUTF(assetsdir.c_str());
@@ -508,46 +518,41 @@ void PLAT_LoadTextureInJava(int glTexID, std::string filename, std::string asset
     env->DeleteLocalRef(jassetsdir);
 }
 
-int PLAT_GetWindowWidth()
-{
+int PLAT_GetWindowWidth() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_getWindowWidth);
 }
 
-int PLAT_GetWindowHeight()
-{
+int PLAT_GetWindowHeight() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_getWindowHeight);
 }
 
-long PLAT_GetTime()
-{
+long PLAT_GetTime() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallLongMethod(g_objMainActivity, g_getTime);
 }
 
-int PLAT_stoi(std::string s, int fallback)
-{
+int PLAT_stoi(std::string s, int fallback) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring js = env->NewStringUTF(s.c_str());
     int r = env->CallIntMethod(g_objMainActivity, g_stoi, js, fallback);
     env->DeleteLocalRef(js);
-	
-	return r;
+
+    return r;
 }
 
-float PLAT_stof(std::string s, float fallback)
-{
+float PLAT_stof(std::string s, float fallback) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring js = env->NewStringUTF(s.c_str());
     float r = env->CallFloatMethod(g_objMainActivity, g_stof, js, fallback);
@@ -556,127 +561,112 @@ float PLAT_stof(std::string s, float fallback)
     return r;
 }
 
-void PLAT_oobjloaderLoad(char *filename)
-{
+void PLAT_oobjloaderLoad(char *filename) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jfilename = env->NewStringUTF(filename);
     env->CallVoidMethod(g_objMainActivity, g_oobjloaderLoad, jfilename);
     env->DeleteLocalRef(jfilename);
 }
 
-int PLAT_oobjloaderGetNumVertices()
-{
+int PLAT_oobjloaderGetNumVertices() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_oobjloaderGetNumVertices);
 }
 
-float PLAT_oobjloaderGetVertexX(int index)
-{
+float PLAT_oobjloaderGetVertexX(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetVertexX, index);
 }
 
-float PLAT_oobjloaderGetVertexY(int index)
-{
+float PLAT_oobjloaderGetVertexY(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetVertexY, index);
 }
 
-float PLAT_oobjloaderGetVertexZ(int index)
-{
+float PLAT_oobjloaderGetVertexZ(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetVertexZ, index);
 }
 
-int PLAT_oobjloaderGetNumTexCoords()
-{
+int PLAT_oobjloaderGetNumTexCoords() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_oobjloaderGetNumTexCoords);
 }
 
 
-float PLAT_oobjloaderGetTexCoordX(int index)
-{
+float PLAT_oobjloaderGetTexCoordX(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetTexCoordX, index);
 }
 
-float PLAT_oobjloaderGetTexCoordY(int index)
-{
+float PLAT_oobjloaderGetTexCoordY(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetTexCoordY, index);
 }
 
-int PLAT_oobjloaderGetNumNormals()
-{
+int PLAT_oobjloaderGetNumNormals() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_oobjloaderGetNumNormals);
 }
 
 
-float PLAT_oobjloaderGetNormalX(int index)
-{
+float PLAT_oobjloaderGetNormalX(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetNormalX, index);
 }
 
-float PLAT_oobjloaderGetNormalY(int index)
-{
+float PLAT_oobjloaderGetNormalY(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetNormalY, index);
 }
 
-float PLAT_oobjloaderGetNormalZ(int index)
-{
+float PLAT_oobjloaderGetNormalZ(int index) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallFloatMethod(g_objMainActivity, g_oobjloaderGetNormalZ, index);
 }
 
-int PLAT_oobjloaderGetNumFaces()
-{
+int PLAT_oobjloaderGetNumFaces() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_oobjloaderGetNumFaces);
 }
 
 
-int PLAT_oobjloaderGetFaceElement(int face, int element)
-{
+int PLAT_oobjloaderGetFaceElement(int face, int element) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     return env->CallIntMethod(g_objMainActivity, g_oobjloaderGetFaceElement, face, element);
 }
 
-void PLAT_ShowFileSelector(std::string ext, std::string dir)
-{
+void PLAT_ShowFileSelector(std::string ext, std::string dir) {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jext = env->NewStringUTF(ext.c_str());
     jstring jdir = env->NewStringUTF(dir.c_str());
@@ -685,138 +675,127 @@ void PLAT_ShowFileSelector(std::string ext, std::string dir)
     env->DeleteLocalRef(jext);
 }
 
-void PLAT_ClearListMenu()
-{
+void PLAT_ClearListMenu() {
     JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     env->CallVoidMethod(g_objMainActivity, g_clearListMenu);
 }
 
-void PLAT_AddListMenuOption(std::string title, std::string desc)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_AddListMenuOption(std::string title, std::string desc) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
     jstring jtitle = env->NewStringUTF(title.c_str());
-	jstring jdesc = env->NewStringUTF(desc.c_str());
+    jstring jdesc = env->NewStringUTF(desc.c_str());
     env->CallVoidMethod(g_objMainActivity, g_addListMenuOption, jtitle, jdesc);
     env->DeleteLocalRef(jdesc);
-	env->DeleteLocalRef(jtitle);
+    env->DeleteLocalRef(jtitle);
 }
 
-void PLAT_ShowListMenuInDialog(std::string title, std::string options)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_ShowListMenuInDialog(std::string title, std::string options) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring jtitle = env->NewStringUTF(title.c_str());
-	jstring joptions = env->NewStringUTF(options.c_str());
+    jstring jtitle = env->NewStringUTF(title.c_str());
+    jstring joptions = env->NewStringUTF(options.c_str());
     env->CallVoidMethod(g_objMainActivity, g_showListMenuInDialog, jtitle, joptions);
     env->DeleteLocalRef(joptions);
-	env->DeleteLocalRef(jtitle);
+    env->DeleteLocalRef(jtitle);
 }
 
-void PLAT_ShowText(std::string text)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_ShowText(std::string text) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring jtext = env->NewStringUTF(text.c_str());
+    jstring jtext = env->NewStringUTF(text.c_str());
     env->CallVoidMethod(g_objMainActivity, g_showText, jtext);
     env->DeleteLocalRef(jtext);
 }
 
-void PLAT_ShowLongText(std::string text)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_ShowLongText(std::string text) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring jtext = env->NewStringUTF(text.c_str());
+    jstring jtext = env->NewStringUTF(text.c_str());
     env->CallVoidMethod(g_objMainActivity, g_showLongText, jtext);
     env->DeleteLocalRef(jtext);
 }
 
-void PLAT_ClearDialog()
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
-	
+void PLAT_ClearDialog() {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+
     env->CallVoidMethod(g_objMainActivity, g_clearDialog);
 }
 
-void PLAT_AddDialogPart(std::string s1, std::string s2, std::string s3)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_AddDialogPart(std::string s1, std::string s2, std::string s3) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring js1 = env->NewStringUTF(s1.c_str());
- 	jstring js2 = env->NewStringUTF(s2.c_str());
- 	jstring js3 = env->NewStringUTF(s3.c_str());
+    jstring js1 = env->NewStringUTF(s1.c_str());
+    jstring js2 = env->NewStringUTF(s2.c_str());
+    jstring js3 = env->NewStringUTF(s3.c_str());
     env->CallVoidMethod(g_objMainActivity, g_addDialogPart, js1, js2, js3);
     env->DeleteLocalRef(js1);
-	env->DeleteLocalRef(js2);
-	env->DeleteLocalRef(js3);
+    env->DeleteLocalRef(js2);
+    env->DeleteLocalRef(js3);
 }
 
-void PLAT_ShowDialog(std::string s1, std::string s2, std::string s3, std::string s4)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_ShowDialog(std::string s1, std::string s2, std::string s3, std::string s4) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring js1 = env->NewStringUTF(s1.c_str());
- 	jstring js2 = env->NewStringUTF(s2.c_str());
- 	jstring js3 = env->NewStringUTF(s3.c_str());
-  	jstring js4 = env->NewStringUTF(s4.c_str());
+    jstring js1 = env->NewStringUTF(s1.c_str());
+    jstring js2 = env->NewStringUTF(s2.c_str());
+    jstring js3 = env->NewStringUTF(s3.c_str());
+    jstring js4 = env->NewStringUTF(s4.c_str());
     env->CallVoidMethod(g_objMainActivity, g_showDialog, js1, js2, js3, js4);
     env->DeleteLocalRef(js1);
-	env->DeleteLocalRef(js2);
-	env->DeleteLocalRef(js3);
-	env->DeleteLocalRef(js4);
+    env->DeleteLocalRef(js2);
+    env->DeleteLocalRef(js3);
+    env->DeleteLocalRef(js4);
 }
 
-std::string PLAT_GetCameraPic()
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+std::string PLAT_GetCameraPic() {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	std::string fname = "";
-	
-	jstring resultJNIStr = (jstring)env->CallObjectMethod(g_objMainActivity, g_getCameraPic);
+    std::string fname = "";
+
+    jstring resultJNIStr = (jstring) env->CallObjectMethod(g_objMainActivity, g_getCameraPic);
     const char *resultCStr = env->GetStringUTFChars(resultJNIStr, NULL);
     fname = resultCStr;
     env->ReleaseStringUTFChars(resultJNIStr, resultCStr);
-	
-	return fname;
+
+    return fname;
 }
 
-void PLAT_SavePref(std::string s1, std::string s2, std::string s3)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+void PLAT_SavePref(std::string s1, std::string s2, std::string s3) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring js1 = env->NewStringUTF(s1.c_str());
- 	jstring js2 = env->NewStringUTF(s2.c_str());
- 	jstring js3 = env->NewStringUTF(s3.c_str());
+    jstring js1 = env->NewStringUTF(s1.c_str());
+    jstring js2 = env->NewStringUTF(s2.c_str());
+    jstring js3 = env->NewStringUTF(s3.c_str());
     env->CallVoidMethod(g_objMainActivity, g_savePref, js1, js2, js3);
     env->DeleteLocalRef(js1);
-	env->DeleteLocalRef(js2);
-	env->DeleteLocalRef(js3);
+    env->DeleteLocalRef(js2);
+    env->DeleteLocalRef(js3);
 }
 
-std::string PLAT_LoadPref(std::string s1, std::string s2, std::string s3)
-{
-	JNIEnv *env;
-    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+std::string PLAT_LoadPref(std::string s1, std::string s2, std::string s3) {
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-	jstring js1 = env->NewStringUTF(s1.c_str());
- 	jstring js2 = env->NewStringUTF(s2.c_str());
- 	jstring js3 = env->NewStringUTF(s3.c_str());
-    jstring jresult = (jstring)env->CallObjectMethod(g_objMainActivity, g_loadPref, js1, js2, js3);
+    jstring js1 = env->NewStringUTF(s1.c_str());
+    jstring js2 = env->NewStringUTF(s2.c_str());
+    jstring js3 = env->NewStringUTF(s3.c_str());
+    jstring jresult = (jstring) env->CallObjectMethod(g_objMainActivity, g_loadPref, js1, js2, js3);
     const char *result = env->GetStringUTFChars(jresult, NULL);
-	env->DeleteLocalRef(js1);
-	env->DeleteLocalRef(js2);
-	env->DeleteLocalRef(js3);
-	
+    env->DeleteLocalRef(js1);
+    env->DeleteLocalRef(js2);
+    env->DeleteLocalRef(js3);
+
     return result;
 }

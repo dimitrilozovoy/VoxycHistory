@@ -93,6 +93,7 @@ public:
 	glm::vec4 getPos(std::string name);
 	void setNextPos(std::string name, float x, float y, float z);
 	glm::vec4 getNextPos(std::string name);
+	glm::vec4 getEndOfTickPos(std::string name);
 	void setOrientation(std::string name, float pitch, float yaw, float roll);
 	void setYaw(std::string name, float yaw);
     void setPitch(std::string name, float pitch);
@@ -159,6 +160,7 @@ public:
 
 	void playSound(std::string name, bool stereo);
 	void playTrack(std::string name, bool stereo);
+    void setTrackVolume(float vol);
 
 	bool checkCollision(Object *obj1, Object *obj2, float factorx = 1.0, float factory = 1.0, float factorz = 1.0);
 	bool checkVoxelCollision(Object *obj, float multx, float multy, float multz);

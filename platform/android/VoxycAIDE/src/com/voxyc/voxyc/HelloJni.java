@@ -1,4 +1,4 @@
-/*
+/*      c
 Copyright (C) 2018 Dimitri Lozovoy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -87,12 +87,13 @@ public class HelloJni extends Activity
 	SoundPool soundPool;
 	MediaPlayer player;
 	String curTrackFilename = null;
+        float curTrackVolume = 1.0f;
 	RelativeLayout rl = null;
 	TextView console;
 	LinearLayout llConsoleInput;
 	EditText consoleInput;
 	Button consoleEnter;
-	public static final boolean DEBUG_BUILD = false;
+	public static final boolean DEBUG_BUILD = true;
 	int mConsoleMaxTotalLines = 25;
 	int mConsoleTotalLines = 0;
 	int bytesRead = 0;
@@ -296,6 +297,7 @@ public class HelloJni extends Activity
 		super.onResume();
 
 		playTrack(curTrackFilename);
+                player.setVolume(curTrackVolume, curTrackVolume);
 	}
 
 	@Override
@@ -511,19 +513,28 @@ public class HelloJni extends Activity
     //
     // =======================================================================
 	
-	public int loadSound(String filename)
+	public int loadSound(String filename, String assetsDir)
 	{
 		int id = -1;
 
-		try {
-			AssetFileDescriptor afd = amgr.openFd(filename);
-			id = soundPool.load(afd, 0);
+		// Assets dir
+		try
+		{
+			id = soundPool.load(assetsDir + "/" + filename, 0);
 		}
 		catch (Exception e)
 		{
-			Log.e("loadSound", "Error loading sound " + filename + ": " + e.toString());
+			// Fall back to build-in assets
+			try {
+				AssetFileDescriptor afd = amgr.openFd(filename);
+				id = soundPool.load(afd, 0);
+			}
+			catch (Exception e2)
+			{
+				Log.e("loadSound", "Error loading sound " + filename + ": " + e2.toString());
+			}
 		}
-
+		
 		return id;
 	}
 
@@ -574,6 +585,11 @@ public class HelloJni extends Activity
 		player.stop();
 	}
 	
+        public void setTrackVolume(float vol) {
+                curTrackVolume = vol;
+                player.setVolume(vol, vol);
+        }
+
 	public void log(final String str)
 	{
 		runOnUiThread (new Thread(new Runnable()

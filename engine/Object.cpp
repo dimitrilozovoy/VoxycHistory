@@ -641,6 +641,8 @@ void Object::capVelocity()
 void Object::moveTowardsNextPosition()
 {
 	glm::vec4 delta = nextPosition - position;
+	
+//	Log(name.c_str(), nextPosition);
 
 	position += delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
 }

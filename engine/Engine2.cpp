@@ -125,7 +125,7 @@ void Engine2::tick()
 	if (physicsEnabled)
 	    physics.tick(objects);
 		
-    controls.tick();
+//    controls.tick();
 	audio.tick();
 
 	moveObjectsSmoothly();
@@ -783,6 +783,26 @@ glm::vec4 Engine2::getNextPos(std::string name)
 		return glm::vec4(0.0, 0.0, 0.0, 0.0);
 	
 	return o->nextPosition;
+}
+
+/*
+========================================
+getEndOfTickPos
+========================================
+*/
+
+glm::vec4 Engine2::getEndOfTickPos(std::string name)
+{
+	Object *o = findObj(name);
+	
+	if (o == nullptr)
+		return glm::vec4(0.0, 0.0, 0.0, 0.0);
+		
+	glm::vec4 delta = o->nextPosition - o->position;
+
+	glm::vec4 eotposition = o->position + delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
+
+	return eotposition;
 }
 
 /*
@@ -1542,6 +1562,18 @@ void Engine2::playTrack(std::string name, bool stereo)
     std::string fnamewext = name + "." + ext;
     
 	audio.playTrack((char *)fnamewext.c_str(), stereo);
+}
+
+
+/*
+========================================
+setTrackVolume
+========================================
+*/
+
+void Engine2::setTrackVolume(float vol)
+{
+    PLAT_SetTrackVolume(vol);
 }
 
 /*
