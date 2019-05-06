@@ -46,6 +46,7 @@ public:
     float maxZ = 0.0;
 
 	glm::vec4 proportionScale;
+	glm::vec3 offset;
 	float yaw = 0;
 	float pitch = 0;
 	float roll = 0;

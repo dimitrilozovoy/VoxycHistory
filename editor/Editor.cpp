@@ -406,6 +406,7 @@ void Editor::tick() {
 				gui->addListMenuOption("Add Model", "");
 				gui->addListMenuOption("Add Sprite", "");
 				gui->addListMenuOption("Set Sky", "");
+				gui->addListMenuOption("Set Ambient Light", "");
                 gui->addListMenuOption("Toggle Guides", "");
 				gui->addListMenuOption("Hide GUI and Guides", "");
 				gui->showListMenuInDialog("Object", "");
@@ -449,6 +450,8 @@ void Editor::tick() {
 		
 		if (engine->getExtraStr("fileselected") != "") {
             timer = 50;
+			
+		    engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
 
             if (fileSelectorAction == "importvoxels") {
 				PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
@@ -534,7 +537,7 @@ void Editor::tick() {
 					// Not link copy? We need to copy the voxels
 					engine->newShape(newName, SHAPE_VOXELS, shape->voxels->getSize(), 0.0);
 					engine->setShape(newName, newName);
-					newObj->shape->voxels->load(engine->getExtraStr("fileselected"), nullptr);
+					newObj->shape->voxels->load(engine->getExtraStr("fileselected"), nullptr, engine->getTextureManager());
 				}
 
 				newObj->visible = true;
@@ -615,6 +618,47 @@ void Editor::tick() {
             gui->showFileSelector("png", g_assetsDir);
             engine->setExtraStr("listmenuoptionclicked", "");
             fileSelectorAction = "setskybox";
+        }
+		
+		// Set ambient light
+        if (engine->getExtraStr("listmenuoptionclicked") == "Set Ambient Light") {
+
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            TextureManager2 *texMan = engine->getTextureManager();
+            Texture *tex = texMan->find(engine->getVoxelTexture(curVoxelsShapeName, curVoxel));
+
+            if (!gui->nonNativeWidgetsShown())
+            {
+                gui->clearDialog();
+                gui->addDialogPart("r (0.0-2.0)", "1.0", "lightr");
+                gui->addDialogPart("g (0.0-2.0)", "1.0", "lightg");
+                gui->addDialogPart("b (0.0-2.0)", "1.0", "lightb");
+                gui->showDialog("Set Ambient Light", "OK", "Cancel", "setambientlight_entered");
+            }
+        }
+
+        engine->setExtraStr("listmenuoptionclicked", "");
+        }
+
+        if (engine->getExtraInt("setambientlight_entered") == 1)
+        {
+        if (curVoxels != nullptr && curVoxels->shape != nullptr)
+        {
+            std::string curVoxelsShapeName = curVoxels->shape->name;
+
+            lightr = PLAT_stof(engine->getExtraStr("lightr"), 1.0f);
+            lightg = PLAT_stof(engine->getExtraStr("lightg"), 1.0f);
+            lightb = PLAT_stof(engine->getExtraStr("lightb"), 1.0f);
+
+            g_common.ambientr = lightr;
+			g_common.ambientg = lightg;
+            g_common.ambientb = lightb;
+			
+            engine->setExtraInt("setambientlight_entered", 0);
+        }
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Toggle Guides") {
@@ -1144,15 +1188,16 @@ void Editor::tick() {
         movingUp = false;
 
     Object *playerObj = engine->getPlayerObj();
+	Controls2 *controls = engine->getControls();
 
     if (movingForward)
-        playerObj->MoveForward(0.3);
+        playerObj->MoveForward(controls->getMoveFactor());
 //		ctrl->setBtn(BTN_UP, 1);
 //	else
 //		ctrl->setBtn(BTN_UP, 0);
 
     if (movingBackward)
-        playerObj->MoveForward(-0.3);
+        playerObj->MoveForward(-controls->getMoveFactor());
 //		ctrl->setBtn(BTN_DOWN, 1);
 //	else
 //		ctrl->setBtn(BTN_DOWN, 0);

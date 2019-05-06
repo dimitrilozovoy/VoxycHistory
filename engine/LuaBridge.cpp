@@ -132,11 +132,18 @@ static int getmodel(lua_State *L)
 	std::string name = lua_tostring(L, 1);
 
 	Object *obj = g_engine2->findObj(name);
-	std::string modelName = obj->modelName;
+	
+	if (obj != nullptr)
+	{
+	    std::string modelName = obj->modelName;
+	    lua_pushstring(L, modelName.c_str());
 
-	lua_pushstring(L, modelName.c_str());
-
-	return 1;
+	    return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 static int setmodelorient(lua_State *L)
@@ -562,6 +569,38 @@ static int moveforward(lua_State *L)
 		return 0;
 		
     o->setDeltaXYZ(o->yaw, o->pitch, distance);
+	o->move();
+	
+	return 0;
+}
+
+static int moveleft(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	lua_Number distance = lua_tonumber(L, 2);
+	
+	Object *o = g_engine2->findObj(name);
+	
+	if (o == nullptr)
+		return 0;
+		
+    o->setDeltaXYZ(o->yaw - 90, o->pitch, distance);
+	o->move();
+	
+	return 0;
+}
+
+static int moveright(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	lua_Number distance = lua_tonumber(L, 2);
+	
+	Object *o = g_engine2->findObj(name);
+	
+	if (o == nullptr)
+		return 0;
+		
+    o->setDeltaXYZ(o->yaw + 90, o->pitch, distance);
 	o->move();
 	
 	return 0;
@@ -1524,9 +1563,7 @@ static int runscript(lua_State *L)
 	std::string filename = lua_tostring(L, 1);
 	std::string errorMsg;
 	
-#ifdef PLATFORM_ANDROID
-    std::string filesDir = g_externalFilesDir;
-	std::string fullFilename = filesDir + "/" + filename;	
+	std::string fullFilename = g_assetsDir + "/" + filename;
 	if (luaL_dofile(L, fullFilename.c_str()))
 	{
 		errorMsg = lua_tostring(L, -1);
@@ -1537,13 +1574,6 @@ static int runscript(lua_State *L)
     {
 		errorMsg = "";
 	}
-#endif
-#ifdef PLATFORM_WINDOWS
-	char fullFilename[MAX_STR_LEN];
-	printFullResourceFilename((char *)filename.c_str(), fullFilename);
-
-	luaL_dofile(L, fullFilename);
-#endif
 
 	return 0;
 }
@@ -1728,6 +1758,31 @@ static int rebuild(lua_State *L)
 	return 0;
 }
 
+static int setlight(lua_State *L)
+{
+	float yaw = lua_tonumber(L, 1);
+	float otherYaw = lua_tonumber(L, 2);
+	float tolerance = lua_tonumber(L, 3);
+
+	bool val = compareYaw(yaw, otherYaw, tolerance);
+	lua_pushboolean(L, val);
+
+	return 1;
+}
+
+static int setcentermodels(lua_State *L)
+{
+	bool x = lua_toboolean(L, 1);
+	bool y = lua_toboolean(L, 2);
+    bool z = lua_toboolean(L, 3);
+
+	g_common.centerModelsX = x;
+	g_common.centerModelsY = y;
+	g_common.centerModelsZ = z;
+	
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1785,7 +1840,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setvelocity", setvelocity);
 	lua_register(L, "getvelocity", getvelocity);
 	lua_register(L, "setorient", setorient);
-	lua_register(L, "getorient", getorient);
+//	lua_register(L, "getorient", getorient);
 	lua_register(L, "setyaw", setyaw);	
 	lua_register(L, "setpitch", setpitch);
     lua_register(L, "setroll", setroll);
@@ -1796,6 +1851,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getyaw", getyaw);
 	lua_register(L, "getsecondaryyaw", getsecondaryyaw);
 	lua_register(L, "moveforward", moveforward);
+	lua_register(L, "moveleft", moveleft);
+	lua_register(L, "moveright", moveright);
 	lua_register(L, "setmovesmoothly", setmovesmoothly);
 	lua_register(L, "setfade", setfade);
 	lua_register(L, "setfaceplayer", setfaceplayer);
@@ -1887,6 +1944,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "compareyaw", compareyaw);
 	lua_register(L, "loadtex", loadtex);
 	lua_register(L, "rebuild", rebuild);
+	lua_register(L, "setcentermodels", setcentermodels);
 }
 
 void LuaBridge::exec(std::string filename)

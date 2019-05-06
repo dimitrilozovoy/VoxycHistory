@@ -313,7 +313,7 @@ void EditorController::save(std::string fname)
 
 void EditorController::load(std::string fname)
 {
-	if (voxelsObj == nullptr)
+/*	if (voxelsObj == nullptr)
 	{
 //		Log("voxelsObj is null");
 		return;
@@ -323,7 +323,7 @@ void EditorController::load(std::string fname)
 	Voxels *voxels = shape->voxels;
 
 	voxels->load(fname, nullptr);
-	shape->needsRebuild = true;
+	shape->needsRebuild = true;*/
 }
 
 void EditorController::minus()

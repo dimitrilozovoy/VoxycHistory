@@ -94,7 +94,7 @@ public:
 	void checkGLError(char *tag);
 	int getSize() { return size; };
 	int save(std::string fname, FILE *f);
-	int load(std::string fname, FILE *f);
+	int load(std::string fname, FILE *f, TextureManager2 *texMan);
 	void calcMinMax();
 	void crop();
 	void setVoxelTexture(int voxel, std::string texture);

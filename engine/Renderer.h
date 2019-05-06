@@ -36,6 +36,12 @@ SOFTWARE.
 #define NDC_SCALE	1.0f
 #endif
 
+typedef struct DynamicLight
+{
+	float radius;
+	glm::vec4 color;
+};
+
 class Renderer
 {
 public:

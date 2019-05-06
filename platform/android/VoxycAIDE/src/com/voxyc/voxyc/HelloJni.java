@@ -86,8 +86,9 @@ public class HelloJni extends Activity
 	InputStream is;
 	SoundPool soundPool;
 	MediaPlayer player;
-	String curTrackFilename = null;
-        float curTrackVolume = 1.0f;
+	String curTrackFilename = "";
+    float curTrackVolume = 1.0f;
+    String curAssetsDir = "";
 	RelativeLayout rl = null;
 	TextView console;
 	LinearLayout llConsoleInput;
@@ -296,8 +297,8 @@ public class HelloJni extends Activity
 	{
 		super.onResume();
 
-		playTrack(curTrackFilename);
-                player.setVolume(curTrackVolume, curTrackVolume);
+		playTrack(curTrackFilename, curAssetsDir, true);
+        player.setVolume(curTrackVolume, curTrackVolume);
 	}
 
 	@Override
@@ -548,38 +549,48 @@ public class HelloJni extends Activity
 		soundPool.stop(stream);
 	}
 
-	public void playTrack(String filename)
-	{
-		curTrackFilename = filename;
 
-		if (player.isPlaying()) {
-			player.stop();
-		}
+    public void playTrack(String filename, String assetsDir, boolean force) {
 
-		// Media player
-		try
-		{
-			player = new MediaPlayer();
-		}
-		catch (Exception e)
-		{
-			Log.e("onCreate", e.toString());
-		}
+        if (filename.equals("") || (filename.equals(curTrackFilename) && !force))
+            return;
 
-		try {
-			AssetFileDescriptor afd = amgr.openFd(filename);
+        curTrackFilename = filename;
+        curAssetsDir = assetsDir;
 
-			player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-			player.setLooping(true);
-			player.prepare();
-			player.start();
-		}
-		catch (Exception e)
-		{
-			Log.e("playTrack", e.toString());
-		}
-	}
+        if (player.isPlaying()) {
+            player.stop();
+        }
 
+        // Media player
+        try {
+            player = new MediaPlayer();
+        } catch (Exception e) {
+            Log.e("onCreate", e.toString());
+        }
+
+        // Assets dir
+        try {
+            player.setDataSource(assetsDir + "/" + filename);
+        } catch (Exception e) {
+            try {
+                // Fall back to build-in assets
+                AssetFileDescriptor afd = amgr.openFd(filename);
+                player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            } catch (IOException e2) {
+                Log.e("playTrack", e2.toString());
+            }
+        }
+
+        try {
+            player.setLooping(true);
+            player.prepare();
+            player.start();
+        } catch (Exception e) {
+            Log.e("playTrack", e.toString());
+        }
+    }
+	
 	public void stopTrack()
 	{
 		player.stop();

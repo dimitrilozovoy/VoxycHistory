@@ -222,7 +222,8 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
             * glm::translate(glm::mat4(), glm::vec3(object->position.x, object->position.y,
                                                     object->position.z)) // World translate
             * rotate
-            * scale;
+            * scale
+			* glm::translate(glm::mat4(), model->offset);
 //		* glm::scale(glm::mat4(), object->scale); // Scale
 
 	glm::mat4 projMatrix;

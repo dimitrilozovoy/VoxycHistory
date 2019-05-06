@@ -138,7 +138,7 @@ void Scene::load(std::string fname, std::map<std::string, Object*> &objects, std
         for (int s = 0; s < numShapes; s++)
         {
             Shape *shape = new Shape();
-            shape->load(file);
+            shape->load(file, texMan);
             shapes[shape->name] = shape;
         }
 

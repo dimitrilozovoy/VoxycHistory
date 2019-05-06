@@ -98,6 +98,7 @@ private:
 		"uniform sampler2D uTexture; " \
 		"uniform vec4 vColor; " \
 		"uniform vec4 globalColor; " \
+		"uniform vec4 ambientLight; " \
 		"in vec2 vTexCoordsOut; " \
 		"in vec4 posOut; " \
 		"out vec4 finalColor; " \
@@ -130,11 +131,11 @@ private:
 
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      finalColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      finalColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight1; " \
 		"   }" \
 		"}\n";
 
@@ -175,6 +176,7 @@ private:
 		"uniform sampler2D uTexture; " \
 		"uniform vec4 vColor; " \
 		"uniform vec4 globalColor; " \
+		"uniform vec4 ambientLight; " \
 		"in vec2 vTexCoordsOut; " \
 		"in vec4 posOut; " \
 		"out vec4 finalColor; " \
@@ -203,11 +205,11 @@ private:
 
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      finalColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      finalColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight; " \
 		"   }" \
 		"}\n";
 
@@ -325,6 +327,7 @@ private:
 	"uniform sampler2D uTexture; " \
     "uniform lowp vec4 vColor; " \
 	"uniform lowp vec4 globalColor; " \
+	"uniform lowp vec4 ambientLight; " \
 	"varying lowp vec2 vTexCoordsOut; " \
 	"varying lowp vec4 posOut; " \
 	"uniform lowp float useTexture; " \
@@ -350,11 +353,11 @@ private:
 
 	"   if (useTexture == 1.0)" \
 	"   {" \
-	"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+	"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight; " \
 	"   }" \
 	"   else" \
 	"   {" \
-	"      gl_FragColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+	"      gl_FragColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight; " \
 	"   }" \
 	"}\n";
 
@@ -395,6 +398,7 @@ private:
 	"uniform sampler2D uTexture; " \
     "uniform lowp vec4 vColor; " \
 	"uniform lowp vec4 globalColor; " \
+	"uniform lowp vec4 ambientLight; " \
 	"varying lowp vec2 vTexCoordsOut; " \
 	"varying lowp vec4 posOut; " \
 	"uniform lowp float useTexture; " \
@@ -421,11 +425,11 @@ private:
 
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0); " \
+		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0) * ambientLight; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      gl_FragColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0); " \
+		"      gl_FragColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0) * ambientLight; " \
 		"   }" \
 		"}\n";
 

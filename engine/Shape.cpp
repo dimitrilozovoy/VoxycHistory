@@ -899,7 +899,7 @@ void Shape::save(FILE *f)
     }
 }
 
-void Shape::load(FILE *f)
+void Shape::load(FILE *f, TextureManager2 *texMan)
 {
 	setFile(f);
 
@@ -924,7 +924,7 @@ void Shape::load(FILE *f)
     {
         // Load voxels
         voxels = new Voxels();
-        voxels->load("", file);
+        voxels->load("", file, texMan);
     }
     else
     {

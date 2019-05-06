@@ -99,6 +99,9 @@ void Physics::tick(std::map<std::string, Object*> &objects)
 
 bool Physics::checkCollision(Object *obj1, Object *obj2)
 {
+	if (obj1 == nullptr || obj2 == nullptr)
+		return false;
+	
 	if (collisions[obj1] == obj2 || collisions[obj2] == obj1)
 		return true;
 	else

@@ -1510,7 +1510,7 @@ load
 ========================================
 */
 
-int Voxels::load(std::string fname, FILE *f = nullptr)
+int Voxels::load(std::string fname, FILE *f = nullptr, TextureManager2 *texMan = nullptr)
 {
 	FILE *file;
 
@@ -1663,8 +1663,9 @@ int Voxels::load(std::string fname, FILE *f = nullptr)
 
 			std::string texFilename = cTexFilename;
 			
-//			Log(texFilename.c_str(), t);
-
+			if (texMan != nullptr)
+			    texMan->find(texFilename);
+			
             (voxelTextures)[t] = texFilename;
 
 			free((void *)cTexFilename);

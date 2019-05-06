@@ -220,6 +220,7 @@ void Model2::load(std::string filename, int vao)
     }
 
 	// Calculate proportions
+	
 	float max = 0;
 	float diffx = maxX - minX;
 	float diffy = maxY - minY;
@@ -233,7 +234,23 @@ void Model2::load(std::string filename, int vao)
 		max = diffz;
 
 	proportionScale = glm::vec4(diffx / max, diffy / max, diffz / max, 1.0);
+	
+	// Calculate offset to center model
+	
+	float ofsx = 0.0f;
+	if (g_common.centerModelsX)
+	    ofsx = - (maxX - (diffx / 2.0f));
+	float ofsy = 0.0f;
+	if (g_common.centerModelsY)
+	    ofsy = - (maxY - (diffy / 2.0f));
+	float ofsz = 0.0f;
+	if (g_common.centerModelsZ)
+	    ofsz = - (maxZ - (diffz / 2.0f));
 
+	offset = glm::vec3(ofsx, ofsy, ofsz);
+
+	// Finalize
+	
     name = filename;
     loaded = true;
 #endif

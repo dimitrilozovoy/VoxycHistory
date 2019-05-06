@@ -51,7 +51,7 @@ public:
     void checkGLError(char *tag);
 	Voxels *getVoxels() { return voxels; };
     void save(FILE *f);
-    void load(FILE *f);
+    void load(FILE *f, TextureManager2 *texMan);
 
     std::string name;
     ObjShapeType type;

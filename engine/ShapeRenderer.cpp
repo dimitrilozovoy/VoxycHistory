@@ -462,6 +462,7 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 		// Set variables
 		setUniform4f(curProgram, "vColor", object->color.x, object->color.y, object->color.z, object->color.w);
 		setUniform4f(curProgram, "globalColor", globalColor.x, globalColor.y, globalColor.z, globalColor.w);
+		setUniform4f(curProgram, "ambientLight", g_common.ambientr, g_common.ambientg, g_common.ambientb, 1.0);
 
 		if (shape != nullptr && (object->mainOfBatch))
 		{

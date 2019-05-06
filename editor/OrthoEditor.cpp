@@ -390,7 +390,7 @@ void OrthoEditor::loadVoxels(std::string filename)
 	engine->setPlayerPos(0.0, 0.0, 0.0);
 	engine->setPlayerOrientation(0.0, 0.0, 0.0);
 	
-	voxels.load(filename, nullptr);
+	voxels.load(filename, nullptr, engine->getTextureManager());
 	create();
 	refresh();
 }
@@ -460,7 +460,7 @@ void OrthoEditor::refresh()
 			int y = 0;	
 			int lastTexture = 0;
 			int lastLevelWithTexture = 0;
-			float pr = 0.0f, pg = 0.0f, pb = 0.0f, pa = 0.0f;
+			float bgr = 0.0f, bgg = 0.0f, bgb = 0.0f, bga = 0.0f;
 			
 			if (voxels.get(x, y, z))
             {
@@ -470,10 +470,10 @@ void OrthoEditor::refresh()
 					
 			        voxels.getrgba(x, y, z, ur, ug, ub, ua);
 				
-				    pr = UCharToFloat255(ur);
-			        pg = UCharToFloat255(ug);
-			        pb = UCharToFloat255(ub);
-			        pa = UCharToFloat255(ua);
+				    bgr = UCharToFloat255(ur);
+			        bgg = UCharToFloat255(ug);
+			        bgb = UCharToFloat255(ub);
+			        bga = UCharToFloat255(ua);
                 }
 				
 			    lastTexture = voxels.get(x, y, z);
@@ -492,27 +492,27 @@ void OrthoEditor::refresh()
 					
 			            voxels.getrgba(x, y, z, ur, ug, ub, ua);
 				    
-/*					    float mpr = UCharToFloat(ur);
-					    float mpg = UCharToFloat(ug);
-					    float mpb = UCharToFloat(ub);
-					    float mpa = UCharToFloat(ua);
+					    float fgr = UCharToFloat(ur);
+					    float fgg = UCharToFloat(ug);
+					    float fgb = UCharToFloat(ub);
+					    float fga = UCharToFloat(ua);
 					
-                        pr = pr * mpr * mpa;
-                        pg = pg * mpg * mpa;
-                        pb = pb * mpb * mpa;
-						pa = pa;*/
+                        float ra = 1 - (1 - fga) * (1 - bga);
+                        float rr = fgr * fga / ra + bgr * bga * (1 - fga) / ra;
+                        float rg = fgg * fga / ra + bgg * bga * (1 - fga) / ra;
+                        float rb = fgb * fga / ra + bgb * bga * (1 - fga) / ra;
 
-                        pr = UCharToFloat255(ur);
-                        pg = UCharToFloat255(ug);
-                        pb = UCharToFloat255(ub);
-                        pa = UCharToFloat255(ua);
-			        }
+                        bga = ra;
+                        bgr = rr;
+                        bgg = rg;
+                        bgb = rb;
+					}
 					
 				    lastTexture = voxels.get(x, y, z);
                     lastLevelWithTexture = y;
 				}
 			}
-			
+					
 			char newNamec[1024];
             snprintf(newNamec, 1024, "vox%d-%d", z, x);
             std::string name = std::string(newNamec);
@@ -542,7 +542,7 @@ void OrthoEditor::refresh()
 			}
 			else if (mode == MODE_PIXELS)
 			{
-				engine->setColor(name, pr, pg, pb, pa);
+				engine->setColor(name, bgr, bgg, bgb, bga);
 			}
 			
 			engine->setSize(name, voxssize, voxssize, voxssize);

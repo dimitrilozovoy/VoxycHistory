@@ -1012,6 +1012,9 @@ Object *Engine2::findObj(std::string name)
 {
 	if (name == "player")
 		return playerObj;
+		
+	if (objects.count(name) == 0)
+		return nullptr;
 
     Object *obj = objects[name];
 
@@ -2186,7 +2189,7 @@ void Engine2::loadVoxels(std::string name, std::string filename)
 	std::string fullfname = g_assetsDir + "/" + filename;
 	
 	voxels->clear();
-	voxels->load(fullfname, nullptr);
+	voxels->load(fullfname, nullptr, &texMan);
 	voxels->crop();
 	shape->needsRebuild = true;
 }
@@ -2823,6 +2826,27 @@ void Engine2::refreshObjectCategories()
 		}
 	}
 
+}
+
+/*
+========================================
+checkGLError
+========================================
+*/
+
+void Engine2::setLight(std::string name, float radius, float r, float g, float b)
+{
+	if (radius > 0)
+	{
+	    dynamicLights[name].radius = radius;
+		dynamicLights[name].color.r = r;
+		dynamicLights[name].color.g = g;
+		dynamicLights[name].color.b = b;
+	}
+	else
+	{
+		dynamicLights.erase(name);
+	}
 }
 
 /*
