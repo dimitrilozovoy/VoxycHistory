@@ -465,7 +465,7 @@ public class CustomRendererES20 implements android.opengl.GLSurfaceView.Renderer
 	{
 		GLES20.glUniform1f(location, v0);
 	}
-
+	
 	public void glUniform1i(int location, int v0)
 	{
 		GLES20.glUniform1i(location, v0);

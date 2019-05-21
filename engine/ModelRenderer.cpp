@@ -60,8 +60,16 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 #endif
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS
-	snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
-	snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
+    if (g_common.doDynamicLights)
+	{
+		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20DynamicLights);
+		snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20DynamicLights);
+    }
+	else
+	{
+		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
+		snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
+    }
 #endif
 
 	programMain = loadProgram(vertexShaderStr, fragmentShaderStr, false);
@@ -75,7 +83,7 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 #endif
 }
 
-void ModelRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
+void ModelRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<std::string, DynamicLight> dynamicLights)
 {
 	frameDump = "";
 
@@ -85,12 +93,12 @@ void ModelRenderer::draw(int eye, std::map<std::string, Object*> objects, Object
   
         if (obj != nullptr && obj->visible && obj->type == OBJTYPE_MODEL)
         {
-            drawModel(obj, camera, toShadowMap, useShadowMap, shadowMap);
+            drawModel(obj, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
         }
     }
 }
 
-void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
+void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<std::string, DynamicLight> dynamicLights)
 {
     Model2 *model = object->model;
 
@@ -100,11 +108,11 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
     for (int m = 0; m < model->meshes.size(); m++)
     {
         Mesh *mesh = model->meshes[m];
-        drawMesh(object, model, mesh, camera, toShadowMap, useShadowMap, shadowMap);
+        drawMesh(object, model, mesh, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
     }
 }
 
-void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
+void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<std::string, DynamicLight> dynamicLights)
 {
     int numCoords = 0;
     int stride = 9 * sizeof(float);
@@ -181,13 +189,7 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 #ifdef PLATFORM_OPENVR
 	scaleToNDC = glm::scale(glm::mat4(), glm::vec3(VRSCALE, VRSCALE, VRSCALE));
 #else
-/*    // HACK: Fixing cut-off weapon on Android
-    if (object->name == "weapon") {
-        scaleToNDC = glm::scale(glm::mat4(), glm::vec3(0.01, 0.01, 0.01));
-    }
-    else {*/
-        scaleToNDC = glm::scale(glm::mat4(), glm::vec3(NDC_SCALE, NDC_SCALE, NDC_SCALE));
-//    }
+    scaleToNDC = glm::scale(glm::mat4(), glm::vec3(NDC_SCALE, NDC_SCALE, NDC_SCALE));
 #endif
 
 	// Calculate scale of model based on min and max
@@ -280,7 +282,8 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 		// Set variables
 		setUniform4f(curProgram, "vColor", object->color.x * mesh->color.x, object->color.y * mesh->color.y, object->color.z * mesh->color.z, object->color.w * mesh->color.w);
 		setUniform4f(curProgram, "globalColor", globalColor.x, globalColor.y, globalColor.z, globalColor.w);
-
+		setUniform4f(curProgram, "ambientLight", g_common.ambientr, g_common.ambientg, g_common.ambientb, 1.0);
+		
 		// Set texture
 		if (object->glTexID != -1)
 		{
@@ -336,9 +339,18 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	// Set attributes
     setVertexAttrib(curProgram, "vPosition", 4, GL_FLOAT, false, stride, 0);
 	if (!toShadowMap)
+	{
 		setVertexAttrib(curProgram, "vTexCoords", 2, GL_FLOAT, false, stride, 4);
+		setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
+	}
 
 //	setVertexAttrib("vNormal", 2, GL_FLOAT, false, stride, 6);
+
+	// Dynamic lights
+	if (g_common.doDynamicLights)
+	{
+		setDynamicLights(dynamicLights, object, curProgram, rotate);
+	}
 
     // Draw
 	glDrawElements(GL_TRIANGLES, mesh->numPolys * 3, GL_UNSIGNED_INT, 0);

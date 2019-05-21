@@ -79,4 +79,7 @@ std::string PLAT_GetCameraPic();
 void PLAT_SavePref(std::string section, std::string key, std::string value);
 std::string PLAT_LoadPref(std::string section, std::string key, std::string def = "");
 
+void PLAT_StartTrackLocation();
+void PLAT_StopTrackLocation();
+
 #endif

@@ -962,7 +962,16 @@ float Limit360(float value)
 
 void CalcNormal(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float &nx, float &ny, float &nz)
 {
-
+    glm::vec3 pt1 = glm::vec3(x1, y1, z1);
+	glm::vec3 pt2 = glm::vec3(x2, y2, z2);
+	glm::vec3 pt3 = glm::vec3(x3, y3, z3);
+	
+	glm::vec3 u = pt2 - pt1;
+	glm::vec3 v = pt3 - pt1;
+	
+	nx = u.y * v.z - u.z * v.y;
+	ny = u.z * v.x - u.x * v.z;
+	nz = u.x * v.y - u.y * v.x;
 }
 
 float UCharToFloat(unsigned char c)

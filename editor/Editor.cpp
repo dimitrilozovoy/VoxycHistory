@@ -248,6 +248,7 @@ void Editor::tick() {
 				gui->addListMenuOption("README", "");
 #ifdef PLATFORM_ANDROID
                 gui->addListMenuOption("Run Sample", "");
+				gui->addListMenuOption("Toggle Map Location", "");
 #endif
 				gui->showListMenuInDialog("File", "");
 			}
@@ -389,6 +390,23 @@ void Editor::tick() {
             engine->setExtraStr("listmenuoptionclicked", "");
         }
 #endif
+		
+        if (engine->getExtraStr("listmenuoptionclicked") == "Toggle Map Location") {
+            timer = 50;
+
+			if (!mapLocation)
+			{
+				PLAT_StartTrackLocation();
+				mapLocation = true;
+			}
+			else
+			{
+				PLAT_StopTrackLocation();
+				mapLocation = false;
+			}
+
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
 
         // Object menu
 

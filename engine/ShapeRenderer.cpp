@@ -72,9 +72,17 @@ void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 	else
 	{
-		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
-		snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
-	}
+        if (g_common.doDynamicLights)
+		{
+		    snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20DynamicLights);
+		    snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20DynamicLights);
+        }
+		else
+		{
+		    snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
+		    snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
+		}
+    }
 #endif
 
 	programMain = loadProgram(vertexShaderStr, fragmentShaderStr, false);
@@ -103,7 +111,7 @@ draw
 ========================================
 */
 
-void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
+void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap,std::map<std::string, DynamicLight> dynamicLights)
 {
 	frameDump = "";
 	
@@ -125,12 +133,12 @@ void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object
 			{
                 if (!obj->mainOfBatch && !obj->partOfBatch)
 				{
-				    drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap);
+				    drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
 				}
 				
 				if (obj->mainOfBatch)
 				{
-					drawMesh(obj, obj->shape, obj->batchedMesh, camera, toShadowMap, useShadowMap, shadowMap, nullptr);
+					drawMesh(obj, obj->shape, obj->batchedMesh, camera, toShadowMap, useShadowMap, shadowMap, nullptr, dynamicLights);
 				}
 			}
 		}
@@ -146,7 +154,7 @@ void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object
 			float distance = camera->distanceTo(obj);
 
 			if (obj->visible && obj->type == OBJTYPE_SHAPE && (obj->shapeType == SHAPE_QUAD || obj->shapeType == SHAPE_SPRITE) && (distance <= drawDistance || obj->isPartOfVehicle))
-				drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap);
+				drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
 
 // HACK: Sprite renderer is broken on Windows and iOS; draw spirtes separately as shapes
 #if defined PLATFORM_WINDOWS || defined PLATFORM_IOS
@@ -165,7 +173,7 @@ drawShape
 ========================================
 */
 
-void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap)
+void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<std::string, DynamicLight> dynamicLights)
 {
 	// FrameDump stuff
 	if (dumpFrame)
@@ -180,7 +188,7 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 		glEnable(GL_DEPTH_TEST);
         checkGLError("glEnable");
         
-		drawMesh(object, nullptr, nullptr, camera, toShadowMap, useShadowMap, shadowMap, nullptr);
+		drawMesh(object, nullptr, nullptr, camera, toShadowMap, useShadowMap, shadowMap, nullptr, dynamicLights);
 	}
 	else
 	{
@@ -217,7 +225,7 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 	        }
 			
 			Mesh *mesh = shape->meshes[m];
-			drawMesh(object, shape, mesh, camera, toShadowMap, useShadowMap, shadowMap, voxels->getVoxelTextures());
+			drawMesh(object, shape, mesh, camera, toShadowMap, useShadowMap, shadowMap, voxels->getVoxelTextures(), dynamicLights);
 		}
 	}
 }
@@ -228,7 +236,7 @@ drawMesh
 ========================================
 */
 
-void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<int, std::string> *voxelTextures)
+void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<int, std::string> *voxelTextures, std::map<std::string, DynamicLight> dynamicLights)
 {
 	// FrameDump stuff
 	if (dumpFrame)
@@ -549,6 +557,12 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 		if (floatsPerCoord == 12)
 			setVertexAttrib(curProgram, "vVertexLight", 3, GL_FLOAT, false, stride, 9);
 #endif
+	}
+	
+	// Dynamic lights
+	if (g_common.doDynamicLights)
+	{
+		setDynamicLights(dynamicLights, object, curProgram, rotate);
 	}
 	
 //  char cstr[1000];

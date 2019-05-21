@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include "Globals.hpp"
 #include "GLIncludes.h"
+#include "Object.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -36,8 +37,11 @@ SOFTWARE.
 #define NDC_SCALE	1.0f
 #endif
 
+#define MAX_DYNAMIC_LIGHTS 8
+
 typedef struct DynamicLight
 {
+	Object *obj;
 	float radius;
 	glm::vec4 color;
 };
@@ -48,10 +52,12 @@ public:
 	void setMatrix(int program, char *name, glm::mat4 matrix);
 	void setMatrixArray(int program, char *name, int size, glm::mat4 matrix[]);
 	void setUniform1f(int program, char *name, float x);
+	void setUniform1fv(int program, char *name, int size, float *data);
 	void setUniform2f(int program, char *name, float x, float y);
 	void setUniform2fv(int program, char *name, int size, float *data);
 	void setUniform4f(int program, char *name, float x, float y, float z, float w);
-	void setVertexAttrib(int program, char *name, int size, int type, bool normalized, int stride, int pointer);
+	void setUniform4fv(int program, char *name, int size, float *data);
+    void setVertexAttrib(int program, char *name, int size, int type, bool normalized, int stride, int pointer);
 	int loadProgram(char *vertexShaderCode, char *fragmentShaderCode, bool shadowMap);
 	int loadShader(int type, const char *shaderCode);
 	void setGlobalColor(glm::vec4 globalColor);
@@ -60,6 +66,7 @@ public:
 	void checkGLError(char *tag);
 	std::string getFrameDump() { return frameDump; }
 	void DumpFrame() { dumpFrame = true; };
+	void setDynamicLights(std::map<std::string, DynamicLight> dynamicLights, Object *obj, int program, glm::mat4 rotate);
 
 protected:
 	glm::vec4 targetGlobalColor = glm::vec4(1.0, 1.0, 1.0, 1.0);

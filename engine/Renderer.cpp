@@ -93,6 +93,21 @@ void Renderer::setUniform1f(int program, char *name, float x)
 	checkGLError("glUniform1f");
 }
 
+void Renderer::setUniform1fv(int program, char *name, int count, float *data)
+{
+	int handle = glGetUniformLocation(program, name);
+	checkGLError("glGetUniformLocation");
+
+	if (handle == -1)
+	{
+		Log(name, "is -1");
+		return;
+	}
+
+	glUniform1fv(handle, count, data);
+	checkGLError("glUniform1fv");
+}
+
 void Renderer::setUniform2f(int program, char *name, float x, float y)
 {
 	int handle = glGetUniformLocation(program, name);
@@ -136,6 +151,21 @@ void Renderer::setUniform4f(int program, char *name, float x, float y, float z, 
 
 	glUniform4f(handle, x, y, z, w);
 	checkGLError("glUniform4f");
+}
+
+void Renderer::setUniform4fv(int program, char *name, int count, float *data)
+{
+	int handle = glGetUniformLocation(program, name);
+	checkGLError("glGetUniformLocation");
+
+	if (handle == -1)
+	{
+		Log(name, "is -1");
+		return;
+	}
+
+	glUniform4fv(handle, count, data);
+	checkGLError("glUniform4fv");
 }
 
 void Renderer::setVertexAttrib(int program, char *name, int size, int type, bool normalized, int stride, int pointer)
@@ -303,4 +333,67 @@ void Renderer::checkGLError(char *tag)
 		break;
 	}
 #endif
+}
+
+void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLights, Object *object, int program, glm::mat4 rotate)
+{
+		// Set dynamic lights
+		float lightsPos[MAX_DYNAMIC_LIGHTS * 4];
+		float lightsSize[MAX_DYNAMIC_LIGHTS];
+		float lightsColor[MAX_DYNAMIC_LIGHTS * 4];
+		
+		for (int i = 0; i < MAX_DYNAMIC_LIGHTS * 4; i++)
+		{
+			lightsPos[i] = 0;
+		}
+		
+		for (int i = 0; i < MAX_DYNAMIC_LIGHTS; i++)
+		{
+			lightsSize[i] = 0;
+		}
+		
+		for (int i = 0; i < MAX_DYNAMIC_LIGHTS * 4; i++)
+		{
+			lightsColor[i] = 0;
+		}
+		
+		int idx = 0;
+		
+		for (const auto &pair: dynamicLights)
+		{
+			DynamicLight light = pair.second;
+			
+			Object *o = light.obj;
+			
+			if (o != nullptr)
+			{
+			    lightsPos[idx * 4] = o->position.x;
+			    lightsPos[idx * 4 + 1] = o->position.y;
+			    lightsPos[idx * 4 + 2] = o->position.z;
+			    lightsPos[idx * 4 + 3] = o->position.w;
+				
+				lightsSize[idx] = light.radius;
+				
+			    lightsColor[idx * 4] = light.color.r;
+			    lightsColor[idx * 4 + 1] = light.color.g;
+			    lightsColor[idx * 4 + 2] = light.color.b;
+			    lightsColor[idx * 4 + 3] = light.color.a;
+			
+			    idx++;
+			}
+        }
+		
+	    setUniform4fv(program, "lightsPos", MAX_DYNAMIC_LIGHTS, lightsPos);
+	    setUniform1fv(program, "lightsSize", MAX_DYNAMIC_LIGHTS, lightsSize);
+	    setUniform4fv(program, "lightsColor", MAX_DYNAMIC_LIGHTS, lightsColor);
+		
+		// Model matrix
+		
+		glm::mat4 modelMatrix =
+		  glm::translate(glm::mat4(), glm::vec3(object->position.x, object->position.y, object->position.z)) // World translate
+		* rotate
+		* glm::scale(glm::mat4(), object->scale / glm::vec3(2.0, 2.0, 2.0)); // Scale
+
+		setMatrix(program, "modelMatrix", modelMatrix);
+
 }

@@ -61,6 +61,7 @@ import android.view.View.*;
 
 import java.io.*;
 import android.graphics.Matrix;
+import android.location.*;
 
 public class HelloJni extends Activity
 {
@@ -94,10 +95,11 @@ public class HelloJni extends Activity
 	LinearLayout llConsoleInput;
 	EditText consoleInput;
 	Button consoleEnter;
-	public static final boolean DEBUG_BUILD = true;
+	public static final boolean DEBUG_BUILD = false;
 	int mConsoleMaxTotalLines = 25;
 	int mConsoleTotalLines = 0;
 	int bytesRead = 0;
+	
 	public static Handler onConsoleEnterCommand;
 	public static Handler touchHandler;
 	public static Handler onShowFileSelector;
@@ -108,6 +110,8 @@ public class HelloJni extends Activity
 	public static Handler onShowLongText;
 	public static Handler onGetCameraPic;
 	public static Handler onShowDialog;
+	public static Handler onStartTrackLocation;
+	public static Handler onStopTrackLocation;
 
 	// =======================================================================
     //
@@ -277,13 +281,29 @@ public class HelloJni extends Activity
 			}
 		};
 
+		HelloJni.onStartTrackLocation = new Handler(Looper.getMainLooper()) {
+			@Override
+			public void handleMessage(Message msg) {
+				Bundle bun = msg.getData();
+				startTrackLocation2();
+			}
+		};
+		
+		HelloJni.onStopTrackLocation = new Handler(Looper.getMainLooper()) {
+			@Override
+			public void handleMessage(Message msg) {
+				Bundle bun = msg.getData();
+				stopTrackLocation2();
+			}
+		};
+
 		// Permissions
 /*		if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 				!= PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(this,
 					new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
 					1000);
-		}*/
+		}*/	
     }
 		
 	@Override
@@ -1301,5 +1321,59 @@ public class HelloJni extends Activity
 		String val = prefs.getString(key, def);
 		
 		return prefs.getString(key, def);
+	}
+	
+	// =======================================================================
+    //
+    //   Location
+    //
+    // =======================================================================
+	
+	LocationManager locationManager;
+	LocationListener locationListener;
+	
+	public void startTrackLocation()
+	{
+		Message msg = new Message();
+		Bundle data = new Bundle();
+		msg.setData(data);
+		onStartTrackLocation.sendMessage(msg);
+	}
+	
+	public void startTrackLocation2()
+	{
+		// Acquire a reference to the system Location Manager
+		locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+
+        // Define a listener that responds to location updates
+		locationListener = new LocationListener() {
+			public void onLocationChanged(Location location) {
+				// Called when a new location is found by the network location provider.
+//				makeUseOfNewLocation(location);
+//				showText(location.getLatitude() + " " + location.getLongitude());
+			}
+
+			public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+			public void onProviderEnabled(String provider) {}
+
+			public void onProviderDisabled(String provider) {}
+		};
+
+        // Register the listener with the Location Manager to receive location updates
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+	}
+	
+	public void stopTrackLocation()
+	{
+		Message msg = new Message();
+		Bundle data = new Bundle();
+		msg.setData(data);
+		onStopTrackLocation.sendMessage(msg);
+	}
+	
+	public void stopTrackLocation2()
+	{
+        locationManager.removeUpdates(locationListener);
 	}
 }

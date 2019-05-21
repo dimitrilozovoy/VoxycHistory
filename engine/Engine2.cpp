@@ -189,8 +189,8 @@ void Engine2::draw(int eye)
     //	glDepthMask(true);
 
 	// Draw 3D objects
-	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
-    modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
+	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap, dynamicLights);
+    modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap, dynamicLights);
     skeletalRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 
 // HACK: Sprite renderer is broken on Windows and iOS; ShapeRenderer takes care as fallback
@@ -245,8 +245,8 @@ void Engine2::drawShadowMap(int eye)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.0, 0.0, 0.0, 1.0);
 
-		shapeRenderer.draw(eye, objects, &sun, true, false, &shadowMap);
-		modelRenderer.draw(eye, objects, &sun, true, false, &shadowMap);
+		shapeRenderer.draw(eye, objects, &sun, true, false, &shadowMap, dynamicLights);
+		modelRenderer.draw(eye, objects, &sun, true, false, &shadowMap, dynamicLights);
 		
 		shadowMap.unbind();
 }
@@ -2222,6 +2222,8 @@ void Engine2::clear()
 	playerObj->ints["ignorecollisions"] = 0;
 	
 	physicsEnabled = true;
+	
+	dynamicLights.clear();
 }
 
 /*
@@ -2838,10 +2840,17 @@ void Engine2::setLight(std::string name, float radius, float r, float g, float b
 {
 	if (radius > 0)
 	{
-	    dynamicLights[name].radius = radius;
-		dynamicLights[name].color.r = r;
-		dynamicLights[name].color.g = g;
-		dynamicLights[name].color.b = b;
+		Object *obj = findObj(name);
+		
+		if (obj != nullptr)
+		{
+			dynamicLights[name].obj = obj;
+	        dynamicLights[name].radius = radius;
+		    dynamicLights[name].color.r = r;
+		    dynamicLights[name].color.g = g;
+		    dynamicLights[name].color.b = b;
+			dynamicLights[name].color.a = 1.0;
+		}
 	}
 	else
 	{

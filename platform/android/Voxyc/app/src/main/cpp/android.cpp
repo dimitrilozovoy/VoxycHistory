@@ -96,6 +96,8 @@ jmethodID g_showDialog = 0;
 jmethodID g_getCameraPic = 0;
 jmethodID g_savePref = 0;
 jmethodID g_loadPref = 0;
+jmethodID g_startTrackLocation = 0;
+jmethodID g_stopTrackLocation = 0;
 
 jobject g_screen;
 
@@ -182,6 +184,9 @@ Java_com_voxyc_voxyc_HelloJni_SetUpBridge(JNIEnv *jni, jclass clazz, jobject act
                                   "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     g_loadPref = jni->GetMethodID(g_classMainActivity, "loadPref",
                                   "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
+								  
+	g_startTrackLocation = jni->GetMethodID(g_classMainActivity, "startTrackLocation", "()V");
+	g_stopTrackLocation = jni->GetMethodID(g_classMainActivity, "stopTrackLocation", "()V");
 }
 
 extern "C" JNIEXPORT void JNICALL
@@ -798,4 +803,20 @@ std::string PLAT_LoadPref(std::string s1, std::string s2, std::string s3) {
     env->DeleteLocalRef(js3);
 
     return result;
+}
+
+void PLAT_StartTrackLocation()
+{
+	JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+
+    env->CallVoidMethod(g_objMainActivity, g_startTrackLocation);
+}
+
+void PLAT_StopTrackLocation()
+{
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+	
+	env->CallVoidMethod(g_objMainActivity, g_stopTrackLocation);
 }

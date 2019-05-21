@@ -99,10 +99,12 @@ jmethodID g_glTexImage2Db = 0;
 jmethodID g_glTexParameterf = 0;
 jmethodID g_glTexParameteri = 0;
 jmethodID g_glUniform1f = 0;
+jmethodID g_glUniform1fv = 0;
 jmethodID g_glUniform1i = 0;
 jmethodID g_glUniform2f = 0;
 jmethodID g_glUniform2fv = 0;
 jmethodID g_glUniform4f = 0;
+jmethodID g_glUniform4fv = 0;
 jmethodID g_glUniformMatrix4fv = 0;
 jmethodID g_glUseProgram = 0;
 jmethodID g_glVertexAttribPointer = 0;
@@ -167,9 +169,11 @@ void SetUpGLBridge(JNIEnv *jni, jclass clazz, jobject activity)
     g_glTexParameteri = jni->GetMethodID(g_classCustomRenderer, "glTexParameteri", "(III)V");
     g_glUniform1f = jni->GetMethodID(g_classCustomRenderer, "glUniform1f", "(IF)V");
     g_glUniform1i = jni->GetMethodID(g_classCustomRenderer, "glUniform1i", "(II)V");
+    g_glUniform1fv = jni->GetMethodID(g_classCustomRenderer, "glUniform1fv", "(II[F)V");
     g_glUniform2f = jni->GetMethodID(g_classCustomRenderer, "glUniform2f", "(IFF)V");
     g_glUniform2fv = jni->GetMethodID(g_classCustomRenderer, "glUniform2fv", "(II[F)V");
     g_glUniform4f = jni->GetMethodID(g_classCustomRenderer, "glUniform4f", "(IFFFF)V");
+    g_glUniform4fv = jni->GetMethodID(g_classCustomRenderer, "glUniform4fv", "(II[F)V");
 	g_glUniformMatrix4fv = jni->GetMethodID(g_classCustomRenderer, "glUniformMatrix4fv", "(IIZ[F)V");
     g_glUseProgram = jni->GetMethodID(g_classCustomRenderer, "glUseProgram", "(I)V");
     g_glVertexAttribPointer = jni->GetMethodID(g_classCustomRenderer, "glVertexAttribPointer", "(IIIZII)V");
@@ -738,6 +742,19 @@ void glUniform1f(GLint location, GLfloat v0)
     env->CallVoidMethod(g_objCustomRenderer, g_glUniform1f, location, v0);
 }
 
+void glUniform1fv(	GLint location,
+ 	int count,
+ 	GLfloat *data)
+{
+    JNIEnv *env;
+    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+	
+    jfloatArray jarray = env->NewFloatArray(count);
+    env->SetFloatArrayRegion(jarray, 0, count, (const jfloat *)data);
+    env->CallVoidMethod(g_objCustomRenderer, g_glUniform1fv, location, count, jarray);
+    env->DeleteLocalRef(jarray);
+}
+
 void glUniform1i(GLint location, GLint v0)
 {
     JNIEnv *env;
@@ -779,6 +796,19 @@ void glUniform4f(	GLint location,
     g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
 
     env->CallVoidMethod(g_objCustomRenderer, g_glUniform4f, location, v0, v1, v2, v3);
+}
+
+void glUniform4fv(	GLint location,
+ 	int count,
+ 	GLfloat *data)
+{
+    JNIEnv *env;
+    g_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+	
+    jfloatArray jarray = env->NewFloatArray(count * 4);
+    env->SetFloatArrayRegion(jarray, 0, count * 4, (const jfloat *)data);
+    env->CallVoidMethod(g_objCustomRenderer, g_glUniform4fv, location, count, jarray);
+    env->DeleteLocalRef(jarray);
 }
 
 void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)

@@ -738,6 +738,9 @@ void glTexParameteri(GLenum target,
                      GLenum pname,
                      GLuint param);
 void glUniform1f(GLint location, GLfloat v0);
+void glUniform1fv(GLint location,
+ 	int size,
+ 	GLfloat *data);
 void glUniform1i(GLint location, GLint v0);
 void glUniform2f(GLint location,
  	GLfloat v0,
@@ -750,6 +753,9 @@ void glUniform4f(GLint location,
  	GLfloat v1,
  	GLfloat v2,
  	GLfloat v3);
+void glUniform4fv(GLint location,
+ 	int size,
+ 	GLfloat *data);
 void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
 void glUseProgram(GLuint program);
 void glVertexAttribPointer( GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid * pointe);

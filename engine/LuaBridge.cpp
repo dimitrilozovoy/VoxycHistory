@@ -1760,14 +1760,15 @@ static int rebuild(lua_State *L)
 
 static int setlight(lua_State *L)
 {
-	float yaw = lua_tonumber(L, 1);
-	float otherYaw = lua_tonumber(L, 2);
-	float tolerance = lua_tonumber(L, 3);
+	std::string name = lua_tostring(L, 1);
+	float size = lua_tonumber(L, 2);
+	float r = lua_tonumber(L, 3);
+	float g = lua_tonumber(L, 4);
+	float b = lua_tonumber(L, 5);
 
-	bool val = compareYaw(yaw, otherYaw, tolerance);
-	lua_pushboolean(L, val);
+	g_engine2->setLight(name, size, r, g, b);
 
-	return 1;
+	return 0;
 }
 
 static int setcentermodels(lua_State *L)
@@ -1944,6 +1945,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "compareyaw", compareyaw);
 	lua_register(L, "loadtex", loadtex);
 	lua_register(L, "rebuild", rebuild);
+	lua_register(L, "setlight", setlight);
 	lua_register(L, "setcentermodels", setcentermodels);
 }
 
