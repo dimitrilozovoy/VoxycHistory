@@ -131,7 +131,14 @@ public class HelloJni extends Activity
 		
 		copyAssets(getFilesDir().getAbsolutePath());
 		setFilesDir(getFilesDir().getAbsolutePath(), getExternalFilesDir(null).getAbsolutePath(), Environment.getExternalStorageDirectory().getAbsolutePath());
-		
+
+		// Copy samples and docs
+		copyDirToExternal("samples");
+		copyDirToExternal("samples/scrollingshooter");
+		copyDirToExternal("samples/tanks");
+		copyDirToExternal("samples/fps");
+		copyDirToExternal("docs");
+
 		// Sound pool
 		soundPool = new SoundPool(32, AudioManager.STREAM_MUSIC, 0);
 
@@ -923,7 +930,47 @@ public class HelloJni extends Activity
 			out.write(buffer, 0, read);
 		}
 	}
-	
+
+	private void copyDirToExternal(String dirName) {
+		File externalFilesDir = getExternalFilesDir("");
+
+		AssetManager assetManager = getAssets();
+		String[] files = null;
+		try {
+			files = assetManager.list(dirName);
+		} catch (IOException e) {
+			Log.e("copyDirToExternal", "Failed to get asset file list.", e);
+		}
+		if (files != null) for (String filename : files) {
+			InputStream in = null;
+			OutputStream out = null;
+			try {
+				in = assetManager.open(dirName + "/" + filename);
+				File outFile = new File(externalFilesDir.getAbsolutePath() + "/" + dirName, filename);
+				boolean made = outFile.getParentFile().mkdirs();
+				out = new FileOutputStream(outFile);
+				copyFile(in, out);
+			} catch (IOException e) {
+				Log.e("tag", "Failed to copy asset file: " + filename, e);
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						// NOOP
+					}
+				}
+				if (out != null) {
+					try {
+						out.close();
+					} catch (IOException e) {
+						// NOOP
+					}
+				}
+			}
+		}
+	}
+
 	// =======================================================================
     //
     //   GUI

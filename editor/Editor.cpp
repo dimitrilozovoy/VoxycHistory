@@ -248,7 +248,7 @@ void Editor::tick() {
 				gui->addListMenuOption("README", "");
 #ifdef PLATFORM_ANDROID
                 gui->addListMenuOption("Run Sample", "");
-				gui->addListMenuOption("Toggle Map Location", "");
+//				gui->addListMenuOption("Toggle Map Location", "");
 #endif
 				gui->showListMenuInDialog("File", "");
 			}

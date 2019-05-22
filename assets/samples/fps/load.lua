@@ -1,3 +1,4 @@
+runscript("lights.lua")
 
 -------------------------------
 -- GLOBALS
@@ -107,7 +108,7 @@ function start(scene)
   -- Weapon fire
   addobj("weaponfire")
   settype("weaponfire", "sprite")
-  settex("weaponfire", "ball.png")
+  settex("weaponfire", "shotgunfire.png")
   setcolor("weaponfire", 1, 1, 1, 1)
   setsize("weaponfire", 0.25, 0.25, 0.25)
   setfaceplayer("weaponfire", 1)
@@ -148,6 +149,8 @@ function start(scene)
   end
 
   numcomputers = idx
+
+  spawn_lights()
 
   -------------------------------
   -- CREATE PROJECTILES

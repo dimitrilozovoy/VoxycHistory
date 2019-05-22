@@ -19,7 +19,7 @@ function playerthink()
   setorient("weapon", 0, pyaw, 0)
   moveforward("weapon", 1)
 
-  setpos("weaponfire", px, py - 2, pz)
+  setpos("weaponfire", px, py - 0.1, pz)
   setorient("weaponfire", 0, pyaw, 0)
   moveforward("weaponfire", 1)
 
@@ -144,6 +144,7 @@ function computerthink()
               setvisible(armedprojname, true)
               moveforward(armedprojname, 2)
               setobjint(armedprojname, "ignorecollisions", 0)
+              setlight(armedprojname, 3, 3, 1.5 , 1)
     
               playsound("fireballlaunch", true)
 
@@ -364,6 +365,7 @@ function processprojectiles()
     
     if stuck == 1 and getvisible(name) then
       setvisible(name, false)
+      setlight(name, 0, 0, 0, 0)
 
       local hitpts = gethitpts(stuckon)
       if hitpts > 0 then      
