@@ -159,7 +159,7 @@ void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object
 // HACK: Sprite renderer is broken on Windows and iOS; draw spirtes separately as shapes
 #if defined PLATFORM_WINDOWS || defined PLATFORM_IOS
 			if (obj->visible && obj->type == OBJTYPE_SPRITE && (distance <= drawDistance || obj->isPartOfVehicle))
-				drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap);
+				drawShape(obj, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
 #endif
 		}
 	}

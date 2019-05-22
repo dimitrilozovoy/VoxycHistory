@@ -101,7 +101,7 @@ function start(scene)
   setcolor("weapon", 1, 1, 1, 1)
   setsize("weapon", 0.2, 0.2, 0.2)
   setmodelorient("sphere.obj", 0, 90, 0)
-  setmovesmoothly("weapon", true)
+--  setmovesmoothly("weapon", true)
   setobjint("weapon", "ignorecollisions", 1)
 
   -- Weapon fire

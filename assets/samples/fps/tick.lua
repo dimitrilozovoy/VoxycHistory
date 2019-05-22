@@ -9,7 +9,7 @@ function playerthink()
   -- Weapon
   --
 
-  local px, py, pz = getplayerpos()
+  local px, py, pz = getendoftickpos("player")
   setpos("weapon", px, py - 0.25, pz)
   local ppitch, pyaw, proll = getplayerorient()
 
@@ -123,13 +123,13 @@ function computerthink()
           local m = ""
 
           if frame == 9 then
-            m = "sphere.obj"
+            m = "buffhorn_000090.obj"
           end
           if frame == 10 then
-            m = "sphere.obj"
+            m = "buffhorn_000100.obj"
           end
           if frame == 11 then
-            m = "sphere.obj"
+            m = "buffhorn_000110.obj"
 
             if compareyaw(yaw, yawtoplayer, 10) then
 
@@ -234,28 +234,28 @@ function computerthink()
           local m = ""
 
           if frame == 1 then
-            m = "sphere.obj"
+            m = "buffhorn_000010.obj"
           end
           if frame == 2 then
-            m = "sphere.obj"
+            m = "buffhorn_000020.obj"
           end
           if frame == 3 then
-            m = "sphere.obj"
+            m = "buffhorn_000030.obj"
           end
           if frame == 4 then
-            m = "sphere.obj"
+            m = "buffhorn_000040.obj"
           end
           if frame == 5 then
-            m = "sphere.obj"
+            m = "buffhorn_000050.obj"
           end
           if frame == 6 then
-            m = "sphere.obj"
+            m = "buffhorn_000060.obj"
           end
           if frame == 7 then
-            m = "sphere.obj"
+            m = "buffhorn_000070.obj"
           end
           if frame == 8 then
-            m = "sphere.obj"
+            m = "buffhorn_000080.obj"
           end
 
           setmodel(name, m)
@@ -302,16 +302,16 @@ function computerthink()
           local m = ""
 
           if frame == 12 then
-            m = "sphere.obj"
+            m = "buffhorn_000120.obj"
           end
           if frame == 13 then
-            m = "sphere.obj"
+            m = "buffhorn_000130.obj"
           end
           if frame == 14 then
-            m = "sphere.obj"
+            m = "buffhorn_000140.obj"
           end
           if frame == 15 then
-            m = "sphere.obj"
+            m = "buffhorn_000150.obj"
             setobjint(name, "ignorecollisions", 1) 
             setobjstr(name, "state", "dead")
 

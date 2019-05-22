@@ -28,7 +28,7 @@ SOFTWARE.
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
 #include <string>
 
-int PLAT_LoadSound(char *filename, bool stereo)
+int PLAT_LoadSound(char *filename, bool stereo, std::string assetsDir)
 {
 	return g_audio.loadSound(filename, stereo);
 }
@@ -43,7 +43,7 @@ void PLAT_StopSound(int stream)
 	return g_audio.stopSound(stream);
 }
 
-void PLAT_PlayTrack(char *filename, bool stereo)
+void PLAT_PlayTrack(char *filename, bool stereo, std::string assetsDir)
 {
 	return g_audio.playTrack(filename, stereo);
 }
@@ -146,6 +146,18 @@ std::string PLAT_LoadPref(std::string section, std::string key, std::string def 
 	std::string value = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
 
 	return value;
+}
+
+void PLAT_StartTrackLocation()
+{
+}
+
+void PLAT_StopTrackLocation()
+{
+}
+
+void PLAT_SetTrackVolume(float)
+{
 }
 
 #endif

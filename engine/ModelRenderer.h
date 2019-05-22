@@ -137,11 +137,15 @@ private:
 
 		"in vec4 vPosition;" \
 		"out vec4 posOut; " \
+		"out vec4 worldPosOut; "
 		"in vec2 vTexCoords;" \
 		"out vec2 vTexCoordsOut; " \
 		"uniform vec2 vTexSpan;" \
+		"in vec3 vNormal;" \
+		"out vec4 vNormalOut;" \
 		"uniform mat4 mvMatrix; " \
 		"uniform mat4 projectionMatrix; " \
+		"uniform mat4 modelMatrix; " \
 
 		"out float distToCamera; " \
 
@@ -149,6 +153,8 @@ private:
 		"  gl_Position = projectionMatrix * mvMatrix * vPosition; "
 		"  vTexCoordsOut = vTexCoords; " \
 		"  posOut = gl_Position; " \
+		"  worldPosOut = modelMatrix * vPosition; " \
+		"  vNormalOut = modelMatrix * vec4(vNormal, 0.0); " \
 
 		"  vec4 posBeforeProj = mvMatrix * vPosition;" \
 		"  distToCamera = abs(posBeforeProj.z); " \
@@ -166,8 +172,11 @@ private:
 		"uniform sampler2D uTexture; " \
 		"uniform vec4 vColor; " \
 		"uniform vec4 globalColor; " \
+		"uniform vec4 ambientLight; " \
 		"in vec2 vTexCoordsOut; " \
+		"out vec4 vNormalOut; " \
 		"in vec4 posOut; " \
+		"out vec4 worldPosOut; " \
 		"out vec4 finalColor; " \
 		"uniform float useTexture; " \
 
@@ -175,6 +184,10 @@ private:
 		"uniform float fadeFar; " \
 
 		"in float distToCamera; " \
+
+		"uniform lowp vec4 lightsPos[8]; " \
+		"uniform lowp float lightsSize[8]; " \
+		"uniform lowp vec4 lightsColor[8]; " \
 
 		"void main() {" \
 
@@ -188,13 +201,29 @@ private:
 		"   if (distToCamera >= fadeNear) " \
 		"		alpha = 1.0 - (distToCamera - fadeNear) * 3.0; " \
 
+		"   vec4 light = vec4(1.0, 1.0, 1.0, 1.0); " \
+
+		"   for (int i = 0; i < 8; i++) " \
+		"   { " \
+		"       if (lightsSize[i] > 0.0) " \
+		"       { " \
+		"           float distToWorldPos = distance(worldPosOut, lightsPos[i]); " \
+		"           if (distToWorldPos < lightsSize[i]) " \
+		"           { " \
+		"               float intensity = 1.0 - (distToWorldPos / lightsSize[i]); " \
+		"               float diffuse = max(dot(normalize(vNormalOut), normalize(lightsPos[i] - worldPosOut)), 0.0); " \
+		"               light = light * (vec4(1.0, 1.0, 1.0, 1.0) + (lightsColor[i] - vec4(1.0, 1.0, 1.0, 1.0)) * intensity * diffuse); " \
+		"           } " \
+		"       } " \
+		"   } " \
+
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight * light; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      finalColor = vColor * visibility * globalColor; " \
+		"      finalColor = vColor * visibility * globalColor * ambientLight * light; " \
 		"   }" \
 		"}\n";
 

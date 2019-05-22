@@ -50,7 +50,8 @@ void Renderer::setMatrix(int program, char *name, glm::mat4 matrix)
 
 void Renderer::setMatrixArray(int program, char *name, int size, glm::mat4 matrices[])
 {
-	float arr[16 * size];
+	float *arr = new float[16 * size];
+//	float arr[16 * size];
 
 	for (int m = 0; m < size; m++)
 	{
@@ -67,6 +68,7 @@ void Renderer::setMatrixArray(int program, char *name, int size, glm::mat4 matri
 
 	if (handle == -1)
 	{
+		delete arr;
 		Log(name, "is -1");
 		return;
 	}
@@ -76,6 +78,8 @@ void Renderer::setMatrixArray(int program, char *name, int size, glm::mat4 matri
 		glUniformMatrix4fv(handle, size, false, arr);
 		checkGLError("glUniformMatrix4fv");
 	}
+
+	delete arr;
 }
 
 void Renderer::setUniform1f(int program, char *name, float x)
@@ -337,6 +341,7 @@ void Renderer::checkGLError(char *tag)
 
 void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLights, Object *object, int program, glm::mat4 rotate)
 {
+#ifdef PLATFORM_ANDROID
 		// Set dynamic lights
 		float lightsPos[MAX_DYNAMIC_LIGHTS * 4];
 		float lightsSize[MAX_DYNAMIC_LIGHTS];
@@ -395,5 +400,5 @@ void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLight
 		* glm::scale(glm::mat4(), object->scale / glm::vec3(2.0, 2.0, 2.0)); // Scale
 
 		setMatrix(program, "modelMatrix", modelMatrix);
-
+#endif
 }

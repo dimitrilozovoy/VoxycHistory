@@ -437,5 +437,8 @@
     <ClCompile Include="..\..\..\..\engine\VertexLights.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\editor\OrthoEditor.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
