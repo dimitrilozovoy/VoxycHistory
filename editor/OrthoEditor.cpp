@@ -492,10 +492,10 @@ void OrthoEditor::refresh()
 					
 			            voxels.getrgba(x, y, z, ur, ug, ub, ua);
 				    
-					    float fgr = UCharToFloat(ur);
-					    float fgg = UCharToFloat(ug);
-					    float fgb = UCharToFloat(ub);
-					    float fga = UCharToFloat(ua);
+					    float fgr = UCharToFloat255(ur);
+					    float fgg = UCharToFloat255(ug);
+					    float fgb = UCharToFloat255(ub);
+					    float fga = UCharToFloat255(ua);
 					
                         float ra = 1 - (1 - fga) * (1 - bga);
                         float rr = fgr * fga / ra + bgr * bga * (1 - fga) / ra;
@@ -536,7 +536,7 @@ void OrthoEditor::refresh()
 			if (mode == MODE_VOXELS)
 			{
 			    int levelDiff = level - lastLevelWithTexture;
-			    float darkening = ((float)voxels.getSize() - (float)(voxels.getSize() - levelDiff)) / (float)voxels.getSize();
+			    float darkening = (((float)voxels.getSize() - (float)(voxels.getSize() - levelDiff)) / (float)voxels.getSize()) * 4;
 
 				engine->setColor(name, 1.0 - darkening, 1.0 - darkening, 1.0 - darkening, 1.0f);
 			}
@@ -578,8 +578,11 @@ void OrthoEditor::touchEvent(int count, int action1, float x1, float y1, int act
         voxels.set(x, level, z, texture);
 
         if (colora != 0.0) {
-            voxels.setrgba(x, level, z, FloatToUChar255(colorr), FloatToUChar255(colorg),
+        if (mode == MODE_PIXELS)
+            {
+                voxels.setrgba(x, level, z, FloatToUChar255(colorr), FloatToUChar255(colorg),
                            FloatToUChar255(colorb), FloatToUChar255(colora));
+			}
         } else {
             voxels.set(x, level, z, 0);
             voxels.setrgba(x, level, z, 127, 127, 127, 127);
@@ -1412,7 +1415,7 @@ void OrthoEditor::exportPNG(std::string filename)
             {
                 unsigned char ur, ug, ub, ua;
                 voxels.getrgba(x, y, z, ur, ug, ub, ua);
-                sc.setPx(x, voxels.getSize() - z, ur, ug, ub, ua);
+                sc.setPx(x, voxels.getSize() - z - 1, ur, ug, ub, ua);
             }
         }
     }
