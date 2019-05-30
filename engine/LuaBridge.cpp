@@ -953,14 +953,8 @@ static int setcontrolscheme(lua_State *L)
 	    scheme = CTRL_FPS;	
 	if (schemeStr == "thirdperson")
 		scheme = CTRL_THIRDPERSON;
-	if (schemeStr == "ufoshooter")
-	    scheme = CTRL_UFOSHOOTER;	
-    if (schemeStr == "ufoshooter360")
-	    scheme = CTRL_UFOSHOOTER_360;	
-    if (schemeStr == "scrollingshooter")
-	    scheme = CTRL_SCROLLINGSHOOTER;
-    if (schemeStr == "scrollingshooterxy")
-	    scheme = CTRL_SCROLLINGSHOOTERXY;	
+	if (schemeStr == "swipexy")
+		scheme = CTRL_SWIPEXY;
     if (schemeStr == "editor")
 	    scheme = CTRL_EDITOR;	
 	
@@ -977,16 +971,12 @@ static int setcamerascheme(lua_State *L)
 	
 	if (schemeStr == "editor")
 		scheme = CAMERA_EDITOR;
-	if (schemeStr == "fps")
-	    scheme = CAMERA_FPS;	
-	if (schemeStr == "thirdperson")
-		scheme = CAMERA_THIRDPERSON;
-	if (schemeStr == "ufoshooter")
-	    scheme = CAMERA_UFOSHOOTER;	
-    if (schemeStr == "ufoshooter360")
-	    scheme = CAMERA_UFOSHOOTER_360;	
-    if (schemeStr == "ufoshootervr")
-	    scheme = CAMERA_UFOSHOOTER_VR;	
+	if (schemeStr == "firstperson" || schemeStr == "fps")
+	    scheme = CAMERA_FIRSTPERSON;	
+	if (schemeStr == "thirdpersonfree")
+		scheme = CAMERA_THIRDPERSON_FREE;
+	if (schemeStr == "thirdpersonfixed")
+		scheme = CAMERA_THIRDPERSON_FIXED;
 	
 	g_engine2->setCameraScheme(scheme);
 	
@@ -1302,6 +1292,19 @@ static int getvox(lua_State *L)
 	lua_pushnumber(L, texture);
 
 	return 1;
+}
+
+static int setvoxels(lua_State *L)
+{	
+	std::string shapeName = lua_tostring(L, 1);
+	std::string fname = lua_tostring(L, 2);
+	
+	Shape *s = g_engine2->findShape(shapeName);
+	
+	if (s != nullptr)
+	    s->voxels->load(g_assetsDir + "/" + fname, nullptr, g_engine2->getTextureManager());
+
+	return 0;
 }
 
 static int setvoxtex(lua_State *L)
@@ -1784,6 +1787,17 @@ static int setcentermodels(lua_State *L)
 	return 1;
 }
 
+static int setcameraoffset(lua_State *L)
+{
+	float ofsz = lua_tonumber(L, 1);
+	float ofsy = lua_tonumber(L, 2);
+
+	g_common.cameraOffsetZ = ofsz;
+	g_common.cameraOffsetY = ofsy;
+
+	return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -1910,6 +1924,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getextrafloat", getextraint);
 	lua_register(L, "log", log);
 	lua_register(L, "setvox", setvox);
+	lua_register(L, "setvoxels", setvoxels);
 	lua_register(L, "getvox", getvox);
 	lua_register(L, "setvoxtex", setvoxtex);
 	lua_register(L, "getvoxtex", getvoxtex);
@@ -1947,6 +1962,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "rebuild", rebuild);
 	lua_register(L, "setlight", setlight);
 	lua_register(L, "setcentermodels", setcentermodels);
+	lua_register(L, "setcameraoffset", setcameraoffset);
 }
 
 void LuaBridge::exec(std::string filename)

@@ -37,7 +37,7 @@ void OrthoEditor::load()
     int numbtns = 6;
     float bw = 0.3;
     float hbw = 0.15;
-    float bs = 0.25;
+    float bs =  0.25;
     float bsv = 0.25;
     float hw = 1.0 / numbtns;
 
@@ -146,6 +146,7 @@ void OrthoEditor::tick()
 		gui->addListMenuOption("Load Voxels", "");
 		gui->addListMenuOption("Save Voxels", "");
         gui->addListMenuOption("Export PNG", "");
+		gui->addListMenuOption("Set Texture", "");
 		gui->showListMenuInDialog("File", "");
 		
 		engine->setExtraInt("filebtnclicked", 0);
@@ -242,6 +243,17 @@ void OrthoEditor::tick()
         engine->setExtraStr("listmenuoptionclicked", "");
         fileSelectorAction = "exportpng";
     }
+	
+	if (engine->getExtraStr("listmenuoptionclicked") == "Set Texture")
+    {
+//        std::string fname = PLAT_LoadPref("main", "png", "");
+//        if (fname == "")
+//            fname = g_assetsDir;
+
+        gui->showFileSelector("png", "");
+        engine->setExtraStr("listmenuoptionclicked", "");
+        fileSelectorAction = "settexture";
+    }
 
     // File selector actions
 
@@ -276,6 +288,13 @@ void OrthoEditor::tick()
             engine->setText("msg", msg);
             msgTimer = msgTimerDelay;
         }
+		
+		if (fileSelectorAction == "settexture") {
+			std::string fname = GetFileName(engine->getExtraStr("fileselected"));
+			g_assetsDir = GetPath(engine->getExtraStr("fileselected"));
+			voxels.setVoxelTexture(texture, fname);
+			needsRefresh = true;
+		}
 
 		engine->setExtraStr("fileselected", "");
 	}
@@ -390,6 +409,8 @@ void OrthoEditor::loadVoxels(std::string filename)
 	engine->setPlayerPos(0.0, 0.0, 0.0);
 	engine->setPlayerOrientation(0.0, 0.0, 0.0);
 	
+	g_assetsDir = GetPath(filename);
+
 	voxels.load(filename, nullptr, engine->getTextureManager());
 	create();
 	refresh();

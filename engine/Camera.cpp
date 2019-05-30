@@ -47,13 +47,13 @@ void Camera::tick()
 		this->pitch = playerObj->pitch;
 		this->roll = playerObj->roll;
 		break;
-	case CAMERA_FPS:
+	case CAMERA_FIRSTPERSON:
 		this->position = playerObj->position;
 		this->yaw = playerObj->yaw + mouseLook->yaw;
 		this->pitch = playerObj->pitch + mouseLook->pitch;
 		this->roll = playerObj->roll + mouseLook->roll;
 		break;
-	case CAMERA_THIRDPERSON:
+	case CAMERA_THIRDPERSON_FREE:
 		
 		if (g_common.touchCtrlRJDown && g_common.touchCtrlRJDistX)
 		{
@@ -70,17 +70,21 @@ void Camera::tick()
 			    playerObj->secondaryYaw = yaw;
 		}
 
+		this->position = playerObj->position;
+		this->setDeltaXZ(-yaw, g_common.cameraOffsetZ);
+		move();		
+		this->position.y += g_common.cameraOffsetY;
+		break;
+	case CAMERA_THIRDPERSON_FIXED:
 		
 		this->position = playerObj->position;
-		this->setDeltaXZ(-yaw, 30.0);
+		this->setDeltaXZ(-yaw, g_common.cameraOffsetZ);
 		move();		
-		this->position.y += 5;
-		
-
+		this->position.y += g_common.cameraOffsetY;
 		break;
+/*
 	case CAMERA_UFOSHOOTER_360:
 		this->position = playerObj->position;
-
 		this->setDeltaXZ(-playerObj->yaw - 180, -40.0);
 		move();
 
@@ -98,7 +102,7 @@ void Camera::tick()
 		this->yaw = playerObj->yaw;
 		this->pitch = 0;
 		this->roll = 0;
-		break;
+		break;*/
 	default:
 	    this->position = playerObj->position;
 		this->yaw = playerObj->yaw + mouseLook->yaw;
@@ -119,7 +123,7 @@ void Camera::tick()
 			playerObj->yaw = yaw;
 
 		break;
-	case CAMERA_THIRDPERSON:
+	case CAMERA_THIRDPERSON_FREE:
 
 		yaw += g_common.gamepadRightX * 5;
 
@@ -151,7 +155,7 @@ void Camera::mouse(float mouseX, float mouseY)
 {
 	switch (cameraScheme)
 	{
-	case CAMERA_THIRDPERSON:
+	case CAMERA_THIRDPERSON_FREE:
 		yaw += mouseX;
 
 		if (playerObj != nullptr)

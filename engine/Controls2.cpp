@@ -130,7 +130,7 @@ void Controls2::tick() {
 
     // Old schemes
 
-    if (buttons[BTN_UP] == 1) {
+/*    if (buttons[BTN_UP] == 1) {
         switch (controlScheme) {
             case CTRL_SCROLLINGSHOOTER:
                 playerObj->MoveForward(getMoveFactor() * 2.0);
@@ -172,7 +172,7 @@ void Controls2::tick() {
                 playerObj->MoveRight(getMoveFactor());
                 break;
         }
-    }
+    }*/
 
     //
     // Touch control for new schemes
@@ -235,21 +235,15 @@ void Controls2::tick() {
         float ydiff = jlastmovey - jlastdowny;
 
         switch (controlScheme) {
-            case CTRL_SCROLLINGSHOOTER:
+            case CTRL_SWIPEXY:
                 if (xdiff > 0.2)
-                    playerObj->MoveRight(abs(xdiff) * getMoveFactor() / 10.0);
+                    playerObj->MoveRight(abs(xdiff) * getMoveFactor());
                 if (xdiff < -0.2)
-                    playerObj->MoveLeft(abs(xdiff) * getMoveFactor() / 10.0);
-                break;
-            case CTRL_SCROLLINGSHOOTERXY:
-                if (xdiff > 0.2)
-                    playerObj->MoveRight(abs(xdiff) * getMoveFactor() / 30.0);
-                if (xdiff < -0.2)
-                    playerObj->MoveLeft(abs(xdiff) * getMoveFactor() / 30.0);
+                    playerObj->MoveLeft(abs(xdiff) * getMoveFactor());
                 if (ydiff > 0.2)
-                    playerObj->MoveDown(abs(ydiff) * getMoveFactor() / 30.0);
+                    playerObj->MoveDown(abs(ydiff) * getMoveFactor());
                 if (ydiff < -0.2)
-                    playerObj->MoveUp(abs(ydiff) * getMoveFactor() / 30.0);
+                    playerObj->MoveUp(abs(ydiff) * getMoveFactor());
                 break;
             case CTRL_EDITOR:
                 if (ydiff < -0.2)
@@ -777,9 +771,9 @@ void Controls2::MoveYaw(float amount) {
 //	case CTRL_THIRDPERSON:
 //		playerObj->MoveYaw(amount);
 //		break;
-        case CTRL_UFOSHOOTER_360:
-            playerObj->MoveYaw(amount);
-            break;
+//        case CTRL_UFOSHOOTER_360:
+//            playerObj->MoveYaw(amount);
+//            break;
         case CTRL_EDITOR:
             playerObj->MoveYaw(amount);
             break;
@@ -799,28 +793,6 @@ void Controls2::MovePitch(float amount) {
 
 float Controls2::getMoveFactor() {
     return g_common.playerMoveSpeed;
-/*    switch (controlScheme) {
-        case CTRL_EDITOR:
-#ifdef PLATFORM_ANDROID
-            return 0.1;
-#else
-            return 0.2;
-#endif
-        case CTRL_FPS:
-            if (g_largeScale)
-                return 0.003;
-            else
-                return 0.03;
-            break;
-        case CTRL_UFOSHOOTER_360:
-            return 2.2;
-            break;
-        case CTRL_SCROLLINGSHOOTER:
-            return 0.3;
-            break;
-    }
-
-    return 1.0;*/
 }
 
 void Controls2::setControlScheme(ControlSchemes scheme) {

@@ -6,8 +6,8 @@ android {
         applicationId "com.voxyc.voxyc"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 54
-        versionName "1.0.53"
+        versionCode 55
+        versionName "1.0.54"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {

@@ -111,12 +111,6 @@ tick()
 
 void Engine2::tick()
 {
-//	makeUpLostFramesOrWait();
-#ifdef PLATFORM_WINDOWS
-	// HACK
-//	ddlsleep(10);
-#endif
-
 	objects["player"] = playerObj;
 	playerObj->name = "player";
 
@@ -125,10 +119,10 @@ void Engine2::tick()
 	if (physicsEnabled)
 	    physics.tick(objects);
 		
-//    controls.tick();
 	audio.tick();
 
 	moveObjectsSmoothly();
+	moveObjectsByVelocity();
 	limitPlayerRange();
 
 	camera.tick();
@@ -141,8 +135,6 @@ void Engine2::tick()
 
 	editorController.tick();
 	gui.tick();
-
-//	spriteRenderer2D.tick();
 }
 
 /*
