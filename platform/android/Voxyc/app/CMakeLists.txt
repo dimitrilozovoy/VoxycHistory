@@ -125,18 +125,18 @@ find_library( # Sets the name of the path variable.
 
 # ASSIMP
 
-add_library( assimp
-             SHARED
-             IMPORTED )
+#add_library( assimp
+#             SHARED
+#             IMPORTED )
 
-set_target_properties( # Specifies the target library.
-                       assimp
+#set_target_properties( # Specifies the target library.
+#                       assimp
 
                        # Specifies the parameter you want to define.
-                       PROPERTIES IMPORTED_LOCATION
+#                       PROPERTIES IMPORTED_LOCATION
 
                        # Provides the path to the library you want to import.
-                       ${PROJECT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libassimp.so )
+#                       ${PROJECT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libassimp.so )
 
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
@@ -148,5 +148,5 @@ target_link_libraries( # Specifies the target library.
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib}
-                       assimp
+#                       assimp
                        )

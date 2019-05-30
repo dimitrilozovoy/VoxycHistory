@@ -22,9 +22,13 @@ SOFTWARE.
 
 #include "Globals.hpp"
 #include "Model2.h"
+#include "../thirdparty/OBJLoader/OBJ_Loader.h" 
+#ifdef USE_ASSIMP
 #include "../thirdparty/assimp/Importer.hpp"      // C++ importer interface
 #include "../thirdparty/assimp/scene.h"           // Output data structure
 #include "../thirdparty/assimp/postprocess.h"     // Post processing fla
+#endif
+
 //#include "../android.h"
 #include "platform.h"
 #include "GLIncludes.h"
@@ -32,6 +36,109 @@ SOFTWARE.
 
 void Model2::load(std::string filename, int vao)
 {
+#ifndef USE_ASSIMP
+    objl::Loader Loader;
+
+    bool loadout = Loader.LoadFile(GetFullFilename(filename));
+	
+	if (loadout)
+	{
+		for (int m = 0; m < Loader.LoadedMeshes.size(); m++)
+		{
+			Mesh *outMesh = new Mesh();
+
+		    outMesh->index = m;
+		    outMesh->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+            outMesh->hasTexCoords = true;
+			
+			objl::Mesh mesh = Loader.LoadedMeshes[m];
+			
+			// Vertices
+
+			int vertexDataLength = 9;
+
+            outMesh->numVertices = mesh.Vertices.size();
+            outMesh->data = (float *)malloc(outMesh->numVertices * vertexDataLength * sizeof(float));
+
+            for (int v = 0; v < mesh.Vertices.size(); v++)
+            {
+                outMesh->data[v * vertexDataLength] = mesh.Vertices[v].Position.X;
+                outMesh->data[v * vertexDataLength + 1] = mesh.Vertices[v].Position.Y;
+                outMesh->data[v * vertexDataLength + 2] = mesh.Vertices[v].Position.Z;
+                outMesh->data[v * vertexDataLength + 3] = 1.0;
+
+                // Update min/max for scaling
+                if (mesh.Vertices[v].Position.X < minX)
+                    minX = mesh.Vertices[v].Position.X;
+                if (mesh.Vertices[v].Position.Y < minY)
+                    minY = mesh.Vertices[v].Position.Y;
+                if (mesh.Vertices[v].Position.Z < minZ)
+                    minZ = mesh.Vertices[v].Position.Z;
+
+                if (mesh.Vertices[v].Position.X > maxX)
+                    maxX = mesh.Vertices[v].Position.X;
+                if (mesh.Vertices[v].Position.Y > maxY)
+                    maxY = mesh.Vertices[v].Position.Y;
+                if (mesh.Vertices[v].Position.Z > maxZ)
+                    maxZ = mesh.Vertices[v].Position.Z;
+
+				outMesh->data[v * vertexDataLength + 4] = mesh.Vertices[v].TextureCoordinate.X;
+                outMesh->data[v * vertexDataLength + 5] = mesh.Vertices[v].TextureCoordinate.Y;
+
+                outMesh->data[v * vertexDataLength + 6] = mesh.Vertices[v].Normal.X;
+                outMesh->data[v * vertexDataLength + 7] = mesh.Vertices[v].Normal.Y;
+                outMesh->data[v * vertexDataLength + 8] = mesh.Vertices[v].Normal.Z;
+            }
+
+			outMesh->dataLength = outMesh->numVertices * vertexDataLength;
+
+			// Index data
+
+			outMesh->numIndexes = mesh.Indices.size();
+
+			outMesh->indexData = (int *)malloc(mesh.Indices.size() * sizeof(int));
+			outMesh->numPolys = mesh.Indices.size() / 3;
+
+			for (int i = 0; i < mesh.Indices.size(); i++)
+			{
+				outMesh->indexData[i] = mesh.Indices[i];
+			}
+
+			outMesh->indexDataLength = outMesh->numIndexes;
+
+			// Add mesh to model
+			meshes.push_back(outMesh);
+
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+			// Bind the VAO
+			glBindVertexArray(vao);
+			checkGLError("glBindVertexArray");
+#endif
+
+			// Make and bind the vertex and texcoords VBO
+			glGenBuffers(1, (GLuint *)&outMesh->vbo);
+			checkGLError("glGenBuffers");
+
+			// Make and bind the index VBO
+			glGenBuffers(1, (GLuint *)&outMesh->indexVBO);
+			checkGLError("glGenBuffers");
+
+			glBindBuffer(GL_ARRAY_BUFFER, outMesh->vbo);
+			checkGLError("glBindBuffer");
+
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * outMesh->dataLength, outMesh->data, GL_STATIC_DRAW);
+			checkGLError("glBufferData");
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, outMesh->indexVBO);
+			checkGLError("glBindBuffer");
+
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * outMesh->indexDataLength, outMesh->indexData, GL_STATIC_DRAW);
+			checkGLError("FrameAnimRenderer glBufferData");
+		}
+	}
+
+#endif
+	
 #ifdef USE_ASSIMP
 
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
@@ -218,6 +325,7 @@ void Model2::load(std::string filename, int vao)
             checkGLError("FrameAnimRenderer glBufferData");
         }
     }
+#endif
 
 	// Calculate proportions
 	
@@ -253,7 +361,6 @@ void Model2::load(std::string filename, int vao)
 	
     name = filename;
     loaded = true;
-#endif
 }
 
 void Model2::free()

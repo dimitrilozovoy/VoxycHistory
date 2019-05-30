@@ -70,7 +70,7 @@ SOFTWARE.
 #define USE_OPENAL
 #endif
 
-#define USE_ASSIMP
+//#define USE_ASSIMP
 //#ifdef PLATFORM_WINDOWS
 //#define USE_TINYOBJLOADER
 //#endif
