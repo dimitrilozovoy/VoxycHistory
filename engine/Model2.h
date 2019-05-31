@@ -31,7 +31,7 @@ SOFTWARE.
 class Model2 {
 public:
     void load(std::string fileName, int vao);
-	void free();
+	void release();
     void checkGLError(char *tag);
 
     std::string name;

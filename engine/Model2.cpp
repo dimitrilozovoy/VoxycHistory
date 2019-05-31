@@ -134,6 +134,12 @@ void Model2::load(std::string filename, int vao)
 
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * outMesh->indexDataLength, outMesh->indexData, GL_STATIC_DRAW);
 			checkGLError("FrameAnimRenderer glBufferData");
+
+			free(outMesh->data);
+			outMesh->data = nullptr;
+
+			free(outMesh->indexData);
+			outMesh->indexData = nullptr;
 		}
 	}
 
@@ -363,7 +369,7 @@ void Model2::load(std::string filename, int vao)
     loaded = true;
 }
 
-void Model2::free()
+void Model2::release()
 {
     for (int i = 0; i < meshes.size(); i++)
     {

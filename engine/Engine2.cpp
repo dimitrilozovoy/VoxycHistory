@@ -288,7 +288,7 @@ void Engine2::free()
     for(const auto &pair: models)
     {
         Model2 *model = pair.second;
-        model->free();
+        model->release();
     }
 
 	models.clear();
