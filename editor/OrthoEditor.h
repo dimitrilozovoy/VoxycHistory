@@ -22,7 +22,6 @@ SOFTWARE.
 
 #ifndef OrthoEditor_h
 #define OrthoEditor_h
-
 #include <stdio.h>
 #include <string>
 #include "../engine/Engine2.h"
@@ -39,7 +38,6 @@ typedef enum OrthoMode
 	MODE_VOXELS,
 	MODE_PIXELS
 };
-
 
 class OrthoEditor
 {

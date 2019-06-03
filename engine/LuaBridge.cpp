@@ -1,7 +1,7 @@
 /*
 Copyright (C) 2018 Dimitri Lozovoy
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
+Permission is hereby granted, free of char7t, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
@@ -97,21 +97,46 @@ static int setshape(lua_State *L)
 	std::string name = lua_tostring(L, 1);
 	std::string shapeStr = lua_tostring(L, 2);
 	
-//	Log(shapeStr);
 	
 	if (shapeStr == "sprite")
 	{
-//		Log("setshape quad");
 	    g_engine2->setShape(name, SHAPE_SPRITE);
 	}
 	else if (shapeStr == "quad")
 	{
-//		Log("setshape quad");
 	    g_engine2->setShape(name, SHAPE_QUAD);
 	}
 	else
 	{
 	    g_engine2->setShape(name, shapeStr);
+	}
+	
+	return 0;
+}
+
+static int getshape(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object *obj = g_engine2->findObj(name);
+	
+	if (obj != nullptr)
+	{
+		if (obj->shape != nullptr)
+		{
+	        std::string name = obj->shape->name;
+	        lua_pushstring(L, name.c_str());
+
+	        return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	else
+	{
+		return 0;
 	}
 	
 	return 0;
@@ -1294,6 +1319,32 @@ static int getvox(lua_State *L)
 	return 1;
 }
 
+static int getvoxsize(lua_State *L)
+{
+	std::string shapeName = lua_tostring(L, 1);
+
+	Shape *sh = g_engine2->findShape(shapeName);
+	
+	if (sh != nullptr)
+	{
+		Voxels *vx = sh->voxels;
+		
+		if (vx != nullptr)
+		{
+	        lua_pushnumber(L, vx->getSize());
+	        return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 static int setvoxels(lua_State *L)
 {	
 	std::string shapeName = lua_tostring(L, 1);
@@ -1828,6 +1879,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "rename", rename);
     lua_register(L, "settype", settype);
 	lua_register(L, "setshape", setshape);
+	lua_register(L, "getshape", getshape);
 	lua_register(L, "setmodel", setmodel);	
 	lua_register(L, "getmodel", getmodel);
 	lua_register(L, "setmodelorient", setmodelorient);
@@ -1926,6 +1978,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setvox", setvox);
 	lua_register(L, "setvoxels", setvoxels);
 	lua_register(L, "getvox", getvox);
+	lua_register(L, "getvoxsize", getvoxsize);
 	lua_register(L, "setvoxtex", setvoxtex);
 	lua_register(L, "getvoxtex", getvoxtex);
 	lua_register(L, "loadvox", loadvox);

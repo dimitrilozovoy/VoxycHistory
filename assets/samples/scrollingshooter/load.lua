@@ -1,3 +1,5 @@
+runscript("computer.lua")
+
 curarea = 1
 chunksize = 160
 numchunks = 32
@@ -51,6 +53,10 @@ if vox > 5 then
   vox = 1
 end
 end
+
+getallobjs()
+
+spawn_computers()
 
 end
 

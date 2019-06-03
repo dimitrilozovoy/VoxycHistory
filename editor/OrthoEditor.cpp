@@ -567,7 +567,7 @@ void OrthoEditor::refresh()
 			}
 			
 			engine->setSize(name, voxssize, voxssize, voxssize);
-			engine->setPos(name, sx, sy, sz);
+			engine->setPos(name, sx, -sy, sz);
 		}
 	}
 }
@@ -577,7 +577,7 @@ void OrthoEditor::touchEvent(int count, int action1, float x1, float y1, int act
 	float aspect = (float)screenWidth / (float)screenHeight;
 	
 	float glx = scrToGlX(x1);
-	float gly = scrToGlY(y1);
+	float gly = -scrToGlY(y1);
 	
 	float glFromX = -1.0;
 	float glToX = 1.0;
@@ -1436,7 +1436,7 @@ void OrthoEditor::exportPNG(std::string filename)
             {
                 unsigned char ur, ug, ub, ua;
                 voxels.getrgba(x, y, z, ur, ug, ub, ua);
-                sc.setPx(x, voxels.getSize() - z - 1, ur, ug, ub, ua);
+                sc.setPx(x, z, ur, ug, ub, ua);
             }
         }
     }

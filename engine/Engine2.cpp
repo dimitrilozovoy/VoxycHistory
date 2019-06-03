@@ -317,6 +317,7 @@ void Engine2::addObject(std::string name)
     o->position = glm::vec4(0.0, 0.0, 0.0, 0.0);
 	o->velocity = glm::vec4(0.0, 0.0, 0.0, 0.0);
 	o->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+	o->visible = true;
 
     objects[name] = o;
 }
