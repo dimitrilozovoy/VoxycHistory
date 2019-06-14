@@ -23,6 +23,7 @@ SOFTWARE.
 #include "Globals.hpp"
 #include "DDLUtils.hpp"
 #include "Object.h"
+#include "../thirdparty/glm/gtx/scalar_multiplication.hpp"
 
 #ifdef PLATFORM_ANDROID
 #include <cmath>
@@ -641,10 +642,52 @@ void Object::capVelocity()
 void Object::moveTowardsNextPosition()
 {
 	glm::vec4 delta = nextPosition - position;
-	
-//	Log(name.c_str(), nextPosition);
 
 	position += delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
+}
+
+void Object::moveTowardsNextWaypoint()
+{
+	if (nextWaypoint < waypoints.size())
+	{
+	    Waypoint next = waypoints[nextWaypoint];
+		
+		if (!wayptTickDeltaReady)
+		{
+			float diffx = next.pos.x - position.x;
+		    float diffy = next.pos.y - position.y;
+            float diffz = next.pos.z - position.z;
+
+			wayptTickDeltaX = diffx / (float)ticksPerWaypt;
+			wayptTickDeltaY = diffy / (float)ticksPerWaypt;
+			wayptTickDeltaZ = diffz / (float)ticksPerWaypt;
+			
+			wayptTickDeltaReady = true;
+			waypointTick = 0;
+		}
+		
+		position.x += wayptTickDeltaX;
+		position.y += wayptTickDeltaY;
+		position.z += wayptTickDeltaZ;
+				
+		// Check if we've arrived at next waypoint
+		float diffx = next.pos.x - position.x;
+	    float diffy = next.pos.y - position.y;
+        float diffz = next.pos.z - position.z;
+
+		if (waypointTick >= ticksPerWaypt)
+	    {
+			nextWaypoint++;
+			wayptTickDeltaReady = false;
+			waypointTick = 0;
+		}
+		
+		waypointTick++;
+	}
+	else
+	{
+		moveByWaypoints = false;
+	}
 }
 
 std::string Object::toString()

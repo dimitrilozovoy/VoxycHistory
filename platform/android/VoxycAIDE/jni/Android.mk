@@ -31,6 +31,7 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../engine/Camera.cpp\
              ../../../../engine/Controls2.cpp\
              ../../../../engine/Engine2.cpp\
+             ../../../../engine/Mesh.cpp\
              ../../../../engine/Model2.cpp\
              ../../../../engine/ModelRenderer.cpp\
              ../../../../engine/SkeletalRenderer.cpp\
@@ -66,6 +67,7 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../editor/Editor.cpp\
              ../../../../editor/EditorOld.cpp\
              ../../../../editor/OrthoEditor.cpp\
+             ../../../../editor/ModelEditor.cpp\
              ../../../../thirdparty/lua/lapi.c\
              ../../../../thirdparty/lua/lauxlib.c\
              ../../../../thirdparty/lua/lbaselib.c\
@@ -102,15 +104,15 @@ LOCAL_SRC_FILES := hello-jni.cpp\
              ../../../../thirdparty/lua/lvm.c\
              ../../../../thirdparty/lua/lzio.c
 
-LOCAL_SHARED_LIBRARIES := assimp
+LOCAL_SHARED_LIBRARIES := 
 LOCAL_CFLAGS := -fpermissive -std=c++11 -lm -DPLATFORM_ANDROID
 LOCAL_LDLIBS := -L$(SYSROOT)/usr/lib -llog
 
 include $(BUILD_SHARED_LIBRARY)
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := libassimp
-LOCAL_SRC_FILES := libassimp.so
-include $(PREBUILT_SHARED_LIBRARY)
+#include $(CLEAR_VARS)
+#LOCAL_MODULE := libassimp
+#LOCAL_SRC_FILES := libassimp.so
+#include $(PREBUILT_SHARED_LIBRARY)
 
 endif

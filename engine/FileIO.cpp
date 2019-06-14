@@ -54,6 +54,15 @@ void FileIO::writeInt(int i)
     fwrite(intArr, sizeof(int), 1, file);
 }
 
+void FileIO::writeFloat(float f)
+{
+    if (file == nullptr)
+        return;
+
+    float floatArr[] = {f};
+    fwrite(floatArr, sizeof(float), 1, file);
+}
+
 void FileIO::writeStr(std::string s)
 {
     // Write length of string
@@ -188,6 +197,15 @@ int FileIO::readInt()
     int i = iArr[0];
 
     return i;
+}
+
+float FileIO::readFloat()
+{
+    float fArr[] = { 0.0 };
+    fread(fArr, sizeof(float), 1, file);
+    float f = fArr[0];
+
+    return f;
 }
 
 std::string FileIO::readStr()

@@ -151,8 +151,8 @@ void Editor::load() {
 		// Top buttons
 		engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.85, hw, hw);
 		engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.85, hw, hw);
-	    engine->addWg("orthobtn", WG_BTN, "pixels.png",       "", "orthobtnclicked",      "", 0, 0.85, hw, hw);
-		//    engine->addWg("scriptbtn",    WG_BTN, "pixels.png",       "", "drawbtnclicked",      "", hw * 1, 0.8, hw, hw);
+	    engine->addWg("orthobtn", WG_BTN, "pixels.png", "", "orthobtnclicked", "", -hw, 0.85, hw, hw);
+		engine->addWg("modelbtn", WG_BTN, "poly.png", "", "modelbtnclicked", "", hw, 0.85, hw * 0.7, hw * 0.7);
 		engine->addWg("prevbtn", WG_BTN, "prevkit.png", "", "prevbtnclicked", "", hw * 3, 0.85, hw, hw);
 		engine->addWg("nextbtn", WG_BTN, "nextkit.png", "", "nextbtnclicked", "", hw * 5, 0.85, hw, hw);
 
@@ -436,17 +436,72 @@ void Editor::tick() {
             timer = 50;
         }
 		
+		// 2D voxel editor button
+		
         if (engine->getExtraInt("orthobtnclicked") == 1
             || engine->getExtraInt("orthobtnclicked") == 3) {
 
-			engine->setExtraInt("switchmodule", 1);
-            engine->setExtraStr("nextmodule", "orthoeditor");
+		    if (!modified)
+			{
+                engine->setExtraInt("switchmodule", 1);
+                engine->setExtraStr("nextmodule", "orthoeditor");
 				
+            }
+			else
+			{
+                gui->clearListMenu();
+                gui->addListMenuOption("Discard and Enter 2D Voxel Editor", "");
+                gui->addListMenuOption("Cancel", "");
+                gui->showListMenuInDialog("Scene not saved!", "");
+	        }
+			
+			exitScreenShotMode();
+            timer = 50;
+
             engine->setExtraInt("orthobtnclicked", 0);
+        }
+		
+		if (engine->getExtraStr("listmenuoptionclicked") == "Discard and Enter 2D Voxel Editor")
+        {
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "orthoeditor");
+			
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
+		
+		// Model editor button
+		
+        if (engine->getExtraInt("modelbtnclicked") == 1
+            || engine->getExtraInt("modelbtnclicked") == 3) {
+
+		    if (!modified)
+			{
+                engine->setExtraInt("switchmodule", 1);
+                engine->setExtraStr("nextmodule", "modeleditor");
+            }
+			else
+			{
+                gui->clearListMenu();
+                gui->addListMenuOption("Discard And Enter Mesh Editor", "");
+                gui->addListMenuOption("Cancel", "");
+                gui->showListMenuInDialog("Scene not saved!", "");
+	        }
+				
+            engine->setExtraInt("modelbtnclicked", 0);
 
             exitScreenShotMode();
             timer = 50;
         }
+		
+		if (engine->getExtraStr("listmenuoptionclicked") == "Discard And Enter Mesh Editor")
+        {
+            engine->setExtraInt("switchmodule", 1);
+            engine->setExtraStr("nextmodule", "modeleditor");
+			
+            engine->setExtraStr("listmenuoptionclicked", "");
+        }
+		
+		// Object menu continued
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Select Only") {
             selectOnly = true;
@@ -707,6 +762,8 @@ void Editor::tick() {
                 load();
                 engine->setAssetsDir(GetPath(engine->getExtraStr("fileselected")));
                 engine->loadScene(GetFileName(engine->getExtraStr("fileselected")));
+				modified = false;
+				
                 engine->setExtraStr("fileselected", "");
             }
 
@@ -719,6 +776,7 @@ void Editor::tick() {
                 snprintf(msg, 1024, "%s saved", GetFileName(engine->getExtraStr("fileselected")).c_str());
                 engine->setText("msg", msg);
                 msgTimer = msgTimerDelay;
+				modified = false;
 
 				engine->setExtraStr("fileselected", "");
             }
@@ -730,6 +788,7 @@ void Editor::tick() {
                 engine->setVoxelTexture("preview", ec->getCurTexture(), fname);
                 engine->rebuildShape("preview");
                 engine->setExtraStr("fileselected", "");
+				modified = true;
             }
 
             if (fileSelectorAction == "importterraintexture") {
@@ -738,6 +797,7 @@ void Editor::tick() {
                 engine->setTexture("terrain", fname);
                 engine->setExtraStr("terraintexture", fname);
                 engine->setExtraStr("fileselected", "");
+				modified = true;
             }
 
             if (fileSelectorAction == "importskytexture") {
@@ -745,6 +805,7 @@ void Editor::tick() {
                 engine->setSkybox(fname);
                 engine->setExtraStr("skytexture", fname);
                 engine->setExtraStr("fileselected", "");
+				modified = true;
             }
 
             if (fileSelectorAction == "writeobj") {
@@ -859,7 +920,7 @@ void Editor::tick() {
 					gui->addDialogPart("drop z", "0", "dropsizez");
 					gui->addDialogPart("bottom x", "0", "bottomsizex");
 					gui->addDialogPart("bottom z", "0", "bottomsizez");
-				gui->addDialogPart("height", "25", "height");
+				    gui->addDialogPart("height", "25", "height");
 					gui->showDialog("New Terrain", "OK", "Cancel", "newterrainparams_entered");
 				}
 			}
@@ -1423,6 +1484,8 @@ void Editor::tick() {
 
                 objCopy = false;
             }
+			
+			modified = true;
 
         } else if (mode == EM_OBJ) {
 
@@ -1496,7 +1559,7 @@ void Editor::tick() {
                 snprintf(msg, 1024, "%s placed", newName.c_str());
                 engine->setText("msg", msg);
                 msgTimer = msgTimerDelay;
-//                Log(msg);
+				modified = true;
 
                 placeObjTimer = 30;
             }
@@ -1542,9 +1605,8 @@ void Editor::tick() {
                 Shape *shape = curVoxels->shape;
                 engine->setVoxel(shape->name, putvoxx, putvoxy, putvoxz, 0);
 
+				modified = true;
                 shape->needsRebuild = true;
-
-//                rmTimer = 30;
             }
         } else if (mode == EM_OBJ) {
 
@@ -1579,6 +1641,7 @@ void Editor::tick() {
                 engine->removeObject(selectedObj);
                 engine->setText("msg", "object removed");
 
+				modified = true;
 				rmObjTimer = 30;
             }
 		}
@@ -1693,10 +1756,12 @@ void Editor::tick() {
 					if (selectedObj != nullptr) {
 						std::string fname = GetFileName(engine->getExtraStr("fileselected"));
 						engine->setTexture(selectedObj->name, fname);
+						modified = true;
 					}
 					else if (selectedObj == nullptr) {
 						std::string fname = GetFileName(engine->getExtraStr("fileselected"));
 						engine->setTexture("objpreview", fname);
+						modified = true;
 					}
 
 				}
@@ -1710,6 +1775,7 @@ void Editor::tick() {
 							engine->setVoxelTexture(shape->name, curVoxel, fname);
 							shape->needsRebuild = true;
 							setVoxPreviewTextures();
+							modified = true;
 						}
 					}
 				}
@@ -1776,6 +1842,7 @@ void Editor::tick() {
             selectedObj->pitch = PLAT_stof(engine->getExtraStr("pitch"), 0.0f);
             selectedObj->yaw = PLAT_stof(engine->getExtraStr("yaw"), 0.0f);
             selectedObj->roll = PLAT_stof(engine->getExtraStr("roll"), 0.0f);
+            modified = true;
 
             engine->setExtraInt("setobjorientation_entered", 0);
         }
@@ -1807,6 +1874,7 @@ void Editor::tick() {
             selectedObj->scale.x = PLAT_stof(engine->getExtraStr("scalex"), 1.0f);
             selectedObj->scale.y = PLAT_stof(engine->getExtraStr("scaley"), 1.0f);
             selectedObj->scale.z = PLAT_stof(engine->getExtraStr("scalez"), 1.0f);
+            modified = true;
 
             engine->setExtraInt("setobjscale_entered", 0);
         }
@@ -1875,6 +1943,7 @@ void Editor::tick() {
 
             if (tex != nullptr) {
                 engine->setTextureSpan(tex->name, tsx, tsy);
+				modified = true;
             }
 
             // Rebuild all voxel shapes since texture spans changed
@@ -1943,6 +2012,8 @@ void Editor::tick() {
                 tex->lightr = r;
                 tex->lightg = g;
                 tex->lightb = b;
+				
+				modified = true;
             }
 
             // Rebuild all voxel shapes since texture lights changed
@@ -2045,7 +2116,8 @@ void Editor::tick() {
 
             // Make sure voxels are rebuilt
             curVoxels->shape->needsRebuild = true;
-
+            modified = true;
+			
             engine->setExtraInt("lightroom_entered", 0);
         }
     }
@@ -2352,6 +2424,8 @@ void Editor::tick() {
 			selectedObj->position.y = snapPosY;
 		if (snapZ)
 			selectedObj->position.z = snapPosZ;
+			
+		modified = true;
 	}
 
     // Message indicator

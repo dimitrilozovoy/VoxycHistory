@@ -631,6 +631,22 @@ static int moveright(lua_State *L)
 	return 0;
 }
 
+static int moveup(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	lua_Number distance = lua_tonumber(L, 2);
+	
+	Object *o = g_engine2->findObj(name);
+	
+	if (o == nullptr)
+		return 0;
+		
+    o->delta = glm::vec4(0.0, distance, 0.0, 0.0);
+	o->move();
+	
+	return 0;
+}
+
 static int setmovesmoothly(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1118,7 +1134,7 @@ static int sethitpts(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
 	lua_Number pts = lua_tonumber(L, 2);
-
+		
 	g_engine2->setHitPoints(name, pts);
 
 	return 1;
@@ -1130,6 +1146,9 @@ static int gethitpts(lua_State *L)
 
 	Object *obj = g_engine2->findObj(name);
 
+	if (obj == nullptr)
+		return 0;
+		
 	lua_pushnumber(L, obj->hitPoints);
 
 	return 1;
@@ -1849,10 +1868,109 @@ static int setcameraoffset(lua_State *L)
 	return 0;
 }
 
+static int setdrawdistance(lua_State *L)
+{
+	float d = lua_tonumber(L, 1);
+
+	g_common.drawDistance = d;
+
+	return 0;
+}
+
+static int setwaypts(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	std::string modelName = lua_tostring(L, 2);
+	float scale = lua_tonumber(L, 3);
+	int ticksPerWaypt = lua_tonumber(L, 4);
+	float velx = lua_tonumber(L, 5);
+	float vely = lua_tonumber(L, 6);
+    float velz = lua_tonumber(L, 7);
+
+	Object *obj = g_engine2->findObj(name);
+	
+	if (obj != nullptr)
+	{
+		obj->waypoints.clear();
+		obj->ticksPerWaypt = ticksPerWaypt;
+		
+		Model2 *model = g_engine2->findModel(modelName);
+		
+		if (model == nullptr)
+		{
+            g_engine2->loadModel(modelName);
+			model = g_engine2->findModel(modelName);
+        }
+		
+		if (model != nullptr)
+	    {
+			Mesh *mesh = model->meshes[0];
+			
+			if (mesh != nullptr)
+			{
+				for (int v = 0; v < mesh->vertices.size(); v++)
+				{
+					Waypoint wpt;
+		
+		            wpt.tick = (v + 1) * ticksPerWaypt;
+					
+		            wpt.pos.x = obj->position.x + mesh->vertices[v].x * scale + v * ticksPerWaypt * velx;
+		            wpt.pos.y = obj->position.y + mesh->vertices[v].y * scale + v * ticksPerWaypt * vely;
+				    wpt.pos.z = obj->position.z + mesh->vertices[v].z * scale + v * ticksPerWaypt * velz;
+
+					obj->waypoints.push_back(wpt);
+				}
+			}
+		}
+    }
+
+	return 0;
+}
+
+static int setmovebywaypts(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	bool m = lua_toboolean(L, 2);
+	
+	Object *obj = g_engine2->findObj(name);
+	
+	if (obj != nullptr)
+	{
+		obj->moveByWaypoints = m;
+		obj->nextWaypoint = 0;
+	    obj->waypointTick = 0;
+    }
+
+	return 0;
+}
+
+static int clearwaypts(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object *obj = g_engine2->findObj(name);
+	
+	if (obj != nullptr)
+	{
+		obj->waypoints.clear();
+    }
+
+	return 0;
+}
+
+static int enablephysics(lua_State *L)
+{
+	bool e = lua_toboolean(L, 1);
+	
+	g_engine2->setPhysicsEnabled(e);
+	
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
-	
+
 	L = luaL_newstate();
 	luaL_openlibs(L);
 	
@@ -1869,7 +1987,7 @@ void LuaBridge::init(Engine2 *engine)
 			);
 			
 	lua_register(
-			L,               /* Lua state variable */
+			L,               /* L6ua state variable */
 			"square2",        /* func name as known in Lua */
 			isquare2          /* func name in this file */
 			);
@@ -1920,6 +2038,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "moveforward", moveforward);
 	lua_register(L, "moveleft", moveleft);
 	lua_register(L, "moveright", moveright);
+	lua_register(L, "moveup", moveup);
 	lua_register(L, "setmovesmoothly", setmovesmoothly);
 	lua_register(L, "setfade", setfade);
 	lua_register(L, "setfaceplayer", setfaceplayer);
@@ -1927,6 +2046,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getobjstr", getobjstr);
 	lua_register(L, "setobjint", setobjint);
 	lua_register(L, "getobjint", getobjint);
+	lua_register(L, "setobjfloat", setobjfloat);
+	lua_register(L, "getobjfloat", getobjfloat);
 	lua_register(L, "newshape", newshape);
 	lua_register(L, "delshape", delshape);
 	lua_register(L, "loadmodel", loadmodel);
@@ -2016,6 +2137,11 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setlight", setlight);
 	lua_register(L, "setcentermodels", setcentermodels);
 	lua_register(L, "setcameraoffset", setcameraoffset);
+	lua_register(L, "setdrawdistance", setdrawdistance);
+	lua_register(L, "setwaypts", setwaypts);
+	lua_register(L, "setmovebywaypts", setmovebywaypts);
+	lua_register(L, "clearwaypts", clearwaypts);
+	lua_register(L, "enablephysics", enablephysics);
 }
 
 void LuaBridge::exec(std::string filename)

@@ -24,6 +24,8 @@ SOFTWARE.
 #define FATELESS_MESH_H
 
 #include "../thirdparty/glm/glm.hpp"
+#include <vector>
+#include "FileIO.h"
 
 #define BONES_PER_VEREX 4
 
@@ -33,8 +35,13 @@ struct VertexBoneData
     float weights[BONES_PER_VEREX];
 };
 
-typedef struct Mesh
+class Mesh: FileIO
 {
+public:
+    void clear();
+	void save(std::string fname, FILE *f);
+	void load(std::string fname, FILE *f);
+
 	int index = 0;
     int numVertices = 0;
     int vbo = -1;
@@ -51,6 +58,7 @@ typedef struct Mesh
 	glm::vec4 color;
 	std::string texture;
 	int glTexID = -1;
+	std::vector<glm::vec3> vertices;
 };
 
 #endif //FATELESS_MODEL2_H

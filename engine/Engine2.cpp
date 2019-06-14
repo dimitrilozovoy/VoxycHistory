@@ -123,6 +123,7 @@ void Engine2::tick()
 
 	moveObjectsSmoothly();
 	moveObjectsByVelocity();
+	moveObjectsByWaypoints();
 	limitPlayerRange();
 
 	camera.tick();
@@ -1837,23 +1838,6 @@ void Engine2::moveObjectsByVelocity()
 
 /*
 ========================================
-moveObjectsTowardsNextPosition
-========================================
-*/
-
-void Engine2::moveObjectsTowardsNextPosition()
-{
-    for(const auto &pair: objects)
-    {
-        Object *obj = pair.second;
-
-		if (obj != nullptr)
-			obj->moveTowardsNextPosition();
-	}
-}
-
-/*
-========================================
 moveObjectsSmoothly
 ========================================
 */
@@ -1866,6 +1850,23 @@ void Engine2::moveObjectsSmoothly()
 
         if (obj != nullptr && obj->moveSmoothly)
 			obj->moveTowardsNextPosition();
+	}
+}
+
+/*
+========================================
+moveObjectsByWaypoints
+========================================
+*/
+
+void Engine2::moveObjectsByWaypoints()
+{
+    for(const auto &pair: objects)
+    {
+        Object *obj = pair.second;
+
+        if (obj != nullptr && obj->moveByWaypoints)
+			obj->moveTowardsNextWaypoint();
 	}
 }
 

@@ -187,7 +187,7 @@ int SpriteRenderer2D::loadVertices()
 	spriteVerts[3] = 1.0f;
 	
 	spriteVerts[4] = 0.0f;
-	spriteVerts[5] = 1.0f;
+	spriteVerts[5] = 1.0f - 0.01;
 	
 	spriteVerts[6] = 1.0f * aspect;
 	spriteVerts[7] = -1.0f;
@@ -213,7 +213,7 @@ int SpriteRenderer2D::loadVertices()
 	spriteVerts[21] = 1.0f;
 		
 	spriteVerts[22] = 0.0f;
-	spriteVerts[23] = 1.0f;
+	spriteVerts[23] = 1.0f - 0.01;
 
 	spriteVerts[24] = 1.0f * aspect;
 	spriteVerts[25] = 1.0f;

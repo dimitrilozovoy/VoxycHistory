@@ -104,31 +104,13 @@ void OrthoEditor::tick()
             engine->setExtraStr("nextmodule", "editor");
         } else {
             gui->clearListMenu();
-            gui->addListMenuOption("Save and Exit", "");
             gui->addListMenuOption("Discard and Exit", "");
+			gui->addListMenuOption("Cancel", "");
             gui->showListMenuInDialog("Voxels not saved!", "");
 	    }
 				
         engine->setExtraInt("backbtnclicked", 0);
 		btnTimer = 30;
-    }
-
-    if (engine->getExtraStr("listmenuoptionclicked") == "Save and Exit")
-    {
-        if (PLAT_LoadPref("main", "voxels") == "")
-        {
-            engine->setText("msg", "filename not set");
-            msgTimer = msgTimerDelay;
-        }
-        else
-        {
-            PLAT_SavePref("main", "voxels", engine->getExtraStr("fileselected"));
-            saveVoxels(engine->getExtraStr("fileselected"));
-            engine->setExtraInt("switchmodule", 1);
-            engine->setExtraStr("nextmodule", "editor");
-        }
-
-        engine->setExtraStr("listmenuoptionclicked", "");
     }
 
     if (engine->getExtraStr("listmenuoptionclicked") == "Discard and Exit")
@@ -338,7 +320,7 @@ void OrthoEditor::tick()
 			
 		refresh();
 			
-        engine->setExtraInt("backbtnclicked", 0);
+        engine->setExtraInt("downbtnclicked", 0);
 		btnTimer = 5;
     }
 	

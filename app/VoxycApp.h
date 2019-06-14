@@ -27,6 +27,7 @@ SOFTWARE.
 #include "../editor/Editor.h"
 #include "../editor/EditorOld.h"
 #include "../editor/OrthoEditor.h"
+#include "../editor/ModelEditor.h"
 #include "../engine/Engine2.h"
 #include "LuaProgram.h"
 
@@ -53,6 +54,7 @@ private:
 	Editor editor;
 	EditorOld editorOld;
 	OrthoEditor orthoEditor;
+	ModelEditor modelEditor;
 	LuaProgram luaProgram;
 
 	long long lastFinishDrawTime = 0.0;

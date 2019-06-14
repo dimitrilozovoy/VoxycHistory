@@ -88,6 +88,7 @@ void PrintBits(char input, char output[9]);
 std::string ToString(int value);
 std::string GetFileName(const std::string& s);
 std::string GetPath(const std::string& s);
+std::string GetExtension(const std::string s);
 std::string FloatToStr(float f);
 float scrToGlX(float screenX);
 float scrToGlY(float screenY);

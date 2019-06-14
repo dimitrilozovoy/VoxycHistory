@@ -820,6 +820,10 @@ std::string GetPath(const std::string& fname) {
            : fname.substr(0, pos);
 }
 
+std::string GetExtension(const std::string s)
+{
+	return s.substr(s.find_last_of(".") + 1);
+}
 
 std::string FloatToStr(float f)
 {

@@ -169,8 +169,8 @@ public:
 	bool checkSight(Object *src, Object *dst);
 
 	void moveObjectsByVelocity();
-	void moveObjectsTowardsNextPosition();
 	void moveObjectsSmoothly();
+	void moveObjectsByWaypoints();
 
 	void setHitPoints(std::string name, int pts);
 
@@ -313,9 +313,9 @@ private:
 
 	bool healthBarsVisible = true;
 	bool controlsVisible = true;
-	bool physicsEnabled = true;
-
+	
 	bool initialized = false;
+	bool physicsEnabled = true;
 
 	OBJWriter objWriter;
 };

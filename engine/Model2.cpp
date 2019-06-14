@@ -36,6 +36,17 @@ SOFTWARE.
 
 void Model2::load(std::string filename, int vao)
 {
+//	Log(filename + GetExtension(filename));
+	
+	if (GetExtension(filename) == "ms")
+	{
+		Mesh *mesh = new Mesh();
+		mesh->load(g_assetsDir + "/" + filename, nullptr);
+		meshes.clear();
+		meshes.push_back(mesh);
+		return;
+	}
+	
 #ifndef USE_ASSIMP
     objl::Loader Loader;
 

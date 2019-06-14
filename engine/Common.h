@@ -59,6 +59,7 @@ typedef struct Common
 	bool centerModelsZ = true;
 	float cameraOffsetZ = 30.0;
 	float cameraOffsetY = 5.0;
+	float drawDistance = 1000;
 };
 
 typedef struct RenderStats

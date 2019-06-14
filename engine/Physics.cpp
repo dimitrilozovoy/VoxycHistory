@@ -57,7 +57,7 @@ void Physics::tick(std::map<std::string, Object*> &objects)
 	{
 		Object *obj1 = pair.second;
 
-		if (obj1 == nullptr || obj1->category == "terrain")
+		if (obj1 == nullptr || obj1->category == "terrain" || obj1->category == "voxels")
 			continue;
 
 		for (const auto &pair2: objects)

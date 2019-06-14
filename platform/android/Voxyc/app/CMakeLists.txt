@@ -37,6 +37,7 @@ add_library( # Sets the name of the library.
              ../../../../engine/Camera.cpp
              ../../../../engine/Controls2.cpp
              ../../../../engine/Engine2.cpp
+             ../../../../engine/Mesh.cpp
              ../../../../engine/Model2.cpp
              ../../../../engine/ModelRenderer.cpp
              ../../../../engine/SkeletalRenderer.cpp
@@ -71,6 +72,7 @@ add_library( # Sets the name of the library.
              ../../../../app/VoxycApp.cpp
              ../../../../app/LuaProgram.cpp
              ../../../../editor/Editor.cpp
+             ../../../../editor/ModelEditor.cpp
              ../../../../editor/OrthoEditor.cpp
              ../../../../editor/EditorOld.cpp
              ../../../../thirdparty/lua/lapi.c

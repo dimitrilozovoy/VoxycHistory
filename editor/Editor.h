@@ -91,6 +91,7 @@ private:
 	float lightb = 1.0;
 	bool lightVoxels = false;
 	bool mapLocation = false;
+	bool modified = false;
 };
 
 #endif

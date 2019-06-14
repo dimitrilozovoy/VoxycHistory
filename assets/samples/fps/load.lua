@@ -30,6 +30,22 @@ addtouchbtnbind(0, .7, .275, 0.3)
 
 function start(scene)
 
+  -- Preload models
+  if scene == "area1.sc" then
+    loadmodel("buffhorn_000010.obj")
+    loadmodel("buffhorn_000020.obj")
+    loadmodel("buffhorn_000030.obj")
+    loadmodel("buffhorn_000040.obj")
+    loadmodel("buffhorn_000050.obj")
+    loadmodel("buffhorn_000060.obj")
+    loadmodel("buffhorn_000070.obj")
+    loadmodel("buffhorn_000080.obj")
+    loadmodel("buffhorn_000120.obj")
+    loadmodel("buffhorn_000130.obj")
+    loadmodel("buffhorn_000140.obj")
+    loadmodel("buffhorn_000150.obj")
+  end
+
   if curarea == 1 then
     playtrack("rock1", true)
   end

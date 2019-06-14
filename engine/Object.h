@@ -38,6 +38,12 @@ typedef enum
     NUM_OBJTYPES
 } ObjType;
 
+typedef struct
+{
+	glm::vec3 pos;
+	int tick;
+} Waypoint;
+
 class Object: FileIO
 {
 public:
@@ -59,6 +65,7 @@ public:
 	void moveByVelocity();
 	void capVelocity();
 	void moveTowardsNextPosition();
+	void moveTowardsNextWaypoint();
 	std::string toString();
 	void save(FILE *f);
 	void load(FILE *f);
@@ -129,6 +136,16 @@ public:
 	bool lastCollEast = false;
 	bool lastCollSouth = false;
 	bool lastCollWest = false;
+	
+	std::vector<Waypoint> waypoints;
+	bool moveByWaypoints = false;
+	int nextWaypoint = 0;
+	int waypointTick = 0;
+	int ticksPerWaypt = 0;
+	float wayptTickDeltaX = 0.0;
+	float wayptTickDeltaY = 0.0;
+	float wayptTickDeltaZ = 0.0;
+	bool wayptTickDeltaReady = false;
 };
 
 #endif //FATELESS_OBJECT_H

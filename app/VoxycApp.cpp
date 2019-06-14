@@ -57,6 +57,8 @@ void VoxycApp::init()
 		editor.init();
 	else if (module == "orthoeditor")
         orthoEditor.init();
+	else if (module == "modeleditor")
+        modelEditor.init();
 	else if (module == "luaprogram")
 		luaProgram.init();
 
@@ -71,6 +73,8 @@ void VoxycApp::load()
 		editor.load();
 	else if (module == "orthoeditor")
 		orthoEditor.load();
+	else if (module == "modeleditor")
+		modelEditor.load();
 	else if (module == "luaprogram")
 		luaProgram.load();
 }
@@ -93,6 +97,8 @@ void VoxycApp::tick()
 		editor.tick();
 	else if (module == "orthoeditor")
 		orthoEditor.tick();
+	else if (module == "modeleditor")
+		modelEditor.tick();
 	else if (module == "luaprogram")
 		luaProgram.tick();
 
@@ -212,4 +218,6 @@ void VoxycApp::touchEvent(int count, int action1, float x1, float y1, int action
 	
 	if (module == "orthoeditor")
 		orthoEditor.touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
+	if (module == "modeleditor")
+		modelEditor.touchEvent(count, action1, x1, y1, action2, x2, y2, actionIndex);
 }

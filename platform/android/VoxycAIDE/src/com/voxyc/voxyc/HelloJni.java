@@ -95,7 +95,7 @@ public class HelloJni extends Activity
 	LinearLayout llConsoleInput;
 	EditText consoleInput;
 	Button consoleEnter;
-	public static final boolean DEBUG_BUILD = false;
+	public static final boolean DEBUG_BUILD = true;
 	int mConsoleMaxTotalLines = 25;
 	int mConsoleTotalLines = 0;
 	int bytesRead = 0;
