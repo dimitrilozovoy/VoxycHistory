@@ -618,8 +618,11 @@ float Object::getPitchTo(Object *dest)
 
 void Object::moveByVelocity()
 {
-	delta = velocity;
-	move();
+	if (velocity != glm::vec4(0.0, 0.0, 0.0, 0.0))
+	{
+	    delta = velocity;
+	    move();
+	}
 }
 
 void Object::capVelocity()
@@ -686,7 +689,7 @@ void Object::moveTowardsNextWaypoint()
 	}
 	else
 	{
-		moveByWaypoints = false;
+//		moveByWaypoints = false;
 	}
 }
 
@@ -1066,4 +1069,32 @@ void Object::worldToVoxelCoords(Object *voxObj, float wx, float wy, float wz, in
 	x = (int)((float)size * rx);
 	y = (int)((float)size * ry);
 	z = (int)((float)size * rz);
+}
+
+void Object::checkWayptModelLoad()
+{
+	if (wayptModelLoading && wayptModel != nullptr && wayptModel->state == MODEL_LOADED)
+	{
+		Log("setting waypts from model");
+	    Mesh *mesh = wayptModel->meshes[0];
+			
+		if (mesh != nullptr)
+		{
+			for (int v = 0; v < mesh->vertices.size(); v++)
+			{
+				Waypoint wpt;
+		
+		        wpt.tick = (v + 1) * ticksPerWaypt;
+					
+		        wpt.pos.x = position.x + mesh->vertices[v].x * wayptScale + v * ticksPerWaypt * wayptVelX;
+		        wpt.pos.y = position.y + mesh->vertices[v].y * wayptScale + v * ticksPerWaypt * wayptVelY;
+				wpt.pos.z = position.z + mesh->vertices[v].z * wayptScale + v * ticksPerWaypt * wayptVelZ;
+			    waypoints.push_back(wpt);
+				
+//				Log("v", v);
+			}
+		}
+		
+		wayptModelLoading = false;
+	}
 }

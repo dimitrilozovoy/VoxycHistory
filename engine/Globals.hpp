@@ -42,6 +42,8 @@ SOFTWARE.
 
 //#define DEBUG_BUILD
 
+#define FIXED_TIMESTEP
+
 #define DO_VERTEX_LIGHTS
 #define DO_FAST_SPRITES
 

@@ -104,12 +104,89 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
 
     if (model == nullptr)
         return;
+		
+	if (model->state == MODEL_LOADED)
+	{
+//		Log("uploading " + model->name);
+		
+		for (int m = 0; m < model->meshes.size(); m++)
+		{
+			Mesh *outMesh = model->meshes[m];
 
-    for (int m = 0; m < model->meshes.size(); m++)
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+			// Bind the VAO
+			glBindVertexArray(vao);
+			checkGLError("glBindVertexArray");
+#endif
+
+			// Make and bind the vertex and texcoords VBO
+			glGenBuffers(1, (GLuint *)&outMesh->vbo);
+			checkGLError("glGenBuffers");
+
+			// Make and bind the index VBO
+			glGenBuffers(1, (GLuint *)&outMesh->indexVBO);
+			checkGLError("glGenBuffers");
+
+			glBindBuffer(GL_ARRAY_BUFFER, outMesh->vbo);
+			checkGLError("glBindBuffer");
+
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * outMesh->dataLength, outMesh->data, GL_STATIC_DRAW);
+			checkGLError("glBufferData");
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, outMesh->indexVBO);
+			checkGLError("glBindBuffer");
+
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * outMesh->indexDataLength, outMesh->indexData, GL_STATIC_DRAW);
+			checkGLError("FrameAnimRenderer glBufferData");
+
+			free(outMesh->data);
+			outMesh->data = nullptr;
+
+			free(outMesh->indexData);
+			outMesh->indexData = nullptr;
+		}
+		
+	    // Calculate proportions
+	
+	    float max = 0;
+	    float diffx = model->maxX - model->minX;
+	    float diffy = model->maxY - model->minY;
+	    float diffz = model->maxZ - model->minZ;
+
+	    if (diffx >= diffy && diffx >= diffz)
+		    max = diffx;
+	    if (diffy >= diffx && diffy >= diffz)
+		    max = diffy;
+	    if (diffz >= diffy && diffz >= diffx)
+		    max = diffz;
+
+	    model->proportionScale = glm::vec4(diffx / max, diffy / max, diffz / max, 1.0);
+	
+	    // Calculate offset to center model
+	
+	    float ofsx = 0.0f;
+	    if (g_common.centerModelsX)
+	       ofsx = - (model->maxX - (diffx / 2.0f));
+	    float ofsy = 0.0f;
+	    if (g_common.centerModelsY)
+	        ofsy = - (model->maxY - (diffy / 2.0f));
+	    float ofsz = 0.0f;
+	    if (g_common.centerModelsZ)
+	        ofsz = - (model->maxZ - (diffz / 2.0f));
+
+	    model->offset = glm::vec3(ofsx, ofsy, ofsz);
+		
+		model->state = MODEL_READY;
+	}
+		
+	if (model->state == MODEL_READY)
     {
-        Mesh *mesh = model->meshes[m];
-        drawMesh(object, model, mesh, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
-    }
+        for (int m = 0; m < model->meshes.size(); m++)
+        {
+            Mesh *mesh = model->meshes[m];
+            drawMesh(object, model, mesh, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
+        }
+	}
 }
 
 void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<std::string, DynamicLight> dynamicLights)

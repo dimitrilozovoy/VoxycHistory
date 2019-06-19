@@ -73,7 +73,8 @@ public:
 	bool checkVoxelCollision(Object *voxelObj, float multiplier);
 	bool checkVoxelCollisionCircular(Object *voxObj, float multiplier);
 	void worldToVoxelCoords(Object *voxObj, float wx, float wy, float wz, int &x, int &y, int &z);
-
+    void checkWayptModelLoad();
+	
     std::string name;
     ObjType type;
     ObjShapeType shapeType;
@@ -146,6 +147,12 @@ public:
 	float wayptTickDeltaY = 0.0;
 	float wayptTickDeltaZ = 0.0;
 	bool wayptTickDeltaReady = false;
+	Model2 *wayptModel = nullptr;
+	bool wayptModelLoading = false;
+	float wayptScale = 0.0;
+	float wayptVelX = 0.0;
+	float wayptVelY = 0.0;
+	float wayptVelZ = 0.0;
 };
 
 #endif //FATELESS_OBJECT_H

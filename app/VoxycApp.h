@@ -37,6 +37,7 @@ public:
     void init();
 	void load();
     void tick();
+	void fixedTick();
 	void draw(int eye);
 	void setModule(std::string m);
 	void calcFrameRate();
@@ -46,6 +47,11 @@ public:
 
 
 private:
+    const long targetFps = 60;
+	const int maxMakeupLoops = 10;
+	unsigned long updatedTime = 0;
+	long tickCount = 0;
+
     Engine2 engine;
  	  
 	std::string module;

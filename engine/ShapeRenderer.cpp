@@ -207,6 +207,7 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 		{
             if (voxels == nullptr)
                 return;
+				
             shape->rebuild(texMan);
 			
 			if (dumpFrame)
@@ -215,7 +216,36 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 				if (shape->meshes.size() == 0)
 					frameDump += "meshes size 0\n";
 	        }
+			
+#ifdef FIXED_TIMESTEP
+            return;
+#endif
 		}
+		
+		bool draw = true;
+
+#ifdef FIXED_TIMESTEP
+        if (object->shape->getState() == SHAPE_BUILDING)
+		{
+			draw = false;
+			
+			// Shape is building; check to see if it built
+			if (object->shape->type == SHAPE_VOXELS && object->shape->voxels != nullptr)
+			{
+				Voxels *vox = object->shape->voxels;
+				
+				if (vox->build_done)
+				{
+					object->shape->meshes = voxels->getMeshes();
+		            object->shape->state = SHAPE_READY;
+					draw = true;
+				}
+			}
+		}
+#endif
+
+        if (!draw)
+			return;
 
 		for (int m = 0; m < shape->meshes.size(); m++)
 		{

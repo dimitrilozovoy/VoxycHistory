@@ -28,9 +28,18 @@ SOFTWARE.
 #include "../thirdparty/glm/glm.hpp"
 #include "Mesh.h"
 
+typedef enum ModelState
+{
+	MODEL_NOT_LOADED,
+	MODEL_LOADING,
+	MODEL_LOADED,
+	MODEL_READY
+};
+
 class Model2 {
 public:
     void load(std::string fileName, int vao);
+    void load_process();
 	void release();
     void checkGLError(char *tag);
 
@@ -50,6 +59,10 @@ public:
 	float yaw = 0;
 	float pitch = 0;
 	float roll = 0;
+	
+	ModelState state = MODEL_NOT_LOADED;
+	std::string filename;
+	int vao;
 };
 
 

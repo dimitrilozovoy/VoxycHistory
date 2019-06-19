@@ -42,11 +42,19 @@ typedef enum
     NUM_SHAPES
 } ObjShapeType;
 
+typedef enum
+{
+	SHAPE_NOT_READY,
+	SHAPE_BUILDING,
+	SHAPE_READY
+} ObjShapeState;
+
 class Shape: FileIO
 {
 public:
     void generate(std::map<std::string, std::string> *stringExtras);
 	void rebuild(TextureManager2 *texMan);
+	ObjShapeState getState();
     void free();
     void checkGLError(char *tag);
 	Voxels *getVoxels() { return voxels; };
@@ -55,6 +63,7 @@ public:
 
     std::string name;
     ObjShapeType type;
+	ObjShapeState state = SHAPE_NOT_READY;
     float sizeA;
     float sizeB;
     float sizeC;

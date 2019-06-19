@@ -1893,6 +1893,10 @@ static int setwaypts(lua_State *L)
 	{
 		obj->waypoints.clear();
 		obj->ticksPerWaypt = ticksPerWaypt;
+		obj->wayptVelX = velx;
+		obj->wayptVelY = vely;
+		obj->wayptVelZ = velz;
+		obj->wayptScale = scale;
 		
 		Model2 *model = g_engine2->findModel(modelName);
 		
@@ -1904,6 +1908,9 @@ static int setwaypts(lua_State *L)
 		
 		if (model != nullptr)
 	    {
+			obj->wayptModel = model;
+			
+#ifndef FIXED_TIMESTEP
 			Mesh *mesh = model->meshes[0];
 			
 			if (mesh != nullptr)
@@ -1921,6 +1928,10 @@ static int setwaypts(lua_State *L)
 					obj->waypoints.push_back(wpt);
 				}
 			}
+#else
+            Log("wayptModelLoading set to true");
+            obj->wayptModelLoading = true;
+#endif
 		}
     }
 

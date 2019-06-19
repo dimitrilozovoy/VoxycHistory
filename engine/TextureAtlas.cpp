@@ -46,6 +46,8 @@ void TextureAtlas::add(std::string tex)
 
 void TextureAtlas::refresh()
 {
+//	Log("refresh texatlas");
+	
 	fb.bind();
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);

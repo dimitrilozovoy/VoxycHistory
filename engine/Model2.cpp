@@ -33,10 +33,26 @@ SOFTWARE.
 #include "platform.h"
 #include "GLIncludes.h"
 #include "DDLUtils.hpp"
+#include <thread>
 
 void Model2::load(std::string filename, int vao)
 {
+	this->filename = filename;
+	this->vao = vao;
+	
+#ifndef FIXED_TIMESTEP 
+    load_process();
+#else
+    std::thread loadThread = std::thread(&Model2::load_process, this);
+	loadThread.detach();
+#endif
+}
+
+void Model2::load_process()
+{
 //	Log(filename + GetExtension(filename));
+	
+	state = MODEL_LOADING;
 	
 	if (GetExtension(filename) == "ms")
 	{
@@ -44,9 +60,11 @@ void Model2::load(std::string filename, int vao)
 		mesh->load(g_assetsDir + "/" + filename, nullptr);
 		meshes.clear();
 		meshes.push_back(mesh);
+		state = MODEL_LOADED;
 		return;
 	}
 	
+
 #ifndef USE_ASSIMP
     objl::Loader Loader;
 
@@ -119,6 +137,8 @@ void Model2::load(std::string filename, int vao)
 
 			// Add mesh to model
 			meshes.push_back(outMesh);
+			
+#ifndef FIXED_TIMESTEP
 
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 			// Bind the VAO
@@ -151,6 +171,7 @@ void Model2::load(std::string filename, int vao)
 
 			free(outMesh->indexData);
 			outMesh->indexData = nullptr;
+#endif
 		}
 	}
 
@@ -344,6 +365,8 @@ void Model2::load(std::string filename, int vao)
     }
 #endif
 
+#ifndef FIXED_TIMESTEP
+
 	// Calculate proportions
 	
 	float max = 0;
@@ -378,6 +401,11 @@ void Model2::load(std::string filename, int vao)
 	
     name = filename;
     loaded = true;
+	
+	state = MODEL_READY;
+#else
+	state = MODEL_LOADED;
+#endif
 }
 
 void Model2::release()

@@ -68,6 +68,9 @@ void VoxycApp::init()
 void VoxycApp::load()
 {
 	g_engine2 = &engine;
+	
+	tickCount = 0;
+	updatedTime = 0;
 
 	if (module == "editor")
 		editor.load();
@@ -83,6 +86,55 @@ void VoxycApp::tick()
 {
 //	Log("apptick");
 	
+	// LSUINT64 ui64CurTime = tTimer.GetCurMicros();
+	// while ( ui64CurTime - ui64UpdatedTime > 33333ULL )
+	// {
+	//     Update( 33333ULL );
+	//     ui64UpdatedTime += 33333ULL;
+	// }
+	
+//	char str[1024];
+//	snprintf(str, 1024, "%d", PLAT_GetTime());
+//	Log(str);
+/*	static int c = 0;
+	
+	if (c == 0)
+	    Log("time " + curTime);
+		
+	c++;*/
+	
+	int numLoops = 0;
+	
+//#ifdef FIXED_TIMESTEP
+	fixedTick();
+/*#else
+	long msecInterval = 1000 / targetFps;
+	
+	if (updatedTime == 0)
+	    updatedTime = PLAT_GetTime() - msecInterval;
+		
+	unsigned long curTime = PLAT_GetTime();
+	
+	while (curTime - updatedTime > msecInterval)
+	{
+		fixedTick();
+
+		updatedTime += msecInterval;
+		
+		numLoops++;
+	}
+#endif*/
+	
+/*	if (numLoops > maxMakeupLoops)
+	{
+		updatedTime = PLAT_GetTime();
+	}*/
+	
+//	Log("numLoops", numLoops);
+}
+	
+void VoxycApp::fixedTick()
+{
 	if (loadingModule)
 	{
 		load();
@@ -97,13 +149,13 @@ void VoxycApp::tick()
 		editor.tick();
 	else if (module == "orthoeditor")
 		orthoEditor.tick();
-	else if (module == "modeleditor")
+    else if (module == "modeleditor")
 		modelEditor.tick();
 	else if (module == "luaprogram")
 		luaProgram.tick();
 
     engine.tick();
-
+		
     // Switch module
 	int switchModule = engine.getExtraInt("switchmodule");
 	std::string nextModule = engine.getExtraStr("nextmodule");
@@ -118,9 +170,11 @@ void VoxycApp::tick()
 		engine.setExtraInt("switchmodule", 0);
 		loadingModule = true;
 		skipFrame = true;
-	}	
-}
+	}
 	
+	tickCount++;
+}
+
 void VoxycApp::draw(int eye)
 {
 	if (skipFrame)

@@ -86,6 +86,7 @@ public:
 	VoxelStack *getStack(int x, int z);
 	void setStackHeight(int x, int z, int height);
 	void build(TextureManager2 *texMan);
+	void build_process();
 	void addQuad(std::string texture, Vertex ll, Vertex lr, Vertex ur, Vertex ul, int dir, float texSpanX, float texSpanY);
 	void addVertex(std::string texture, float x, float y, float z, float w, float u, float v, float nx, float ny, float nz, float r, float g, float b);
 	std::vector<Mesh*> getMeshes();
@@ -103,6 +104,7 @@ public:
 	void copyFrom(Voxels *source);
 
 	bool rebuild = false;
+	bool build_done = false;
 
 private:
     VoxelStack *stacks;
@@ -119,6 +121,8 @@ private:
 	std::map<int, std::string> voxelTextures;
 	std::map<std::string, std::string> *extraStrings;
 
+	TextureManager2 *texMan;
+	
 //	static const int verticesSize = 1000000;
 //  float vertices[verticesSize];
 //	static int cursor;

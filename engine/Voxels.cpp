@@ -25,6 +25,7 @@ SOFTWARE.
 #include "GLIncludes.h"
 #include "DDLUtils.hpp"
 #include "TextureManager2.h"
+#include <thread>
 
 #define STACK_HEIGHT_ALLOC_PAD	1
 #define BUFFER_ALLOC_INCREMENT 1000000
@@ -310,7 +311,27 @@ build
 
 void Voxels::build(TextureManager2 *texMan)
 {
+#ifndef FIXED_TIMESTEP
+    this->texMan = texMan;
+    build_process();
+#else
+    this->texMan = texMan;
+    std::thread buildThread = std::thread(&Voxels::build_process, this);
+	buildThread.detach();
+#endif
+}
+
+/*
+========================================
+build_process
+========================================
+*/
+
+void Voxels::build_process()
+{
 //	Log("Build(): Start");
+	
+	build_done = false;
 
 	if (g_common.extraInts["legacytexturespan"] == 1)
 		g_useLegacyTextureSpan = true;
@@ -1074,6 +1095,8 @@ void Voxels::build(TextureManager2 *texMan)
 	}
 
 	free(doneMap);
+	
+	build_done = true;
 }
 
 /*

@@ -433,6 +433,8 @@ namespace objl
 		// or unable to be loaded return false
 		bool LoadFile(std::string Path)
 		{
+			PLAT_AttachCurrentThread();
+			
 			// If the file is not an .obj file return false
 			if (Path.substr(Path.size() - 4, 4) != ".obj")
 				return false;
@@ -704,6 +706,8 @@ namespace objl
 					}
 				}
 			}
+			
+			PLAT_DetachCurrentThread();
 
 			if (LoadedMeshes.empty() && LoadedVertices.empty() && LoadedIndices.empty())
 			{
@@ -713,6 +717,8 @@ namespace objl
 			{
 				return true;
 			}
+			
+			return false;
 		}
 
 		// Loaded Mesh Objects

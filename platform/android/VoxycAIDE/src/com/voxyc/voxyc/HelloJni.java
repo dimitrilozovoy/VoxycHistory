@@ -736,7 +736,9 @@ public class HelloJni extends Activity
 	
 	public long getTime()
 	{
-	    return System.currentTimeMillis();
+		return android.os.SystemClock.uptimeMillis();
+//		return System.nanoTime();
+//	    return System.currentTimeMillis();
 	}
 	
 	public int stoi(String str, int fallback)

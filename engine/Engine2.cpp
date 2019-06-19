@@ -136,6 +136,13 @@ void Engine2::tick()
 
 	editorController.tick();
 	gui.tick();
+	
+	// Check objects for waypoint model load state
+    for(const auto &pair: objects)
+    {
+        Object *obj = pair.second;
+        obj->checkWayptModelLoad();
+    }
 }
 
 /*

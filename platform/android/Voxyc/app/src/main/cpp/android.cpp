@@ -311,12 +311,18 @@ Java_com_voxyc_voxyc_HelloJni_setExtraStr(JNIEnv *env, jobject thiz, jstring jna
     env->ReleaseStringUTFChars(jvalue, value);
 }
 
-void AttachThread() {
-/*    if (!g_attached)
-    {
-        g_jvm->AttachCurrentThread((void**)&g_env, NULL);
-        g_attached = true;
-    }*/
+void PLAT_AttachCurrentThread()
+{
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+    g_jvm->AttachCurrentThread((JNIEnv**)&env, NULL);
+}
+
+void PLAT_DetachCurrentThread()
+{
+    JNIEnv *env;
+    g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
+    g_jvm->DetachCurrentThread();
 }
 
 void PLAT_LoadBitmap(int **out, unsigned *w, unsigned *h, char *path) {

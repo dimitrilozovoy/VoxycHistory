@@ -47,6 +47,8 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 
 		// Add mesh to shape
 		meshes.push_back(mesh);
+		
+		state = SHAPE_READY;
 	}
 	else if (type == SHAPE_BLOCK)
 	{
@@ -776,6 +778,8 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 
 		// Add mesh to shape
 		meshes.push_back(mesh);
+		
+		state = SHAPE_READY;
 	}
 	else if (type == SHAPE_VOXELS)
 	{
@@ -783,6 +787,8 @@ void Shape::generate(std::map<std::string, std::string> *stringExtras)
 		voxels->init(sizeA, stringExtras);
 		built = false;
 		needsRebuild = true;
+		
+		state = SHAPE_NOT_READY;
 	}
 }
 
@@ -790,6 +796,8 @@ void Shape::rebuild(TextureManager2 *texMan)
 {
 	if (type == SHAPE_VOXELS && voxels != nullptr)
 	{
+		state = SHAPE_BUILDING;
+		
 		// Clear meshes
 		for (int i = 0; i < meshes.size(); i++)
 		{
@@ -802,15 +810,25 @@ void Shape::rebuild(TextureManager2 *texMan)
 		// Rebuild meshes
 #ifdef DO_VERTEX_LIGHTS
 //        Log("rebuild shape " + name);
-		VertexLights vl;
-		vl.process(voxels, texMan);
+//		VertexLights vl;
+//		vl.process(voxels, texMan);
 #endif
 		voxels->build(texMan);
 
+#ifndef FIXED_TIMESTEP
 		meshes = voxels->getMeshes();
+		state = SHAPE_READY;
+#else
+        state = SHAPE_BUILDING;
+#endif
 	}
 
 	needsRebuild = false;
+}
+
+ObjShapeState Shape::getState()
+{
+	return state;
 }
 
 void Shape::free()
@@ -834,6 +852,8 @@ void Shape::free()
 		voxels->clear();
 		voxels = nullptr;
 	}
+	
+	state = SHAPE_NOT_READY;
 	
 //    delete vertices;
 }
