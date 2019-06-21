@@ -105,25 +105,28 @@ void VoxycApp::tick()
 	
 	int numLoops = 0;
 	
-//#ifdef FIXED_TIMESTEP
-	fixedTick();
-/*#else
-	long msecInterval = 1000 / targetFps;
-	
-	if (updatedTime == 0)
-	    updatedTime = PLAT_GetTime() - msecInterval;
-		
-	unsigned long curTime = PLAT_GetTime();
-	
-	while (curTime - updatedTime > msecInterval)
+    if (!g_common.fixedTimestep)
 	{
-		fixedTick();
-
-		updatedTime += msecInterval;
-		
-		numLoops++;
+	    fixedTick();
 	}
-#endif*/
+    else
+	{
+	    long msecInterval = 1000 / targetFps;
+	
+	    if (updatedTime == 0)
+	         updatedTime = PLAT_GetTime() - msecInterval;
+		
+	    unsigned long curTime = PLAT_GetTime();
+	
+	    while (curTime - updatedTime > msecInterval)
+	    {
+		    fixedTick();
+
+		    updatedTime += msecInterval;
+		
+		    numLoops++;
+	    }
+    }
 	
 /*	if (numLoops > maxMakeupLoops)
 	{

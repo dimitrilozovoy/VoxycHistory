@@ -13,6 +13,8 @@ numchunks = 32
 
 function start(area)
 
+  clear()
+
   curarea = area
   setskybox("sky1.png")
   spawn_player()
@@ -40,12 +42,14 @@ function start(area)
       vox = 1
     end
   end
-
+  
   getallobjs()
 
   spawn_computers()
   spawn_explosions()
   spawn_projectiles()
+  
+  getallobjs()
 
 end
 

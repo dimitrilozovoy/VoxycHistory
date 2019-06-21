@@ -15,9 +15,9 @@ function spawn_projectiles()
     settex(name, "greenproj.png")
     setpos(name, 0, -1000, -1000)
     setsize(name, 3, 3, 3)
-    setphyssize(name, 30, 30, 30)
+    setphyssize(name, 3, 3, 50)
     setcolor(name, 1.0, 1.0, 1.0, 1.0)
-    setvisible(name, falss)
+    setvisible(name, false)
     setfade(name, 2000, 3000)
     setfaceplayer(name, true)
   end
@@ -42,12 +42,19 @@ function tick_projectiles()
 --      log("proj hit " .. stuckon)
       setvisible(name, false)
 --      setlight(name, 0, 0, 0, 0)
-      local px, py, pz = getpos(name)
-      start_explosion(px, py, pz)
+--      start_explosion(px, py, pz)
       sethitpts(stuckon, 0)
     else
-      moveforward(name, 20)
+      moveforward(name, 40)
     end
+    
+    local prx, pry, prz = getpos(name)
+    local px, py, pz = getpos("player")
+    
+    if prz < pz - 600 or prz > prz + 100 then
+      setvisible(name, false)
+    end
+
   end
 end
 

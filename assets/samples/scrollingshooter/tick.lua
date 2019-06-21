@@ -1,3 +1,5 @@
+--fixedtimestep(true)
+
 tick_explosions()
 tick_projectiles()
 tick_computers()

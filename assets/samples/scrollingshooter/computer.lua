@@ -34,7 +34,7 @@ function spawn_computers()
 --                log(wx .. " " .. wy .. " " .. wz)
                 setpos(name, wx, wy, wz)
                 setsize(name, 15, 15, 15)
-                setphyssize(name, 30, 30, 30)
+                setphyssize(name, 15, 15, 15)
                 
                 setvox(shape, x, y, z, 0)
                 
@@ -60,6 +60,9 @@ function tick_computers()
 
   for i = 1, numcomputers, 1 do
     local name = "computer" .. math.floor(i)
+    
+    if (getvisible(name)) then
+    
     local action = getobjstr(name, "action")
     local cx, cy, cz = getpos(name)
     
@@ -83,6 +86,8 @@ function tick_computers()
           setobjstr(name, "action", "attack")
           setwaypts(name, "spiral.ms", 40, 3, 0, 0, -10)
           setmovebywaypts(name, true)
+          
+--          setvelocity("player", 0, 0, 0)
         end
       end
     end
@@ -110,6 +115,8 @@ function tick_computers()
     if gethitpts(name) == 0 then
       setvisible(name, false)
       start_explosion(cx, cy, cz)
+    end
+    
     end
   end
   

@@ -258,11 +258,14 @@ void Object::move()
 		// Check for other objects
 		for (auto other : nearCollisions)
 		{
-			if (checkCollision(other, 1.0)
-				&& (other->category == "model"
+			if (
+				(other->category == "model"
 					|| other->category == "block"
 					|| other->category == "voxels"
-					|| other->name == "player"))
+					|| other->category == "sprite"
+					|| other->name == "player")
+					&& other->visible
+					&& checkCollision(other, 1.0))
 			{
 				okToMove = false;
 				stuckOn = other->name;
@@ -1075,7 +1078,7 @@ void Object::checkWayptModelLoad()
 {
 	if (wayptModelLoading && wayptModel != nullptr && wayptModel->state == MODEL_LOADED)
 	{
-		Log("setting waypts from model");
+//		Log("setting waypts from model");
 	    Mesh *mesh = wayptModel->meshes[0];
 			
 		if (mesh != nullptr)

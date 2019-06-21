@@ -1929,7 +1929,7 @@ static int setwaypts(lua_State *L)
 				}
 			}
 #else
-            Log("wayptModelLoading set to true");
+//            Log("wayptModelLoading set to true");
             obj->wayptModelLoading = true;
 #endif
 		}
@@ -1974,6 +1974,15 @@ static int enablephysics(lua_State *L)
 	bool e = lua_toboolean(L, 1);
 	
 	g_engine2->setPhysicsEnabled(e);
+	
+	return 1;
+}
+
+static int fixedtimestep(lua_State *L)
+{
+	bool e = lua_toboolean(L, 1);
+	
+	g_common.fixedTimestep = e;
 	
 	return 1;
 }
@@ -2153,6 +2162,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setmovebywaypts", setmovebywaypts);
 	lua_register(L, "clearwaypts", clearwaypts);
 	lua_register(L, "enablephysics", enablephysics);
+	lua_register(L, "fixedtimestep", fixedtimestep);
 }
 
 void LuaBridge::exec(std::string filename)
