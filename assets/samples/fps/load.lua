@@ -106,7 +106,7 @@ function start(scene)
   setplayersize(1.5, 3, 1.5)
   setvisible("playerspawn", false)
   sethitpts("player", 50)
-  setmovesmoothly("player", true)
+--  setmovesmoothly("player", true)
 
   setvisible("exit", false)
 
@@ -128,7 +128,7 @@ function start(scene)
   setcolor("weaponfire", 1, 1, 1, 1)
   setsize("weaponfire", 0.25, 0.25, 0.25)
   setfaceplayer("weaponfire", 1)
-  setmovesmoothly("weaponfire", true)
+--  setmovesmoothly("weaponfire", true)
   setobjint("weaponfire", "ignorecollisions", 1)
   setvisible("weaponfire", false)
 

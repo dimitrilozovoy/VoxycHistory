@@ -799,11 +799,16 @@ glm::vec4 Engine2::getEndOfTickPos(std::string name)
 	if (o == nullptr)
 		return glm::vec4(0.0, 0.0, 0.0, 0.0);
 		
-	glm::vec4 delta = o->nextPosition - o->position;
+	if (o->moveSmoothly)
+	{
+	    glm::vec4 delta = o->nextPosition - o->position;
 
-	glm::vec4 eotposition = o->position + delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
+	    glm::vec4 eotposition = o->position + delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
 
-	return eotposition;
+	    return eotposition;
+	}
+	else
+		return o->position;
 }
 
 /*

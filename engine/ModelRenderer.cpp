@@ -108,6 +108,13 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
 	if (model->state == MODEL_LOADED)
 	{
 //		Log("uploading " + model->name);
+		bool depthDisabled = false;
+		
+/*		if (object->name == "weapon")
+		{
+			glDisable(GL_DEPTH_TEST);
+			depthDisabled = true;
+		}*/
 		
 		for (int m = 0; m < model->meshes.size(); m++)
 		{
@@ -145,6 +152,9 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
 			free(outMesh->indexData);
 			outMesh->indexData = nullptr;
 		}
+		
+//		if (depthDisabled)
+//			glEnable(GL_DEPTH_TEST);
 		
 	    // Calculate proportions
 	

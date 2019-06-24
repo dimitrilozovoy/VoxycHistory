@@ -252,13 +252,27 @@ void Object::move()
 
 	if (ints["ignorecollisions"] != 1)
 	{
-		// Pretend we moved
-		position += delta;
-
-		// Check for other objects
-		for (auto other : nearCollisions)
+		float subtickDeltaX = delta.x / (float)g_common.physicsSubticks;
+		float subtickDeltaY = delta.y / (float)g_common.physicsSubticks;
+		float subtickDeltaZ = delta.z / (float)g_common.physicsSubticks;
+		
+//		Log("g_common.physicsSubticks", g_common.physicsSubticks);
+		
+		int s = 0;
+		
+		for (s = 0; s < g_common.physicsSubticks; s++)
 		{
-			if (
+		    // Pretend we moved
+//		    position += delta;
+		
+		    position.x += subtickDeltaX;
+		    position.y += subtickDeltaY;
+		    position.z += subtickDeltaZ;
+
+		    // Check for other objects
+		    for (auto other : nearCollisions)
+		    {
+			    if (
 				(other->category == "model"
 					|| other->category == "block"
 					|| other->category == "voxels"
@@ -266,26 +280,33 @@ void Object::move()
 					|| other->name == "player")
 					&& other->visible
 					&& checkCollision(other, 1.0))
-			{
-				okToMove = false;
-				stuckOn = other->name;
-			}
-		}
+			    {
+				    okToMove = false;
+				    stuckOn = other->name;
+			    }
+		    }
 
-		// Check if we are escaping play area
-		if (g_common.playAreaMinX != 0 && position.x < g_common.playAreaMinX
+		    // Check if we are escaping play area
+		    if (g_common.playAreaMinX != 0 && position.x < g_common.playAreaMinX
 			|| g_common.playAreaMaxX != 0 && position.x > g_common.playAreaMaxX
 			|| g_common.playAreaMinY != 0 && position.y < g_common.playAreaMinY
 			|| g_common.playAreaMaxY != 0 && position.y > g_common.playAreaMaxY
 			|| g_common.playAreaMinZ != 0 && position.z < g_common.playAreaMinZ
 			|| g_common.playAreaMaxZ != 0 && position.z > g_common.playAreaMaxZ)
-		{
-			okToMove = false;
-			stuckOn = "playarea";
+		    {
+			    okToMove = false;
+			    stuckOn = "playarea";
+		    }
+			
+			if (!okToMove)
+				break;
 		}
 
 		// Unmove
-		position -= delta;
+//   	position -= delta;
+		position.x -= subtickDeltaX * (float)s;
+		position.y -= subtickDeltaY * (float)s;
+		position.z -= subtickDeltaZ * (float)s;
 	}
 
 	// Move if OK
@@ -301,10 +322,83 @@ void Object::move()
 	}
 	else
 	{
+		if (moveSmoothly)
+			nextPosition -= delta;
+		else
+			position -= delta;
+		
 		// If player, slide them down the walls if possible instead of stucking them
 		if (name == "player")
 		{
-			const float slide = 0.1f;
+			bool slide = false;
+			
+/*			if (lastCollNorth && collSouth)
+				collSouth = false;
+			if (lastCollSouth && collNorth)
+				collNorth = false;
+			if (lastCollEast && collWest)
+				collWest = false;
+			if (lastCollWest && collEast)
+				collEast = false;*/
+
+/*			if (collNorth)
+				Log("collNorth");
+			if (collSouth)
+				Log("collSouth");
+			if (collEast)
+				Log("collEast");
+			if (collWest)
+				Log("collWest");*/
+				
+			int numColls = 0;
+				
+			if (collNorth && !collEast && !collWest)
+			{
+				if (delta.z < 0)
+					delta.z = 0;
+					
+				slide = true;
+				numColls++;
+			}
+			
+			if (collSouth && !collEast && !collWest)
+			{
+				if (delta.z > 0)
+					delta.z = 0;
+					
+				slide = true;
+				numColls++;
+			}
+
+			if (collEast && !collSouth && !collNorth)
+			{
+				if (delta.x > 0)
+					delta.x = 0;
+					
+				slide = true;
+				numColls++;
+			}
+			
+			if (collWest && !collSouth && !collNorth)
+			{
+				if (delta.x < 0)
+					delta.x = 0;
+					
+				slide = true;
+				numColls++;
+			}
+			
+			if (slide && numColls == 1)
+			{
+				if (moveSmoothly)
+			        nextPosition += delta;
+		        else
+			        position += delta;
+
+				return;
+			}
+
+/*			const float slide = 0.1f;
 			const int afterDelay = 8;
 			bool notStuck = false;
 
@@ -317,7 +411,10 @@ void Object::move()
 			static int afterEW = 0;
 			if (afterEW > 0)
 				afterEW--;
-
+				
+			if (collNorth)
+				Log("collNorth");
+				
 			if ((collNorth || collSouth) && !collEast && !collWest)
 			{
 				if (yaw > 0 && yaw < 180)
@@ -388,7 +485,7 @@ void Object::move()
 			}
 
 			if (notStuck)
-				return;
+				return;*/
 		}
 
 		ints["stuck"] = 1;
@@ -945,9 +1042,11 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 	collEast = false;
 	collSouth = false;
 	collWest = false;
+	
+	int slack = 2;
 
 	// A
-	for (int s = 3; s < steps - 3; s++)
+	for (int s = slack; s < steps - slack; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z - h, x, y, z);
 		if (voxels->get(x, y, z) != 0)
@@ -958,7 +1057,7 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 	}
 
 	// B
-	for (int s = 3; s < steps - 3; s++)
+	for (int s = slack; s < steps - slack; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x + h, wy, position.z - h + stepz * s, x, y, z);
 		if (voxels->get(x, y, z) != 0)
@@ -969,7 +1068,7 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 	}
 	
 	// C
-	for (int s = 3; s < steps - 3; s++)
+	for (int s = slack; s < steps - slack; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x - h + stepx * s, wy, position.z + h, x, y, z);
 		if (voxels->get(x, y, z) != 0)
@@ -980,7 +1079,7 @@ bool Object::checkVoxelCollision(Object *voxObj, float multiplier)
 	}
 
 	// D
-	for (int s = 3; s < steps - 3; s++)
+	for (int s = slack; s < steps - slack; s++)
 	{
 		worldToVoxelCoords(voxObj, position.x - h, wy, position.z - h + stepz * s, x, y, z);
 		if (voxels->get(x, y, z) != 0)

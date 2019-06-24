@@ -1,7 +1,7 @@
 /*
 Copyright (C) 2018 Dimitri Lozovoy
 
-Permission is hereby granted, free of char7t, to any person obtaining a copy
+Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
@@ -1987,6 +1987,15 @@ static int fixedtimestep(lua_State *L)
 	return 1;
 }
 
+static int setphysicssubticks(lua_State *L)
+{
+	float s = lua_tonumber(L, 1);
+
+	g_common.physicsSubticks = s;
+
+	return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2163,6 +2172,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "clearwaypts", clearwaypts);
 	lua_register(L, "enablephysics", enablephysics);
 	lua_register(L, "fixedtimestep", fixedtimestep);
+	lua_register(L, "setphysicssubticks", setphysicssubticks);
 }
 
 void LuaBridge::exec(std::string filename)

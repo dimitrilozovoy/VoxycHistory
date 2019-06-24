@@ -61,6 +61,7 @@ typedef struct Common
 	float cameraOffsetY = 5.0;
 	float drawDistance = 1000;
 	bool fixedTimestep = false;
+	int physicsSubticks = 1;
 };
 
 typedef struct RenderStats
