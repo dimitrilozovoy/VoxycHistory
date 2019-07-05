@@ -2157,6 +2157,27 @@ std::string Engine2::getVoxelTexture(std::string shapeName, int voxel)
 
 /*
 ========================================
+getVoxelTexture
+========================================
+*/
+
+int Engine2::getTextureVoxel(std::string shapeName, std::string texture)
+{
+	Shape *shape = findShape(shapeName);
+	
+    if (shape == nullptr)
+		return 0;
+
+	Voxels *voxels = shape->voxels;
+
+	if (voxels == nullptr)
+		return 0;
+
+	return voxels->getTextureVoxel(texture);
+}
+
+/*
+========================================
 clearVoxels
 ========================================
 */

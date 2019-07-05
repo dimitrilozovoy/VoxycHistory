@@ -445,13 +445,15 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
 #endif
 
     // DRAW
-    glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
+	
+/*    glEnable(GL_CULL_FACE);
     checkGLError("glEnable");
     glFrontFace(GL_CCW);
     checkGLError("glFrontFace");
 
     glCullFace(GL_BACK);
-    checkGLError("glCullFace");
+    checkGLError("glCullFace");*/
 
     glEnable(GL_BLEND);
     checkGLError("ShapeRenderer glEnable");

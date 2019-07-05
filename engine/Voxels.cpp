@@ -1886,6 +1886,29 @@ std::string Voxels::getVoxelTexture(int voxel)
 
 /*
 ========================================
+getVoxelTexture
+========================================
+*/
+
+int Voxels::getTextureVoxel(std::string texture)
+{
+	int vox;
+	
+	for (const auto &pair: voxelTextures)
+	{
+		std::string tex = pair.second;
+		
+		if (tex == texture)
+		{
+			return pair.first;
+		}
+    }
+	
+	return 0;
+}
+
+/*
+========================================
 copyFrom
 ========================================
 */

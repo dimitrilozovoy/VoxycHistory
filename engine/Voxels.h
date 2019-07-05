@@ -100,6 +100,7 @@ public:
 	void crop();
 	void setVoxelTexture(int voxel, std::string texture);
 	std::string getVoxelTexture(int voxel);
+	int getTextureVoxel(std::string texture);
 	std::map<int, std::string> *getVoxelTextures() { return &voxelTextures; };
 	void copyFrom(Voxels *source);
 

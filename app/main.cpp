@@ -311,6 +311,7 @@ void LoadApp(int step)
 
 void AppTick()
 {
+//	Log("AppTick");
 //    processJoystickInput();
 
 	g_engineApp->tick();

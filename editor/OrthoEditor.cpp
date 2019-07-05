@@ -148,6 +148,14 @@ void OrthoEditor::tick()
 		}
 		else if (mode == MODE_PIXELS)
 		{
+			mode = MODE_COLOR_ONLY;
+			refresh();
+
+            engine->setText("msg", "color only");
+            msgTimer = msgTimerDelay;
+		}
+		else if (mode == MODE_COLOR_ONLY)
+		{
 			mode = MODE_VOXELS;
 			refresh();
 
@@ -321,7 +329,7 @@ void OrthoEditor::tick()
 		refresh();
 			
         engine->setExtraInt("downbtnclicked", 0);
-		btnTimer = 5;
+		btnTimer = 2;
     }
 	
     if (btnTimer == 0 && (engine->getExtraInt("upbtnclicked") == 1
@@ -338,7 +346,7 @@ void OrthoEditor::tick()
 		refresh();
 			
         engine->setExtraInt("upbtnclicked", 0);
-		btnTimer = 5;
+		btnTimer = 2;
     }
 	
 	if (btnTimer == 0 && (engine->getExtraInt("prevbtnclicked") == 1
@@ -352,10 +360,10 @@ void OrthoEditor::tick()
         engine->setText("msg", msg);
         msgTimer = msgTimerDelay;
 			
-		refresh();
+//		refresh();
 			
         engine->setExtraInt("prevbtnclicked", 0);
-		btnTimer = 5;
+		btnTimer = 2;
     }
 	
     if (btnTimer == 0 && (engine->getExtraInt("nextbtnclicked") == 1
@@ -369,10 +377,10 @@ void OrthoEditor::tick()
         engine->setText("msg", msg);
         msgTimer = msgTimerDelay;
 
-        refresh();
+//        refresh();
 			
         engine->setExtraInt("nextbtnclicked", 0);
-		btnTimer = 5;
+		btnTimer = 2;
     }
 
     // Message indicator
@@ -464,15 +472,15 @@ void OrthoEditor::refresh()
 			int lastTexture = 0;
 			int lastLevelWithTexture = 0;
 			float bgr = 0.0f, bgg = 0.0f, bgb = 0.0f, bga = 0.0f;
+//			float lastr = 1.0, lastg = 1.0, lastb = 1.0;
 			
 			if (voxels.get(x, y, z))
             {
+				unsigned char ur, ug, ub, ua;		
+			    voxels.getrgba(x, y, z, ur, ug, ub, ua);
+				
 			    if (mode == MODE_PIXELS)
 			    {
-			        unsigned char ur, ug, ub, ua;
-					
-			        voxels.getrgba(x, y, z, ur, ug, ub, ua);
-				
 				    bgr = UCharToFloat255(ur);
 			        bgg = UCharToFloat255(ug);
 			        bgb = UCharToFloat255(ub);
@@ -481,6 +489,10 @@ void OrthoEditor::refresh()
 				
 			    lastTexture = voxels.get(x, y, z);
 			    lastLevelWithTexture = 0;
+				
+//				lastr = UCharToFloat255(ur);
+//				lastg = UCharToFloat255(ug);
+//			    lastb = UCharToFloat255(ub);
 			}
 			
 			while (y < voxels.getSize() && y < level)
@@ -489,12 +501,11 @@ void OrthoEditor::refresh()
 				
 				if (voxels.get(x, y, z))
 				{
+					unsigned char ur, ug, ub, ua;
+			        voxels.getrgba(x, y, z, ur, ug, ub, ua);
+					
 					if (mode == MODE_PIXELS)
 			        {
-					    unsigned char ur, ug, ub, ua;
-					
-			            voxels.getrgba(x, y, z, ur, ug, ub, ua);
-				    
 					    float fgr = UCharToFloat255(ur);
 					    float fgg = UCharToFloat255(ug);
 					    float fgb = UCharToFloat255(ub);
@@ -513,6 +524,10 @@ void OrthoEditor::refresh()
 					
 				    lastTexture = voxels.get(x, y, z);
                     lastLevelWithTexture = y;
+					
+//					lastr = UCharToFloat255(ur);
+//				    lastg = UCharToFloat255(ug);
+//					lastb = UCharToFloat255(ub);
 				}
 			}
 					
@@ -527,7 +542,7 @@ void OrthoEditor::refresh()
 			sx = -1.0 + (float)x * voxssize + voxssize / 2.0;
 			sy = -1.0 + (float)z * voxssize + voxssize / 2.0;
 			
-			if (mode == MODE_VOXELS)
+			if (mode == MODE_VOXELS || mode == MODE_COLOR_ONLY)
 			{
 			    engine->setTexture(name, voxels.getVoxelTexture(lastTexture));
 			}
@@ -542,6 +557,13 @@ void OrthoEditor::refresh()
 			    float darkening = (((float)voxels.getSize() - (float)(voxels.getSize() - levelDiff)) / (float)voxels.getSize()) * 4;
 
 				engine->setColor(name, 1.0 - darkening, 1.0 - darkening, 1.0 - darkening, 1.0f);
+			}
+			else if (mode == MODE_COLOR_ONLY)
+			{
+				unsigned char ur, ug, ub, ua;		
+			    voxels.getrgba(x, level, z, ur, ug, ub, ua);
+
+				engine->setColor(name, UCharToFloat255(ur), UCharToFloat255(ug), UCharToFloat255(ub), 1.0f);
 			}
 			else if (mode == MODE_PIXELS)
 			{
@@ -578,19 +600,31 @@ void OrthoEditor::touchEvent(int count, int action1, float x1, float y1, int act
 	int z = (int)(ratioY * (float)voxels.getSize());
 
 	if (x >= 0 && x < voxels.getSize() && z >= 0 && z < voxels.getSize()) {
-        voxels.set(x, level, z, texture);
-
-        if (colora != 0.0) {
-        if (mode == MODE_PIXELS)
-            {
-                voxels.setrgba(x, level, z, FloatToUChar255(colorr), FloatToUChar255(colorg),
+		
+		if (mode == MODE_COLOR_ONLY)
+		{
+            voxels.setrgba(x, level, z, FloatToUChar255(colorr), FloatToUChar255(colorg),
                            FloatToUChar255(colorb), FloatToUChar255(colora));
-			}
-        } else {
-            voxels.set(x, level, z, 0);
-            voxels.setrgba(x, level, z, 127, 127, 127, 127);
         }
+		else
+		{
+            voxels.set(x, level, z, texture);
 
+            if (colora != 0.0)
+			{
+                if (mode == MODE_PIXELS)
+                {
+                    voxels.setrgba(x, level, z, FloatToUChar255(colorr), FloatToUChar255(colorg),
+                           FloatToUChar255(colorb), FloatToUChar255(colora));
+			    }
+            }
+		    else if (mode == MODE_VOXELS)
+		    {
+                voxels.set(x, level, z, 0);
+                voxels.setrgba(x, level, z, 127, 127, 127, 127);
+            }
+		}
+		
         modified = true;
         needsRefresh = true;
     }

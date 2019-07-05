@@ -11,12 +11,12 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+THE SOFTWARE IS PROVIDED "AS IS" , WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, IN}CLUDING eexBUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+OUT OF OR I4N CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
@@ -61,6 +61,19 @@ static int remobj(lua_State *L)
 	g_engine2->removeObject(name);
 	
 	return 0;
+}
+
+static int objexists(lua_State *L)
+{
+	std::string name = lua_tostring(L, 1);
+	Object *obj = g_engine2->findObj(name);
+
+	if (obj == nullptr)
+	    lua_pushboolean(L, false);
+	else
+		lua_pushboolean(L, true);
+	
+	return 1;
 }
 
 static int rename(lua_State *L)
@@ -1400,6 +1413,18 @@ static int getvoxtex(lua_State *L)
 	return 1;
 }
 
+static int gettexvox(lua_State *L)
+{
+	std::string shape = lua_tostring(L, 1);
+	std::string texture = lua_tostring(L, 2);
+
+	int vox = g_engine2->getTextureVoxel(shape, texture);
+
+	lua_pushnumber(L, vox);
+
+	return 1;
+}
+
 static int loadvox(lua_State *L)
 {
 	std::string shapeName = lua_tostring(L, 1);
@@ -2023,6 +2048,7 @@ void LuaBridge::init(Engine2 *engine)
 			
 	lua_register(L, "addobj", addobj);
 	lua_register(L, "remobj", remobj);	
+	lua_register(L, "objexists", objexists);	
 	lua_register(L, "rename", rename);
     lua_register(L, "settype", settype);
 	lua_register(L, "setshape", setshape);
@@ -2130,7 +2156,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getvox", getvox);
 	lua_register(L, "getvoxsize", getvoxsize);
 	lua_register(L, "setvoxtex", setvoxtex);
-	lua_register(L, "getvoxtex", getvoxtex);
+	lua_register(L, "gettexvox", gettexvox);
 	lua_register(L, "loadvox", loadvox);
 	lua_register(L, "rand", rand);
 	lua_register(L, "randint", randint);

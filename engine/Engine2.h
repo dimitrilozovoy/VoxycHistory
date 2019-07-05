@@ -196,6 +196,7 @@ public:
 	char getVoxel(std::string shapeName, int x, int y, int z);
 	void setVoxelTexture(std::string shape, int voxel, std::string texture);
 	std::string getVoxelTexture(std::string shape, int voxel);
+	int getTextureVoxel(std::string shape, std::string texture);
 	void clearVoxels(std::string name);
     void rebuildShape(std::string shapeName);
 	void loadVoxels(std::string name, std::string filename);

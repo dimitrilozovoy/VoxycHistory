@@ -138,6 +138,8 @@ void VoxycApp::tick()
 	
 void VoxycApp::fixedTick()
 {
+//	Log(module);
+	
 	if (loadingModule)
 	{
 		load();

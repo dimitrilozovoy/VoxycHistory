@@ -70,5 +70,6 @@ void LuaProgram::tick()
 		
 	engine->setTextVisible("loading", false);
 
+//	Log(fname);
 	luaBridge.exec(fname);
 }
