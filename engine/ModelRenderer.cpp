@@ -107,14 +107,7 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
 		
 	if (model->state == MODEL_LOADED)
 	{
-//		Log("uploading " + model->name);
 		bool depthDisabled = false;
-		
-/*		if (object->name == "weapon")
-		{
-			glDisable(GL_DEPTH_TEST);
-			depthDisabled = true;
-		}*/
 		
 		for (int m = 0; m < model->meshes.size(); m++)
 		{
@@ -191,10 +184,20 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
 		
 	if (model->state == MODEL_READY)
     {
+		object->fallbackModel = model;
+		
         for (int m = 0; m < model->meshes.size(); m++)
         {
             Mesh *mesh = model->meshes[m];
             drawMesh(object, model, mesh, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
+        }
+	}
+	else if (object->fallbackModel != nullptr)
+	{
+		for (int m = 0; m < object->fallbackModel->meshes.size(); m++)
+        {
+            Mesh *mesh = object->fallbackModel->meshes[m];
+            drawMesh(object, object->fallbackModel, mesh, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
         }
 	}
 }

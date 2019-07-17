@@ -50,6 +50,7 @@ typedef struct Common
 	char readSCVersionC = '1';
 	bool useTexturesOnSprites = true;
 	float playerMoveSpeed = 0.1;
+	float playerTurnSpeed = 1.0f / 30.0f;
 	float ambientr = 1.0;
 	float ambientg = 1.0;
 	float ambientb = 1.0;

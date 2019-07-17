@@ -370,7 +370,7 @@ void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLight
 			
 			Object *o = light.obj;
 			
-			if (o != nullptr)
+			if (o != nullptr && idx < MAX_DYNAMIC_LIGHTS)
 			{
 			    lightsPos[idx * 4] = o->position.x;
 			    lightsPos[idx * 4 + 1] = o->position.y;

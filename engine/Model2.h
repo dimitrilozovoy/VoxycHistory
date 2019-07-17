@@ -28,6 +28,8 @@ SOFTWARE.
 #include "../thirdparty/glm/glm.hpp"
 #include "Mesh.h"
 
+#define CALC_MODEL_NORMALS
+
 typedef enum ModelState
 {
 	MODEL_NOT_LOADED,

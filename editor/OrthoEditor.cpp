@@ -72,6 +72,16 @@ void OrthoEditor::load()
 
     engine->addText("msg", "", 0.0, 0.6, 0.08);
     engine->addText("msg2", "", 0.0, 0.5, 0.08);
+	
+	// Preview
+	
+	std::string name = "texturepreview";
+	engine->addObject(name);
+	engine->setType(name, OBJTYPE_SPRITE);
+	engine->setPos(name, 0, 0, -5);
+	engine->setSize(name, 1, 1, 1);
+	engine->setTexture(name, "brick3.png");
+	engine->setVisible(name, false);
 }
 
 void OrthoEditor::tick()
@@ -360,7 +370,9 @@ void OrthoEditor::tick()
         engine->setText("msg", msg);
         msgTimer = msgTimerDelay;
 			
-//		refresh();
+		engine->setTexture("texturepreview", voxels.getVoxelTexture(texture));
+		engine->setVisible("texturepreview", true);
+		texturePreviewTimer = 25;
 			
         engine->setExtraInt("prevbtnclicked", 0);
 		btnTimer = 2;
@@ -377,7 +389,9 @@ void OrthoEditor::tick()
         engine->setText("msg", msg);
         msgTimer = msgTimerDelay;
 
-//        refresh();
+		engine->setTexture("texturepreview", voxels.getVoxelTexture(texture));
+		engine->setVisible("texturepreview", true);
+		texturePreviewTimer = 25;
 			
         engine->setExtraInt("nextbtnclicked", 0);
 		btnTimer = 2;
@@ -390,6 +404,13 @@ void OrthoEditor::tick()
     if (msgTimer <= 0) {
         engine->setText("msg", "");
     }
+	
+	// Texture preview
+	if (texturePreviewTimer > 0)
+		texturePreviewTimer--;
+		
+	if (texturePreviewTimer == 0)
+		engine->setVisible("texturepreview", false);
 }
 
 void OrthoEditor::loadVoxels(std::string filename)

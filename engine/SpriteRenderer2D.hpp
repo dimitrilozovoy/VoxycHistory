@@ -173,6 +173,7 @@ private:
     
 	"uniform sampler2D uTexture; " \
     "uniform lowp vec4 vColor; " \
+	"uniform lowp vec4 globalColor; " \
 	"varying lowp vec2 vTexCoordsOut; " \
 	"varying lowp vec4 finalColor; "\
 

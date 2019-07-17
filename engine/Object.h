@@ -81,6 +81,7 @@ public:
     Shape *shape = nullptr;
 	std::string shapeName; // For saving and loading states
 	Model2 *model = nullptr;
+	Model2 *fallbackModel = nullptr;
 	std::string modelName; // For saving and loading states
 	Mesh *batchedMesh = nullptr;
 	bool mainOfBatch = false;

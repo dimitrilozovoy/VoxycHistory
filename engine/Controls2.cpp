@@ -195,7 +195,7 @@ void Controls2::tick() {
                 float ydiff = rjlastmovey - rjlastdowny;
 				
 //				playerObj->MoveBackward(ydiff / 50);
-				playerObj->yaw += xdiff / 30;
+				playerObj->yaw += xdiff * g_common.playerTurnSpeed;
             }
 			
 			break;

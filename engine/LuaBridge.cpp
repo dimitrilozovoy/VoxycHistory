@@ -997,6 +997,15 @@ static int setplayermovespeed(lua_State *L)
 	return 0;
 }
 
+static int setplayerturnspeed(lua_State *L)
+{
+	lua_Number speed = lua_tonumber(L, 1);
+
+	g_common.playerTurnSpeed = speed;
+
+	return 0;
+}
+
 static int setcontrolscheme(lua_State *L)
 {
 	std::string schemeStr = lua_tostring(L, 1);
@@ -2021,6 +2030,27 @@ static int setphysicssubticks(lua_State *L)
 	return 0;
 }
 
+static int isready(lua_State *L)
+{
+	std::string shname = lua_tostring(L, 1);
+	
+	Shape *sh = g_engine2->findShape(shname);
+	
+	bool ready = false;
+	
+	if (sh != nullptr)
+	{
+		if (sh->state == SHAPE_READY)
+		{
+			ready = true;
+		}
+	}
+	
+	lua_pushboolean(L, ready);
+
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2122,6 +2152,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getplayeryaw", getplayeryaw);
 	lua_register(L, "getplayerroll", getplayerroll);
 	lua_register(L, "setplayermovespeed", setplayermovespeed);
+	lua_register(L, "setplayerturnspeed", setplayerturnspeed);
 	lua_register(L, "setcontrolscheme", setcontrolscheme);
 	lua_register(L, "setcamerascheme", setcamerascheme);
 	lua_register(L, "moveobjsz", moveobjsz);	
@@ -2199,6 +2230,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "enablephysics", enablephysics);
 	lua_register(L, "fixedtimestep", fixedtimestep);
 	lua_register(L, "setphysicssubticks", setphysicssubticks);
+	lua_register(L, "isready", isready);
 }
 
 void LuaBridge::exec(std::string filename)

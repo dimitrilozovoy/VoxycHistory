@@ -63,7 +63,6 @@ void Model2::load_process()
 		state = MODEL_LOADED;
 		return;
 	}
-	
 
 #ifndef USE_ASSIMP
     objl::Loader Loader;
@@ -89,6 +88,154 @@ void Model2::load_process()
             outMesh->numVertices = mesh.Vertices.size();
             outMesh->data = (float *)malloc(outMesh->numVertices * vertexDataLength * sizeof(float));
 
+#ifdef CALC_MODEL_NORMALS
+//            Log("calc normals");
+
+            bool forceCalc = true;
+
+            for (int v = 0; v < mesh.Vertices.size(); v += 3)
+            {
+				float x1 = mesh.Vertices[v].Position.X;
+				float y1 = mesh.Vertices[v].Position.Y;
+				float z1 = mesh.Vertices[v].Position.Z;
+				float u1 = mesh.Vertices[v].TextureCoordinate.X;
+				float v1 = mesh.Vertices[v].TextureCoordinate.Y;
+				float nx1 = mesh.Vertices[v].Normal.X;
+				float ny1 = mesh.Vertices[v].Normal.Y;
+				float nz1 = mesh.Vertices[v].Normal.Z;
+
+				float x2 = mesh.Vertices[v + 1].Position.X;
+				float y2 = mesh.Vertices[v + 1].Position.Y;
+				float z2 = mesh.Vertices[v + 1].Position.Z;
+				float u2 = mesh.Vertices[v + 1].TextureCoordinate.X;
+				float v2 = mesh.Vertices[v + 1].TextureCoordinate.Y;
+				float nx2 = mesh.Vertices[v + 1].Normal.X;
+				float ny2 = mesh.Vertices[v + 1].Normal.Y;
+				float nz2 = mesh.Vertices[v + 1].Normal.Z;
+
+				float x3 = mesh.Vertices[v + 2].Position.X;
+				float y3 = mesh.Vertices[v + 2].Position.Y;
+				float z3 = mesh.Vertices[v + 2].Position.Z;
+				float u3 = mesh.Vertices[v + 2].TextureCoordinate.X;
+				float v3 = mesh.Vertices[v + 2].TextureCoordinate.Y;
+				float nx3 = mesh.Vertices[v + 2].Normal.X;
+				float ny3 = mesh.Vertices[v + 2].Normal.Y;
+				float nz3 = mesh.Vertices[v + 2].Normal.Z;
+
+				float nx, ny, nz = 0.0f;
+				
+				CalcNormal(x1, y1, z1, x2, y2, z2, x3, y3, z3, nx, ny, nz);
+				
+//				nx = 1;
+//				ny = 0;
+//                nz = 0;
+
+				outMesh->data[v * vertexDataLength] = x1;
+				outMesh->data[v * vertexDataLength + 1] = y1;
+                outMesh->data[v * vertexDataLength + 2] = z1;
+				outMesh->data[v * vertexDataLength + 3] = 1.0f;
+
+				outMesh->data[v * vertexDataLength + 4] = u1;
+                outMesh->data[v * vertexDataLength + 5] = v1;
+				
+				if (forceCalc || (nx1 == 0 && ny1 == 0 && nz1 == 0))
+				{
+                    outMesh->data[v * vertexDataLength + 6] = nx;
+                    outMesh->data[v * vertexDataLength + 7] = ny;
+                    outMesh->data[v * vertexDataLength + 8] = nz;
+				}
+				else
+				{
+                    outMesh->data[v * vertexDataLength + 6] = nx1;
+                    outMesh->data[v * vertexDataLength + 7] = ny1;
+                    outMesh->data[v * vertexDataLength + 8] = nz1;
+				}
+				
+				outMesh->data[v * vertexDataLength + 9] = x2;
+				outMesh->data[v * vertexDataLength + 10] = y2;
+                outMesh->data[v * vertexDataLength + 11] = z2;
+				outMesh->data[v * vertexDataLength + 12] = 1.0f;
+
+				outMesh->data[v * vertexDataLength + 13] = u2;
+                outMesh->data[v * vertexDataLength + 14] = v2;
+				
+				if (forceCalc * (nx2 == 0 && ny2 == 0 && nz2 == 0))
+				{
+                    outMesh->data[v * vertexDataLength + 15] = nx;
+                    outMesh->data[v * vertexDataLength + 16] = ny;
+                    outMesh->data[v * vertexDataLength + 17] = nz;
+				}
+				else
+				{
+                    outMesh->data[v * vertexDataLength + 15] = nx2;
+                    outMesh->data[v * vertexDataLength + 16] = ny2;
+                    outMesh->data[v * vertexDataLength + 17] = nz2;
+				}
+				
+				outMesh->data[v * vertexDataLength + 18] = x3;
+				outMesh->data[v * vertexDataLength + 19] = y3;
+                outMesh->data[v * vertexDataLength + 20] = z3;
+				outMesh->data[v * vertexDataLength + 21] = 1.0f;
+
+				outMesh->data[v * vertexDataLength + 22] = u3;
+                outMesh->data[v * vertexDataLength + 23] = v3;
+				
+				if (forceCalc * (nx3 == 0 && ny3 == 0 && nz3 == 0))
+				{
+                    outMesh->data[v * vertexDataLength + 24] = nx;
+                    outMesh->data[v * vertexDataLength + 25] = ny;
+                    outMesh->data[v * vertexDataLength + 26] = nz;
+			    }
+				else
+				{
+		            outMesh->data[v * vertexDataLength + 24] = nx3;
+                    outMesh->data[v * vertexDataLength + 25] = ny3;
+                    outMesh->data[v * vertexDataLength + 26] = nz3;
+				}
+				
+				// Update min/max for scaling
+                if (mesh.Vertices[v].Position.X < minX)
+                    minX = mesh.Vertices[v].Position.X;
+                if (mesh.Vertices[v].Position.Y < minY)
+                    minY = mesh.Vertices[v].Position.Y;
+                if (mesh.Vertices[v].Position.Z < minZ)
+                    minZ = mesh.Vertices[v].Position.Z;
+
+                if (mesh.Vertices[v].Position.X > maxX)
+                    maxX = mesh.Vertices[v].Position.X;
+                if (mesh.Vertices[v].Position.Y > maxY)
+                    maxY = mesh.Vertices[v].Position.Y;
+                if (mesh.Vertices[v].Position.Z > maxZ)
+                    maxZ = mesh.Vertices[v].Position.Z;
+
+/*                outMesh->data[v * vertexDataLength] = mesh.Vertices[v].Position.X;
+                outMesh->data[v * vertexDataLength + 1] = mesh.Vertices[v].Position.Y;
+                outMesh->data[v * vertexDataLength + 2] = mesh.Vertices[v].Position.Z;
+                outMesh->data[v * vertexDataLength + 3] = 1.0;
+
+                // Update min/max for scaling
+                if (mesh.Vertices[v].Position.X < minX)
+                    minX = mesh.Vertices[v].Position.X;
+                if (mesh.Vertices[v].Position.Y < minY)
+                    minY = mesh.Vertices[v].Position.Y;
+                if (mesh.Vertices[v].Position.Z < minZ)
+                    minZ = mesh.Vertices[v].Position.Z;
+
+                if (mesh.Vertices[v].Position.X > maxX)
+                    maxX = mesh.Vertices[v].Position.X;
+                if (mesh.Vertices[v].Position.Y > maxY)
+                    maxY = mesh.Vertices[v].Position.Y;
+                if (mesh.Vertices[v].Position.Z > maxZ)
+                    maxZ = mesh.Vertices[v].Position.Z;
+
+				outMesh->data[v * vertexDataLength + 4] = mesh.Vertices[v].TextureCoordinate.X;
+                outMesh->data[v * vertexDataLength + 5] = mesh.Vertices[v].TextureCoordinate.Y;
+
+                outMesh->data[v * vertexDataLength + 6] = mesh.Vertices[v].Normal.X;
+                outMesh->data[v * vertexDataLength + 7] = mesh.Vertices[v].Normal.Y;
+                outMesh->data[v * vertexDataLength + 8] = mesh.Vertices[v].Normal.Z;*/
+            }
+#else
             for (int v = 0; v < mesh.Vertices.size(); v++)
             {
                 outMesh->data[v * vertexDataLength] = mesh.Vertices[v].Position.X;
@@ -118,6 +265,7 @@ void Model2::load_process()
                 outMesh->data[v * vertexDataLength + 7] = mesh.Vertices[v].Normal.Y;
                 outMesh->data[v * vertexDataLength + 8] = mesh.Vertices[v].Normal.Z;
             }
+#endif
 
 			outMesh->dataLength = outMesh->numVertices * vertexDataLength;
 

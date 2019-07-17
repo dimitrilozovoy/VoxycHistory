@@ -77,6 +77,7 @@ private:
 	float colorb = 1.0;
 	float colora = 1.0;
 	bool modified = false;
+	int texturePreviewTimer = 0;
 };
 
 #endif

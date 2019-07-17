@@ -976,6 +976,12 @@ void CalcNormal(float x1, float y1, float z1, float x2, float y2, float z2, floa
 	nx = u.y * v.z - u.z * v.y;
 	ny = u.z * v.x - u.x * v.z;
 	nz = u.x * v.y - u.y * v.x;
+	
+	float length = sqrt(nx * nx + ny * ny + nz * nz);
+	
+	nx = nx / length;
+	ny = ny / length;
+	nz = nz / length;
 }
 
 float UCharToFloat(unsigned char c)
