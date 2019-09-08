@@ -68,7 +68,18 @@ void PLAT_Log(char *str)
 
 int PLAT_stoi(std::string s, int fallback)
 {
-	return std::stoi(s, nullptr, 10);
+	int result = 0;
+
+	try
+	{
+		result = std::stoi(s, nullptr, 10);
+	}
+	catch (...)
+	{
+		result = fallback;
+	}
+
+	return result;
 }
 
 float PLAT_stof(std::string s, float fallback)
