@@ -207,12 +207,12 @@ class SpriteRenderer: public Renderer
 
 		"void main() {" \
 
-		"   vec4 f = texture(uTexture, vTexCoordsOut.st); " \
+		"   lowp vec4 f = texture(uTexture, vTexCoordsOut.st); " \
 		"   if (f.a == 0.0) " \
 		"       discard; " \
 
-		"	float visibility = 1.0; " \
-		"   float alpha = 1.0; " \
+		"	lowp float visibility = 1.0; " \
+		"   lowp float alpha = 1.0; " \
 
 		"   if (distToCamera >= fadeFar) discard; " \
 

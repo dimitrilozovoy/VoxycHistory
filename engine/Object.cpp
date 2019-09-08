@@ -1200,3 +1200,47 @@ void Object::checkWayptModelLoad()
 		wayptModelLoading = false;
 	}
 }
+
+/*
+========================================
+checkSight
+========================================
+*/
+
+bool Object::canSee(Object *dst, std::map<std::string, Object*> objects)
+{
+	Object *src = this;
+	Object ray;
+
+	ray.position = src->position;
+	ray.pitch = src->pitch;
+	ray.yaw = src->getYawTo(dst);
+	ray.roll = src->roll;
+
+	int iter = 0;
+	bool hit = false;
+	int numSteps = 50;
+	float step = src->distanceTo(dst) / (float)numSteps;
+
+	while (!hit && iter < numSteps)
+	{
+		for (const auto &pair2 : objects)
+		{
+			Object *obj2 = pair2.second;
+
+			if (obj2 == nullptr || obj2->category == "terrain")
+				continue;
+
+			if (ray.checkVoxelCollision(obj2, 1.0))
+			{
+				return false;
+			}
+		}
+
+		ray.MoveForward(step);
+		iter++;
+	}
+
+	return true;
+}
+

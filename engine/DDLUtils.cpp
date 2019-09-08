@@ -704,6 +704,9 @@ bool compareYaw(float yaw1, float yaw2, float threshold)
 
 bool compareAngle(float angle1, float angle2, float threshold)
 {
+	if (angle1 == angle2)
+		return true;
+	
 	while (angle1 < 0.0)
 		angle1 += 360.0;
 	while (angle1 > 360.0)

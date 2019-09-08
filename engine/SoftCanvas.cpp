@@ -131,6 +131,7 @@ int SoftCanvas::genTexture()
 
 void SoftCanvas::checkGLError(char *str)
 {
+#ifdef DEBUG_BUILD
 #if defined PLATFORM_OSX || defined PLATFORM_GVR || defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR || defined PLATFORM_IOS
 #ifdef USE_OPENGL
     GLenum err = glGetError();
@@ -157,6 +158,7 @@ void SoftCanvas::checkGLError(char *str)
             Log("GL error GL_OUT_OF_MEMORY", str);
             break;
     }
+#endif
 #endif
 #endif
 }

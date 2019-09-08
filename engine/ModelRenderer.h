@@ -263,6 +263,7 @@ private:
 	"uniform sampler2D uTexture; " \
     "uniform lowp vec4 vColor; " \
 	"uniform lowp vec4 globalColor; " \
+    "uniform lowp vec4 ambientLight; " \
 	"varying lowp vec2 vTexCoordsOut; " \
 	"varying lowp vec4 posOut; " \
 	"uniform lowp float useTexture; " \
@@ -283,11 +284,11 @@ private:
 
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor; " \
+		"      gl_FragColor = texture2D(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      gl_FragColor = vColor * globalColor; " \
+		"      gl_FragColor = vColor * globalColor * ambientLight; " \
 		"   }" \
     "}\n";
 
@@ -343,9 +344,9 @@ private:
 
     "varying lowp float distToCamera; " \
 	
-	"uniform lowp vec4 lightsPos[8]; " \
-	"uniform lowp float lightsSize[8]; " \
-	"uniform lowp vec4 lightsColor[8]; " \
+	"uniform mediump vec4 lightsPos[8]; " \
+	"uniform mediump float lightsSize[8]; " \
+	"uniform mediump vec4 lightsColor[8]; " \
 
     "void main() {" \
 		"	lowp float visibility = 1.0; " \
@@ -356,17 +357,17 @@ private:
         "   if (distToCamera >= fadeNear) " \
 		"		alpha = 1.0 - (distToCamera - fadeNear) * 3.0; " \
 
-		"   vec4 light = vec4(1.0, 1.0, 1.0, 1.0); " \
+		"   lowp vec4 light = vec4(1.0, 1.0, 1.0, 1.0); " \
 		
 		"   for (int i = 0; i < 8; i++) " \
 		"   { " \
 		"       if (lightsSize[i] > 0.0) " \
 		"       { " \
-		"           float distToWorldPos = distance(worldPosOut, lightsPos[i]); " \
+		"           lowp float distToWorldPos = distance(worldPosOut, lightsPos[i]); " \
 		"           if (distToWorldPos < lightsSize[i]) " \
 		"           { " \
-		"               float intensity = 1.0 - (distToWorldPos / lightsSize[i]); " \
-		"               float diffuse = max(dot(normalize(vNormalOut), normalize(lightsPos[i] - worldPosOut)), 0.0); " \
+		"               lowp float intensity = 1.0 - (distToWorldPos / lightsSize[i]); " \
+		"               lowp float diffuse = max(dot(normalize(vNormalOut), normalize(lightsPos[i] - worldPosOut)), 0.0); " \
 		"               light = light * (vec4(1.0, 1.0, 1.0, 1.0) + (lightsColor[i] - vec4(1.0, 1.0, 1.0, 1.0)) * intensity * diffuse); " \
 		"           } " \
 		"       } " \
@@ -384,6 +385,11 @@ private:
 
 	
 	int programMain = -1;
+	int programReg = -1;
+	int programDyn = -1;
+	int programLow = -1;
+	int programMed = -1;
+	int programHi = -1;
 	int programShadowMap = -1;
 	int vao = -1;
     int vbos[NUM_SHAPES];

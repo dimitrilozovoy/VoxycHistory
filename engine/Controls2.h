@@ -30,6 +30,7 @@ SOFTWARE.
 #include "EditorController.h"
 
 #define NUM_KBD_KEYS 1024
+#define EASE_IN_TICKS 10
 
 typedef enum BtnNames
 {
@@ -172,11 +173,13 @@ private:
     float jlastmovex = 0;
     float jlastmovey = 0;
     bool ljdown = false;
+	int ljdownticks = 0;
     float rjlastdownx = 0;
     float rjlastdowny = 0;
     float rjlastmovex = 0;
     float rjlastmovey = 0;
     bool rjdown = false;
+	int rjdownticks = 0;
     float ljlastdownx = 0;
     float ljlastdowny = 0;
     float ljlastmovex = 0;

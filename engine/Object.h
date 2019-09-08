@@ -74,7 +74,8 @@ public:
 	bool checkVoxelCollisionCircular(Object *voxObj, float multiplier);
 	void worldToVoxelCoords(Object *voxObj, float wx, float wy, float wz, int &x, int &y, int &z);
     void checkWayptModelLoad();
-	
+	bool canSee(Object *dst, std::map<std::string, Object*> objects);
+
     std::string name;
     ObjType type;
     ObjShapeType shapeType;

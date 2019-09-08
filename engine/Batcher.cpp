@@ -243,6 +243,7 @@ void Batcher::batch(std::map<std::string, Batch*> batches, TextureAtlas *ta, Tex
 
 void Batcher::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
@@ -268,6 +269,7 @@ void Batcher::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }
 

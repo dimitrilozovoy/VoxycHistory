@@ -266,6 +266,7 @@ void Terrain::generate(int sizexz, int valleySizeX, int valleySizeZ, int dropSiz
 
 void Terrain::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
@@ -291,5 +292,6 @@ void Terrain::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }

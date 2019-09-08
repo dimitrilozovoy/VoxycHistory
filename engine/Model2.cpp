@@ -569,6 +569,7 @@ void Model2::release()
 
 void Model2::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
@@ -594,5 +595,6 @@ void Model2::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }

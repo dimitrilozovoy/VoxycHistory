@@ -51,13 +51,6 @@ typedef struct VoxelStack
 	int height = 0;
 } VoxelStack;
 
-typedef struct VertexBuffer
-{
-	float *vertices = nullptr;
-	int size = 0;
-	int allocatedSize = 0;
-	int cursor = 0;
-};
 
 typedef struct Vertex
 {

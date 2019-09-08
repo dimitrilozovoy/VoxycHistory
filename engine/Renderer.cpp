@@ -311,6 +311,7 @@ void Renderer::tick()
 
 void Renderer::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
 	GLenum err = glGetError();
 
@@ -337,11 +338,12 @@ void Renderer::checkGLError(char *tag)
 		break;
 	}
 #endif
+#endif
 }
 
 void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLights, Object *object, int program, glm::mat4 rotate)
 {
-#ifdef PLATFORM_ANDROID
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 		// Set dynamic lights
 		float lightsPos[MAX_DYNAMIC_LIGHTS * 4];
 		float lightsSize[MAX_DYNAMIC_LIGHTS];

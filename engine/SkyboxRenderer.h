@@ -77,10 +77,10 @@ private:
 		"precision highp float;" \
 
 		"uniform sampler2D uTexture; " \
-		"uniform vec4 vColor; " \
-		"uniform vec4 globalColor; " \
-		"in vec2 vTexCoordsOut; " \
-		"in vec4 posOut; " \
+		"uniform lowp vec4 vColor; " \
+		"uniform lowp vec4 globalColor; " \
+		"in lowp vec2 vTexCoordsOut; " \
+		"in highp vec4 posOut; " \
 		"out vec4 finalColor; " \
 
 		"void main() {" \
@@ -93,7 +93,7 @@ private:
     
     const char *vertexShaderCodeES20 =
     
-    "attribute vec4 vPosition;" \
+    "attribute highp vec4 vPosition;" \
 	"varying lowp vec4 posOut; " \
 	"attribute vec2 vTexCoords;" \
 	"varying lowp vec2 vTexCoordsOut; " \

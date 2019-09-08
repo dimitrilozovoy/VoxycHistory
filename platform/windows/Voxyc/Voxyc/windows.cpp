@@ -160,4 +160,19 @@ void PLAT_SetTrackVolume(float)
 {
 }
 
+long PLAT_GetTime()
+{
+	return 0;
+}
+
+void PLAT_AttachCurrentThread()
+{
+	return;
+}
+
+void PLAT_DetachCurrentThread()
+{
+	return;
+}
+
 #endif

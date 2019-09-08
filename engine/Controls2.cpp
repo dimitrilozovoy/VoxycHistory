@@ -177,6 +177,15 @@ void Controls2::tick() {
     //
     // Touch control for new schemes
     //
+	
+	// Ease in due to extreme data on start
+	float easeInMultL = 1.0f;
+	float easeInMultR = 2.0f;
+	
+	if (ljdownticks < EASE_IN_TICKS)
+		easeInMultL = (float)ljdownticks / (float)EASE_IN_TICKS;
+	if (rjdownticks < EASE_IN_TICKS)
+		easeInMultR = (float)rjdownticks / (float)EASE_IN_TICKS;
 
     switch (controlScheme) {
 		
@@ -186,8 +195,8 @@ void Controls2::tick() {
                 float xdiff = ljlastmovex - ljlastdownx;
                 float ydiff = ljlastmovey - ljlastdowny;
 				
-				playerObj->MoveBackward(ydiff / 300);
-				playerObj->MoveRight(xdiff / 300);
+				playerObj->MoveBackward((ydiff / 300) * easeInMultL);
+				playerObj->MoveRight((xdiff / 300) * easeInMultL);
             }
 			
 			if (rjdown) {
@@ -195,7 +204,7 @@ void Controls2::tick() {
                 float ydiff = rjlastmovey - rjlastdowny;
 				
 //				playerObj->MoveBackward(ydiff / 50);
-				playerObj->yaw += xdiff * g_common.playerTurnSpeed;
+				playerObj->yaw += (xdiff * g_common.playerTurnSpeed) * easeInMultR;
             }
 			
 			break;
@@ -271,6 +280,8 @@ void Controls2::tick() {
     g_common.touchCtrlLJDown = ljdown;
 
     if (ljdown) {
+		ljdownticks += 1;
+		
         float xdiff = ljlastmovex - ljlastdownx;
         float ydiff = ljlastmovey - ljlastdowny;
 
@@ -304,6 +315,8 @@ void Controls2::tick() {
     g_common.touchCtrlRJDown = rjdown;
 
     if (rjdown) {
+		rjdownticks += 1;
+		
         float xdiff = rjlastmovex - rjlastdownx;
         float ydiff = rjlastmovey - rjlastdowny;
 

@@ -684,8 +684,9 @@ static int setfade(lua_State *L)
 static int setfaceplayer(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
-
-	g_engine2->setAlwaysFacePlayer(name, true);
+    bool b = lua_toboolean(L, 2);
+	
+	g_engine2->setAlwaysFacePlayer(name, b);
 	
 	return 0;
 }
@@ -1394,7 +1395,7 @@ static int setvoxels(lua_State *L)
 	Shape *s = g_engine2->findShape(shapeName);
 	
 	if (s != nullptr)
-	    s->voxels->load(g_assetsDir + "/" + fname, nullptr, g_engine2->getTextureManager());
+	    s->voxels->load(GetFullFilename(fname), nullptr, g_engine2->getTextureManager());
 
 	return 0;
 }
@@ -1669,8 +1670,39 @@ static int runscript(lua_State *L)
 {
 	std::string filename = lua_tostring(L, 1);
 	std::string errorMsg;
-	
+
+#ifdef PLATFORM_IOS
+    int dotPos = filename.find(".");
+    
+    std::string nameNoExt = "";
+    std::string ext = "";
+    
+    if (dotPos != -1)
+    {
+        nameNoExt = filename.substr(0, dotPos);
+        ext = filename.substr(dotPos, filename.length());
+    }
+    else
+    {
+        return 0;
+    }
+    
+    NSString *nsNameNoExt = [NSString stringWithFormat:@"%s", nameNoExt.c_str()];
+    NSString *nsExt = [NSString stringWithFormat:@"%s", ext.c_str()];
+    
+    GLKTextureInfo *spriteTexture;
+    NSError *theError;
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:nsNameNoExt ofType:nsExt];
+    //    NSURL *url = [NSURL fileURLWithPath:path];
+    
+    std::string stdFilePath = std::string([filePath UTF8String]);
+    
+    std::string fullFilename = stdFilePath;
+#else
 	std::string fullFilename = g_assetsDir + "/" + filename;
+#endif
+    
 	if (luaL_dofile(L, fullFilename.c_str()))
 	{
 		errorMsg = lua_tostring(L, -1);
@@ -2051,6 +2083,79 @@ static int isready(lua_State *L)
 	return 1;
 }
 
+static int savepref(lua_State *L)
+{
+	std::string section = lua_tostring(L, 1);
+	std::string key = lua_tostring(L, 2);
+    std::string val = lua_tostring(L, 3);
+
+	PLAT_SavePref(section, key, val);
+
+	return 0;
+}
+
+static int loadpref(lua_State *L)
+{
+	std::string section = lua_tostring(L, 1);
+	std::string key = lua_tostring(L, 2);
+	std::string def = lua_tostring(L, 3);
+	
+	std::string val = PLAT_LoadPref(section, key, def);
+	
+	lua_pushstring(L, val.c_str());
+
+	return 1;
+}
+
+static int enableocclusioncheck(lua_State *L)
+{
+		bool e = lua_toboolean(L, 1);
+		
+		g_common.occlusionCheck = e;
+		
+		return 0;
+}
+
+static int cquad1(lua_State *L)
+{
+	std::string shapeName = lua_tostring(L, 1);
+	std::string texture = lua_tostring(L, 2);
+    float x = lua_tonumber(L, 3);
+    float y = lua_tonumber(L, 4);
+	float z = lua_tonumber(L, 5);
+	float sizex = lua_tonumber(L, 6);
+    float sizey = lua_tonumber(L, 7);
+    float pitch = lua_tonumber(L, 8);
+    float yaw = lua_tonumber(L, 9);
+    float roll = lua_tonumber(L, 10);
+
+	Shape *s = g_engine2->findShape(shapeName);
+	
+	if (s == nullptr)
+		return 0;
+
+	if (s->type != SHAPE_VOXELS)
+		return 0;
+
+	CustomTris *ctris = s->customTris;
+
+	if (ctris == nullptr)
+		return 0;
+
+	ctris->cquad1(texture, x, y, z, sizex, sizey, pitch, yaw, roll);
+
+	s->needsRebuild = true;
+		
+	return 0;
+}
+
+static int checkvoxelsready(lua_State *L)
+{
+    lua_pushboolean(L, g_engine2->checkVoxelsReady());
+    
+    return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2231,6 +2336,10 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "fixedtimestep", fixedtimestep);
 	lua_register(L, "setphysicssubticks", setphysicssubticks);
 	lua_register(L, "isready", isready);
+	lua_register(L, "savepref", savepref);
+	lua_register(L, "loadpref", loadpref);
+    lua_register(L, "enableocclusioncheck", enableocclusioncheck);
+    lua_register(L, "checkvoxelsready", checkvoxelsready);
 }
 
 void LuaBridge::exec(std::string filename)

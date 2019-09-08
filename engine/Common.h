@@ -54,7 +54,11 @@ typedef struct Common
 	float ambientr = 1.0;
 	float ambientg = 1.0;
 	float ambientb = 1.0;
-	bool doDynamicLights = true;
+#ifdef PLATFORM_IOS
+	bool doDynamicLights = false;
+#else
+    bool doDynamicLights = true;
+#endif
 	bool centerModelsX = true;
 	bool centerModelsY = true;
 	bool centerModelsZ = true;
@@ -63,6 +67,8 @@ typedef struct Common
 	float drawDistance = 1000;
 	bool fixedTimestep = false;
 	int physicsSubticks = 1;
+	bool occlusionCheck = true;
+	int graphics = 1;
 };
 
 typedef struct RenderStats
@@ -70,6 +76,14 @@ typedef struct RenderStats
 	int fps = 0;
 	int drawCalls = 0;
 	int polys = 0;
+};
+
+typedef struct VertexBuffer
+{
+	float *vertices = nullptr;
+	int size = 0;
+	int allocatedSize = 0;
+	int cursor = 0;
 };
 
 #endif

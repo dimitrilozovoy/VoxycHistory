@@ -860,6 +860,7 @@ void Shape::free()
 
 void Shape::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
@@ -885,6 +886,7 @@ void Shape::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }
 

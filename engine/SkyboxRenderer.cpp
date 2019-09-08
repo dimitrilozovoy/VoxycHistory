@@ -655,7 +655,7 @@ void SkyboxRenderer::loadProgram()
 	snprintf(fragmentShaderStr, len, "#version 150\n%s", fragmentShaderCodeDesktop);
 	fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderStr);
 #endif
-#if defined PLATFORM_ANDROID || PLATFORM_IOS
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	vertexShader = loadShader(GL_VERTEX_SHADER, vertexShaderCodeES20);
 	fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentShaderCodeES20);
 #endif
@@ -726,6 +726,7 @@ int SkyboxRenderer::loadShader(int type, const char *shaderCode)
 
 void SkyboxRenderer::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
@@ -751,5 +752,6 @@ void SkyboxRenderer::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }

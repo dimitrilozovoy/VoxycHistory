@@ -107,7 +107,11 @@ void TextureManager2::load(std::string name, bool external)
     checkGLError("glTexParameterf");
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     checkGLError("glTexParameterf");
-    
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    checkGLError("glTexParameterf");
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    checkGLError("glTexParameterf");
+
 #else
     int glTexID;
     glGenTextures(1, (GLuint *)&glTexID);
@@ -197,6 +201,7 @@ void TextureManager2::free()
 
 void TextureManager2::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
 	GLenum err = glGetError();
 
@@ -222,5 +227,6 @@ void TextureManager2::checkGLError(char *tag)
 		Log("GL error GL_OUT_OF_MEMORY", tag);
 		break;
 	}
+#endif
 #endif
 }

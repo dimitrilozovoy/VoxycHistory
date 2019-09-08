@@ -101,7 +101,9 @@ void GUI::draw()
 	for(const auto &pair: widgets)
     {
         Widget *wg = pair.second;
-
+        
+        if (wg != nullptr)
+        {
 		if (wg->visible)
 		{	
 			switch(wg->type)
@@ -109,8 +111,9 @@ void GUI::draw()
                 case WG_MENU:
 				    drawMenu(wg);
 					break;
-			}
-		}
+            }
+        }
+        }
 	}
 	
 	// Text and icon layer
@@ -118,6 +121,8 @@ void GUI::draw()
     {
         Widget *wg = pair.second;
 
+        if (wg != nullptr)
+        {
 		if (wg->visible)
 		{	
 			switch(wg->type)
@@ -133,6 +138,7 @@ void GUI::draw()
 					break;
 			}
 		}
+        }
 	}
 }
 
@@ -247,9 +253,12 @@ void GUI::setWgVisible(std::string name, bool val)
 {
 	Widget *wg = findWg(name);
 	
+	if (wg == nullptr)
+		return;
+	
 	wg->visible = val;
 	
-	for(const auto &pair: widgets)
+/*	for(const auto &pair: widgets)
     {
         Widget *obj = pair.second;
 
@@ -260,7 +269,7 @@ void GUI::setWgVisible(std::string name, bool val)
 				obj->visible = val;
 			}
 		}
-    }
+    }*/
 }
 
 void GUI::setWgColor(std::string name, float r, float g, float b, float a)
@@ -293,7 +302,7 @@ std::string GUI::getOnClickExtraIfClicked(int action, float x, float y, int fing
     {
 		Widget *item = pair.second;
 		
-		if (item->visible == true && (item->type == WG_BTN || item->type == WG_MENUITEM))
+		if (item != nullptr && item->visible == true && (item->type == WG_BTN || item->type == WG_MENUITEM))
 		{
 			if (item->text != "")
 			{

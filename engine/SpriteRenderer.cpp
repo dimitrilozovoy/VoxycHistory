@@ -422,8 +422,10 @@ void SpriteRenderer::draw(int eye, std::map<std::string, Object*> objects, Objec
     checkGLError("glGenBuffers");
 #endif
 
+#if defined PLATFORM_WINDOWS or defined PLATFORM_OSX
     glBindVertexArray(vao);
     checkGLError("glBindVertexArray");
+#endif
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     checkGLError("glBindBuffer");

@@ -253,7 +253,7 @@ int FileIO::getKVInt(std::string key)
 
 float FileIO::getKVFloat(std::string key)
 {
-    float fval = PLAT_stof(kvSet[key]);
+    float fval = PLAT_stof(kvSet[key], 1.0);
 
     return fval;
 }

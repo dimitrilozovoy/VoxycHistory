@@ -44,6 +44,8 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 
 	char vertexShaderStr[len];
 	char fragmentShaderStr[len];
+	char vertexShaderStrDyn[len];
+	char fragmentShaderStrDyn[len];
 
 	// Compile regular program
 
@@ -60,19 +62,26 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 #endif
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS
-    if (g_common.doDynamicLights)
+	if (useShadowMap)
 	{
-		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20DynamicLights);
-		snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20DynamicLights);
-    }
+//		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20UseShadowMap);
+//		snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20UseShadowMap);
+	}
 	else
 	{
-		snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
-		snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
+		    snprintf(vertexShaderStrDyn, len, "%s", vertexShaderCodeES20DynamicLights);
+		    snprintf(fragmentShaderStrDyn, len, "%s", fragmentShaderCodeES20DynamicLights);
+		    snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
+		    snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
     }
 #endif
 
-	programMain = loadProgram(vertexShaderStr, fragmentShaderStr, false);
+	programReg = loadProgram(vertexShaderStr, fragmentShaderStr, false);
+    programDyn = loadProgram(vertexShaderStrDyn, fragmentShaderStrDyn, false);
+    programLow = programMain;
+	programMed = programDyn;
+	programHi = programDyn;
+
 
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	// Compile shadow map program
@@ -85,13 +94,33 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 
 void ModelRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap, std::map<std::string, DynamicLight> dynamicLights)
 {
+	// Choose program
+	switch(g_common.graphics)
+	{
+		case 0:
+			programMain = programReg;
+			break;
+#ifdef PLATFORM_IOS
+		case 1:
+			programMain = programReg;
+			break;
+#else
+        case 1:
+            programMain = programDyn;
+            break;
+#endif
+		case 2:
+			programMain = programDyn;
+			break;
+	}
+	
 	frameDump = "";
 
     for(const auto &pair: objects)
     {
         Object *obj = pair.second;
   
-        if (obj != nullptr && obj->visible && obj->type == OBJTYPE_MODEL)
+        if (obj != nullptr && obj->visible && obj->type == OBJTYPE_MODEL && (!g_common.occlusionCheck || camera->canSee(obj, objects)) /* && compareAngle(camera->yaw, camera->getYawTo(obj), VIEW_FOV / 2)*/)
         {
             drawModel(obj, camera, toShadowMap, useShadowMap, shadowMap, dynamicLights);
         }
@@ -104,7 +133,7 @@ void ModelRenderer::drawModel(Object *object, Object *camera, bool toShadowMap, 
 
     if (model == nullptr)
         return;
-		
+				
 	if (model->state == MODEL_LOADED)
 	{
 		bool depthDisabled = false;
@@ -294,9 +323,12 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 		rotate = glm::rotate(glm::mat4(), glm::radians(-object->secondaryYaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
 		* glm::rotate(glm::mat4(), glm::radians(-object->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 	else if (object->alwaysFacePlayer)
+	{
+//		Log("afp");
 		rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
 		* glm::rotate(glm::mat4(), glm::radians(camera->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
-	else
+	}
+    else
 		rotate = glm::rotate(glm::mat4(), glm::radians(-object->yaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
 		* glm::rotate(glm::mat4(), glm::radians(-object->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 
@@ -431,7 +463,8 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	if (!toShadowMap)
 	{
 		setVertexAttrib(curProgram, "vTexCoords", 2, GL_FLOAT, false, stride, 4);
-		setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
+        if (g_common.doDynamicLights)
+            setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
 	}
 
 //	setVertexAttrib("vNormal", 2, GL_FLOAT, false, stride, 6);

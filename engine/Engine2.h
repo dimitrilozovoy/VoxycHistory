@@ -29,7 +29,7 @@ SOFTWARE.
 #include <string>
 #include "ShapeRenderer.h"
 #include "ModelRenderer.h"
-#include "SkeletalRenderer.h"
+//#include "SkeletalRenderer.h"
 #include "SpriteRenderer.h"
 #include "TextureManager2.h"
 #include "TextureAtlas.h"
@@ -200,6 +200,7 @@ public:
 	void clearVoxels(std::string name);
     void rebuildShape(std::string shapeName);
 	void loadVoxels(std::string name, std::string filename);
+    bool checkVoxelsReady();
 
 	void clear();
 
@@ -258,7 +259,7 @@ private:
 	ShapeRenderer shapeRenderer;
     SkyboxRenderer skyboxRenderer;
 	ModelRenderer modelRenderer;
-	SkeletalRenderer skeletalRenderer;
+//	SkeletalRenderer skeletalRenderer;
 	SpriteRenderer spriteRenderer;
     SpriteRenderer2D spriteRenderer2D;
 	TextPrinter textPrinter;

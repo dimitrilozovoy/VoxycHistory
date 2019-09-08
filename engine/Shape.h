@@ -29,6 +29,7 @@ SOFTWARE.
 #include "Voxels.h"
 #include "FileIO.h"
 #include "TextureManager2.h"
+#include "CustomTris.h"
 
 typedef enum
 {
@@ -77,6 +78,7 @@ public:
 	
     std::vector<Mesh*> meshes;
 	Voxels *voxels = nullptr;
+	CustomTris *customTris = nullptr;
 	bool built = false;
 	bool needsRebuild = false;
 };

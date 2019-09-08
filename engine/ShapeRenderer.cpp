@@ -45,6 +45,8 @@ void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 
 	char vertexShaderStr[len];
 	char fragmentShaderStr[len];
+	char vertexShaderStrDyn[len];
+	char fragmentShaderStrDyn[len];
 
 	// Compile regular program
 
@@ -72,20 +74,18 @@ void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 	else
 	{
-        if (g_common.doDynamicLights)
-		{
-		    snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20DynamicLights);
-		    snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20DynamicLights);
-        }
-		else
-		{
+		    snprintf(vertexShaderStrDyn, len, "%s", vertexShaderCodeES20DynamicLights);
+		    snprintf(fragmentShaderStrDyn, len, "%s", fragmentShaderCodeES20DynamicLights);
 		    snprintf(vertexShaderStr, len, "%s", vertexShaderCodeES20);
 		    snprintf(fragmentShaderStr, len, "%s", fragmentShaderCodeES20);
-		}
     }
 #endif
 
-	programMain = loadProgram(vertexShaderStr, fragmentShaderStr, false);
+	programReg = loadProgram(vertexShaderStr, fragmentShaderStr, false);
+    programDyn = loadProgram(vertexShaderStrDyn, fragmentShaderStrDyn, false);
+    programLow = programMain;
+	programMed = programDyn;
+	programHi = programDyn;
 
 	if (useShadowMap) {
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX || defined PLATFORM_OPENVR
@@ -113,6 +113,26 @@ draw
 
 void ShapeRenderer::draw(int eye, std::map<std::string, Object*> objects, Object *camera, bool toShadowMap, bool useShadowMap, ShadowMap *shadowMap,std::map<std::string, DynamicLight> dynamicLights)
 {
+	// Choose program
+	switch(g_common.graphics)
+	{
+		case 0:
+			programMain = programReg;
+			break;
+#ifdef PLATFORM_IOS
+        case 1:
+            programMain = programReg;
+            break;
+#else
+        case 1:
+            programMain = programDyn;
+            break;
+#endif
+		case 2:
+			programMain = programDyn;
+			break;
+	}
+	
 	frameDump = "";
 	
 	if (dumpFrame)
@@ -186,6 +206,7 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 	{
 		// Simple shape
 		glEnable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
         checkGLError("glEnable");
         
 		drawMesh(object, nullptr, nullptr, camera, toShadowMap, useShadowMap, shadowMap, nullptr, dynamicLights);
@@ -194,6 +215,7 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 	{
 		// Complex shape
 		glEnable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
         checkGLError("glEnable");
 
 		Shape *shape = object->shape;
@@ -319,7 +341,7 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 
 //	glPolygonOffset(4.0f, 20.0f);
 
-    glEnable(GL_CULL_FACE);
+//    glEnable(GL_CULL_FACE);
 //	glDisable(GL_CULL_FACE);
 	checkGLError("glEnable");
 	glFrontFace(GL_CCW);
@@ -582,7 +604,8 @@ void ShapeRenderer::drawMesh(Object *object, Shape *shape, Mesh *mesh, Object *c
 	if (!toShadowMap)
 	{
 		setVertexAttrib(curProgram, "vTexCoords", 2, GL_FLOAT, false, stride, 4);
-		setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
+        if (g_common.doDynamicLights)
+            setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
 #ifdef DO_VERTEX_LIGHTS
 		if (floatsPerCoord == 12)
 			setVertexAttrib(curProgram, "vVertexLight", 3, GL_FLOAT, false, stride, 9);
@@ -682,8 +705,8 @@ void ShapeRenderer::loadVertices()
 	quad[19] = 0.0f;
 	quad[20] = 1.0f;
 
-    quad[21] = 0.0f;
-    quad[22] = 0.0f;
+    quad[21] = 1.0f;
+    quad[22] = 1.0f;
     quad[23] = 1.0f;
 
     // Vertex 2

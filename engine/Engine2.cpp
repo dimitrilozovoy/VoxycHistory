@@ -60,7 +60,7 @@ void Engine2::init()
 	skyboxRenderer.init();
 	shapeRenderer.init(&shadowMap, useShadowMap, &mouseLook, &texMan);
 	modelRenderer.init(&shadowMap, useShadowMap, &mouseLook);
-	skeletalRenderer.init(&shadowMap, useShadowMap, &mouseLook);
+//	skeletalRenderer.init(&shadowMap, useShadowMap, &mouseLook);
     spriteRenderer2D.Init();
 	spriteRenderer.init(&texMan, &spriteRenderer2D);
 	textPrinter.init(&texMan, &spriteRenderer2D);
@@ -130,7 +130,7 @@ void Engine2::tick()
 
 	skyboxRenderer.tick();
 	modelRenderer.tick();
-	skeletalRenderer.tick();
+//	skeletalRenderer.tick();
 	shapeRenderer.tick();
     spriteRenderer.tick();
 
@@ -153,6 +153,26 @@ draw()
 
 void Engine2::draw(int eye)
 {
+	// Get graphics setting
+	g_common.graphics = getExtraInt("graphics");
+	
+	switch(g_common.graphics)
+	{
+		case 0:
+			g_common.doDynamicLights = false;
+			break;
+		case 1:
+#ifdef PLATFORM_IOS
+            g_common.doDynamicLights = false;
+#else
+            g_common.doDynamicLights = true;
+#endif
+            break;
+		case 2:
+			g_common.doDynamicLights = true;
+			break;
+	}
+	
 	// Need to redraw shadowmap on every frame
 	shadowMapReady = false;
 	
@@ -160,7 +180,7 @@ void Engine2::draw(int eye)
         texAtlas.refresh();
 
 	// Combine meshes into one to decrease draw calls
-	batcher.batch(batches, &texAtlas, &texMan);
+//	batcher.batch(batches, &texAtlas, &texMan);
 
 	// Draw shadowmap
 	if (useShadowMap && !shadowMapReady)
@@ -191,7 +211,7 @@ void Engine2::draw(int eye)
 	// Draw 3D objects
 	shapeRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap, dynamicLights);
     modelRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap, dynamicLights);
-    skeletalRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
+//    skeletalRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 
 // HACK: Sprite renderer is broken on Windows and iOS; ShapeRenderer takes care as fallback
 #if !defined PLATFORM_WINDOWS and !defined PLATFORM_IOS
@@ -1169,8 +1189,9 @@ void Engine2::resetOnClickExtras()
     for(const auto &pair: widgets)
     {
         Widget *item = pair.second;
-
-        setExtraInt(item->onClickExtra, 0);
+        
+        if (item != nullptr)
+            setExtraInt(item->onClickExtra, 0);
     }
 }
 
@@ -2222,6 +2243,34 @@ void Engine2::loadVoxels(std::string name, std::string filename)
 }
 
 /*
+ ========================================
+ checkVoxelsReady
+ ========================================
+ */
+
+bool Engine2::checkVoxelsReady()
+{
+    bool result = true;
+    bool voxelsPresent = false;
+    
+    for (const auto &pair: shapes)
+    {
+        Shape *shape = pair.second;
+        
+        if (shape->getVoxels() != nullptr)
+            voxelsPresent = true;
+        
+        if (shape != nullptr && shape->getVoxels() != nullptr && shape->getState() != SHAPE_READY)
+            result = false;
+    }
+    
+    if (!voxelsPresent)
+        return false;
+    else
+        return result;
+}
+
+/*
 ========================================
 clear
 ========================================
@@ -2893,6 +2942,7 @@ checkGLError
 
 void Engine2::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
     
@@ -2918,5 +2968,6 @@ void Engine2::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }

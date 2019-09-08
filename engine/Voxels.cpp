@@ -1233,6 +1233,12 @@ void Voxels::addVertex(std::string texture, float x, float y, float z, float w, 
 {
 	VertexBuffer *buffer;
 
+/*    // Make sure all UV's are in [0, 1]
+    int iu = (int)u;
+    int iv = (int)v;
+    u = u - (float)iu;
+    v = v - (float)iv;*/
+
 	if (buffers[texture] == nullptr)
 	{
 		buffer = new VertexBuffer();
@@ -1347,6 +1353,7 @@ checkGLError
 
 void Voxels::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
     GLenum err = glGetError();
 
@@ -1372,6 +1379,7 @@ void Voxels::checkGLError(char *tag)
             Log("GL error GL_OUT_OF_MEMORY", tag);
             break;
     }
+#endif
 #endif
 }
 
@@ -1541,7 +1549,7 @@ int Voxels::load(std::string fname, FILE *f = nullptr, TextureManager2 *texMan =
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 		int err = fopen_s(&file, fname.c_str(), "rb+");
 #else
-		file = fopen(fname.c_str(), "rb+");
+		file = fopen(fname.c_str(), "rb");
 #endif
 	} else
 		file = f;

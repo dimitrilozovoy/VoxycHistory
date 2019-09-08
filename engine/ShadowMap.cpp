@@ -165,6 +165,7 @@ glm::mat4 ShadowMap::getProjectionMatrix()
 
 void ShadowMap::checkGLError(char *tag)
 {
+#ifdef DEBUG_BUILD
 #ifdef USE_OPENGL
 	GLenum err = glGetError();
 
@@ -190,5 +191,6 @@ void ShadowMap::checkGLError(char *tag)
 		Log("GL error GL_OUT_OF_MEMORY", tag);
 		break;
 	}
+#endif
 #endif
 }
