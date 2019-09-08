@@ -155,13 +155,16 @@ int main(int argc, const char * argv[]) {
 	std::string module = "";
 	std::string assets = "";
 	std::string noguides = "";
+	std::string monitor = "";
 
 	auto cli = clara::Opt(module, "module")
 		["-m"]["--module"]
 		| clara::Opt(assets, "assets")
 		["-a"]["--assets"]
 		| clara::Opt(noguides, "noguides")
-		["-n"]["--noguides"];
+		["-n"]["--noguides"]
+		| clara::Opt(monitor, "monitor")
+		["-s"]["--monitor"];
 
 	auto result = cli.parse(clara::Args(argc, argv));
 	if (!result) {
@@ -209,14 +212,28 @@ int main(int argc, const char * argv[]) {
 	if (!glfwInit())
 		Log("glfwInit failed");
 
+	// Get screen resolution
+	int numMonitor = PLAT_stoi(monitor, 0);
+
+	int count;
+	GLFWmonitor** monitors = glfwGetMonitors(&count);
+
+	if (numMonitor >= count)
+		numMonitor = count - 1;
+
+	const GLFWvidmode* mode = glfwGetVideoMode(monitors[numMonitor]);
+
+	g_common.windowWidth = mode->width;
+	g_common.windowHeight = mode->height;
+
 	// open a window with GLFW
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-//	g_glfwWindow = glfwCreateWindow(g_windowWidth, g_windowHeight, "Voxyc", glfwGetPrimaryMonitor(), NULL);
-	g_glfwWindow = glfwCreateWindow(g_windowWidth, g_windowHeight, "Voxyc", NULL, NULL);
+
+	g_glfwWindow = glfwCreateWindow(mode->width, mode->height, "Voxyc", monitors[numMonitor], NULL);
 	if (!g_glfwWindow)
 		Log("glfwCreateWindow failed. Can your hardware handle OpenGL 3.3?");
 

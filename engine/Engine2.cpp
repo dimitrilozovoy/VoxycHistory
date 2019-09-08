@@ -189,6 +189,9 @@ void Engine2::draw(int eye)
 		shadowMapReady = true;
 	}
 
+	// Viewport
+	glViewport(0, 0, g_common.windowWidth, g_common.windowHeight);
+
 	// Draw skybox
 	if (skyboxGLTexID != -1)
 	    skyboxRenderer.draw(&camera, skyboxGLTexID);

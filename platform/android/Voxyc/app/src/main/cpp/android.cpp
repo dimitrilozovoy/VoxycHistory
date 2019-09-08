@@ -533,14 +533,20 @@ int PLAT_GetWindowWidth() {
     JNIEnv *env;
     g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-    return env->CallIntMethod(g_objMainActivity, g_getWindowWidth);
+    if (g_common.windowWidth == 0)
+        g_common.windowWidth = env->CallIntMethod(g_objMainActivity, g_getWindowWidth);
+
+    return g_common.windowWidth;
 }
 
 int PLAT_GetWindowHeight() {
     JNIEnv *env;
     g_jvm->GetEnv((void **) &env, JNI_VERSION_1_6);
 
-    return env->CallIntMethod(g_objMainActivity, g_getWindowHeight);
+    if (g_common.windowHeight == 0)
+        g_common.windowHeight = env->CallIntMethod(g_objMainActivity, g_getWindowHeight);
+
+    return g_common.windowHeight;
 }
 
 long PLAT_GetTime() {

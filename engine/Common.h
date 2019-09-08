@@ -69,6 +69,8 @@ typedef struct Common
 	int physicsSubticks = 1;
 	bool occlusionCheck = true;
 	int graphics = 1;
+	int windowWidth = 0;
+	int windowHeight = 0;
 };
 
 typedef struct RenderStats

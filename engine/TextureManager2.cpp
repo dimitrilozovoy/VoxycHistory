@@ -150,7 +150,7 @@ void TextureManager2::load(std::string name, bool external)
 	unsigned error = lodepng::decode(image, width, height, fullFilename);
 
 	// We have a problem; display an error and use fallback texture
-	if (error != 0)
+ 	if (error != 0)
 	{
 		Log("Error loading PNG: ", (char *)lodepng_error_text(error));
 		Log(name);
