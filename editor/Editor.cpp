@@ -63,7 +63,7 @@ void Editor::init() {
     engine->setControlsVisible(false);
     engine->setControlScheme(CTRL_EDITOR);
     engine->setHealthBarsVisible(false);
-    engine->setSkybox("black.png");
+//    engine->setSkybox("black.png");
 
 	GUI *gui = g_engine2->getGUI();
 
