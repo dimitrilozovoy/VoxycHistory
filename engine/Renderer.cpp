@@ -343,7 +343,7 @@ void Renderer::checkGLError(char *tag)
 
 void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLights, Object *object, int program, glm::mat4 rotate)
 {
-#if defined PLATFORM_ANDROID || defined PLATFORM_IOS
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS || defined PLATFORM_WINDOWS
 		// Set dynamic lights
 		float lightsPos[MAX_DYNAMIC_LIGHTS * 4];
 		float lightsSize[MAX_DYNAMIC_LIGHTS];
@@ -401,6 +401,6 @@ void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLight
 		* rotate
 		* glm::scale(glm::mat4(), object->scale / glm::vec3(2.0, 2.0, 2.0)); // Scale
 
-		setMatrix(program, "modelMatrix", modelMatrix);
+ 		setMatrix(program, "modelMatrix", modelMatrix);
 #endif
 }

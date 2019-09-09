@@ -92,8 +92,7 @@ private:
 	// FRAGMENT SHADER DESKTOP USE SHADOWMAP
 
 	const char *fragmentShaderCodeDesktopUseShadowMap =
-
-		"precision highp float;" \
+				"precision highp float;" \
 
 		"uniform sampler2D uTexture; " \
 		"uniform vec4 vColor; " \
@@ -170,7 +169,7 @@ private:
 		"  vVertexLightOut = vVertexLight; " \
 
 		"  vec4 posBeforeProj = mvMatrix * vPosition;" \
-		"  distToCamera = abs(posBeforeProj.z); " \
+		"  distToCamera = -posBeforeProj.z; " \
 	"}\n";
 
 	// FRAGMENT SHADER DESKTOP
@@ -184,21 +183,21 @@ private:
 		"uniform vec4 globalColor; " \
 		"uniform vec4 ambientLight; " \
 		"in vec2 vTexCoordsOut; " \
-		"out vec4 vNormalOut; " \
+		"in vec4 vNormalOut; " \
 		"in vec4 posOut; " \
-		"out vec4 worldPosOut; " \
+		"in vec4 worldPosOut; " \
 		"out vec4 finalColor; " \
 		"uniform float useTexture; " \
-		"varying lowp vec3 vVertexLightOut; " \
+		"in vec3 vVertexLightOut; " \
 
 		"uniform float fadeNear; " \
 		"uniform float fadeFar; " \
 
 		"in float distToCamera; " \
 
-		"uniform lowp vec4 lightsPos[8]; " \
-		"uniform lowp float lightsSize[8]; " \
-		"uniform lowp vec4 lightsColor[8]; " \
+		"uniform vec4 lightsPos[8]; " \
+		"uniform float lightsSize[8]; " \
+		"uniform vec4 lightsColor[8]; " \
 
 		"void main() {" \
 
@@ -234,11 +233,11 @@ private:
 
 		"   if (useTexture == 1.0)" \
 		"   {" \
-		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight * light; " \
+		"      finalColor = texture(uTexture, vTexCoordsOut.st) * vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0) * ambientLight * light; " \
 		"   }" \
 		"   else" \
 		"   {" \
-		"      finalColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * ambientLight * light; " \
+		"      finalColor = vColor * vec4(visibility, visibility, visibility, alpha) * globalColor * vec4(vVertexLightOut, 1.0) * ambientLight * light; " \
 		"   }" \
 		"}\n";
 

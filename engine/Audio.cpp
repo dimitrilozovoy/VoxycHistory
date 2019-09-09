@@ -198,6 +198,9 @@ void Audio::stopSound(int stream)
 
 void Audio::playTrack(char *filename, bool stereo)
 {
+	if (g_common.noMusic)
+		return;
+
 #ifdef USE_OPENAL
 	if (trackPlaying)
 	{

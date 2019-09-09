@@ -383,7 +383,7 @@ void Controls2::tick() {
 	case CTRL_FPS:
 	case CTRL_EDITOR:
             playerObj->yaw += mouseX;
-            playerObj->pitch -= mouseY;
+            //playerObj->pitch -= mouseY;
             break;
     }
 }

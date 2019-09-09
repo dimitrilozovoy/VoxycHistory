@@ -2156,6 +2156,21 @@ static int checkvoxelsready(lua_State *L)
     return 1;
 }
 
+static int getplatform(lua_State* L)
+{
+#ifdef PLATFORM_WINDOWS
+	lua_pushstring(L, "windows");
+#endif
+#ifdef PLATFORM_ANDROID
+	lua_pushstring(L, "android");
+#endif
+#ifdef PLATFORM_IOS
+	lua_pushstring(L, "ios");
+#endif
+
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2340,6 +2355,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "loadpref", loadpref);
     lua_register(L, "enableocclusioncheck", enableocclusioncheck);
     lua_register(L, "checkvoxelsready", checkvoxelsready);
+	lua_register(L, "getplatform", getplatform);
 }
 
 void LuaBridge::exec(std::string filename)

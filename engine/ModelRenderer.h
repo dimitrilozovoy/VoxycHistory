@@ -174,9 +174,9 @@ private:
 		"uniform vec4 globalColor; " \
 		"uniform vec4 ambientLight; " \
 		"in vec2 vTexCoordsOut; " \
-		"out vec4 vNormalOut; " \
+		"in vec4 vNormalOut; " \
 		"in vec4 posOut; " \
-		"out vec4 worldPosOut; " \
+		"in vec4 worldPosOut; " \
 		"out vec4 finalColor; " \
 		"uniform float useTexture; " \
 
@@ -192,8 +192,6 @@ private:
 		"void main() {" \
 
 		"	float visibility = 1.0; " \
-		"	float bias = 0.005; " \
-
 		"   float alpha = 1.0; " \
 
 		"   if (distToCamera >= fadeFar) discard; " \

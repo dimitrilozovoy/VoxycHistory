@@ -156,6 +156,8 @@ int main(int argc, const char * argv[]) {
 	std::string assets = "";
 	std::string noguides = "";
 	std::string monitor = "";
+	std::string fullscreen = "1";
+	std::string nomusic = "0";
 
 	auto cli = clara::Opt(module, "module")
 		["-m"]["--module"]
@@ -164,7 +166,11 @@ int main(int argc, const char * argv[]) {
 		| clara::Opt(noguides, "noguides")
 		["-n"]["--noguides"]
 		| clara::Opt(monitor, "monitor")
-		["-s"]["--monitor"];
+		["-s"]["--monitor"]
+		| clara::Opt(fullscreen, "fullscreen")
+		["-f"]["--fullscreen"]
+		| clara::Opt(nomusic, "nomusic")
+		["-m"]["--nomusic"];
 
 	auto result = cli.parse(clara::Args(argc, argv));
 	if (!result) {
@@ -172,8 +178,15 @@ int main(int argc, const char * argv[]) {
 		exit(1);
 	}
 
+	// Set nomusic
+	if (nomusic == "1")
+		g_common.noMusic = true;
+
+	// Set startup module
 	if (module != "")
 		g_module = module;
+
+	// Set assets dir
 	if (assets != "")
 	{
 		// Make sure assets dir is valid
@@ -233,7 +246,17 @@ int main(int argc, const char * argv[]) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	g_glfwWindow = glfwCreateWindow(mode->width, mode->height, "Voxyc", monitors[numMonitor], NULL);
+	if (fullscreen != "1")
+	{
+		const int windowWidth = 1280;
+		const int windowHeight = 960;
+		g_common.windowWidth = windowWidth;
+		g_common.windowHeight = windowHeight;
+		g_glfwWindow = glfwCreateWindow(windowWidth, windowHeight, "Voxyc", 0, NULL);
+	}
+	else
+		g_glfwWindow = glfwCreateWindow(mode->width, mode->height, "Voxyc", monitors[numMonitor], NULL);
+
 	if (!g_glfwWindow)
 		Log("glfwCreateWindow failed. Can your hardware handle OpenGL 3.3?");
 

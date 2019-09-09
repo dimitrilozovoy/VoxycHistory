@@ -93,7 +93,7 @@ void Model2::load_process()
 
             bool forceCalc = true;
 
-            for (int v = 0; v < mesh.Vertices.size(); v += 3)
+            for (int v = 0; v < mesh.Vertices.size() - 2; v += 3)
             {
 				float x1 = mesh.Vertices[v].Position.X;
 				float y1 = mesh.Vertices[v].Position.Y;

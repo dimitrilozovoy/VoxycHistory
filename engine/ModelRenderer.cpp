@@ -57,6 +57,8 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 	else
 	{
+		snprintf(vertexShaderStrDyn, len, "#version 330 core\n%s", vertexShaderCodeDesktop);
+		snprintf(fragmentShaderStrDyn, len, "#version 330 core\n%s", fragmentShaderCodeDesktop);
 		snprintf(vertexShaderStr, len, "#version 330 core\n%s", vertexShaderCodeDesktop);
 		snprintf(fragmentShaderStr, len, "#version 330 core\n%s", fragmentShaderCodeDesktop);
 	}
@@ -244,8 +246,6 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 	float aspect = width / height;
 #endif
 
-//	glPolygonOffset(4.0f, 20.0f);
-	
 	glEnable(GL_CULL_FACE);
 //	glDisable(GL_CULL_FACE);
     checkGLError("glEnable");
@@ -263,12 +263,6 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 		glCullFace(GL_BACK);
 		checkGLError("glCullFace");
 	}
-
-	// Disable depth test for the player UFO canopy so we can see through it 
-/*	if (object->name == "player" && mesh->index == 1)
-		glDisable(GL_DEPTH_TEST);
-	else
-		glEnable(GL_DEPTH_TEST);*/
 
 	// Add program to OpenGL environment
 	int curProgram = -1;
@@ -324,7 +318,6 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 		* glm::rotate(glm::mat4(), glm::radians(-object->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 	else if (object->alwaysFacePlayer)
 	{
-//		Log("afp");
 		rotate = glm::rotate(glm::mat4(), glm::radians(-camera->yaw - model->yaw), glm::vec3(0, 1, 0)) // Model yaw
 		* glm::rotate(glm::mat4(), glm::radians(camera->pitch - model->pitch), glm::vec3(1, 0, 0)); // Model pitch
 	}
@@ -348,7 +341,6 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
             * rotate
             * scale
 			* glm::translate(glm::mat4(), model->offset);
-//		* glm::scale(glm::mat4(), object->scale); // Scale
 
 	glm::mat4 projMatrix;
 	glm::mat4 depthMVP;
@@ -466,8 +458,6 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
         if (g_common.doDynamicLights)
             setVertexAttrib(curProgram, "vNormal", 3, GL_FLOAT, false, stride, 6);
 	}
-
-//	setVertexAttrib("vNormal", 2, GL_FLOAT, false, stride, 6);
 
 	// Dynamic lights
 	if (g_common.doDynamicLights)

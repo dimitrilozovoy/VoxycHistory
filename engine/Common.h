@@ -71,6 +71,7 @@ typedef struct Common
 	int graphics = 1;
 	int windowWidth = 0;
 	int windowHeight = 0;
+	bool noMusic = false;
 };
 
 typedef struct RenderStats

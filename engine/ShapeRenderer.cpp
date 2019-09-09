@@ -58,6 +58,8 @@ void ShapeRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 	}
 	else
 	{
+		snprintf(vertexShaderStrDyn, len, "#version 330 core\n%s", vertexShaderCodeDesktop);
+		snprintf(fragmentShaderStrDyn, len, "#version 330 core\n%s", fragmentShaderCodeDesktop);
 		snprintf(vertexShaderStr, len, "#version 330 core\n%s", vertexShaderCodeDesktop);
 		snprintf(fragmentShaderStr, len, "#version 330 core\n%s", fragmentShaderCodeDesktop);
 	}
