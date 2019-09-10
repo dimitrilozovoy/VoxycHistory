@@ -35,7 +35,7 @@ function playerthink()
    setvisible("weaponfire", false)
   end
 
-  if playerattacktimer == 0 and (getmousebtn(0) == 1 or getbtn(0) == 1) then
+  if playerattacktimer == 0 and (getmousebtn(0) == 1 or getbtn(0) == 1 or getaxis(5) > 0) then
     local target = collray("player")
     if target ~= "" then
       local hitpts = gethitpts(target)

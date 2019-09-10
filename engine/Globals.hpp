@@ -226,9 +226,6 @@ extern float g_headRoll;
 extern long long g_lastFinishDrawTime;
 extern long long g_lastFinishTickTime;
 
-extern const int g_windowWidth;
-extern const int g_windowHeight;
-
 extern int g_keyTimer;
 extern int g_lastKey;
 

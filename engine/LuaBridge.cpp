@@ -1778,6 +1778,17 @@ static int setbtn(lua_State *L)
 	return 0;
 }
 
+static int getaxis(lua_State* L)
+{
+	int which = lua_tonumber(L, 1);
+
+	Controls2* ctrl = g_engine2->getControls();
+
+	lua_pushnumber(L, ctrl->getAxis(which));
+
+	return 1;
+}
+
 static int getmousebtn(lua_State *L)
 {
 	int which = lua_tonumber(L, 1);
@@ -1787,6 +1798,15 @@ static int getmousebtn(lua_State *L)
 	lua_pushnumber(L, ctrl->getMouseBtn((BtnNames)which));
 
 	return 1;
+}
+
+static int showmouse(lua_State* L)
+{
+	bool show = lua_toboolean(L, 1);
+
+	g_common.showMouse = show;
+
+	return 0;
 }
 
 static int getallobjs(lua_State *L)
@@ -2343,7 +2363,9 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
 	lua_register(L, "setbtn", setbtn);
+	lua_register(L, "getaxis", getaxis);
 	lua_register(L, "getmousebtn", getmousebtn);
+	lua_register(L, "showmouse", showmouse);
 	lua_register(L, "getallobjs", getallobjs);
 	lua_register(L, "setplayarea", setplayarea);
 	lua_register(L, "addtouchbtnbind", addtouchbtnbind);

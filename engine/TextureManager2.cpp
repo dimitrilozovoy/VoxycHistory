@@ -27,6 +27,11 @@ SOFTWARE.
 #include "DDLUtils.hpp"
 #include "../thirdparty/lodepng/lodepng.hpp"
 
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX || defined PLATFORM_OPENVR
+#define STB_IMAGE_IMPLEMENTATION
+#include "../thirdparty/stb_image/stb_image.h"
+#endif
+
 Texture *TextureManager2::find(std::string name)
 {
 	Texture *tex = textures[name];
@@ -136,6 +141,11 @@ void TextureManager2::load(std::string name, bool external)
 
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
 
+	bool isJpeg = false;
+
+	if (GetExtension(name) == "jpg" || GetExtension(name) == "jpeg" || GetExtension(name) == "JPG" || GetExtension(name) == "JPEG")
+		isJpeg = true;
+
 	char fullFilename[MAX_STR_LEN];
 
 #ifdef USE_EXTERNAL_ASSETS
@@ -144,38 +154,68 @@ void TextureManager2::load(std::string name, bool external)
 	printFullResourceFilename((char *)name.c_str(), fullFilename);
 #endif
 
-	// Load file and decode image
-	std::vector<unsigned char> image;
-	unsigned width, height;
-	unsigned error = lodepng::decode(image, width, height, fullFilename);
-
-	// We have a problem; display an error and use fallback texture
- 	if (error != 0)
+	if (isJpeg)
 	{
-		Log("Error loading PNG: ", (char *)lodepng_error_text(error));
-		Log(name);
+		int width, height, bpp;
 
-		Texture *fb = find("fallback");
-		t->glTexID = fb->glTexID;
+		uint8_t* rgb_image = stbi_load(fullFilename, &width, &height, &bpp, 3);
 
-		return;
+		if (rgb_image != nullptr)
+		{
+			// Flip image vertically
+			unsigned char* flippedImage = (unsigned char*)malloc(width * height * 3);
+			memcpy(flippedImage, reinterpret_cast<char*>(rgb_image), width * height * 3);
+			flip_vertically(flippedImage, width, height, 3);
+
+			// Load image into GPU memory
+			glBindTexture(GL_TEXTURE_2D, glTexID);
+			checkGLError("glBindTexture");
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			checkGLError("glTexParameterf");
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			checkGLError("glTexParameterf");
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, flippedImage);
+			checkGLError("glTexImage2D");
+
+			stbi_image_free(rgb_image);
+		}
 	}
+	else
+	{
+		// Load file and decode PNG image
+		std::vector<unsigned char> image;
+		unsigned width, height;
+		unsigned error = lodepng::decode(image, width, height, fullFilename);
 
-	// Flip image vertically
-	unsigned char *flippedImage = (unsigned char *)malloc(width * height * 4);
-	memcpy(flippedImage, reinterpret_cast<char*>(image.data()), width * height * 4);
-	flip_vertically(flippedImage, width, height, 4);
+		// We have a problem; display an error and use fallback texture
+		if (error != 0)
+		{
+			Log("Error loading PNG: ", (char*)lodepng_error_text(error));
+			Log(name);
 
-	// Load image into GPU memory
-	glBindTexture(GL_TEXTURE_2D, glTexID);
-	checkGLError("glBindTexture");
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	checkGLError("glTexParameterf");
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	checkGLError("glTexParameterf");
+			Texture* fb = find("fallback");
+			t->glTexID = fb->glTexID;
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
-	checkGLError("glTexImage2D");
+			return;
+		}
+
+		// Flip image vertically
+		unsigned char* flippedImage = (unsigned char*)malloc(width * height * 4);
+		memcpy(flippedImage, reinterpret_cast<char*>(image.data()), width * height * 4);
+		flip_vertically(flippedImage, width, height, 4);
+
+		// Load image into GPU memory
+		glBindTexture(GL_TEXTURE_2D, glTexID);
+		checkGLError("glBindTexture");
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		checkGLError("glTexParameterf");
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		checkGLError("glTexParameterf");
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
+		checkGLError("glTexImage2D");
+	}
 #endif
 }
 

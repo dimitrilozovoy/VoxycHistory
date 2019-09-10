@@ -70,9 +70,6 @@ float g_headRoll = 0;
 long long g_lastFinishDrawTime = -1;
 long long g_lastFinishTickTime = -1;
 
-const int g_windowWidth = 1440;
-const int g_windowHeight = 900;
-
 //const int g_windowWidth = 1024;
 //const int g_windowHeight = 768;
 

@@ -50,12 +50,12 @@ void PLAT_PlayTrack(char *filename, bool stereo, std::string assetsDir)
 
 int PLAT_GetWindowWidth()
 {
-	return g_windowWidth;
+	return g_common.windowWidth;
 }
 
 int PLAT_GetWindowHeight()
 {
-	return g_windowHeight;
+	return g_common.windowHeight;
 }
 
 void PLAT_Log(char *str)

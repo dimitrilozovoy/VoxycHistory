@@ -354,7 +354,12 @@ void Controls2::tick() {
     //
 
     switch (controlScheme) {
-        case CTRL_EDITOR:
+		case CTRL_FPS:
+			playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
+			playerObj->MoveForward(- axes[AX_LEFT_Y] / 2.0);
+			playerObj->MoveYaw(axes[AX_RIGHT_X] * 2.0);
+			break;
+		case CTRL_EDITOR:
             playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);
             playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
             playerObj->MoveForward(axes[AX_LEFT_Y] / 2.0);
@@ -878,6 +883,13 @@ void Controls2::Draw2D(SpriteRenderer2D *r) {
     r->DrawSprite(0.7, -0.6, 0.4, 0.4, glTexID, 1.0, 1.0, 1.0, 0.3);
 }
 
+void Controls2::drawMouse(SpriteRenderer2D* r) {
+	Texture* mouse = texMan->find("mouse.png");
+
+// 	r->DrawSprite(scrToGlX(mouseCursorX), scrToGlX(mouseCursorY), 0.1, 0.1, mouse->glTexID);
+ 	r->DrawSprite(mouseCursorX, mouseCursorY, 0.1, 0.1, mouse->glTexID);
+}
+
 float Controls2::scrToGlX(float screenX) {
     return 2.0f * screenX / screenWidth - 1.0f;
 }
@@ -956,8 +968,11 @@ bool Controls2::checkActionUp() {
 }
 
 void Controls2::mouse(float mouseX, float mouseY) {
-    this->mouseX = mouseX * 0.5;
-    this->mouseY = mouseY * 0.5;
+    this->mouseX = mouseX;
+    this->mouseY = mouseY;
+
+	mouseCursorX += mouseX / g_common.windowWidth;
+	mouseCursorY -= mouseY / g_common.windowHeight; 
 }
 
 void Controls2::setBtn(int which, int state) {
@@ -1016,6 +1031,13 @@ int Controls2::getKey(int key) {
         return keys[key];
     else
         return 0;
+}
+
+float Controls2::getAxis(int axis) {
+	if (axis < NUM_AXES)
+		return axes[axis];
+	else
+		return 0;
 }
 
 void Controls2::setMouseBtn(int which, int state) {

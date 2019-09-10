@@ -243,6 +243,9 @@ void Engine2::draw(int eye)
 
 	if (healthBarsVisible)
 		drawHealthBars();
+
+	if (g_common.showMouse)
+		controls.drawMouse(&spriteRenderer2D);
     
 #ifdef PLATFORM_IOS
     glFlush();

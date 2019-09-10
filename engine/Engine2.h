@@ -313,7 +313,7 @@ private:
 
 	Object mouseLook;
 
-	bool healthBarsVisible = true;
+	bool healthBarsVisible = false;
 	bool controlsVisible = true;
 	
 	bool initialized = false;

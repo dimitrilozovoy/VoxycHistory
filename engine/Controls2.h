@@ -30,6 +30,7 @@ SOFTWARE.
 #include "EditorController.h"
 
 #define NUM_KBD_KEYS 1024
+#define NUM_AXES 6
 #define EASE_IN_TICKS 10
 
 typedef enum BtnNames
@@ -111,6 +112,7 @@ public:
 	void equals();
 	void plus();
 	void Draw2D(SpriteRenderer2D *r);
+	void drawMouse(SpriteRenderer2D* r);
 	float scrToGlX(float screenX);
 	float scrToGlY(float screenY);
 	float glToScrX(float glX);
@@ -145,7 +147,7 @@ public:
 	void remTouchBtnBind(int btn);
 	std::vector<TouchBtnBind> getTouchBtnBinds() { return touchBtnBinds; };
 	void setAxis(int axis, float value);
-	float getAxis(int axis) { return axes[axis]; };
+	float getAxis(int axis);
 	void setKey(int key, int val);
 	int getKey(int key);
 	void setMouseBtn(int which, int state);
@@ -213,6 +215,7 @@ private:
 	float mouseX, mouseY = 0.0;
 	float mouseScroll = 0.0;
 	int mouseButtons[3];
+	float mouseCursorX, mouseCursorY = 0.0;
 
 	// Keyboard keys
 	int keys[NUM_KBD_KEYS];

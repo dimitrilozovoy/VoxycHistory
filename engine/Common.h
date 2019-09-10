@@ -72,6 +72,7 @@ typedef struct Common
 	int windowWidth = 0;
 	int windowHeight = 0;
 	bool noMusic = false;
+	bool showMouse = true;
 };
 
 typedef struct RenderStats
