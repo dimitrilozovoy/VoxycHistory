@@ -4,7 +4,7 @@
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommandArguments>--module luaprogram --assets ../../../../assets/samples/fps</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--monitor 0 --module luaprogram --assets C:/Users/dimitri/Fateless --fullscreen=1 --nomusic=0</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>

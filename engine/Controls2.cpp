@@ -983,6 +983,25 @@ void Controls2::addTouchBtnBind(int btn, float x, float y, float size) {
     touchBtnBinds.push_back(tbb);
 }
 
+void Controls2::remTouchBtnBind(int btn) {
+	std::vector<TouchBtnBind>::iterator it;
+	std::vector<TouchBtnBind>::iterator itRem;
+	int i = 0;
+	int pos = -1;
+
+	for (it = touchBtnBinds.begin(); it != touchBtnBinds.end(); it++, i++)
+	{
+		if (it->btn == btn)
+		{
+			pos = i;
+			itRem = it;
+		}
+	}
+
+	if (pos != -1)
+		touchBtnBinds.erase(itRem);
+}
+
 void Controls2::setAxis(int axis, float value) {
     axes[axis] = value;
 }

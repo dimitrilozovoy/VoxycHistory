@@ -217,8 +217,11 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 	{
 		// Complex shape
 		glEnable(GL_DEPTH_TEST);
-        glDisable(GL_CULL_FACE);
-        checkGLError("glEnable");
+		checkGLError("glEnable");
+		glEnable(GL_CULL_FACE);
+		checkGLError("glEnable");
+		glCullFace(GL_BACK);
+		checkGLError("glCullFace");
 
 		Shape *shape = object->shape;
 

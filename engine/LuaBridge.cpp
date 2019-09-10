@@ -1848,7 +1848,18 @@ static int addtouchbtnbind(lua_State *L)
 	return 0;
 }
 
-static int rotateangletowards(lua_State *L) 
+static int remtouchbtnbind(lua_State* L)
+{
+	int btn = lua_tonumber(L, 1);
+
+	Controls2* ctrl = g_engine2->getControls();
+
+	ctrl->remTouchBtnBind(btn);
+
+	return 0;
+}
+
+static int rotateangletowards(lua_State *L)
 {
 	float angle = lua_tonumber(L, 1);
 	float targetAngle = lua_tonumber(L, 2);

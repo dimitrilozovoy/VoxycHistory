@@ -142,6 +142,7 @@ public:
 	float getRJDistY() { return rjlastmovey - rjlastdowny; };
 	bool getRJDown() { return rjdown; };
 	void addTouchBtnBind(int btn, float x, float y, float size);
+	void remTouchBtnBind(int btn);
 	std::vector<TouchBtnBind> getTouchBtnBinds() { return touchBtnBinds; };
 	void setAxis(int axis, float value);
 	float getAxis(int axis) { return axes[axis]; };
