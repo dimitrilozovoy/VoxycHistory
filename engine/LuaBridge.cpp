@@ -2347,6 +2347,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getallobjs", getallobjs);
 	lua_register(L, "setplayarea", setplayarea);
 	lua_register(L, "addtouchbtnbind", addtouchbtnbind);
+	lua_register(L, "remtouchbtnbind", remtouchbtnbind);
 	lua_register(L, "rotateangletowards", rotateangletowards);
 	lua_register(L, "compareyaw", compareyaw);
 	lua_register(L, "loadtex", loadtex);

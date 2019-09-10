@@ -26,6 +26,8 @@ import android.Manifest;
 import android.app.*;
 //import android.support.v4.app.ActivityCompat;
 //import android.support.v4.content.ContextCompat;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 import android.os.Bundle;
 
@@ -82,7 +84,8 @@ public class HelloJni extends Activity
 	public static native void setFilesDir(String str, String str2, String str3);
 	public static native void setExtraInt(String name, int value);
 	public static native void setExtraStr(String name, String value);
-	
+	public static native void surfaceChanged();
+
 	private static AssetManager amgr;
 	InputStream is;
 	SoundPool soundPool;
@@ -305,12 +308,12 @@ public class HelloJni extends Activity
 		};
 
 		// Permissions
-/*		if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 				!= PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(this,
 					new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
 					1000);
-		}*/	
+		}
     }
 		
 	@Override

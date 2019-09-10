@@ -91,7 +91,8 @@ public class CustomRendererES20 implements android.opengl.GLSurfaceView.Renderer
 	}
 		
 	public void onSurfaceChanged(GL10 gl, int a, int b)
-	{	
+	{
+		HelloJni.surfaceChanged();
     }
 	
 	public void glActiveTexture(int texture)

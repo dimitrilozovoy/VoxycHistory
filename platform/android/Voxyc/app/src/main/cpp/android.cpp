@@ -311,6 +311,12 @@ Java_com_voxyc_voxyc_HelloJni_setExtraStr(JNIEnv *env, jobject thiz, jstring jna
     env->ReleaseStringUTFChars(jvalue, value);
 }
 
+extern "C" JNIEXPORT void JNICALL
+Java_com_voxyc_voxyc_HelloJni_surfaceChanged(JNIEnv *env, jobject thiz) {
+    g_common.windowWidth = 0;
+    g_common.windowHeight = 0;
+}
+
 void PLAT_AttachCurrentThread()
 {
     JNIEnv *env;

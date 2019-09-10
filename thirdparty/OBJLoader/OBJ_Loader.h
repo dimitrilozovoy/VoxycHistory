@@ -400,6 +400,9 @@ namespace objl
 		template <class T>
 		inline const T & getElement(const std::vector<T> &elements, std::string &index)
 		{
+            if (!index.empty() && index[index.size() - 1] == '\r')
+                index.erase(index.size() - 1);
+
 			int idx = PLAT_stoi(index);
 			if (idx < 0)
 				idx = int(elements.size()) + idx;
