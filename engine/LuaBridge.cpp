@@ -2363,7 +2363,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
 	lua_register(L, "setbtn", setbtn);
-	lua_register(L, "getaxis", getaxis);
+	lua_register(L, "getaxis", getaxis); 
 	lua_register(L, "getmousebtn", getmousebtn);
 	lua_register(L, "showmouse", showmouse);
 	lua_register(L, "getallobjs", getallobjs);

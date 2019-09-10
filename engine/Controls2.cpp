@@ -57,13 +57,13 @@ void Controls2::tick() {
 		case CTRL_FPS:
 
 			if (buttons[BTN_UP] == 1)
-				playerObj->MoveForward(0.2);
+				playerObj->MoveForward(0.4);
 			if (buttons[BTN_DOWN] == 1)
-				playerObj->MoveBackward(0.2);
+				playerObj->MoveBackward(0.4);
 			if (buttons[BTN_LEFT] == 1)
-				playerObj->MoveLeft(0.15);
+				playerObj->MoveLeft(0.3);
 			if (buttons[BTN_RIGHT] == 1)
-				playerObj->MoveRight(0.15);
+				playerObj->MoveRight(0.3);
 			break;
 
         case CTRL_EDITOR:
@@ -387,7 +387,7 @@ void Controls2::tick() {
     switch (controlScheme) {
 	case CTRL_FPS:
 	case CTRL_EDITOR:
-            playerObj->yaw += mouseX;
+            playerObj->yaw += mouseX * 0.5;
             //playerObj->pitch -= mouseY;
             break;
     }
@@ -886,7 +886,6 @@ void Controls2::Draw2D(SpriteRenderer2D *r) {
 void Controls2::drawMouse(SpriteRenderer2D* r) {
 	Texture* mouse = texMan->find("mouse.png");
 
-// 	r->DrawSprite(scrToGlX(mouseCursorX), scrToGlX(mouseCursorY), 0.1, 0.1, mouse->glTexID);
  	r->DrawSprite(mouseCursorX, mouseCursorY, 0.1, 0.1, mouse->glTexID);
 }
 
@@ -982,7 +981,7 @@ void Controls2::setBtn(int which, int state) {
 
 int Controls2::getBtn(BtnNames which) {
     if (which < MAX_BUTTONS)
-        return buttons[which];
+         return buttons[which];
     else
         return 0;
 }
