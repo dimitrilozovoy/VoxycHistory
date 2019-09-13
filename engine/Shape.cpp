@@ -815,12 +815,7 @@ void Shape::rebuild(TextureManager2 *texMan)
 #endif
 		voxels->build(texMan);
 
-#ifndef FIXED_TIMESTEP
-		meshes = voxels->getMeshes();
-		state = SHAPE_READY;
-#else
         state = SHAPE_BUILDING;
-#endif
 	}
 
 	needsRebuild = false;

@@ -244,14 +244,11 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 					frameDump += "meshes size 0\n";
 	        }
 			
-#ifdef FIXED_TIMESTEP
             return;
-#endif
 		}
 		
 		bool draw = true;
 
-#ifdef FIXED_TIMESTEP
         if (object->shape->getState() == SHAPE_BUILDING)
 		{
 			draw = false;
@@ -269,7 +266,6 @@ void ShapeRenderer::drawShape(Object *object, Object *camera, bool toShadowMap, 
 				}
 			}
 		}
-#endif
 
         if (!draw)
 			return;

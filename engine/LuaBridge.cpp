@@ -2007,28 +2007,7 @@ static int setwaypts(lua_State *L)
 	    {
 			obj->wayptModel = model;
 			
-#ifndef FIXED_TIMESTEP
-			Mesh *mesh = model->meshes[0];
-			
-			if (mesh != nullptr)
-			{
-				for (int v = 0; v < mesh->vertices.size(); v++)
-				{
-					Waypoint wpt;
-		
-		            wpt.tick = (v + 1) * ticksPerWaypt;
-					
-		            wpt.pos.x = obj->position.x + mesh->vertices[v].x * scale + v * ticksPerWaypt * velx;
-		            wpt.pos.y = obj->position.y + mesh->vertices[v].y * scale + v * ticksPerWaypt * vely;
-				    wpt.pos.z = obj->position.z + mesh->vertices[v].z * scale + v * ticksPerWaypt * velz;
-
-					obj->waypoints.push_back(wpt);
-				}
-			}
-#else
-//            Log("wayptModelLoading set to true");
             obj->wayptModelLoading = true;
-#endif
 		}
     }
 

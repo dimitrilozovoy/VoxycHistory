@@ -47,7 +47,7 @@ public:
 
 
 private:
-    const long targetFps = 60;
+    const long targetFps = 30;
 	const int maxMakeupLoops = 10;
 	unsigned long updatedTime = 0;
 	long tickCount = 0;

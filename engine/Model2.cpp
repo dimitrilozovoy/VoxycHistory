@@ -40,12 +40,8 @@ void Model2::load(std::string filename, int vao)
 	this->filename = filename;
 	this->vao = vao;
 	
-#ifndef FIXED_TIMESTEP 
-    load_process();
-#else
     std::thread loadThread = std::thread(&Model2::load_process, this);
 	loadThread.detach();
-#endif
 }
 
 void Model2::load_process()
@@ -286,40 +282,6 @@ void Model2::load_process()
 			// Add mesh to model
 			meshes.push_back(outMesh);
 			
-#ifndef FIXED_TIMESTEP
-
-#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-			// Bind the VAO
-			glBindVertexArray(vao);
-			checkGLError("glBindVertexArray");
-#endif
-
-			// Make and bind the vertex and texcoords VBO
-			glGenBuffers(1, (GLuint *)&outMesh->vbo);
-			checkGLError("glGenBuffers");
-
-			// Make and bind the index VBO
-			glGenBuffers(1, (GLuint *)&outMesh->indexVBO);
-			checkGLError("glGenBuffers");
-
-			glBindBuffer(GL_ARRAY_BUFFER, outMesh->vbo);
-			checkGLError("glBindBuffer");
-
-			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * outMesh->dataLength, outMesh->data, GL_STATIC_DRAW);
-			checkGLError("glBufferData");
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, outMesh->indexVBO);
-			checkGLError("glBindBuffer");
-
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * outMesh->indexDataLength, outMesh->indexData, GL_STATIC_DRAW);
-			checkGLError("FrameAnimRenderer glBufferData");
-
-			free(outMesh->data);
-			outMesh->data = nullptr;
-
-			free(outMesh->indexData);
-			outMesh->indexData = nullptr;
-#endif
 		}
 	}
 
@@ -513,47 +475,7 @@ void Model2::load_process()
     }
 #endif
 
-#ifndef FIXED_TIMESTEP
-
-	// Calculate proportions
-	
-	float max = 0;
-	float diffx = maxX - minX;
-	float diffy = maxY - minY;
-	float diffz = maxZ - minZ;
-
-	if (diffx >= diffy && diffx >= diffz)
-		max = diffx;
-	if (diffy >= diffx && diffy >= diffz)
-		max = diffy;
-	if (diffz >= diffy && diffz >= diffx)
-		max = diffz;
-
-	proportionScale = glm::vec4(diffx / max, diffy / max, diffz / max, 1.0);
-	
-	// Calculate offset to center model
-	
-	float ofsx = 0.0f;
-	if (g_common.centerModelsX)
-	    ofsx = - (maxX - (diffx / 2.0f));
-	float ofsy = 0.0f;
-	if (g_common.centerModelsY)
-	    ofsy = - (maxY - (diffy / 2.0f));
-	float ofsz = 0.0f;
-	if (g_common.centerModelsZ)
-	    ofsz = - (maxZ - (diffz / 2.0f));
-
-	offset = glm::vec3(ofsx, ofsy, ofsz);
-
-	// Finalize
-	
-    name = filename;
-    loaded = true;
-	
-	state = MODEL_READY;
-#else
 	state = MODEL_LOADED;
-#endif
 }
 
 void Model2::release()

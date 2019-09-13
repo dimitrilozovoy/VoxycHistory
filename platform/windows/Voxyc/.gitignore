@@ -1,2 +1,8 @@
 .vs
 x64
+Debug/*.exe
+Debug/*.pdb
+Debug/*.ilk
+Release/*.exe
+Release/*.pdb
+Release/*.ilk

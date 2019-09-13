@@ -9,7 +9,7 @@
     <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>-m luaprogram -a ../../../../assets/samples/fps</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--module luaprogram --assets ../../../../assets/samples/fps</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

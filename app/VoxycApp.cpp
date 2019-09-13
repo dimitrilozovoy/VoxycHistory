@@ -83,26 +83,7 @@ void VoxycApp::load()
 }
 
 void VoxycApp::tick()
-{
-//	Log("apptick");
-	
-	// LSUINT64 ui64CurTime = tTimer.GetCurMicros();
-	// while ( ui64CurTime - ui64UpdatedTime > 33333ULL )
-	// {
-	//     Update( 33333ULL );
-	//     ui64UpdatedTime += 33333ULL;
-	// }
-	
-//	char str[1024];
-//	snprintf(str, 1024, "%d", PLAT_GetTime());
-//	Log(str);
-/*	static int c = 0;
-	
-	if (c == 0)
-	    Log("time " + curTime);
-		
-	c++;*/
-	
+{	
 	int numLoops = 0;
 	
     if (!g_common.fixedTimestep)
@@ -118,22 +99,18 @@ void VoxycApp::tick()
 		
 	    unsigned long curTime = PLAT_GetTime();
 	
-	    while (curTime - updatedTime > msecInterval)
+	    while ((updatedTime < curTime) && (curTime - updatedTime) > msecInterval)
 	    {
 		    fixedTick();
 
 		    updatedTime += msecInterval;
-		
+			
 		    numLoops++;
+
+			if (numLoops >= 100)
+				updatedTime = PLAT_GetTime();
 	    }
     }
-	
-/*	if (numLoops > maxMakeupLoops)
-	{
-		updatedTime = PLAT_GetTime();
-	}*/
-	
-//	Log("numLoops", numLoops);
 }
 	
 void VoxycApp::fixedTick()
@@ -188,14 +165,7 @@ void VoxycApp::draw(int eye)
 		return;
 	}
 	
-	engine.draw(eye);
-	
-//#ifdef PLATFORM_ANDROID
-//	calcFrameRate();
-//    makeUpLostFramesOrWait();
-//#endif
-
-//    Log("fps", fps);
+	engine.draw(eye);	
 }
 
 void VoxycApp::setModule(std::string m)

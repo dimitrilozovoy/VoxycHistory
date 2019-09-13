@@ -24,6 +24,7 @@ SOFTWARE.
 #include "../../../../engine/DDLUtils.hpp"
 #include "../../../../engine/Audio.h"
 #include "../../../../thirdparty/SimpleIni/SimpleIni.h"
+#include <windows.h>
 
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
 #include <string>
@@ -173,7 +174,11 @@ void PLAT_SetTrackVolume(float)
 
 long PLAT_GetTime()
 {
-	return 0;
+	SYSTEMTIME time;
+	GetSystemTime(&time);
+	LONG time_ms = (time.wMinute * 1000 * 60) + (time.wSecond * 1000) + time.wMilliseconds;
+
+	return time_ms;
 }
 
 void PLAT_AttachCurrentThread()

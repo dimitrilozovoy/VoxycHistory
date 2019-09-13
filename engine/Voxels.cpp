@@ -311,14 +311,9 @@ build
 
 void Voxels::build(TextureManager2 *texMan)
 {
-#ifndef FIXED_TIMESTEP
-    this->texMan = texMan;
-    build_process();
-#else
     this->texMan = texMan;
     std::thread buildThread = std::thread(&Voxels::build_process, this);
 	buildThread.detach();
-#endif
 }
 
 /*

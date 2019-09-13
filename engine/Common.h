@@ -65,7 +65,11 @@ typedef struct Common
 	float cameraOffsetZ = 30.0;
 	float cameraOffsetY = 5.0;
 	float drawDistance = 1000;
+#ifdef PLATFORM_WINDOWS
+	bool fixedTimestep = true;
+#else
 	bool fixedTimestep = false;
+#endif
 	int physicsSubticks = 1;
 	bool occlusionCheck = true;
 	int graphics = 1;
