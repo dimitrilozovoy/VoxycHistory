@@ -90,7 +90,8 @@ class Controls2
 public:
     void init(Object *camera, Object *mouseLook, TextureManager2 *texMan, EditorController *editor);
     void tick();
-    void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
+	void tickMouse();
+	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
     void processTouchJoystick(bool left, int action, float x, float y);
     void ArrowDown(float factor = 1.00);
     void ArrowUp(float factor = 1.00);
@@ -155,6 +156,7 @@ public:
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
+	const float mouseMultiplier = 0.1f;
 
     Object *camera;
 #ifdef USE_PLAYEROBJ

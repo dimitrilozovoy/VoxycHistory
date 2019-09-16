@@ -379,18 +379,23 @@ void Controls2::tick() {
     g_common.gamepadLeftY = axes[AX_LEFT_Y];
     g_common.gamepadRightX = axes[AX_RIGHT_X];
     g_common.gamepadRightY = axes[AX_RIGHT_Y];
+}
 
-    //
-    // Mouse
-    //
+void Controls2::tickMouse()
+{
+	//
+	// Mouse
+	//
 
-    switch (controlScheme) {
+	switch (controlScheme) {
 	case CTRL_FPS:
+		playerObj->yaw += mouseX * mouseMultiplier;
+		break;
 	case CTRL_EDITOR:
-            playerObj->yaw += mouseX * 0.5;
-            //playerObj->pitch -= mouseY;
-            break;
-    }
+		playerObj->yaw += mouseX * mouseMultiplier;
+		//playerObj->pitch -= mouseY;
+		break;
+	}
 }
 
 void Controls2::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2,

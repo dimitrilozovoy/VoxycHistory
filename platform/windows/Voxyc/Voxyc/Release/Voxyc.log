@@ -1,0 +1,726 @@
+﻿  LuaProgram.cpp
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+  VoxycApp.cpp
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\Editor.h(58,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.h(68,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.h(41,2): warning C4091:  'typedef ': ignored on left of 'OrthoMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(40,2): warning C4091:  'typedef ': ignored on left of 'ModelMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(47,2): warning C4091:  'typedef ': ignored on left of 'ModelView' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(53,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\app\VoxycApp.h(66,33): warning C4244:  'initializing': conversion from 'double' to '__int64', possible loss of data
+C:\Users\dimitri\Voxyc\app\VoxycApp.h(67,33): warning C4244:  'initializing': conversion from 'double' to '__int64', possible loss of data
+C:\Users\dimitri\Voxyc\app\VoxycApp.cpp(105,64): warning C4018:  '>': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\app\VoxycApp.cpp(191,15): warning C4244:  '=': conversion from '__int64' to 'float', possible loss of data
+  main.cpp
+C:\Users\dimitri\Voxyc\app\VoxycApp.cpp(238,15): warning C4244:  'argument': conversion from '__int64' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\Editor.h(58,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.h(68,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.h(41,2): warning C4091:  'typedef ': ignored on left of 'OrthoMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(40,2): warning C4091:  'typedef ': ignored on left of 'ModelMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(47,2): warning C4091:  'typedef ': ignored on left of 'ModelView' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(53,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\app\VoxycApp.h(66,33): warning C4244:  'initializing': conversion from 'double' to '__int64', possible loss of data
+C:\Users\dimitri\Voxyc\app\VoxycApp.h(67,33): warning C4244:  'initializing': conversion from 'double' to '__int64', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(87,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\app\main.cpp(420,27): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(625,26): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(625,18): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(626,24): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+  Editor.cpp
+C:\Users\dimitri\Voxyc\app\main.cpp(626,16): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\Editor.h(58,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.h(68,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(96,35): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(143,19): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(144,21): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(147,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(152,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(153,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(154,98): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(155,99): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(155,89): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(155,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(156,97): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(157,97): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(167,7): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(166,86): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(170,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(171,105): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(177,6): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(179,10): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(181,10): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(183,6): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(185,10): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(187,16): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(190,43): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(191,44): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(570,61): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(611,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1103,43): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1103,37): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1103,31): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1363,91): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1510,61): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1551,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2360,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2367,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2369,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2380,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2387,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2389,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2400,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2407,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2409,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2517,74): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2606,57): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2606,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2606,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2606,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2606,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2613,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2613,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2613,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2613,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2613,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2620,57): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2620,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2620,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2620,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2620,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2627,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2627,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2627,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2627,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2627,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2634,58): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2634,58): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2634,58): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2634,58): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2634,58): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2641,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2641,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2641,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2641,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2641,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2901,25): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2909,27): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2917,27): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2925,28): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2937,57): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2939,58): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2947,62): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2949,63): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2957,62): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2959,64): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3009,26): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3011,27): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3026,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3029,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  EditorOld.cpp
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3032,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(62,30): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(65,46): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(76,59): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(83,43): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(95,44): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(149,16): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(150,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(153,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(156,96): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(157,97): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(161,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(162,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(166,120): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(167,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(168,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(169,100): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(170,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(171,108): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(174,91): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(175,100): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(177,106): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(178,98): warning C4305:  'argument': truncation from 'double' to 'float'
+  ModelEditor.cpp
+C:\Users\dimitri\Voxyc\editor\EditorOld.cpp(179,102): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\Editor.h(58,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.h(68,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(40,2): warning C4091:  'typedef ': ignored on left of 'ModelMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(47,2): warning C4091:  'typedef ': ignored on left of 'ModelView' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(53,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(38,19): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(39,21): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(42,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(45,93): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(48,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(51,101): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(51,91): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(51,106): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(51,74): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(52,101): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(52,91): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(52,106): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(52,74): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(53,101): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(53,91): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(53,106): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(53,73): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(73,46): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(74,47): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(453,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(471,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(476,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(481,16): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(489,39): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(491,49): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(491,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(491,31): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+  OrthoEditor.cpp
+C:\Users\dimitri\Voxyc\editor\ModelEditor.cpp(532,24): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\Editor.h(58,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.h(68,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.h(41,2): warning C4091:  'typedef ': ignored on left of 'OrthoMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(38,19): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(39,21): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(42,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(45,93): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(46,90): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(47,97): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(48,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(54,100): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(54,81): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(55,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(55,75): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(56,99): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(56,79): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(57,99): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(57,79): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(73,46): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(74,47): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(561,19): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(563,36): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(564,36): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(580,66): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(580,49): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(580,32): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(609,16): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  Controls2.cpp
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(610,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(60,31): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(62,32): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(64,28): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(66,29): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(121,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(124,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(228,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(231,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(259,42): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(261,43): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(263,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(265,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(304,42): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(306,43): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(308,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(310,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(358,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(359,45): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(360,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(363,51): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(364,50): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(365,52): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(403,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(404,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(494,48): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(496,48): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(507,47): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(509,46): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(528,23): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(581,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(582,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(876,86): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(878,86): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(887,68): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(888,67): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(894,69): warning C4305:  'argument': truncation from 'double' to 'float'
+  Engine2.cpp
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(922,39): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(222,31): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(294,28): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(299,94): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(300,132): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(300,66): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(302,94): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(303,145): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(303,65): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(582,14): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1235,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1676,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1675,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1674,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1685,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1684,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1683,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1694,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1693,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1692,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1703,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1702,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1701,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1712,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1711,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1710,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1721,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1720,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1719,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1730,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1729,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1728,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1739,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1738,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1737,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+  LuaBridge.cpp
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(2567,15): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(54,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(65,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(78,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(86,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(37,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(38,35): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(190,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(191,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(192,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,40): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,34): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,50): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,47): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,41): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,35): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(256,40): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(256,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(280,13): warning C4101:  'visn': unreferenced local variable
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(294,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(294,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(294,30): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(324,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(324,34): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(324,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(336,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(336,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(336,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(494,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(494,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(494,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(517,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(527,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(537,30): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(552,20): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(609,38): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(625,43): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(641,43): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(676,11): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(677,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(679,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(679,27): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(730,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(762,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,47): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,41): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,38): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(856,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(856,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(856,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(867,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(867,42): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(867,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(887,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(887,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(887,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(928,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(928,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(928,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(948,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(957,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(966,30): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(996,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1005,29): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1056,48): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1056,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1056,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1067,48): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1067,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1067,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1094,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1105,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1106,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1107,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1119,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1120,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1121,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1161,32): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1189,39): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1189,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1189,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1228,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1228,26): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1241,52): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1288,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,42): warning C4244:  'argument': conversion from 'lua_Number' to 'char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,39): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,36): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,33): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1357,54): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1357,51): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1357,48): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1409,36): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1419,58): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1453,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1453,26): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1465,30): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1465,24): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1465,12): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1483,26): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1483,21): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1522,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1523,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1574,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1574,28): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1585,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1585,28): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,63): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,57): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,50): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,45): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,80): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,73): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,70): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,67): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1664,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1664,46): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1664,43): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1664,40): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1749,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1760,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1771,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1772,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1783,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1794,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1847,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1848,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1849,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1850,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1851,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1852,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1859,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1860,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1861,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1862,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1873,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1884,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1885,20): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1886,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1897,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1898,17): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1899,18): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1934,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1935,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1936,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1937,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1959,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1960,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1970,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1981,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1982,20): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1983,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1984,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1985,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2068,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2070,29): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2133,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2134,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2135,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2136,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2137,17): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2138,17): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2139,15): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2140,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+  Generating code
+  2 of 5979 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    42 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe

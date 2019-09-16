@@ -85,8 +85,11 @@ void VoxycApp::load()
 void VoxycApp::tick()
 {	
 	int numLoops = 0;
+
+	// Mouse needs to be updated on every loop
+	engine.getControls()->tickMouse();
 	
-    if (!g_common.fixedTimestep)
+	if (!g_common.fixedTimestep)
 	{
 	    fixedTick();
 	}
