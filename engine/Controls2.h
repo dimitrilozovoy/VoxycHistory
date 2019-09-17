@@ -156,7 +156,7 @@ public:
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
-	const float mouseMultiplier = 0.1f;
+	const float mouseMultiplier = 0.025f;
 
     Object *camera;
 #ifdef USE_PLAYEROBJ
