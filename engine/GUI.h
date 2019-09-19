@@ -111,6 +111,7 @@ public:
 
 	bool nonNativeWidgetsShown();
 	void clearNonNativeWidgets();
+	Widget* getTopVisibleWidget();
 
 private:
     std::map<std::string, Widget*> widgets;
@@ -142,6 +143,8 @@ private:
 	std::string dialogOKExtra = "";
 
 	int delayTimer = 0;
+
+	Widget* selectedWidget = nullptr;
 };
 
 #endif

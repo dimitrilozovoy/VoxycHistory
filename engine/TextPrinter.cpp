@@ -44,7 +44,7 @@ void TextPrinter::draw()
 	}
 }
 
-void TextPrinter::drawText(TextItem *item)
+void TextPrinter::drawText(TextItem *item, bool lightUp)
 {
 	if (item->text == "")
 		return;
@@ -84,9 +84,14 @@ void TextPrinter::drawText(TextItem *item)
 		{
 			Texture *tex = texMan->find(getTextureNameForChar(item->text.at(i)));
 
+			// Light up?
+			glm::vec4 color2 = glm::vec4(1.0, 1.0, 1.0, 1.0);
+			if (lightUp)
+				color2 = glm::vec4(1.5, 1.5, 1.5, 1.0);
+
 			if (tex != nullptr && item->text.at(i) != ' ')
 			{
-				renderer->DrawSprite(item->position.x - (((item->text.size() - 1) * 1.2) * item->size) / 2.0 + (float)i * item->size * 1.2, item->position.y, sizex, sizey, tex->glTexID, item->color.r, item->color.g, item->color.b, item->color.a);
+				renderer->DrawSprite(item->position.x - (((item->text.size() - 1) * 1.2) * item->size) / 2.0 + (float)i * item->size * 1.2, item->position.y, sizex, sizey, tex->glTexID, item->color.r * color2.r, item->color.g * color2.g, item->color.b * color2.b, item->color.a * color2.a);
 			}
 		}
 	}

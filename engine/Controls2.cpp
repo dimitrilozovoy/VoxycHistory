@@ -27,25 +27,32 @@ SOFTWARE.
 #include "DDLUtils.hpp"
 #include <sstream>
 #include "EditorController.h"
+#include "GUI.h"
 
 void Controls2::init(Object *camera, Object *mouseLook, TextureManager2 *texMan,
-                     EditorController *editorController) {
+                     EditorController *editorController, GUI *gui) {
     this->camera = camera;
     this->mouseLook = mouseLook;
     this->texMan = texMan;
     this->editorController = editorController;
+	this->gui = gui;
 
     texMan->load("thumbstick.png");
 }
 
 void Controls2::tick() {
-    if (!enabled)
+
+	screenWidth = PLAT_GetWindowWidth();
+	screenHeight = PLAT_GetWindowHeight();
+
+	// Mouse click timer - has to count on fixed tick
+	if (mouseClickTimer > 0)
+		mouseClickTimer--;
+
+	if (!enabled)
         return;
 
-    screenWidth = PLAT_GetWindowWidth();
-    screenHeight = PLAT_GetWindowHeight();
-
-    //
+	//
     // Process buttons
     //
 
@@ -384,17 +391,36 @@ void Controls2::tick() {
 void Controls2::tickMouse()
 {
 	//
-	// Mouse
+	// Movement
 	//
 
-	switch (controlScheme) {
-	case CTRL_FPS:
-		playerObj->yaw += mouseX * mouseMultiplier;
-		break;
-	case CTRL_EDITOR:
-		playerObj->yaw += mouseX * mouseMultiplier;
-		//playerObj->pitch -= mouseY;
-		break;
+	if (!g_common.showMouse)
+	{
+		switch (controlScheme) {
+		case CTRL_FPS:
+			playerObj->yaw += mouseX * mouseMultiplier;
+			break;
+		case CTRL_EDITOR:
+			playerObj->yaw += mouseX * mouseMultiplier;
+			//playerObj->pitch -= mouseY;
+			break;
+		}
+	}
+	else
+	{
+		//
+		// Click?
+		//
+
+		if (mouseButtons[0] == 1 && mouseClickTimer <= 0)
+		{
+			std::string extra = gui->getOnClickExtraIfClicked(1, (int)glToScrX(mouseCursorX), (int)glToScrY(mouseCursorY), 0, 1);
+
+			if (extra != "")
+				g_common.extraInts[extra] = 1;
+
+			mouseClickTimer = mouseClickTimerDelay;
+		}
 	}
 }
 

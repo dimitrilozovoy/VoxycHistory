@@ -44,7 +44,7 @@ class TextPrinter
 public:
 	void init(TextureManager2 *texMan, SpriteRenderer2D *renderer);
 	void draw();
-	void drawText(TextItem *item);
+	void drawText(TextItem *item, bool lightUp = false);
 	void addText(std::string name, std::string text, glm::vec4 position, float size, std::string onClickExtra);
 	void setText(std::string name, std::string text);
 	void setVisible(std::string name, bool visible);

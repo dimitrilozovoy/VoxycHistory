@@ -28,6 +28,7 @@ SOFTWARE.
 #include "SpriteRenderer2D.hpp"
 #include "TextureManager2.h"
 #include "EditorController.h"
+#include "GUI.h"
 
 #define NUM_KBD_KEYS 1024
 #define NUM_AXES 6
@@ -88,7 +89,7 @@ typedef struct TouchBtnBind
 class Controls2
 {
 public:
-    void init(Object *camera, Object *mouseLook, TextureManager2 *texMan, EditorController *editor);
+    void init(Object *camera, Object *mouseLook, TextureManager2 *texMan, EditorController *editor, GUI *gui);
     void tick();
 	void tickMouse();
 	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
@@ -157,16 +158,14 @@ public:
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
 	const float mouseMultiplier = 0.025f;
+	const int mouseClickTimerDelay = 30;
 
-    Object *camera;
-#ifdef USE_PLAYEROBJ
-    Object *playerObj;
-#else
-	Player *player;
-#endif
-	Object *mouseLook;
-    TextureManager2 *texMan;
-	EditorController *editorController;
+    Object *camera = nullptr;
+    Object *playerObj = nullptr;
+	Object *mouseLook = nullptr;
+    TextureManager2 *texMan = nullptr;
+	EditorController *editorController = nullptr;
+	GUI* gui = nullptr;
 
     int screenWidth = 0;
     int screenHeight = 0;
@@ -218,6 +217,7 @@ private:
 	float mouseScroll = 0.0;
 	int mouseButtons[3];
 	float mouseCursorX, mouseCursorY = 0.0;
+	int mouseClickTimer = 0;
 
 	// Keyboard keys
 	int keys[NUM_KBD_KEYS];

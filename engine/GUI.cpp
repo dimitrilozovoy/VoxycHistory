@@ -90,6 +90,12 @@ void GUI::tick()
 		g_common.extraStrings["newfilenameselected"] = "";
 		g_common.extraStrings["newfilename"] = "";
 	}
+
+	// Set selected widget if none
+	if (selectedWidget == nullptr)
+	{
+//		selectedWidget = getTopVisibleWidget();
+	}
 }
 
 void GUI::draw()
@@ -177,8 +183,8 @@ void GUI::drawBtn(Widget *item)
 		ti.position.y = item->position.y;
 		ti.size = item->size.x;
 		ti.color = item->color;
-		
-		textPrinter->drawText(&ti);
+
+		textPrinter->drawText(&ti, item == selectedWidget);
 	}
 	else
 	{
@@ -869,4 +875,29 @@ void GUI::clearNonNativeWidgets()
 {
 	clearListMenu();
 	clearDialog();
+}
+
+Widget *GUI::getTopVisibleWidget()
+{
+	float topY = -1.0f;
+	Widget *topWidget = nullptr;
+
+	for (const auto& pair : widgets)
+	{
+		Widget* wg = pair.second;
+
+		if (wg != nullptr)
+		{
+			if (wg->visible)
+			{
+				if (wg->position.y > topY)
+				{
+					topWidget = wg;
+					topY = wg->position.y;
+				}
+			}
+		}
+	}
+
+	return topWidget;
 }

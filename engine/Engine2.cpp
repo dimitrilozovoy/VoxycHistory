@@ -8,7 +8,7 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
+The above copyright notice   and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -72,7 +72,7 @@ void Engine2::init()
 
     texAtlas.init(&texMan, &spriteRenderer2D);
 
-    controls.init(&camera, &mouseLook, &texMan, &editorController);
+    controls.init(&camera, &mouseLook, &texMan, &editorController, &gui);
 	controls.setPlayerObj(playerObj);
 	physics.init();
 	audio.init();
