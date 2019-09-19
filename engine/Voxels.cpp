@@ -1542,7 +1542,7 @@ int Voxels::load(std::string fname, FILE *f = nullptr, TextureManager2 *texMan =
 
 	if (f == nullptr) {
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-		int err = fopen_s(&file, fname.c_str(), "rb+");
+		int err = fopen_s(&file, fname.c_str(), "rb");
 #else
 		file = fopen(fname.c_str(), "rb");
 #endif
