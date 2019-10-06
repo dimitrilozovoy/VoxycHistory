@@ -4769,7 +4769,7 @@ void lodepng_state_init(LodePNGState* state)
 void lodepng_state_cleanup(LodePNGState* state)
 {
   lodepng_color_mode_cleanup(&state->info_raw);
-  lodepng_info_cleanup(&state->info_png);
+   lodepng_info_cleanup(&state->info_png);
 }
 
 void lodepng_state_copy(LodePNGState* dest, const LodePNGState* source)

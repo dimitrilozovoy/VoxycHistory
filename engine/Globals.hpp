@@ -250,6 +250,8 @@ extern vr::IVRSystem *g_ivrSystem;
 extern std::string g_assetsDir;
 extern bool g_assetsDirExplicit;
 extern std::string g_module;
+extern std::string g_dataFile;
+extern bool g_useDataFile;
 
 extern bool g_useLegacyTextureSpan;
 extern bool g_simpleMode;

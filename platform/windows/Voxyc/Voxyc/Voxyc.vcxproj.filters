@@ -195,6 +195,9 @@
     <ClInclude Include="..\..\..\..\editor\OrthoEditor.h">
       <Filter>Header Files\editor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\engine\ReadData.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -451,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\editor\ModelEditor.cpp">
       <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\engine\ReadData.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

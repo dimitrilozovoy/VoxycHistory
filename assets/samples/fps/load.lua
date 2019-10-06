@@ -2,6 +2,8 @@ setextraint("graphics", 1)
 
 runscript("lights.lua")
 
+showmouse(false)
+
 -------------------------------
 -- GLOBALS
 -------------------------------

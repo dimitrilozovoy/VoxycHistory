@@ -47,7 +47,7 @@ public:
     Texture *find(std::string name);
     void load(std::string name, bool external = false);
 	void add(std::string name, int glTexId);
-    void free();
+    void release();
 	void checkGLError(char *tag);
     std::map<std::string, Texture *> getTextures() { return textures; };
 

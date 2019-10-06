@@ -1,70 +1,59 @@
-﻿  GUI.cpp
+﻿  main.cpp
 C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(55,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(66,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(79,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(87,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\Editor.h(58,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\Editor.h(68,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.h(41,2): warning C4091:  'typedef ': ignored on left of 'OrthoMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(40,2): warning C4091:  'typedef ': ignored on left of 'ModelMode' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(47,2): warning C4091:  'typedef ': ignored on left of 'ModelView' when no variable is declared
+C:\Users\dimitri\Voxyc\editor\ModelEditor.h(53,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
+C:\Users\dimitri\Voxyc\app\VoxycApp.h(66,33): warning C4244:  'initializing': conversion from 'double' to '__int64', possible loss of data
+C:\Users\dimitri\Voxyc\app\VoxycApp.h(67,33): warning C4244:  'initializing': conversion from 'double' to '__int64', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(87,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
+C:\Users\dimitri\Voxyc\app\main.cpp(433,27): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(638,26): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(638,18): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\app\main.cpp(639,24): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+  ReadData.cpp
+C:\Users\dimitri\Voxyc\app\main.cpp(639,16): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
+  TextureManager2.cpp
+C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\minwindef.h(130,1): warning C4005:  'APIENTRY': macro redefinition
-C:\Users\dimitri\Voxyc\thirdparty\GLFW\glfw3.h(98): message :  see previous definition of 'APIENTRY'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(43,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(58,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(153,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(154,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(171,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(172,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(202,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(203,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(426,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(457,31): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(458,23): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(465,54): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(467,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(472,117): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(472,101): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(523,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(568,31): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(569,23): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(576,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(578,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(585,125): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(585,109): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(586,120): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(586,104): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(589,108): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(589,92): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(590,115): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(590,99): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(650,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(654,81): warning C4244:  '=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(654,81): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(654,81): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(654,81): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(654,81): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(676,28): warning C4018:  '>': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(701,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,81): warning C4244:  '=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,81): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,81): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,81): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,81): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(785,22): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(815,27): warning C4018:  '<=': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(819,23): warning C4018:  '>': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(847,27): warning C4018:  '<=': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
+  lodepng.cpp
+C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
   Generating code
-  0 of 5984 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  13 of 6099 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    76 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe

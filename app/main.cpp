@@ -104,6 +104,8 @@ SOFTWARE.
 #include <conio.h>
 #endif
 
+#include "../engine/ReadData.h"
+
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
@@ -154,6 +156,7 @@ int main(int argc, const char * argv[]) {
 
 	std::string module = "";
 	std::string assets = "";
+	std::string datafile = "";
 	std::string noguides = "";
 	std::string monitor = "";
 	std::string fullscreen = "1";
@@ -163,6 +166,8 @@ int main(int argc, const char * argv[]) {
 		["-m"]["--module"]
 		| clara::Opt(assets, "assets")
 		["-a"]["--assets"]
+		| clara::Opt(datafile, "datafile")
+		["-d"]["--datafile"]
 		| clara::Opt(noguides, "noguides")
 		["-n"]["--noguides"]
 		| clara::Opt(monitor, "monitor")
@@ -215,6 +220,14 @@ int main(int argc, const char * argv[]) {
 		g_assetsDir = DEFAULT_ASSETS_DIR;
 	if (noguides != "")
 		g_noGuides = true;
+
+	// Set datafile
+	if (datafile != "")
+	{
+		g_dataFile = datafile;
+		g_useDataFile = true;
+		ReadDataOpenDAT(datafile);
+	}
 
 	//
 	// Init graphics

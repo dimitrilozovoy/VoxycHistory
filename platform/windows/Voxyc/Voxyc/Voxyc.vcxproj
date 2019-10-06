@@ -179,6 +179,7 @@
     <ClInclude Include="..\..\..\..\engine\Physics.h" />
     <ClInclude Include="..\..\..\..\engine\platform.h" />
     <ClInclude Include="..\..\..\..\engine\PlatformAudio.h" />
+    <ClInclude Include="..\..\..\..\engine\ReadData.h" />
     <ClInclude Include="..\..\..\..\engine\Renderer.h" />
     <ClInclude Include="..\..\..\..\engine\Scene.h" />
     <ClInclude Include="..\..\..\..\engine\ShadowMap.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="..\..\..\..\engine\OzzRenderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\Physics.cpp" />
     <ClCompile Include="..\..\..\..\engine\PlatformAudio.cpp" />
+    <ClCompile Include="..\..\..\..\engine\ReadData.cpp" />
     <ClCompile Include="..\..\..\..\engine\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\engine\Scene.cpp" />
     <ClCompile Include="..\..\..\..\engine\ShadowMap.cpp" />

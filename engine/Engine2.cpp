@@ -329,7 +329,7 @@ void Engine2::free()
 
 	models.clear();
 	
-	texMan.free();
+	texMan.release();
 
 	initialized = false;
 }

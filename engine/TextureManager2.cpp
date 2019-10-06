@@ -26,6 +26,7 @@ SOFTWARE.
 #include "platform.h"
 #include "DDLUtils.hpp"
 #include "../thirdparty/lodepng/lodepng.hpp"
+#include "ReadData.h"
 
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX || defined PLATFORM_OPENVR
 #define STB_IMAGE_IMPLEMENTATION
@@ -186,35 +187,68 @@ void TextureManager2::load(std::string name, bool external)
 		// Load file and decode PNG image
 		std::vector<unsigned char> image;
 		unsigned width, height;
-		unsigned error = lodepng::decode(image, width, height, fullFilename);
-
-		// We have a problem; display an error and use fallback texture
-		if (error != 0)
+		unsigned error = 0;
+		
+		if (g_useDataFile)
 		{
-			Log("Error loading PNG: ", (char*)lodepng_error_text(error));
-			Log(name);
+			void* pngData = nullptr;
+			long size = 0;
+			unsigned char** cImage = (unsigned char**)malloc(2048 * 2048 * 4);
+ 			ReadDataGetFile(name, pngData, size);
 
-			Texture* fb = find("fallback");
-			t->glTexID = fb->glTexID;
+			if (size != 0 && pngData != 0)
+			{
+				error = lodepng_decode_memory(cImage, &width, &height, (unsigned char*)pngData, size, LCT_RGBA, 4);
 
-			return;
+				// We have a problem; display an error and use fallback texture
+				if (error != 0)
+				{
+					Log("Error loading PNG: ", (char*)lodepng_error_text(error));
+					Log(name);
+
+					Texture* fb = find("fallback");
+					t->glTexID = fb->glTexID;
+
+					return;
+				}
+
+				free(pngData);
+			}
+
+			free(cImage);
 		}
+		else
+		{
+			error = lodepng::decode(image, width, height, fullFilename);
 
-		// Flip image vertically
-		unsigned char* flippedImage = (unsigned char*)malloc(width * height * 4);
-		memcpy(flippedImage, reinterpret_cast<char*>(image.data()), width * height * 4);
-		flip_vertically(flippedImage, width, height, 4);
+			// We have a problem; display an error and use fallback texture
+			if (error != 0)
+			{
+				Log("Error loading PNG: ", (char*)lodepng_error_text(error));
+				Log(name);
 
-		// Load image into GPU memory
-		glBindTexture(GL_TEXTURE_2D, glTexID);
-		checkGLError("glBindTexture");
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		checkGLError("glTexParameterf");
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		checkGLError("glTexParameterf");
+				Texture* fb = find("fallback");
+				t->glTexID = fb->glTexID;
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
-		checkGLError("glTexImage2D");
+				return;
+			}
+
+			// Flip image vertically
+			unsigned char* flippedImage = (unsigned char*)malloc(width * height * 4);
+			memcpy(flippedImage, reinterpret_cast<char*>(image.data()), width * height * 4);
+			flip_vertically(flippedImage, width, height, 4);
+
+			// Load image into GPU memory
+			glBindTexture(GL_TEXTURE_2D, glTexID);
+			checkGLError("glBindTexture");
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			checkGLError("glTexParameterf");
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			checkGLError("glTexParameterf");
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
+			checkGLError("glTexImage2D");
+		}
 	}
 #endif
 }
@@ -228,7 +262,7 @@ void TextureManager2::add(std::string name, int glTexId)
 	textures[name] = t;
 }
 
-void TextureManager2::free()
+void TextureManager2::release()
 {
 	for(const auto &pair: textures)
 	{
