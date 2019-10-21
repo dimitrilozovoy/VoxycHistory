@@ -142,10 +142,7 @@ void TextureManager2::load(std::string name, bool external)
 
 #if defined PLATFORM_OSX || defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
 
-	bool isJpeg = false;
-
-	if (GetExtension(name) == "jpg" || GetExtension(name) == "jpeg" || GetExtension(name) == "JPG" || GetExtension(name) == "JPEG")
-		isJpeg = true;
+	bool useSTBI = true;
 
 	char fullFilename[MAX_STR_LEN];
 
@@ -155,31 +152,67 @@ void TextureManager2::load(std::string name, bool external)
 	printFullResourceFilename((char *)name.c_str(), fullFilename);
 #endif
 
-	if (isJpeg)
+	if (useSTBI)
 	{
 		int width, height, bpp;
-
-		uint8_t* rgb_image = stbi_load(fullFilename, &width, &height, &bpp, 3);
-
-		if (rgb_image != nullptr)
+		 
+		if (g_useDataFile)
 		{
-			// Flip image vertically
-			unsigned char* flippedImage = (unsigned char*)malloc(width * height * 3);
-			memcpy(flippedImage, reinterpret_cast<char*>(rgb_image), width * height * 3);
-			flip_vertically(flippedImage, width, height, 3);
+			char* buffer1;
+			long size = 0;
 
-			// Load image into GPU memory
-			glBindTexture(GL_TEXTURE_2D, glTexID);
-			checkGLError("glBindTexture");
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			checkGLError("glTexParameterf");
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			checkGLError("glTexParameterf");
+			ReadDataGetFile(name, buffer1, size);
+			stbi_uc* buffer2 = (stbi_uc*)buffer1;
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, flippedImage);
-			checkGLError("glTexImage2D");
+			uint8_t* rgb_image = stbi_load_from_memory((const stbi_uc *)buffer2, size, &width, &height, &bpp, STBI_rgb_alpha);
 
-			stbi_image_free(rgb_image);
+			if (rgb_image != nullptr)
+			{
+				// Flip image vertically
+				unsigned char* flippedImage = (unsigned char*)malloc(width * height * 4);
+				memcpy(flippedImage, reinterpret_cast<char*>(rgb_image), width * height * 4);
+				flip_vertically(flippedImage, width, height, 4);
+
+				// Load image into GPU memory
+				glBindTexture(GL_TEXTURE_2D, glTexID);
+				checkGLError("glBindTexture");
+				glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				checkGLError("glTexParameterf");
+				glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				checkGLError("glTexParameterf");
+
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
+				checkGLError("glTexImage2D");
+
+				stbi_image_free(rgb_image);
+			}
+
+			free(buffer1);
+		}
+		else	
+		{
+			uint8_t* rgb_image = stbi_load(fullFilename, &width, &height, &bpp, STBI_rgb_alpha);
+
+			if (rgb_image != nullptr)
+			{
+				// Flip image vertically
+				unsigned char* flippedImage = (unsigned char*)malloc(width * height * 4);
+				memcpy(flippedImage, reinterpret_cast<char*>(rgb_image), width * height * 4);
+				flip_vertically(flippedImage, width, height, 4);
+
+				// Load image into GPU memory
+				glBindTexture(GL_TEXTURE_2D, glTexID);
+				checkGLError("glBindTexture");
+				glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				checkGLError("glTexParameterf");
+				glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				checkGLError("glTexParameterf");
+
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, flippedImage);
+				checkGLError("glTexImage2D");
+
+				stbi_image_free(rgb_image);
+			}
 		}
 	}
 	else
@@ -191,10 +224,25 @@ void TextureManager2::load(std::string name, bool external)
 		
 		if (g_useDataFile)
 		{
-			void* pngData = nullptr;
+/*			std::vector<unsigned char> png;
+			std::vector<unsigned char> image; //the raw pixels
+			unsigned width, height;
+			size_t pngsize;
+
+			//load and decode
+			unsigned error = lodepng_load_file_from_dat(png, &pngsize, name.c_str());
+			if (!error) error = lodepng::decode(image, width, height, png);
+
+			//if there's an error, display it
+			if (error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+
+			//the pixels are now in the vector "image", 4 bytes per pixel, ordered RGBARGBA..., use it as texture, draw it, ...*/
+
+/*			void* pngData = nullptr;
 			long size = 0;
 			unsigned char** cImage = (unsigned char**)malloc(2048 * 2048 * 4);
- 			ReadDataGetFile(name, pngData, size);
+
+// 			ReadDataGetFile(name, pngData, size);
 
 			if (size != 0 && pngData != 0)
 			{
@@ -215,7 +263,7 @@ void TextureManager2::load(std::string name, bool external)
 				free(pngData);
 			}
 
-			free(cImage);
+			free(cImage);*/
 		}
 		else
 		{

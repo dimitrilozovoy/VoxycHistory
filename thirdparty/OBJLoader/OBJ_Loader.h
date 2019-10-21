@@ -19,6 +19,7 @@
 
 #include "../../engine/platform.h"
 #include "../../engine/DDLUtils.hpp"
+#include "../../engine/ReadData.h"
 
 // Print progress to console while loading (large models)
 #define OBJL_CONSOLE_OUTPUT
@@ -442,11 +443,24 @@ namespace objl
 			if (Path.substr(Path.size() - 4, 4) != ".obj")
 				return false;
 
-
+			// Reading from file
 			std::ifstream file(Path);
 
-			if (!file.is_open())
+			if (!g_useDataFile)
+			{
+				if (!file.is_open())
 				return false;
+			}
+
+			// Reading from datafile
+			char* data;
+			long size;
+			long cursor = 0;
+
+			if (g_useDataFile)
+			{
+				ReadDataGetFile(Path, data, size);
+			}
 
 			LoadedMeshes.clear();
 			LoadedVertices.clear();
@@ -472,7 +486,7 @@ namespace objl
 			#endif
 
 			std::string curline;
-			while (std::getline(file, curline))
+			while ((!g_useDataFile && std::getline(file, curline)) || ((g_useDataFile) && ReadDataGetLine(data, size, cursor, curline)))
 			{
 				#ifdef OBJL_CONSOLE_OUTPUT
 				if ((outputIndicator = ((outputIndicator + 1) % outputEveryNth)) == 1)

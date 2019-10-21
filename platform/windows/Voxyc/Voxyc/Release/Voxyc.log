@@ -38,22 +38,41 @@ C:\Users\dimitri\Voxyc\app\main.cpp(433,27): warning C4244:  'argument': convers
 C:\Users\dimitri\Voxyc\app\main.cpp(638,26): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\app\main.cpp(638,18): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\app\main.cpp(639,24): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-  ReadData.cpp
+  Model2.cpp
 C:\Users\dimitri\Voxyc\app\main.cpp(639,16): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
-  TextureManager2.cpp
 C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(674,25): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(711,22): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(717,23): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(975,18): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(1145,36): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(79,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(101,31): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(284,22): warning C4018:  '<': signed/unsigned mismatch
+  ReadData.cpp
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(492,23): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\ReadData.cpp(115,1): warning C4996:  'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  TextureManager2.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(208): message :  see declaration of 'fopen'
 C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
-  lodepng.cpp
 C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
   Generating code
-  13 of 6099 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    76 functions had inline decision re-evaluated but remain unchanged
+  61 of 6102 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    50 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe

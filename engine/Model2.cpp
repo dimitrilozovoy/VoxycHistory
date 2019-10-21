@@ -63,7 +63,16 @@ void Model2::load_process()
 #ifndef USE_ASSIMP
     objl::Loader Loader;
 
-    bool loadout = Loader.LoadFile(GetFullFilename(filename));
+	bool loadout = false;
+
+	if (g_useDataFile)
+	{
+		loadout = Loader.LoadFile(filename);
+	}
+	else
+	{
+		loadout = Loader.LoadFile(GetFullFilename(filename));
+	}
 	
 	if (loadout)
 	{
