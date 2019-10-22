@@ -78,7 +78,7 @@ void ReadDataGetFile(std::string name, char *&data, long& size)
 		dat.close();
 	}
 	else
-	{
+	{ 
 		data = 0;
 		size = 0;
 	}
@@ -91,7 +91,7 @@ bool ReadDataGetLine(char *data, long size, long &cursor, std::string& line)
 
 	line = "";
 
-	while (data[cursor] != '\n')
+	while (data[cursor] != '\n' && cursor < size)
 	{ 
 		line += data[cursor];
 		cursor++;
