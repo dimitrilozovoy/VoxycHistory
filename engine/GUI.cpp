@@ -94,7 +94,7 @@ void GUI::tick()
 	// Set selected widget if none
 	if (selectedWidget == nullptr)
 	{
-//		selectedWidget = getTopVisibleWidget();
+		selectedWidget = getTopVisibleWidget();
 	}
 }
 
@@ -655,10 +655,57 @@ void GUI::up()
 		}
 	}
 
-//	delayTimer = 5;
-	delayTimer = 10 - (listMenu.size() / 20);
+	// Widget selection; find all widgets directly below the current selected one and find the closest one
+	if (selectedWidget != nullptr)
+	{
+		std::vector<Widget*> widgetsBelow;
+
+		for (const auto& pair : widgets)
+		{
+			Widget* wg = pair.second;
+
+			if (wg != nullptr)
+			{
+				if (wg->visible)
+				{
+					if (wg != selectedWidget && wg->position.y > selectedWidget->position.y && wg->position.x == selectedWidget->position.x)
+					{
+						widgetsBelow.push_back(wg);
+					}
+				}
+			}
+		}
+
+		// Traverse all widgets below and find the closets one
+		Widget* closest = nullptr;
+		float smallestDist = 0;
+
+		for (auto& wg : widgetsBelow)
+		{
+			if (wg != nullptr)
+			{
+				if (wg->visible)
+				{
+					float dist = abs(wg->position.y - selectedWidget->position.y);
+
+					if (smallestDist == 0 || dist < smallestDist)
+					{
+						smallestDist = dist;
+						closest = wg;
+					}
+				}
+			}
+		}
+
+		if (closest != nullptr)
+			selectedWidget = closest;
+	}
+
+	delayTimer = 4;
+
+/*	delayTimer = 10 - (listMenu.size() / 20);
 	if (delayTimer < 0)
-		delayTimer = 0;
+		delayTimer = 0;*/
 }
 
 void GUI::down()
@@ -706,10 +753,57 @@ void GUI::down()
 		}
 	}
 
-//	delayTimer = 5;
-	delayTimer = 10 - (listMenu.size() / 20);
-	if (delayTimer < 0)
-		delayTimer = 0;
+	// Widget selection; find all widgets directly below the current selected one and find the closest one
+	if (selectedWidget != nullptr)
+	{
+		std::vector<Widget*> widgetsBelow;
+
+		for (const auto& pair : widgets)
+		{
+			Widget* wg = pair.second;
+
+			if (wg != nullptr)
+			{
+				if (wg->visible)
+				{
+					if (wg != selectedWidget && wg->position.y < selectedWidget->position.y && wg->position.x == selectedWidget->position.x)
+					{
+						widgetsBelow.push_back(wg);
+					}
+				}
+			}
+		}
+
+		// Traverse all widgets below and find the closets one
+		Widget* closest = nullptr;
+		float smallestDist = 0;
+
+		for (auto &wg: widgetsBelow)
+		{
+			if (wg != nullptr)
+			{
+				if (wg->visible)
+				{
+					float dist = abs(wg->position.y - selectedWidget->position.y);
+
+					if (smallestDist == 0 || dist < smallestDist)
+					{
+						smallestDist = dist;
+						closest = wg;
+					}
+				}
+			}
+		}
+
+		if (closest != nullptr)
+			selectedWidget = closest;
+	}
+
+	delayTimer = 4;
+
+//	delayTimer = 10 - (listMenu.size() / 20);
+//	if (delayTimer < 0)
+//		delayTimer = 0;
 }
 
 void GUI::left()

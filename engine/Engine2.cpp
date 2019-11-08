@@ -1244,7 +1244,6 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 		    if (action1 == 1 || action1 == 2)
 			{
 			    controls.setBtn(tbb.btn, 1);
-				Log("tbb down");
 			}
 		    if (action1 == 4)
 			    controls.setBtn(tbb.btn, 0);
@@ -2398,6 +2397,7 @@ clearGUI
 void Engine2::clearGUI()
 {
 	gui.clear();
+	controls.resetGUI();
 }
 
 /*

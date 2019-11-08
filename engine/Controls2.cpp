@@ -49,6 +49,10 @@ void Controls2::tick() {
 	if (mouseClickTimer > 0)
 		mouseClickTimer--;
 
+	// GUI
+	processGUI();
+
+	// If not enabled, do not do the rest (player controls, etc)
 	if (!enabled)
         return;
 
@@ -673,6 +677,85 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
     }
 }
 
+void Controls2::processGUI()
+{
+//	if (axes[AX_LEFT_Y] < -0.1)
+//		gui->down();
+
+	if (buttons[BTN_UP])
+		gui->up();
+
+	if (buttons[BTN_DOWN])
+		gui->down();
+
+	// Gamepad A to select
+	if (buttons[BTN_A])
+	{
+		aWasPressed = true;
+
+		if (numPressedA >= 1)
+		{
+			if (gui->getSelectedWidget() != nullptr && gui->getSelectedWidget()->visible && gui->getSelectedWidget()->onClickExtra != "")
+				g_common.extraInts[gui->getSelectedWidget()->onClickExtra] = 1;
+		}
+	}
+	else
+	{
+		if (aWasPressed)
+			numPressedA++;
+	}
+
+	// Press space to select
+	if (keys[32])
+	{
+		spaceWasPressed = true;
+
+		if (numPressedSpace >= 1)
+		{
+			if (gui->getSelectedWidget() != nullptr && gui->getSelectedWidget()->visible && gui->getSelectedWidget()->onClickExtra != "")
+				g_common.extraInts[gui->getSelectedWidget()->onClickExtra] = 1;
+		}
+	}
+	else
+	{
+		if (spaceWasPressed)
+			numPressedSpace++;
+	}
+
+	// Press enter to select
+	if (keys[257])
+	{
+		enterWasPressed = true;
+
+		if (numPressedEnter >= 1)
+		{
+			if (gui->getSelectedWidget() != nullptr && gui->getSelectedWidget()->visible && gui->getSelectedWidget()->onClickExtra != "")
+				g_common.extraInts[gui->getSelectedWidget()->onClickExtra] = 1;
+		}
+	}
+	else
+	{
+		if (enterWasPressed)
+			numPressedEnter++;
+	}
+}
+
+void Controls2::resetGUI()
+{
+	numPressedA = 0;
+	aWasPressed = false;
+
+	numPressedSpace = 0;
+	spaceWasPressed = false;
+
+	numPressedEnter = 0;
+	enterWasPressed = false;
+
+	mouseMoved = false;
+
+	gui->setSelectedWidget(nullptr);
+}
+
 /*void Controls2::ArrowDown(float factor)
 {
 	if (!enabled)
@@ -915,9 +998,11 @@ void Controls2::Draw2D(SpriteRenderer2D *r) {
 }
 
 void Controls2::drawMouse(SpriteRenderer2D* r) {
-	Texture* mouse = texMan->find("mouse.png");
-
- 	r->DrawSprite(mouseCursorX, mouseCursorY, 0.1, 0.1, mouse->glTexID);
+	if (mouseMoved)
+	{
+		Texture* mouse = texMan->find("mouse.png");
+		r->DrawSprite(mouseCursorX, mouseCursorY, 0.1, 0.1, mouse->glTexID);
+	}
 }
 
 float Controls2::scrToGlX(float screenX) {
@@ -998,6 +1083,9 @@ bool Controls2::checkActionUp() {
 }
 
 void Controls2::mouse(float mouseX, float mouseY) {
+	if (mouseX != 0.0f || mouseY != 0.0f)
+		mouseMoved = true;
+
     this->mouseX = mouseX;
     this->mouseY = mouseY;
 

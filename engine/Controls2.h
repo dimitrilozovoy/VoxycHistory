@@ -94,7 +94,9 @@ public:
 	void tickMouse();
 	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
     void processTouchJoystick(bool left, int action, float x, float y);
-    void ArrowDown(float factor = 1.00);
+	void processGUI();
+	void resetGUI();
+	void ArrowDown(float factor = 1.00);
     void ArrowUp(float factor = 1.00);
     void ArrowLeft(float factor = 1.00);
     void ArrowRight(float factor = 1.00);
@@ -218,9 +220,18 @@ private:
 	int mouseButtons[3];
 	float mouseCursorX, mouseCursorY = 0.0;
 	int mouseClickTimer = 0;
+	bool mouseMoved = false;
 
 	// Keyboard keys
 	int keys[NUM_KBD_KEYS];
+
+	// GUI
+	int numPressedA = 0;
+	bool aWasPressed = false;
+	int numPressedSpace = 0;
+	bool spaceWasPressed = false;
+	int numPressedEnter = 0;
+	bool enterWasPressed = false;
 };
 
 #endif //FATELESS_CONTROLS2_H

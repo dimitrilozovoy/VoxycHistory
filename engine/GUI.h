@@ -113,6 +113,14 @@ public:
 	void clearNonNativeWidgets();
 	Widget* getTopVisibleWidget();
 
+	Widget* getSelectedWidget() {
+		return selectedWidget;
+	}
+
+	void setSelectedWidget(Widget *w) {
+		selectedWidget = w;
+	}
+
 private:
     std::map<std::string, Widget*> widgets;
 	TextureManager2 *texMan;

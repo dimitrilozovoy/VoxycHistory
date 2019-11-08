@@ -811,7 +811,7 @@ static int newshape(lua_State *L)
 		
 	lua_Number a = lua_tonumber(L, 3);
     lua_Number b = lua_tonumber(L, 4);
-    lua_Number c = lua_tonumber(L, 5);
+    lua_Number c = lua_tonumber(L, 5); 
 	lua_Number d = lua_tonumber(L, 6);
 	lua_Number e = lua_tonumber(L, 7);
 	
@@ -1778,6 +1778,17 @@ static int setbtn(lua_State *L)
 	return 0;
 }
 
+static int getkey(lua_State* L)
+{
+	int which = lua_tonumber(L, 1);
+
+	Controls2* ctrl = g_engine2->getControls();
+
+	lua_pushnumber(L, ctrl->getKey(which));
+
+	return 1;
+}
+
 static int getaxis(lua_State* L)
 {
 	int which = lua_tonumber(L, 1);
@@ -2342,7 +2353,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setsecondaryyawmesh", setsecondaryyawmesh);
 	lua_register(L, "getbtn", getbtn);
 	lua_register(L, "setbtn", setbtn);
-	lua_register(L, "getaxis", getaxis); 
+	lua_register(L, "getkey", getkey);
+	lua_register(L, "getaxis", getaxis);
 	lua_register(L, "getmousebtn", getmousebtn);
 	lua_register(L, "showmouse", showmouse);
 	lua_register(L, "getallobjs", getallobjs);
