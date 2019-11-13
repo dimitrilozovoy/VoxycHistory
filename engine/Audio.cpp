@@ -30,7 +30,7 @@ SOFTWARE.
 #include "DDLUtils.hpp"
 
 #define MAX_BUFFER_LEN_SFX		16384 * 32
-#define MAX_BUFFER_LEN_MUSIC	16384 * 1200
+#define MAX_BUFFER_LEN_MUSIC	16384 * 2200
 
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 PlatformAudio g_audio;

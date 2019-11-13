@@ -1113,12 +1113,12 @@ void Controls2::addTouchBtnBind(int btn, float x, float y, float size) {
     tbb.y = y;
     tbb.size = size;
 
-    touchBtnBinds.push_back(tbb);
-}
+    touchBtnBinds.push_back(tbb); 
+} 
 
 void Controls2::remTouchBtnBind(int btn) {
 	std::vector<TouchBtnBind>::iterator it;
-	std::vector<TouchBtnBind>::iterator itRem;
+	std::vector<TouchBtnBind>::iterator itRem;   
 	int i = 0;
 	int pos = -1;
 

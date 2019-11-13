@@ -8,4 +8,8 @@
     <LocalDebuggerCommandArguments>--inputdir ../Fateless/assets --outputfile ../Fateless/assets/fateless.dat</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerCommandArguments>--inputdir C:\Users\dimitri\Fateless --outputfile C:\Users\dimitri\source\repos\Fateless\assets\fateless.dat</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>
