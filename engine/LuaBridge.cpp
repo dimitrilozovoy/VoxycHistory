@@ -1652,6 +1652,17 @@ static int remwg(lua_State* L)
 	return 0;
 }
 
+static int setwgtext(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+	std::string text = lua_tostring(L, 2);
+
+	g_engine2->getGUI()->getWidgets()[name]->text = text;
+
+	return 1;
+}
+
+
 static int setwgvisible(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -2374,6 +2385,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "cleargui", cleargui);
 	lua_register(L, "addwg", addwg);
 	lua_register(L, "remwg", remwg);
+	lua_register(L, "setwgtext", setwgtext);
 	lua_register(L, "setwgvisible", setwgvisible);
 	lua_register(L, "setwgcolor", setwgcolor);
 	lua_register(L, "setwgfont", setwgfont);

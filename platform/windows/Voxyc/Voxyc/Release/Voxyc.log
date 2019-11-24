@@ -1,32 +1,243 @@
-﻿  TextPrinter.cpp
+﻿  LuaBridge.cpp
 C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(95,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(35,2): warning C4091:  'typedef ': ignored on left of 'UV' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextureAtlas.h(41,2): warning C4091:  'typedef ': ignored on left of 'XYINTS' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,19): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\TextPrinter.h(37,19): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\TextPrinter.h(42,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(36,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(57,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(58,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(75,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(76,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(79,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(94,15): warning C4305:  '=': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(98,100): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(140,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(313,22): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(322,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(57,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\GUI.h(64,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(55,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(66,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(79,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Controls2.h(87,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(37,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(38,35): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(190,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(191,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(192,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,40): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,34): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(207,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,50): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,47): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,41): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(221,35): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(256,40): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(256,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(280,13): warning C4101:  'visn': unreferenced local variable
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(294,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(294,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(294,30): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(324,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(324,34): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(324,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(336,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(336,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(336,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(377,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(406,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(435,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(494,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(494,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(494,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(517,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(527,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(537,30): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(552,20): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(609,38): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(625,43): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(641,43): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(676,11): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(677,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(679,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(679,27): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(730,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(762,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,47): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,41): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,38): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(818,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(856,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(856,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(856,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(867,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(867,42): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(867,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(887,35): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(887,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(887,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(911,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(912,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(913,20): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(915,23): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(916,23): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:  '=': conversion from 'lua_Number' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(917,23): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(928,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(928,44): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(928,37): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(948,31): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(957,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(966,30): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(996,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1005,29): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1056,48): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1056,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1056,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1067,48): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1067,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1067,29): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1094,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1105,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1106,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1107,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1119,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1120,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1121,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1161,32): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1189,39): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1189,36): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1189,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1228,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1228,26): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1241,52): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1288,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,42): warning C4244:  'argument': conversion from 'lua_Number' to 'char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,39): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,36): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1345,33): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1357,54): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1357,51): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1357,48): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1409,36): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1419,58): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1453,32): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1453,26): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1465,30): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1465,24): warning C4244:  'argument': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1465,12): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1483,26): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1483,21): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1522,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1523,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1574,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1574,28): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1585,33): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1585,28): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,63): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,57): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,50): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1600,45): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,80): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,73): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,70): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1641,67): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1684,49): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1684,46): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1684,43): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1684,40): warning C4244:  'argument': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1702,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1789,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1800,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1811,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1812,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1823,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1834,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1845,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1898,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1899,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1900,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1901,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1902,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1903,26): warning C4244:  '=': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1910,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1911,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1912,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1913,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1924,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1935,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1936,20): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1937,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1948,12): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1949,17): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1950,18): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1985,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1986,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1987,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(1988,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2010,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2011,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2021,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2032,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2033,20): warning C4244:  'initializing': conversion from 'lua_Number' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2034,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2035,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2036,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2119,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2121,29): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2184,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2185,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2186,10): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2187,14): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2188,17): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2189,17): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2190,15): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2191,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
   Generating code
-  2 of 6153 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    43 functions had inline decision re-evaluated but remain unchanged
+  2 of 6154 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    96 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe
