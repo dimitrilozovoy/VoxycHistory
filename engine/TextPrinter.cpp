@@ -44,14 +44,14 @@ void TextPrinter::draw()
 	}
 }
 
-void TextPrinter::drawText(TextItem *item, bool lightUp)
+void TextPrinter::drawText(TextItem *item, bool lightUp, float kern)
 {
 	if (item->text == "")
 		return;
 
 	// Is the sprite visible on the screen?
-	if (item->position.x < (-1.0 - item->size / 2.0) || item->position.x > (1.0 + item->size / 2.0)
-		|| item->position.y < (-1.0 - item->size / 2.0) || item->position.y >(1.0 + item->size / 2.0))
+	if (item->position.x < (-1.0 - item->sizex / 2.0) || item->position.x > (1.0 + item->sizex / 2.0)
+		|| item->position.y < (-1.0 - item->sizey / 2.0) || item->position.y >(1.0 + item->sizey / 2.0))
 		return;
 
 	float width = PLAT_GetWindowWidth();
@@ -67,8 +67,8 @@ void TextPrinter::drawText(TextItem *item, bool lightUp)
 //	else
 //		aspect = aspect * 0.7;
 		
-	float sizex = item->size;
-	float sizey = item->size;
+	float sizex = item->sizex;
+	float sizey = item->sizey;
 	
 	if (aspect < 1.0)
 	{
@@ -82,16 +82,20 @@ void TextPrinter::drawText(TextItem *item, bool lightUp)
 
 		if (item->visible && item->text.at(i) != ' ')
 		{
-			Texture *tex = texMan->find(getTextureNameForChar(item->text.at(i)));
+			Texture *tex = texMan->find(item->font + getTextureNameForChar(item->text.at(i)));
 
 			// Light up?
 			glm::vec4 color2 = glm::vec4(1.0, 1.0, 1.0, 1.0);
 			if (lightUp)
 				color2 = glm::vec4(1.5, 1.5, 1.5, 1.0);
 
+//			float kern = 1.2;
+			if (kern == 0)
+				kern = 1.2;
+
 			if (tex != nullptr && item->text.at(i) != ' ')
 			{
-				renderer->DrawSprite(item->position.x - (((item->text.size() - 1) * 1.2) * item->size) / 2.0 + (float)i * item->size * 1.2, item->position.y, sizex, sizey, tex->glTexID, item->color.r * color2.r, item->color.g * color2.g, item->color.b * color2.b, item->color.a * color2.a);
+				renderer->DrawSprite(item->position.x - (((item->text.size() - 1) * kern) * item->sizex) / 2.0 + (float)i * item->sizex * kern, item->position.y, sizex, sizey, tex->glTexID, item->color.r * color2.r, item->color.g * color2.g, item->color.b * color2.b, item->color.a * color2.a);
 			}
 		}
 	}
@@ -103,7 +107,8 @@ void TextPrinter::addText(std::string name, std::string text, glm::vec4 position
 	t->name = name;
 	t->text = text;
 	t->position = position;
-	t->size = size;
+	t->sizex = size;
+	t->sizey = size;
 	t->onClickExtra = onClickExtra;
 	t->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 
@@ -240,7 +245,7 @@ std::string TextPrinter::getTextureNameForChar(char symbol)
 		break;
 	case 'o':
 	case 'O':
-		result = "0.png";
+		result = "o.png";
 		break;
 	case 'p':
 	case 'P':
@@ -323,10 +328,10 @@ std::string TextPrinter::getOnClickExtraIfClicked(int action, float x, float y, 
 		float textglx = items[i]->position.x;
 		float textgly = items[i]->position.y;
 		
-		if (clickgly > textgly - item->size / 0.5 
-		&& clickgly < textgly + item->size / 0.5
-		&& clickglx > item->position.x - (item->text.size() * item->size) / 2.0
-		&& clickglx < item->position.x + (item->text.size() * item->size) / 2.0)
+		if (clickgly > textgly - item->sizey / 0.5 
+		&& clickgly < textgly + item->sizey / 0.5
+		&& clickglx > item->position.x - (item->text.size() * item->sizex) / 2.0
+		&& clickglx < item->position.x + (item->text.size() * item->sizey) / 2.0)
 		{
 		    return item->onClickExtra;
 		}

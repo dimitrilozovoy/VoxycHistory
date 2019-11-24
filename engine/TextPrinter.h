@@ -33,10 +33,12 @@ typedef struct TextItem
 	std::string name = "";
 	std::string text = "";
 	glm::vec4 position = glm::vec4(0.0, 0.0, 0.0, 0.0);
-	float size = 0.1;
+	float sizex = 0.1;
+	float sizey = 0.1;
 	bool visible = true;
 	std::string onClickExtra;
 	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+	std::string font = "";
 };
 
 class TextPrinter
@@ -44,7 +46,7 @@ class TextPrinter
 public:
 	void init(TextureManager2 *texMan, SpriteRenderer2D *renderer);
 	void draw();
-	void drawText(TextItem *item, bool lightUp = false);
+	void drawText(TextItem *item, bool lightUp = false, float kern = 1.2);
 	void addText(std::string name, std::string text, glm::vec4 position, float size, std::string onClickExtra);
 	void setText(std::string name, std::string text);
 	void setVisible(std::string name, bool visible);

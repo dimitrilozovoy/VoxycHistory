@@ -400,14 +400,17 @@ void Controls2::tickMouse()
 
 	if (!g_common.showMouse)
 	{
-		switch (controlScheme) {
-		case CTRL_FPS:
-			playerObj->yaw += mouseX * mouseMultiplier;
-			break;
-		case CTRL_EDITOR:
-			playerObj->yaw += mouseX * mouseMultiplier;
-			//playerObj->pitch -= mouseY;
-			break;
+		if (enabled)
+		{
+			switch (controlScheme) {
+			case CTRL_FPS:
+				playerObj->yaw += mouseX * mouseMultiplier;
+				break;
+			case CTRL_EDITOR:
+				playerObj->yaw += mouseX * mouseMultiplier;
+				//playerObj->pitch -= mouseY;
+				break;
+			}
 		}
 	}
 	else
@@ -1083,6 +1086,7 @@ bool Controls2::checkActionUp() {
 }
 
 void Controls2::mouse(float mouseX, float mouseY) {
+
 	if (mouseX != 0.0f || mouseY != 0.0f)
 		mouseMoved = true;
 

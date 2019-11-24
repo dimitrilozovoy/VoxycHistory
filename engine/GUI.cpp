@@ -181,10 +181,12 @@ void GUI::drawBtn(Widget *item)
 		ti.text = item->text;
 		ti.position.x = item->position.x;
 		ti.position.y = item->position.y;
-		ti.size = item->size.x;
+		ti.sizex = item->size.x;
+		ti.sizey = item->size.y;
 		ti.color = item->color;
+		ti.font = item->font;
 
-		textPrinter->drawText(&ti, item == selectedWidget);
+		textPrinter->drawText(&ti, item == selectedWidget, fontKern[item->font]);
 	}
 	else
 	{
@@ -238,14 +240,20 @@ void GUI::addWg(std::string name, WidgetType type, std::string texture, std::str
     Widget *w = new Widget();
     w->name = name;
 	w->type = type;
-    w->size = glm::vec2(sizex, sizey);
-    w->position = glm::vec2(x, y);
+	w->size.x = sizex;
+	w->size.y = sizey;
+	w->position = glm::vec2(x, y);
 	w->texture = texture;
 	w->text = text;
 	w->onClickExtra = onClickExtra;
 	w->group = group;
 
     widgets[name] = w;
+}
+
+void GUI::remWg(std::string name)
+{
+	widgets.erase(name);
 }
 
 Widget *GUI::findWg(std::string name)
@@ -994,4 +1002,9 @@ Widget *GUI::getTopVisibleWidget()
 	}
 
 	return topWidget;
+}
+
+void GUI::setFontKern(std::string font, float kern)
+{
+	fontKern[font] = kern;
 }

@@ -53,6 +53,7 @@ typedef struct Widget
 	std::string group;
 	bool visible = true;
 	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+	std::string font = "";
 };
 
 typedef struct DialogPart
@@ -71,7 +72,8 @@ public:
 	void drawBtn(Widget *item);
 	void drawMenu(Widget *item);
 	void addWg(std::string name, WidgetType type, std::string texture, std::string text, std::string onClickExtra, std::string group, float x, float y, float sizex, float sizey);
-    Widget *findWg(std::string name);
+	void remWg(std::string name);
+	Widget *findWg(std::string name);
 	void setWgVisible(std::string name, bool val);
 	void setWgColor(std::string name, float r, float g, float b, float a);
     std::string getOnClickExtraIfClicked(int action, float x, float y, int finger, int count);
@@ -121,6 +123,8 @@ public:
 		selectedWidget = w;
 	}
 
+	void setFontKern(std::string font, float kern);
+
 private:
     std::map<std::string, Widget*> widgets;
 	TextureManager2 *texMan;
@@ -153,6 +157,8 @@ private:
 	int delayTimer = 0;
 
 	Widget* selectedWidget = nullptr;
+
+	std::map<std::string, float> fontKern;
 };
 
 #endif

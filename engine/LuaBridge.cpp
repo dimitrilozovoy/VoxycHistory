@@ -1643,6 +1643,15 @@ static int addwg(lua_State *L)
 	return 0;
 }
 
+static int remwg(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	g_engine2->getGUI()->remWg(name);
+
+	return 0;
+}
+
 static int setwgvisible(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1662,6 +1671,26 @@ static int setwgcolor(lua_State *L)
 	lua_Number a = lua_tonumber(L, 5);
 
 	g_engine2->getGUI()->setWgColor(name, r, g, b, a);
+
+	return 0;
+}
+
+static int setwgfont(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+	std::string font = lua_tostring(L, 2);
+
+	g_engine2->getGUI()->getWidgets()[name]->font = font;
+
+	return 0;
+}
+
+static int setfontkern(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+	float kern = lua_tonumber(L, 2);
+
+	g_engine2->getGUI()->setFontKern(name, kern);
 
 	return 0;
 }
@@ -2344,8 +2373,11 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "clear", clear);
 	lua_register(L, "cleargui", cleargui);
 	lua_register(L, "addwg", addwg);
+	lua_register(L, "remwg", remwg);
 	lua_register(L, "setwgvisible", setwgvisible);
 	lua_register(L, "setwgcolor", setwgcolor);
+	lua_register(L, "setwgfont", setwgfont);
+	lua_register(L, "setfontkern", setfontkern);
 	lua_register(L, "runscript", runscript);
 	lua_register(L, "batch", batch);
     lua_register(L, "autobatch", autobatch);

@@ -1,4 +1,4 @@
-﻿  Controls2.cpp
+﻿  TextPrinter.cpp
 C:\Users\dimitri\Voxyc\engine\Common.h(52,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(80,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(87,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -9,58 +9,24 @@ C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignore
 C:\Users\dimitri\Voxyc\engine\Object.h(99,20): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Object.h(102,26): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,18): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\TextPrinter.h(40,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\GUI.h(41,2): warning C4091:  'typedef ': ignored on left of 'WidgetType' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\GUI.h(56,2): warning C4091:  'typedef ': ignored on left of 'Widget' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\GUI.h(63,2): warning C4091:  'typedef ': ignored on left of 'DialogPart' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\Controls2.h(55,2): warning C4091:  'typedef ': ignored on left of 'BtnNames' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\Controls2.h(66,2): warning C4091:  'typedef ': ignored on left of 'ENUM_AXES' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\Controls2.h(79,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\Controls2.h(87,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(36,19): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(37,19): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.h(42,2): warning C4091:  'typedef ': ignored on left of 'TextItem' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(71,31): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(73,32): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(75,28): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(77,29): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(132,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(135,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(239,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(242,60): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(270,42): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(272,43): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(274,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(276,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(315,42): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(317,43): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(319,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(321,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(369,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(370,45): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(371,40): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(374,51): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(375,50): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(376,52): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(421,99): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(421,70): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(433,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(434,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(524,48): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(526,48): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(537,47): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(539,46): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(558,23): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(611,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(612,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(985,86): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(987,86): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(996,68): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(997,67): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1004,69): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1033,39): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(36,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(57,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(58,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(75,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(76,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(79,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(94,15): warning C4305:  '=': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(98,100): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(140,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(313,22): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(322,20): warning C4018:  '<': signed/unsigned mismatch
   Generating code
-  0 of 6147 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  2 of 6153 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    43 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe
