@@ -1657,9 +1657,12 @@ static int setwgtext(lua_State* L)
 	std::string name = lua_tostring(L, 1);
 	std::string text = lua_tostring(L, 2);
 
+	if (g_engine2->getGUI()->getWidgets()[name] == nullptr)
+		return 0;
+
 	g_engine2->getGUI()->getWidgets()[name]->text = text;
 
-	return 1;
+	return 0;
 }
 
 
@@ -1690,6 +1693,9 @@ static int setwgfont(lua_State* L)
 {
 	std::string name = lua_tostring(L, 1);
 	std::string font = lua_tostring(L, 2);
+
+	if (g_engine2->getGUI()->getWidgets()[name] == nullptr)
+		return 0;
 
 	g_engine2->getGUI()->getWidgets()[name]->font = font;
 

@@ -261,6 +261,8 @@ int main(int argc, const char * argv[]) {
 
 	if (fullscreen != "1")
 	{
+//		const int windowWidth = 640;
+//		const int windowHeight = 480;
 		const int windowWidth = 1280;
 		const int windowHeight = 960;
 		g_common.windowWidth = windowWidth;
