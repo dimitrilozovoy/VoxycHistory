@@ -2238,6 +2238,14 @@ static int getplatform(lua_State* L)
 	return 1;
 }
 
+static int getwindowsize(lua_State* L)
+{
+	lua_pushnumber(L, g_common.windowWidth);
+	lua_pushnumber(L, g_common.windowHeight);
+
+	return 2;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2431,6 +2439,7 @@ void LuaBridge::init(Engine2 *engine)
     lua_register(L, "enableocclusioncheck", enableocclusioncheck);
     lua_register(L, "checkvoxelsready", checkvoxelsready);
 	lua_register(L, "getplatform", getplatform);
+	lua_register(L, "getwindowsize", getwindowsize);
 }
 
 void LuaBridge::exec(std::string filename)

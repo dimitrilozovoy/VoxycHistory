@@ -236,8 +236,8 @@ C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2195,17): warning C4244:  'initializ
 C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2196,15): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2197,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
   Generating code
-  3 of 6154 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    61 functions had inline decision re-evaluated but remain unchanged
+  2 of 6155 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    41 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe
