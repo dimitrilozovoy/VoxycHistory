@@ -1130,8 +1130,9 @@ static int checkvoxcoll(lua_State *L)
 static int collray(lua_State *L)
 {
 	std::string name1 = lua_tostring(L, 1);
+	float length = lua_tonumber(L, 2);
 
-	Object *obj2 = g_engine2->collisionRay(g_engine2->findObj(name1));
+	Object *obj2 = g_engine2->collisionRay(g_engine2->findObj(name1), length);
 
 	if (obj2 != nullptr)
 		lua_pushstring(L, obj2->name.c_str());
@@ -1497,6 +1498,23 @@ static int move(lua_State *L)
     obj->move();
 	
 	return 0;
+}
+
+static int getdeltalasttick(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object* obj = g_engine2->findObj(name);
+
+	if (obj == nullptr)
+		return 0;
+
+	lua_pushnumber(L, obj->deltaLastTick.x);
+	lua_pushnumber(L, obj->deltaLastTick.y);
+	lua_pushnumber(L, obj->deltaLastTick.z);
+	lua_pushnumber(L, obj->deltaLastTick.w);
+
+	return 4;
 }
 
 static int getyawto(lua_State *L)
@@ -2388,6 +2406,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "randint", randint);
 	lua_register(L, "setdeltaxz", rand);
 	lua_register(L, "move", rand);
+	lua_register(L, "getdeltalasttick", getdeltalasttick);
 	lua_register(L, "getyawto", getyawto);
 	lua_register(L, "getyawtopoint", getyawtopoint);
 	lua_register(L, "getpitchto", getpitchto);

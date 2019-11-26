@@ -179,7 +179,7 @@ int Audio::playSound(int bufferIdx)
 
 	alSourcePlay(sources[i].sourceId);
 	checkError("alSourcePlay");
-	
+
 	return i;
 #endif
 

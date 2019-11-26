@@ -121,6 +121,7 @@ void Engine2::tick()
 		
 	audio.tick();
 
+	resetObjectaDeltaLastMoved();
 	moveObjectsSmoothly();
 	moveObjectsByVelocity();
 	moveObjectsByWaypoints();
@@ -1783,7 +1784,7 @@ collisionRay
 ========================================
 */
 
-Object *Engine2::collisionRay(Object *source)
+Object *Engine2::collisionRay(Object *source, float length)
 {
 	Object ray;
 
@@ -1795,7 +1796,16 @@ Object *Engine2::collisionRay(Object *source)
 	int iter = 0;
 	bool hit = false;
 
-	while (!hit && iter < 100)
+	int numIterations = 100;
+	float step = 0.5;
+
+	if (length != 0)
+	{
+		numIterations = (int)(length * 2);
+		step = 0.5;
+	}
+
+	while (!hit && iter < numIterations)
 	{
 		for (const auto &pair2 : objects)
 		{
@@ -1810,7 +1820,7 @@ Object *Engine2::collisionRay(Object *source)
 			}
 		}
 
-		ray.MoveForward(0.5);
+		ray.MoveForward(step);
 		iter++;
 	}
 
@@ -1857,6 +1867,28 @@ bool Engine2::checkSight(Object *src, Object *dst)
 	}
 
 	return true;
+}
+
+/*
+========================================
+resetObjectaDeltaLastMoved
+========================================
+*/
+
+void Engine2::resetObjectaDeltaLastMoved()
+{
+	for (const auto& pair : objects)
+	{
+		Object* obj = pair.second;
+
+		if (obj != nullptr)
+		{
+			obj->deltaLastTick.x = 0;
+			obj->deltaLastTick.y = 0;
+			obj->deltaLastTick.z = 0;
+			obj->deltaLastTick.w = 0;
+		}
+	}
 }
 
 /*

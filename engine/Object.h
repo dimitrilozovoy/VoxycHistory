@@ -94,6 +94,7 @@ public:
     glm::vec4 position;
 	glm::vec4 nextPosition;
 	glm::vec4 delta;
+	glm::vec4 deltaLastTick;
 	glm::vec4 velocity = glm::vec4(0.0, 0.0, 0.0, 0.0);
 	float maxVelocity = 4.0;
     float yaw = 0.1;

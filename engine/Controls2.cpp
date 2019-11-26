@@ -368,7 +368,7 @@ void Controls2::tick() {
 		case CTRL_FPS:
 			playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
 			playerObj->MoveForward(- axes[AX_LEFT_Y] / 2.0);
-			playerObj->MoveYaw(axes[AX_RIGHT_X] * 2.0);
+			playerObj->MoveYaw(axes[AX_RIGHT_X] * 3.0);
 			break;
 		case CTRL_EDITOR:
             playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);

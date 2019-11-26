@@ -159,7 +159,7 @@ public:
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";
-	const float mouseMultiplier = 0.03f;
+	const float mouseMultiplier = 0.04f;
 	const int mouseClickTimerDelay = 30;
 
     Object *camera = nullptr;

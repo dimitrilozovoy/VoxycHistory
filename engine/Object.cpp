@@ -272,18 +272,23 @@ void Object::move()
 		    // Check for other objects
 		    for (auto other : nearCollisions)
 		    {
-			    if (
-				(other->category == "model"
-					|| other->category == "block"
-					|| other->category == "voxels"
-					|| other->category == "sprite"
-					|| other->name == "player")
-					&& other->visible
-					&& checkCollision(other, 1.0))
-			    {
-				    okToMove = false;
-				    stuckOn = other->name;
-			    }
+				if (okToMove == true && strings["ignorecollisionswith"] == other->name)
+					okToMove = true;
+				else
+				{
+					if (
+						(other->category == "model"
+							|| other->category == "block"
+							|| other->category == "voxels"
+							|| other->category == "sprite"
+							|| other->name == "player")
+						&& other->visible
+						&& checkCollision(other, 1.0))
+					{
+						okToMove = false;
+						stuckOn = other->name;
+					}
+				}
 		    }
 
 		    // Check if we are escaping play area
@@ -319,6 +324,11 @@ void Object::move()
 			nextPosition += delta;
 		else
 			position += delta;
+
+		deltaLastTick.x += delta.x;
+		deltaLastTick.y += delta.y;
+		deltaLastTick.z += delta.z;
+		deltaLastTick.w += delta.w;
 	}
 	else
 	{
