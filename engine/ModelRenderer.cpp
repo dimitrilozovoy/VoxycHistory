@@ -397,9 +397,25 @@ void ModelRenderer::drawMesh(Object *object, Model2 *model, Mesh *mesh, Object *
 		setUniform4f(curProgram, "vColor", object->color.x * mesh->color.x, object->color.y * mesh->color.y, object->color.z * mesh->color.z, object->color.w * mesh->color.w);
 		setUniform4f(curProgram, "globalColor", globalColor.x, globalColor.y, globalColor.z, globalColor.w);
 		setUniform4f(curProgram, "ambientLight", g_common.ambientr, g_common.ambientg, g_common.ambientb, 1.0);
-		
-		// Set texture
-		if (object->glTexID != -1)
+
+		// Set texture from mesh
+		if (object->meshTextureNames.size() > 0)
+		{
+			glActiveTexture(GL_TEXTURE0);
+			checkGLError("glActiveTexture");
+			glBindTexture(GL_TEXTURE_2D, object->meshGLTexIDs[mesh->index]);
+			checkGLError("glBindTexture");
+
+			// Set texture unit number
+			int uTexture = glGetUniformLocation(curProgram, "uTexture");
+			checkGLError("glGetUniformLocation");
+			glUniform1i(uTexture, 0);
+			checkGLError("glUniform1i");
+
+			setUniform1f(curProgram, "useTexture", 1.0);
+		}
+		// Set texture from object
+		else if (object->glTexID != -1)
 		{
 			glActiveTexture(GL_TEXTURE0);
 			checkGLError("glActiveTexture");

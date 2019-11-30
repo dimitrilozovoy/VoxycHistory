@@ -223,6 +223,46 @@ static int setmeshcolor(lua_State *L)
 	return 0;
 }
 
+static int setmeshtex(lua_State* L)
+{
+	std::string objName = lua_tostring(L, 1);
+	lua_Number midx = lua_tonumber(L, 2);
+	std::string texName = lua_tostring(L, 3);
+
+	Object *obj = g_engine2->findObj(objName);
+
+	if (obj != nullptr)
+	{
+		if (obj->meshTextureNames.size() <= midx)
+			obj->meshTextureNames.resize(midx + 1, "");
+
+ 		obj->meshTextureNames[midx] = texName;
+
+		TextureManager2* texMan = g_engine2->getTextureManager();
+		Texture* tex = texMan->find(texName);
+
+		if (tex == nullptr)
+		{
+			texMan->load(texName);
+		}
+		else
+		{
+		}
+
+		Texture* t = texMan->find(texName);
+
+		if (t != nullptr)
+		{
+			if (obj->meshGLTexIDs.size() <= midx)
+				obj->meshGLTexIDs.resize(midx + 1, -1);
+
+			obj->meshGLTexIDs[midx] = t->glTexID;
+		}
+	}
+
+	return 0;
+}
+
 static int settex(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -2301,7 +2341,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setmodelorient", setmodelorient);
 	lua_register(L, "setcolor", setcolor);
 	lua_register(L, "setmeshcolor", setmeshcolor);
-	lua_register(L, "settex", settex);	
+	lua_register(L, "setmeshtex", setmeshtex);
+	lua_register(L, "settex", settex);
 	lua_register(L, "gettex", gettex);
 	lua_register(L, "settexspan", settexspan);
 	lua_register(L, "setvisible", setvisible);	

@@ -89,7 +89,10 @@ public:
 	bool partOfBatch = false;
 	glm::vec4 color;
     std::string textureName;
-    float size;
+	int glTexID = -1;
+	std::vector<std::string> meshTextureNames;
+	std::vector<int> meshGLTexIDs;
+	float size;
 	glm::vec3 scale;
     glm::vec4 position;
 	glm::vec4 nextPosition;
@@ -102,7 +105,6 @@ public:
 	float roll = 0;
 	float secondaryYaw = 0.1;
 	int secondaryYawMesh = -1;
-    int glTexID = -1;
 	const float moveDistance = 1.0;
 	bool moveSmoothly = false;
 	float fadeNearDistance = 600;
