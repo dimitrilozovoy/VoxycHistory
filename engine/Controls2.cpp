@@ -405,6 +405,11 @@ void Controls2::tickMouse()
 			switch (controlScheme) {
 			case CTRL_FPS:
 				playerObj->yaw += mouseX * mouseMultiplier;
+
+				if (g_common.mouseLook)
+				{
+					playerObj->pitch -= mouseY * mouseMultiplier;
+				}
 				break;
 			case CTRL_EDITOR:
 				playerObj->yaw += mouseX * mouseMultiplier;

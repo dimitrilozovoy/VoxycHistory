@@ -124,6 +124,13 @@ void Object::setDeltaXYZ(float heading, float pitch, float vel)
 	while (heading > 360.0)
 		heading = heading - 360.0;
 
+/*	heading += 90;
+	heading = -heading;
+
+	delta.z = cos(glm::radians(heading)) * cos(glm::radians(pitch)) * vel;
+	delta.x = sin(glm::radians(heading)) * cos(glm::radians(pitch)) * vel;
+	delta.y = sin(glm::radians(pitch)) * vel;*/
+		
 	if (heading == 0.0)
 	{
 		delta.x = 0;

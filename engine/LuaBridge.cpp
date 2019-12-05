@@ -1924,6 +1924,15 @@ static int showmouse(lua_State* L)
 	return 0;
 }
 
+static int setmouselook(lua_State* L)
+{
+	bool mlook = lua_toboolean(L, 1);
+
+	g_common.mouseLook = mlook;
+
+	return 0;
+}
+
 static int getallobjs(lua_State *L)
 {
 	// Table for Lua to know what each object is approximately
@@ -2052,6 +2061,15 @@ static int setlight(lua_State *L)
 	float b = lua_tonumber(L, 5);
 
 	g_engine2->setLight(name, size, r, g, b);
+
+	return 0;
+}
+
+static int setambientlight(lua_State* L)
+{
+	g_common.ambientr = lua_tonumber(L, 1);
+	g_common.ambientg = lua_tonumber(L, 2);
+	g_common.ambientb = lua_tonumber(L, 3);
 
 	return 0;
 }
@@ -2475,6 +2493,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getaxis", getaxis);
 	lua_register(L, "getmousebtn", getmousebtn);
 	lua_register(L, "showmouse", showmouse);
+	lua_register(L, "setmouselook", setmouselook);
 	lua_register(L, "getallobjs", getallobjs);
 	lua_register(L, "setplayarea", setplayarea);
 	lua_register(L, "addtouchbtnbind", addtouchbtnbind);
@@ -2484,6 +2503,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "loadtex", loadtex);
 	lua_register(L, "rebuild", rebuild);
 	lua_register(L, "setlight", setlight);
+	lua_register(L, "setambientlight", setambientlight);
 	lua_register(L, "setcentermodels", setcentermodels);
 	lua_register(L, "setcameraoffset", setcameraoffset);
 	lua_register(L, "setdrawdistance", setdrawdistance);
