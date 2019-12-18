@@ -48,8 +48,8 @@ SOFTWARE.
 #endif
 
 #ifdef PLATFORM_OSX
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../thirdparty/macos/GL/glew.h"
+#include "../thirdparty/macos/GLFW/glfw3.h"
 #endif
 
 #include "../thirdparty/glm/glm.hpp"

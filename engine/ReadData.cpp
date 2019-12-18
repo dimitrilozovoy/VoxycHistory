@@ -138,7 +138,7 @@ unsigned lodepng_load_file_from_dat(unsigned char** out, size_t* outsize, const 
 Example 2
 Load PNG file from disk to memory first, then decode to raw pixels in memory.
 */
-void decodeTwoStepsFromDAT(const char* filename) {
+/*void decodeTwoStepsFromDAT(const char* filename) {
 	unsigned error;
 	unsigned char* image = 0;
 	unsigned width, height;
@@ -151,8 +151,6 @@ void decodeTwoStepsFromDAT(const char* filename) {
 
 	free(png);
 
-	/*use image here*/
-
 	free(image);
-}
+}*/
 

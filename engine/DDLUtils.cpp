@@ -40,6 +40,7 @@ SOFTWARE.
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreServices/CoreServices.h>
 #include <iostream>
+#include "../thirdparty/SimpleIni/SimpleIni.h"
 #endif
 
 #ifdef PLATFORM_GVR
@@ -212,7 +213,7 @@ std::string GetFullFilename(std::string filename)
     return [fullFilename UTF8String];
 #endif
     
-#if defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS
+#if defined PLATFORM_ANDROID || defined PLATFORM_WINDOWS || defined PLATFORM_OSX
     return g_assetsDir + "/" + filename;
 #endif
 }

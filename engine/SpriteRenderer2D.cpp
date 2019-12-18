@@ -32,8 +32,8 @@ SOFTWARE.
 #endif
 #ifdef PLATFORM_OSX
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../thirdparty/macos/GL/glew.h"
+#include "../thirdparty/macos/GLFW/glfw3.h"
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/glu.h>
 #endif

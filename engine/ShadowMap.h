@@ -97,7 +97,7 @@ public:
 	void checkGLError(char *tag);
 
 	GLuint getRenderedTexture() {
-#ifdef PLATFORM_WINDOWS
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 		return depthTexture;
 #endif
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS

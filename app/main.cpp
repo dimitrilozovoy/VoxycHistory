@@ -35,8 +35,8 @@ SOFTWARE.
 #ifdef PLATFORM_OSX
 #include <thread>
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../thirdparty/macos/GL/glew.h"
+#include "../thirdparty/macos/GLFW/glfw3.h"
 #include <OpenGL/OpenGL.h>
 #include <OpenGL/glu.h>
 #endif
@@ -100,7 +100,7 @@ SOFTWARE.
 #include "../thirdparty/clara/clara.hpp"
 #include <sys/types.h>
 #include <sys/stat.h>
-#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
+#if defined PLATFORM_WINDOWS
 #include <conio.h>
 #endif
 
