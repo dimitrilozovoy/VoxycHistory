@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300C51A323AAFC69009E48DF /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 300C519D23AAFC69009E48DF /* Editor.cpp */; };
+		300C51A423AAFC69009E48DF /* EditorOld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 300C519F23AAFC69009E48DF /* EditorOld.cpp */; };
+		300C51A523AAFC69009E48DF /* OrthoEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 300C51A023AAFC69009E48DF /* OrthoEditor.cpp */; };
+		300C51A623AAFC69009E48DF /* ModelEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 300C51A123AAFC69009E48DF /* ModelEditor.cpp */; };
+		300C51AA23AAFD5A009E48DF /* lodepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 300C51A823AAFD5A009E48DF /* lodepng.cpp */; };
 		300CD39A23A9EB31008F0270 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 300CD39923A9EB31008F0270 /* osx.cpp */; };
 		300CD39C23A9ED63008F0270 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300CD39B23A9ED63008F0270 /* CoreFoundation.framework */; };
 		300CD39E23A9EF66008F0270 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300CD39D23A9EF66008F0270 /* CoreServices.framework */; };
@@ -110,6 +115,16 @@
 
 /* Begin PBXFileReference section */
 		300C092A23A89287004B35B0 /* SimpleIni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleIni.h; path = ../../../../../../thirdparty/SimpleIni/SimpleIni.h; sourceTree = "<group>"; };
+		300C519B23AAFC69009E48DF /* ModelEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelEditor.h; path = ../../../../editor/ModelEditor.h; sourceTree = "<group>"; };
+		300C519C23AAFC69009E48DF /* Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Editor.h; path = ../../../../editor/Editor.h; sourceTree = "<group>"; };
+		300C519D23AAFC69009E48DF /* Editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Editor.cpp; path = ../../../../editor/Editor.cpp; sourceTree = "<group>"; };
+		300C519E23AAFC69009E48DF /* EditorOld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditorOld.h; path = ../../../../editor/EditorOld.h; sourceTree = "<group>"; };
+		300C519F23AAFC69009E48DF /* EditorOld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EditorOld.cpp; path = ../../../../editor/EditorOld.cpp; sourceTree = "<group>"; };
+		300C51A023AAFC69009E48DF /* OrthoEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OrthoEditor.cpp; path = ../../../../editor/OrthoEditor.cpp; sourceTree = "<group>"; };
+		300C51A123AAFC69009E48DF /* ModelEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModelEditor.cpp; path = ../../../../editor/ModelEditor.cpp; sourceTree = "<group>"; };
+		300C51A223AAFC69009E48DF /* OrthoEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrthoEditor.h; path = ../../../../editor/OrthoEditor.h; sourceTree = "<group>"; };
+		300C51A823AAFD5A009E48DF /* lodepng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lodepng.cpp; path = ../../../../../thirdparty/lodepng/lodepng.cpp; sourceTree = "<group>"; };
+		300C51A923AAFD5A009E48DF /* lodepng.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lodepng.hpp; path = ../../../../../thirdparty/lodepng/lodepng.hpp; sourceTree = "<group>"; };
 		300CD39923A9EB31008F0270 /* osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osx.cpp; sourceTree = "<group>"; };
 		300CD39B23A9ED63008F0270 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		300CD39D23A9EF66008F0270 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -299,6 +314,30 @@
 			path = SimpleIni;
 			sourceTree = "<group>";
 		};
+		300C519A23AAFC4B009E48DF /* editor */ = {
+			isa = PBXGroup;
+			children = (
+				300C519D23AAFC69009E48DF /* Editor.cpp */,
+				300C519C23AAFC69009E48DF /* Editor.h */,
+				300C519F23AAFC69009E48DF /* EditorOld.cpp */,
+				300C519E23AAFC69009E48DF /* EditorOld.h */,
+				300C51A123AAFC69009E48DF /* ModelEditor.cpp */,
+				300C519B23AAFC69009E48DF /* ModelEditor.h */,
+				300C51A023AAFC69009E48DF /* OrthoEditor.cpp */,
+				300C51A223AAFC69009E48DF /* OrthoEditor.h */,
+			);
+			name = editor;
+			sourceTree = "<group>";
+		};
+		300C51A723AAFD45009E48DF /* lodepng */ = {
+			isa = PBXGroup;
+			children = (
+				300C51A823AAFD5A009E48DF /* lodepng.cpp */,
+				300C51A923AAFD5A009E48DF /* lodepng.hpp */,
+			);
+			name = lodepng;
+			sourceTree = "<group>";
+		};
 		303F52C623A8118200456181 /* engine */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +449,7 @@
 		303F535323A8169600456181 /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				300C51A723AAFD45009E48DF /* lodepng */,
 				300C092923A8926C004B35B0 /* SimpleIni */,
 				303F535423A816A600456181 /* lua */,
 			);
@@ -504,6 +544,7 @@
 		30AD57A02384BEF20030F578 /* Voxyc */ = {
 			isa = PBXGroup;
 			children = (
+				300C519A23AAFC4B009E48DF /* editor */,
 				303F535323A8169600456181 /* thirdparty */,
 				303F534923A812F100456181 /* app */,
 				303F52C623A8118200456181 /* engine */,
@@ -589,6 +630,7 @@
 				303F532523A8127100456181 /* TextPrinter.cpp in Sources */,
 				303F535223A813A300456181 /* VoxycApp.cpp in Sources */,
 				303F53A123A81B6700456181 /* luac.c in Sources */,
+				300C51A423AAFC69009E48DF /* EditorOld.cpp in Sources */,
 				303F532223A8127100456181 /* Renderer.cpp in Sources */,
 				303F532623A8127100456181 /* GUI.cpp in Sources */,
 				303F53AD23A81B6700456181 /* lctype.c in Sources */,
@@ -607,6 +649,7 @@
 				303F533823A8127100456181 /* Shape.cpp in Sources */,
 				303F533723A8127100456181 /* DDLUtils.cpp in Sources */,
 				303F533B23A8127100456181 /* Terrain.cpp in Sources */,
+				300C51A523AAFC69009E48DF /* OrthoEditor.cpp in Sources */,
 				303F53AE23A81B6700456181 /* liolib.c in Sources */,
 				303F533423A8127100456181 /* Camera.cpp in Sources */,
 				303F539423A81B6700456181 /* lparser.c in Sources */,
@@ -616,6 +659,7 @@
 				303F533023A8127100456181 /* EditorController.cpp in Sources */,
 				303F532A23A8127100456181 /* Mesh.cpp in Sources */,
 				303F534323A8127100456181 /* Engine2.cpp in Sources */,
+				300C51A323AAFC69009E48DF /* Editor.cpp in Sources */,
 				303F532423A8127100456181 /* VertexLights.cpp in Sources */,
 				303F53A823A81B6700456181 /* lobject.c in Sources */,
 				303F534623A8127100456181 /* Voxels.cpp in Sources */,
@@ -635,6 +679,7 @@
 				303F534523A8127100456181 /* PlatformAudio.cpp in Sources */,
 				303F539823A81B6700456181 /* lvm.c in Sources */,
 				303F53B123A81B6700456181 /* lcorolib.c in Sources */,
+				300C51AA23AAFD5A009E48DF /* lodepng.cpp in Sources */,
 				303F532D23A8127100456181 /* OzzRenderer.cpp in Sources */,
 				303F539E23A81B6700456181 /* lundump.c in Sources */,
 				303F53A223A81B6700456181 /* linit.c in Sources */,
@@ -656,6 +701,7 @@
 				303F533623A8127100456181 /* SkyboxRenderer.cpp in Sources */,
 				303F534123A8127100456181 /* Controls2.cpp in Sources */,
 				303F533F23A8127100456181 /* ReadData.cpp in Sources */,
+				300C51A623AAFC69009E48DF /* ModelEditor.cpp in Sources */,
 				303F53A923A81B6700456181 /* ldebug.c in Sources */,
 				303F53AA23A81B6700456181 /* lstate.c in Sources */,
 				303F53AC23A81B6700456181 /* lstring.c in Sources */,

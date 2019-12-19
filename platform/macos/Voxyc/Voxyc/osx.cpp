@@ -83,12 +83,91 @@ void PLAT_SetTrackVolume(float vol)
     
 }
 
-void PLAT_ShowDialg(std::string s1, std::string s2, std::string s3, std::string s4)
+void PLAT_ShowDialog(std::string s1, std::string s2, std::string s3, std::string s4)
 {
     
 }
 
 void PLAT_ClearDialog()
+{
+    
+}
+
+void PLAT_ShowLongText(std::string text)
+{
+    
+}
+
+void PLAT_AddDialogPart(std::string caption, std::string defaultValue, std::string extraKey)
+{
+    
+}
+
+void PLAT_ClearListMenu()
+{
+    
+}
+
+void PLAT_ShowFileSelector(std::string s1, std::string s2)
+{
+    
+}
+
+void PLAT_AddListMenuOption(std::string title, std::string desc)
+{
+    
+}
+
+void PLAT_AttachCurrentThread()
+{
+    
+}
+
+void PLAT_DetachCurrentThread()
+{
+    
+}
+
+void PLAT_ShowListMenuInDialog(std::string title, std::string options)
+{
+    
+}
+
+int PLAT_stoi(std::string s, int fallback)
+{
+    int result = 0;
+    
+    try
+    {
+        result = std::stoi(s, nullptr, 10);
+    }
+    catch (...)
+    {
+        result = fallback;
+    }
+    
+    return result;
+}
+
+float PLAT_stof(std::string s, float fallback)
+{
+    if (s == "")
+        return fallback;
+    
+    return std::stof(s, nullptr);
+}
+
+std::string PLAT_GetCameraPic()
+{
+    return "";
+}
+
+void PLAT_StartTrackLocation()
+{
+    
+}
+
+void PLAT_StopTrackLocation()
 {
     
 }
