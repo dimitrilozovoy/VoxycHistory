@@ -343,7 +343,7 @@ void Renderer::checkGLError(char *tag)
 
 void Renderer::setDynamicLights(std::map<std::string, DynamicLight> dynamicLights, Object *object, int program, glm::mat4 rotate)
 {
-#if defined PLATFORM_ANDROID || defined PLATFORM_IOS || defined PLATFORM_WINDOWS
+#if defined PLATFORM_ANDROID || defined PLATFORM_IOS || defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 		// Set dynamic lights
 		float lightsPos[MAX_DYNAMIC_LIGHTS * 4];
 		float lightsSize[MAX_DYNAMIC_LIGHTS];

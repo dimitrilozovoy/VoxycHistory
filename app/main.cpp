@@ -261,10 +261,8 @@ int main(int argc, const char * argv[]) {
 
 	if (fullscreen != "1")
 	{
-//		const int windowWidth = 640;
-//		const int windowHeight = 480;
-		const int windowWidth = 1280;
-		const int windowHeight = 960;
+		const int windowWidth = mode->width * 0.8;
+		const int windowHeight = mode->height * 0.8;
 		g_common.windowWidth = windowWidth;
 		g_common.windowHeight = windowHeight;
 		g_glfwWindow = glfwCreateWindow(windowWidth, windowHeight, "Voxyc", 0, NULL);

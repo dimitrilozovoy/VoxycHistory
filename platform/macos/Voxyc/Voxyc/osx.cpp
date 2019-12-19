@@ -63,6 +63,7 @@ std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
     return def;
 }
 
+
 void PLAT_SavePref(std::string section, std::string key, std::string def)
 {
 }

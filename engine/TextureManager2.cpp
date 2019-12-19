@@ -70,6 +70,10 @@ void TextureManager2::load(std::string name, bool external)
     Texture *t = new Texture();
     t->name = name;
 
+    // If name is blank, do not try to load texture
+    if (name == "")
+        return;
+    
 #ifdef PLATFORM_IOS
     if (name == "")
         return;
@@ -116,7 +120,7 @@ void TextureManager2::load(std::string name, bool external)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     checkGLError("glTexParameterf");
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    checkGLError("glTexParameterf");
+    checkGLError("glTexParameterf"); 
 
 #else
     int glTexID;
@@ -126,10 +130,6 @@ void TextureManager2::load(std::string name, bool external)
 #endif
     
 	textures[name] = t;
-
-	// If name is blank, do not try to load texture
-	if (name == "")
-		return;
 
 #ifdef PLATFORM_ANDROID
 #ifdef USE_EXTERNAL_ASSETS
