@@ -2304,6 +2304,9 @@ static int getplatform(lua_State* L)
 #ifdef PLATFORM_WINDOWS
 	lua_pushstring(L, "windows");
 #endif
+#ifdef PLATFORM_OSX
+    lua_pushstring(L, "macos");
+#endif
 #ifdef PLATFORM_ANDROID
 	lua_pushstring(L, "android");
 #endif
@@ -2584,7 +2587,8 @@ void LuaBridge::exec(std::string filename)
 		errorMsg = "";
 	}
 #endif
-#ifdef PLATFORM_WINDOWS
+    
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 	char fullFilename[MAX_STR_LEN];
 	printFullResourceFilename((char *)filename.c_str(), fullFilename);
 

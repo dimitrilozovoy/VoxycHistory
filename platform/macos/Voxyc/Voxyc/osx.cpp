@@ -7,6 +7,7 @@
 //
 
 #include "Globals.hpp"
+#include <sys/time.h>
 
 #ifdef PLATFORM_OSX
 
@@ -32,27 +33,34 @@ void PLAT_PlayTrack(char *filename)
 
 int PLAT_GetWindowWidth()
 {
-    return 1024;
+    return g_common.windowWidth;
 }
 
 int PLAT_GetWindowHeight()
 {
-    return 768;
+    return g_common.windowHeight;
 }
 
-void PLAT_Log(char *)
+void PLAT_Log(char *str)
 {
-    
+    std::string s1(str);
+    std::string s2 = "\n";
+    std::string s3 = s1 + s2;
+    printf(s3.c_str());
 }
 
 long PLAT_GetTime()
 {
-    return 0;
+    timeval time;
+    gettimeofday(&time, NULL);
+    long millis = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+    
+    return millis;
 }
 
 std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
 {
-    return "";
+    return def;
 }
 
 void PLAT_SavePref(std::string section, std::string key, std::string def)

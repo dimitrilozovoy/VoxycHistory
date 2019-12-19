@@ -220,7 +220,7 @@ void Engine2::draw(int eye)
 //    skeletalRenderer.draw(eye, objects, &camera, false, useShadowMap, &shadowMap);
 
 // HACK: Sprite renderer is broken on Windows and iOS; ShapeRenderer takes care as fallback
-#if !defined PLATFORM_WINDOWS and !defined PLATFORM_IOS
+#if !defined PLATFORM_WINDOWS and !defined PLATFORM_OSX and !defined PLATFORM_IOS
 	spriteRenderer.draw(eye, objects, &camera);
 #endif
 	
