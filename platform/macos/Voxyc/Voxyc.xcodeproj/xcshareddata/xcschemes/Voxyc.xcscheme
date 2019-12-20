@@ -67,7 +67,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--fullscreen 1"
+            argument = "--fullscreen 0"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

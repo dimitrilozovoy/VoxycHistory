@@ -271,19 +271,22 @@ void GUI::setWgVisible(std::string name, bool val)
 		return;
 	
 	wg->visible = val;
-	
-/*	for(const auto &pair: widgets)
+}
+
+void GUI::setWgGroupVisible(std::string group, bool val)
+{
+    for (const auto &pair: widgets)
     {
         Widget *obj = pair.second;
-
-		if (obj != nullptr)
-		{
-			if (obj->group == wg->group)
-			{
-				obj->visible = val;
-			}
-		}
-    }*/
+     
+        if (obj != nullptr)
+        {
+            if (obj->group == group)
+            {
+                obj->visible = val;
+            }
+        }
+    }
 }
 
 void GUI::setWgColor(std::string name, float r, float g, float b, float a)
@@ -674,9 +677,9 @@ void GUI::up()
 
 			if (wg != nullptr)
 			{
-				if (wg->visible)
+				if (wg->visible && wg->type == WG_MENUITEM)
 				{
-					if (wg != selectedWidget && wg->position.y > selectedWidget->position.y && wg->position.x == selectedWidget->position.x)
+					if (wg != selectedWidget && wg->position.y > selectedWidget->position.y /*&& wg->position.x == selectedWidget->position.x*/)
 					{
 						widgetsBelow.push_back(wg);
 					}
@@ -684,7 +687,7 @@ void GUI::up()
 			}
 		}
 
-		// Traverse all widgets below and find the closets one
+		// Traverse all widgets below and find the closest one
 		Widget* closest = nullptr;
 		float smallestDist = 0;
 
@@ -772,9 +775,9 @@ void GUI::down()
 
 			if (wg != nullptr)
 			{
-				if (wg->visible)
+				if (wg->visible && wg->type == WG_MENUITEM)
 				{
-					if (wg != selectedWidget && wg->position.y < selectedWidget->position.y && wg->position.x == selectedWidget->position.x)
+					if (wg != selectedWidget && wg->position.y < selectedWidget->position.y /*&& wg->position.x == selectedWidget->position.x*/)
 					{
 						widgetsBelow.push_back(wg);
 					}

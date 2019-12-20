@@ -78,6 +78,7 @@ typedef struct Common
 	bool noMusic = false;
 	bool showMouse = true;
 	bool mouseLook = false;
+    bool exit = false;
 };
 
 typedef struct RenderStats

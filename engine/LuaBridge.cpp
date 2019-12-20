@@ -1734,6 +1734,16 @@ static int setwgvisible(lua_State *L)
 	return 1;
 }
 
+static int setwggroupvisible(lua_State *L)
+{
+    std::string group = lua_tostring(L, 1);
+    bool visible = lua_toboolean(L, 2);
+    
+    g_engine2->getGUI()->setWgGroupVisible(group, visible);
+    
+    return 1;
+}
+
 static int setwgcolor(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1758,6 +1768,18 @@ static int setwgfont(lua_State* L)
 	g_engine2->getGUI()->getWidgets()[name]->font = font;
 
 	return 0;
+}
+
+static int selectwg(lua_State* L)
+{
+    std::string name = lua_tostring(L, 1);
+    
+    if (g_engine2->getGUI()->getWidgets()[name] == nullptr)
+        return 0;
+    
+    g_engine2->getGUI()->setSelectedWidget(g_engine2->getGUI()->getWidgets()[name]);
+    
+    return 0;
 }
 
 static int setfontkern(lua_State* L)
@@ -2325,6 +2347,13 @@ static int getwindowsize(lua_State* L)
 	return 2;
 }
 
+static int exit(lua_State* L)
+{
+    g_common.exit = true;
+    
+    return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2481,9 +2510,11 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "addwg", addwg);
 	lua_register(L, "remwg", remwg);
 	lua_register(L, "setwgtext", setwgtext);
-	lua_register(L, "setwgvisible", setwgvisible);
+    lua_register(L, "setwgvisible", setwgvisible);
+	lua_register(L, "setwggroupvisible", setwggroupvisible);
 	lua_register(L, "setwgcolor", setwgcolor);
-	lua_register(L, "setwgfont", setwgfont);
+    lua_register(L, "setwgfont", setwgfont);
+	lua_register(L, "selectwg", selectwg);
 	lua_register(L, "setfontkern", setfontkern);
 	lua_register(L, "runscript", runscript);
 	lua_register(L, "batch", batch);
@@ -2522,7 +2553,8 @@ void LuaBridge::init(Engine2 *engine)
     lua_register(L, "enableocclusioncheck", enableocclusioncheck);
     lua_register(L, "checkvoxelsready", checkvoxelsready);
 	lua_register(L, "getplatform", getplatform);
-	lua_register(L, "getwindowsize", getwindowsize);
+    lua_register(L, "getwindowsize", getwindowsize);
+	lua_register(L, "exit", exit);
 }
 
 void LuaBridge::exec(std::string filename)

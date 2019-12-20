@@ -75,6 +75,7 @@ public:
 	void remWg(std::string name);
 	Widget *findWg(std::string name);
 	void setWgVisible(std::string name, bool val);
+    void setWgGroupVisible(std::string group, bool val);
 	void setWgColor(std::string name, float r, float g, float b, float a);
     std::string getOnClickExtraIfClicked(int action, float x, float y, int finger, int count);
 	std::map<std::string, Widget*> getWidgets() { return widgets; }

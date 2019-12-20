@@ -309,7 +309,7 @@ int main(int argc, const char * argv[]) {
 	// Event loop
 	//
 
-	while (!glfwWindowShouldClose(g_glfwWindow))
+	while (!glfwWindowShouldClose(g_glfwWindow) && !g_common.exit)
 	{
 		updateControls();
 
@@ -321,7 +321,6 @@ int main(int argc, const char * argv[]) {
 #endif
 
 		glfwPollEvents();
-
 	}
 
 #endif
