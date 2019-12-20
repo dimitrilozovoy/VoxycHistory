@@ -1344,6 +1344,27 @@ static int getextraint(lua_State *L)
 	return 1;
 }
 
+    static int setextrafloat(lua_State *L)
+{
+    std::string name = lua_tostring(L, 1);
+    int val = lua_tonumber(L, 2);
+
+    g_common.extraFloats[name] = val;
+    
+    return 1;
+}
+
+static int getextrafloat(lua_State *L)
+{
+    std::string name = lua_tostring(L, 1);
+    
+    float val = g_common.extraFloats[name];
+    
+    lua_pushnumber(L, val);
+    
+    return 1;
+}
+
 static int getextraint1(lua_State *L)
 {
 	std::string name = lua_tostring(L, 1);
@@ -1695,7 +1716,9 @@ static int addwg(lua_State *L)
 	    type = WG_MENU;	
     if (typeStr == "menuitem")
 	    type = WG_MENUITEM;	
-	
+    if (typeStr == "slider")
+        type = WG_SLIDER;
+
 	g_engine2->addWg(name, type, texture, text, onclickextra, group, x, y, sizex, sizey);
 
 	return 0;
@@ -1778,6 +1801,21 @@ static int selectwg(lua_State* L)
         return 0;
     
     g_engine2->getGUI()->setSelectedWidget(g_engine2->getGUI()->getWidgets()[name]);
+    
+    return 0;
+}
+
+static int setwgsliderpos(lua_State* L)
+{
+    std::string name = lua_tostring(L, 1);
+    float pos = lua_tonumber(L, 2);
+    
+    Widget *wg = g_engine2->getGUI()->getWidgets()[name];
+    
+    if (wg == nullptr)
+        return 0;
+
+    wg->sliderValue = pos;
     
     return 0;
 }
@@ -2354,6 +2392,24 @@ static int exit(lua_State* L)
     return 0;
 }
 
+static int setmousesens(lua_State *L)
+{
+    float s = lua_tonumber(L, 1);
+    
+    g_common.mouseSens = s;
+    
+    return 0;
+}
+
+static int setcontrollersens(lua_State *L)
+{
+    float s = lua_tonumber(L, 1);
+    
+    g_common.controllerSens = s;
+    
+    return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2483,8 +2539,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getextraint", getextraint);
 	lua_register(L, "setextrastr", setextrastr);
 	lua_register(L, "getextrastr", getextrastr);
-	lua_register(L, "setextrafloat", setextraint);
-	lua_register(L, "getextrafloat", getextraint);
+	lua_register(L, "setextrafloat", setextrafloat);
+	lua_register(L, "getextrafloat", getextrafloat);
 	lua_register(L, "log", log);
 	lua_register(L, "setvox", setvox);
 	lua_register(L, "setvoxels", setvoxels);
@@ -2515,6 +2571,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "setwgcolor", setwgcolor);
     lua_register(L, "setwgfont", setwgfont);
 	lua_register(L, "selectwg", selectwg);
+    lua_register(L, "setwgsliderpos", setwgsliderpos);
 	lua_register(L, "setfontkern", setfontkern);
 	lua_register(L, "runscript", runscript);
 	lua_register(L, "batch", batch);
@@ -2555,6 +2612,8 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "getplatform", getplatform);
     lua_register(L, "getwindowsize", getwindowsize);
 	lua_register(L, "exit", exit);
+    lua_register(L, "setmousesens", setmousesens);
+    lua_register(L, "setcontrollersens", setcontrollersens);
 }
 
 void LuaBridge::exec(std::string filename)

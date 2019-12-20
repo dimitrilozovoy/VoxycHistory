@@ -37,6 +37,7 @@ typedef enum WidgetType
 	WG_MENU,
 	WG_MENUITEM,
 	WG_TEXT,
+    WG_SLIDER,
 	NUM_WIDGETTYPES
 };
 
@@ -54,6 +55,7 @@ typedef struct Widget
 	bool visible = true;
 	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 	std::string font = "";
+    float sliderValue = 0.5f;
 };
 
 typedef struct DialogPart
@@ -70,7 +72,8 @@ public:
 	void tick();
     void draw();
 	void drawBtn(Widget *item);
-	void drawMenu(Widget *item);
+    void drawMenu(Widget *item);
+	void drawSlider(Widget *item);
 	void addWg(std::string name, WidgetType type, std::string texture, std::string text, std::string onClickExtra, std::string group, float x, float y, float sizex, float sizey);
 	void remWg(std::string name);
 	Widget *findWg(std::string name);

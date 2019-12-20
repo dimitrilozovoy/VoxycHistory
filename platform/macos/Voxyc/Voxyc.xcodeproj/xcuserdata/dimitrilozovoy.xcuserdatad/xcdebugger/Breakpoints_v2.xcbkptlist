@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.146778"
+            timestampString = "598573096.0272911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2625"
-            endingLineNumber = "2625"
+            startingLineNumber = "2684"
+            endingLineNumber = "2684"
             landmarkName = "LuaBridge::exec(std::string filename)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.146902"
+            timestampString = "598573096.028156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2627"
-            endingLineNumber = "2627"
+            startingLineNumber = "2686"
+            endingLineNumber = "2686"
             landmarkName = "LuaBridge::exec(std::string filename)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.146958"
+            timestampString = "598573096.028757"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2270"
-            endingLineNumber = "2270"
+            startingLineNumber = "2308"
+            endingLineNumber = "2308"
             landmarkName = "loadpref(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/Controls2.cpp"
-            timestampString = "598425696.7549649"
+            timestampString = "598573096.02935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
             landmarkName = "Controls2::tickMouse()"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Voxyc/osx.cpp"
-            timestampString = "598499502.84786"
+            timestampString = "598573096.029467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "PLAT_GetTime()"
             landmarkType = "9">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/GUI.cpp"
-            timestampString = "598544709.655632"
+            timestampString = "598573096.029591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "GUI::addWg(std::string name, WidgetType type, std::string texture, std::string text, std::string onClickExtra, std::string group, float x, float y, float sizex, float sizey)"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.147545"
+            timestampString = "598573096.0296921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2330"
-            endingLineNumber = "2330"
+            startingLineNumber = "2368"
+            endingLineNumber = "2368"
             landmarkName = "getplatform(lua_State* L)"
             landmarkType = "9">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.147602"
+            timestampString = "598573096.03028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1729"
-            endingLineNumber = "1729"
+            startingLineNumber = "1752"
+            endingLineNumber = "1752"
             landmarkName = "setwgvisible(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.147669"
+            timestampString = "598573096.030821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1732"
-            endingLineNumber = "1732"
+            startingLineNumber = "1755"
+            endingLineNumber = "1755"
             landmarkName = "setwgvisible(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.147717"
+            timestampString = "598573096.031395"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1730"
-            endingLineNumber = "1730"
+            startingLineNumber = "1753"
+            endingLineNumber = "1753"
             landmarkName = "setwgvisible(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.147783"
+            timestampString = "598573096.032216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1699"
-            endingLineNumber = "1699"
+            startingLineNumber = "1722"
+            endingLineNumber = "1722"
             landmarkName = "addwg(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
@@ -298,7 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/Engine2.cpp"
-            timestampString = "598499502.8504601"
+            timestampString = "598569873.871385"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "163"
@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/Engine2.cpp"
-            timestampString = "598499502.850538"
+            timestampString = "598569873.871568"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Voxyc/osx.cpp"
-            timestampString = "598499502.850682"
+            timestampString = "598573096.032984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "PLAT_LoadPref(std::string section, std::string key, std::string def)"
             landmarkType = "9">
          </BreakpointContent>
@@ -346,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.1478879"
+            timestampString = "598573096.033062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1331"
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Voxyc/osx.cpp"
-            timestampString = "598499502.851282"
+            timestampString = "598573096.033627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "PLAT_LoadPref(std::string section, std::string key, std::string def)"
             landmarkType = "9">
          </BreakpointContent>
@@ -378,7 +378,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.147953"
+            timestampString = "598573096.033756"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1332"
@@ -394,12 +394,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "598528324.148007"
+            timestampString = "598573096.034276"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1739"
-            endingLineNumber = "1739"
+            startingLineNumber = "1762"
+            endingLineNumber = "1762"
             landmarkName = "setwggroupvisible(lua_State *L)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../engine/GUI.cpp"
+            timestampString = "598573096.034781"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "963"
+            endingLineNumber = "963"
+            landmarkName = "GUI::right()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../engine/GUI.cpp"
+            timestampString = "598573096.034911"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "784"
+            endingLineNumber = "784"
+            landmarkName = "GUI::down()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../engine/LuaBridge.cpp"
+            timestampString = "598573096.035005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2397"
+            endingLineNumber = "2397"
+            landmarkName = "setmousesens(lua_State *L)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../engine/LuaBridge.cpp"
+            timestampString = "598573096.035534"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2399"
+            endingLineNumber = "2399"
+            landmarkName = "setmousesens(lua_State *L)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../engine/LuaBridge.cpp"
+            timestampString = "598573096.035992"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2295"
+            endingLineNumber = "2295"
+            landmarkName = "savepref(lua_State *L)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../engine/LuaBridge.cpp"
+            timestampString = "598573096.03641"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1363"
+            endingLineNumber = "1363"
+            landmarkName = "getextrafloat(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

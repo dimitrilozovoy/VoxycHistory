@@ -29,7 +29,7 @@ SOFTWARE.
  
 #define DEFAULT_ASSETS_DIR "../../../../assets"
 #define DEFAULT_MODULE "editor"
-#define CONFIG_FILENAME "voxyc.ini"
+#define CONFIG_FILENAME "config.ini"
 
 //#define USE_EXTERNAL_ASSETS
 #define EXTERNAL_PROJECT_DIR "assets"

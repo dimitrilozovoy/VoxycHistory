@@ -142,6 +142,9 @@ void GUI::draw()
 				case WG_TEXT:
 					drawBtn(wg);
 					break;
+                case WG_SLIDER:
+                    drawSlider(wg);
+                    break;
 			}
 		}
         }
@@ -230,6 +233,63 @@ void GUI::drawMenu(Widget *item)
 		renderer->DrawSprite(item->position.x, item->position.y, sizex, sizey, tex->glTexID, item->color.r, item->color.g, item->color.b, item->color.a);
 	}
 
+}
+
+void GUI::drawSlider(Widget *item)
+{
+    float width = PLAT_GetWindowWidth();
+    float height = PLAT_GetWindowHeight();
+#ifdef PLATFORM_OPENVR
+    float aspect = 1.0;
+#else
+    float aspect = width / height;
+#endif
+    
+    if (aspect > 1.0)
+        aspect = 1.0;
+    //    else
+    //        aspect = aspect * 0.7;
+    
+    float sizex = item->size.x;
+    float sizey = item->size.y;
+    
+/*    if (aspect < 1.0)
+    {
+        sizex = sizex * 0.5;
+        sizey = sizey * 0.5;
+    }*/
+    
+    Texture *tex = texMan->find(item->texture);
+        
+    if (tex != nullptr)
+    {
+        float r, g, b, a = 1.0f;
+        
+        if (item == selectedWidget)
+        {
+            r = 1.5f;
+            g = 1.5f;
+            b = 1.5f;
+            a = 1.0f;
+        }
+        else
+        {
+            r = item->color.r;
+            g = item->color.g;
+            b = item->color.b;
+            a = item->color.a;
+        }
+        
+        Texture *texBg = texMan->find("white.png");
+
+        // Back of slider
+        renderer->DrawSprite(item->position.x, item->position.y, sizex, sizey, texBg->glTexID, r, g, b, 0.2);
+
+        // Slider
+        float x = item->position.x - sizex * 0.5 + sizex * item->sliderValue;
+        
+        renderer->DrawSprite(x, item->position.y, sizey, sizey, tex->glTexID, r, g, b, a);
+    }
 }
 
 void GUI::addWg(std::string name, WidgetType type, std::string texture, std::string text, std::string onClickExtra, std::string group, float x, float y, float sizex, float sizey)
@@ -677,7 +737,7 @@ void GUI::up()
 
 			if (wg != nullptr)
 			{
-				if (wg->visible && wg->type == WG_MENUITEM)
+				if (wg->visible && (wg->type == WG_MENUITEM || wg->type == WG_SLIDER))
 				{
 					if (wg != selectedWidget && wg->position.y > selectedWidget->position.y /*&& wg->position.x == selectedWidget->position.x*/)
 					{
@@ -775,7 +835,7 @@ void GUI::down()
 
 			if (wg != nullptr)
 			{
-				if (wg->visible && wg->type == WG_MENUITEM)
+                if (wg->visible && (wg->type == WG_MENUITEM || wg->type == WG_SLIDER))
 				{
 					if (wg != selectedWidget && wg->position.y < selectedWidget->position.y /*&& wg->position.x == selectedWidget->position.x*/)
 					{
@@ -819,20 +879,151 @@ void GUI::down()
 
 void GUI::left()
 {
-	if (dialogCancelSelected)
+    if (delayTimer > 0)
+    {
+        delayTimer--;
+        return;
+    }
+
+    if (dialogCancelSelected)
 	{
 		dialogCancelSelected = false;
 		dialogOKSelected = true;
 	}
+
+    // Widget selection; find all widgets directly to the right of the current selected one and find the closest one
+    if (selectedWidget != nullptr)
+    {
+        if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue >= 0.0f)
+        {
+            selectedWidget->sliderValue -= 0.05f;
+            g_common.extraInts[selectedWidget->onClickExtra] = 1;
+            g_common.extraFloats["slidervalue"] = selectedWidget->sliderValue;
+        }
+        else
+        {
+            
+        std::vector<Widget*> widgetsBelow;
+        
+        for (const auto& pair : widgets)
+        {
+            Widget* wg = pair.second;
+            
+            if (wg != nullptr)
+            {
+                if (wg->visible && wg->type == WG_MENUITEM)
+                {
+                    if (wg != selectedWidget && wg->position.x < selectedWidget->position.x && wg->position.y == selectedWidget->position.y)
+                    {
+                        widgetsBelow.push_back(wg);
+                    }
+                }
+            }
+        }
+        
+        // Traverse all widgets to the right and find the closest one
+        Widget* closest = nullptr;
+        float smallestDist = 0;
+        
+        for (auto& wg : widgetsBelow)
+        {
+            if (wg != nullptr)
+            {
+                if (wg->visible)
+                {
+                    float dist = abs(wg->position.x - selectedWidget->position.x);
+                    
+                    if (smallestDist == 0 || dist < smallestDist)
+                    {
+                        smallestDist = dist;
+                        closest = wg;
+                    }
+                }
+            }
+        }
+        
+        if (closest != nullptr)
+            selectedWidget = closest;
+            
+        delayTimer = 4;
+        
+        }
+    }
+    
 }
 
 void GUI::right()
 {
-	if (dialogOKSelected)
+    if (delayTimer > 0)
+    {
+        delayTimer--;
+        return;
+    }
+
+    if (dialogOKSelected)
 	{
 		dialogCancelSelected = true;
 		dialogOKSelected = false;
 	}
+    
+    // Widget selection; find all widgets directly to the right of the current selected one and find the closest one
+    if (selectedWidget != nullptr)
+    {
+        if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue <= 1.0f)
+        {
+            selectedWidget->sliderValue += 0.05f;
+            g_common.extraInts[selectedWidget->onClickExtra] = 1;
+            g_common.extraFloats["slidervalue"] = selectedWidget->sliderValue;
+        }
+        else
+        {
+            
+        std::vector<Widget*> widgetsBelow;
+        
+        for (const auto& pair : widgets)
+        {
+            Widget* wg = pair.second;
+            
+            if (wg != nullptr)
+            {
+                if (wg->visible && wg->type == WG_MENUITEM)
+                {
+                    if (wg != selectedWidget && wg->position.x > selectedWidget->position.x && wg->position.y == selectedWidget->position.y)
+                    {
+                        widgetsBelow.push_back(wg);
+                    }
+                }
+            }
+        }
+        
+        // Traverse all widgets to the right and find the closest one
+        Widget* closest = nullptr;
+        float smallestDist = 0;
+        
+        for (auto& wg : widgetsBelow)
+        {
+            if (wg != nullptr)
+            {
+                if (wg->visible)
+                {
+                    float dist = abs(wg->position.x - selectedWidget->position.x);
+                    
+                    if (smallestDist == 0 || dist < smallestDist)
+                    {
+                        smallestDist = dist;
+                        closest = wg;
+                    }
+                }
+            }
+        }
+        
+        if (closest != nullptr)
+            selectedWidget = closest;
+            
+        delayTimer = 4;
+        
+        }
+    }
 }
 
 void GUI::enter()

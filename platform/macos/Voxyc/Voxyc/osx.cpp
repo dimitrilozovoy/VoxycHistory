@@ -8,6 +8,7 @@
 
 #include "Globals.hpp"
 #include <sys/time.h>
+#include "../../../../thirdparty/SimpleIni/SimpleIni.h"
 
 #ifdef PLATFORM_OSX
 
@@ -60,12 +61,21 @@ long PLAT_GetTime()
 
 std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
 {
-    return def;
+    CSimpleIniA ini;
+    ini.SetUnicode();
+    ini.LoadFile(CONFIG_FILENAME);
+    const char *pVal = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
+
+    return pVal;
 }
 
-
-void PLAT_SavePref(std::string section, std::string key, std::string def)
+void PLAT_SavePref(std::string section, std::string key, std::string val)
 {
+    CSimpleIniA ini;
+    ini.SetUnicode();
+    ini.LoadFile(CONFIG_FILENAME);
+    ini.SetValue(section.c_str(), key.c_str(), val.c_str());
+    ini.SaveFile(CONFIG_FILENAME);
 }
 
 void PLAT_ShowText(std::string str)

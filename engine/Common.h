@@ -44,6 +44,7 @@ typedef struct Common
 	float gamepadRightX = 0;
 	float gamepadRightY = 0;
 	std::map<std::string, int> extraInts;
+    std::map<std::string, float> extraFloats;
 	std::map<std::string, std::string> extraStrings;
 	char readSCVersionA = '1';
 	char readSCVersionB = '0';
@@ -79,6 +80,8 @@ typedef struct Common
 	bool showMouse = true;
 	bool mouseLook = false;
     bool exit = false;
+    float mouseSens = 0.5;
+    float controllerSens = 0.5;
 };
 
 typedef struct RenderStats

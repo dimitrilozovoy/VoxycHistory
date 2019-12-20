@@ -402,17 +402,19 @@ void Controls2::tickMouse()
 	{
 		if (enabled)
 		{
+            float mult = mouseMultiplier - (mouseMultiplier / 2.0f) + mouseMultiplier * g_common.mouseSens;
+            
 			switch (controlScheme) {
 			case CTRL_FPS:
-				playerObj->yaw += mouseX * mouseMultiplier;
+				playerObj->yaw += mouseX * mult;
 
 				if (g_common.mouseLook)
 				{
-					playerObj->pitch -= mouseY * mouseMultiplier;
+					playerObj->pitch -= mouseY * mult;
 				}
 				break;
 			case CTRL_EDITOR:
-				playerObj->yaw += mouseX * mouseMultiplier;
+				playerObj->yaw += mouseX * mult;
 				//playerObj->pitch -= mouseY;
 				break;
 			}
@@ -696,7 +698,13 @@ void Controls2::processGUI()
 	if (buttons[BTN_DOWN])
 		gui->down();
 
-	// Gamepad A to select
+    if (buttons[BTN_RIGHT])
+        gui->right();
+    
+    if (buttons[BTN_LEFT])
+        gui->left();
+
+    // Gamepad A to select
 	if (buttons[BTN_A])
 	{
 		aWasPressed = true;
