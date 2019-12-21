@@ -67,6 +67,15 @@ void Controls2::tick() {
     switch (controlScheme) {
 		case CTRL_FPS:
 
+/*			if (keys[GLFW_KEY_W] == 1)
+				playerObj->MoveForward(0.4);
+			if (keys[GLFW_KEY_S] == 1)
+				playerObj->MoveBackward(0.4);
+			if (keys[GLFW_KEY_A] == 1)
+				playerObj->MoveLeft(0.3);
+			if (keys[GLFW_KEY_D] == 1)
+				playerObj->MoveRight(0.3);*/
+							
 			if (buttons[BTN_UP] == 1)
 				playerObj->MoveForward(0.4);
 			if (buttons[BTN_DOWN] == 1)
@@ -368,7 +377,7 @@ void Controls2::tick() {
 		case CTRL_FPS:
 			playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
 			playerObj->MoveForward(- axes[AX_LEFT_Y] / 2.0);
-			playerObj->MoveYaw(axes[AX_RIGHT_X] * 2.5);
+			playerObj->MoveYaw(axes[AX_RIGHT_X] * 1.5 + axes[AX_RIGHT_X] * g_common.controllerSens * 2.0);
 			break;
 		case CTRL_EDITOR:
             playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);

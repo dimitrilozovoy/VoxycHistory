@@ -75,7 +75,7 @@ void Engine2::init()
     controls.init(&camera, &mouseLook, &texMan, &editorController, &gui);
 	controls.setPlayerObj(playerObj);
 	physics.init();
-	audio.init();
+	g_audio.init();
 
 #ifdef USE_PLAYEROBJ
     camera.init(&mouseLook);
@@ -119,7 +119,7 @@ void Engine2::tick()
 	if (physicsEnabled)
 	    physics.tick(objects);
 		
-	audio.tick();
+	g_audio.tick();
 
 	resetObjectaDeltaLastMoved();
 	moveObjectsSmoothly();
@@ -1578,7 +1578,7 @@ void Engine2::playSound(std::string name, bool stereo)
     ext = "ogg";
 #endif
     
-	audio.playSound(name + "." + ext, stereo);
+	g_audio.playSound(name + "." + ext, stereo);
 }
 
 /*
@@ -1599,7 +1599,7 @@ void Engine2::playTrack(std::string name, bool stereo)
     
     std::string fnamewext = name + "." + ext;
     
-	audio.playTrack((char *)fnamewext.c_str(), stereo);
+	g_audio.playTrack((char *)fnamewext.c_str(), stereo);
 }
 
 

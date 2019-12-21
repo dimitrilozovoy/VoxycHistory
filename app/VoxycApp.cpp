@@ -111,7 +111,10 @@ void VoxycApp::tick()
 		    numLoops++;
 
 			if (numLoops >= 100)
+			{
 				updatedTime = PLAT_GetTime();
+				break;
+			}
 	    }
     }
 }

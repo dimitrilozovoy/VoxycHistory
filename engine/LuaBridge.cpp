@@ -1135,7 +1135,7 @@ static int settrackvolume(lua_State *L)
 
 	g_engine2->setTrackVolume(vol);
 
-	return 1;
+	return 0;
 }
 
 static int checkcoll(lua_State *L)
@@ -2410,6 +2410,20 @@ static int setcontrollersens(lua_State *L)
     return 0;
 }
 
+static int getcategory(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+
+	Object* obj = g_engine2->findObj(name);
+
+	if (obj == nullptr)
+		return 0;
+
+	lua_pushstring(L, obj->category.c_str());
+
+	return 1;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2614,6 +2628,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "exit", exit);
     lua_register(L, "setmousesens", setmousesens);
     lua_register(L, "setcontrollersens", setcontrollersens);
+	lua_register(L, "getcategory", getcategory);
 }
 
 void LuaBridge::exec(std::string filename)

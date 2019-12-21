@@ -894,9 +894,11 @@ void GUI::left()
     // Widget selection; find all widgets directly to the right of the current selected one and find the closest one
     if (selectedWidget != nullptr)
     {
-        if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue >= 0.0f)
+        if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue > 0.0f)
         {
             selectedWidget->sliderValue -= 0.05f;
+			if (selectedWidget->sliderValue < 0.1)
+				selectedWidget->sliderValue = 0.0;
             g_common.extraInts[selectedWidget->onClickExtra] = 1;
             g_common.extraFloats["slidervalue"] = selectedWidget->sliderValue;
         }
@@ -969,10 +971,12 @@ void GUI::right()
     // Widget selection; find all widgets directly to the right of the current selected one and find the closest one
     if (selectedWidget != nullptr)
     {
-        if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue <= 1.0f)
+        if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue < 1.0f)
         {
             selectedWidget->sliderValue += 0.05f;
-            g_common.extraInts[selectedWidget->onClickExtra] = 1;
+			if (selectedWidget->sliderValue > 0.9)
+				selectedWidget->sliderValue = 1.0;
+			g_common.extraInts[selectedWidget->onClickExtra] = 1;
             g_common.extraFloats["slidervalue"] = selectedWidget->sliderValue;
         }
         else

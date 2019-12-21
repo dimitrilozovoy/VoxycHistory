@@ -88,9 +88,13 @@ int Audio::loadSound(char *fname, bool stereo, bool music)
 
 	file = SndfileHandle(fullFilename);
 
+	int size = file.frames() * sizeof(float);
+
+#ifdef DEBUG_BUILD
 	printf("Opened file '%s'\n", fname);
 	printf("    Sample rate : %d\n", file.samplerate());
 	printf("    Channels    : %d\n", file.channels());
+#endif
 
 	if (file.channels() > 0)
 		buffers[i].loaded = true;
@@ -105,7 +109,7 @@ int Audio::loadSound(char *fname, bool stereo, bool music)
 	else
 		format = AL_FORMAT_MONO16;
 
-	alBufferData(buffers[i].bufferId, format, buffer, bufferLen, 48000);
+	alBufferData(buffers[i].bufferId, format, buffer, size, 48000);
 	checkError("alBufferData");
 	
 	return i;
@@ -196,25 +200,39 @@ void Audio::stopSound(int stream)
 	return;
 }
 
+//#pragma optimize( "", off )
 void Audio::playTrack(char *filename, bool stereo)
 {
 	if (g_common.noMusic)
 		return;
 
+	if (filename == curTrackFile)
+		return;
+
 #ifdef USE_OPENAL
 	if (trackPlaying)
 	{
-		stopSound(trackSourceIdx);
+		stopSound(trackStreamIdx);
 		unloadSound(trackBufferIdx);
 	}
 
 	trackBufferIdx = loadSound(filename, stereo, true);
-	trackSourceIdx = playSound(trackBufferIdx);
+	trackStreamIdx = playSound(trackBufferIdx);
+	alSourcei(sources[trackStreamIdx].sourceId, AL_LOOPING, true);
+	checkError("alSourcei");
 
 	trackPlaying = true;
+
+	curTrackFile = filename;
 #endif
 
 	return;
+}
+
+void Audio::setTrackVolume(float gain)
+{
+	alSourcef(sources[trackStreamIdx].sourceId, AL_GAIN, gain);
+	checkError("alSourcef");
 }
 
 void Audio::checkError(const char *msg)
@@ -249,6 +267,7 @@ void Audio::checkError(const char *msg)
 	}
 #endif
 }
+//#pragma optimize( "", on )
 
 void Audio::tick()
 {

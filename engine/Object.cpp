@@ -988,6 +988,9 @@ void Object::load(FILE *f)
 
 bool Object::checkCollision(Object *obj2, float multiplier)
 {
+//	if ((name == "player" && obj2->name == "weapon") || (name == "weapon" && obj2->name == "player"))
+//		return false;
+
 	if (obj2 == nullptr || obj2->ints["ignorecollisions"] == 1)
 		return false;
 

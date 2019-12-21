@@ -61,14 +61,16 @@ public:
 	int playSound(int idx);
 	void stopSound(int stream);
 	void playTrack(char *filename, bool stereo);
+	void setTrackVolume(float gain);
 	void checkError(const char *msg);
 	void tick();
 
 	ALBuffer buffers[MAX_ALBUFFERS];
 	ALSource sources[MAX_ALSOURCES];
 	int trackBufferIdx = 0;
-	int trackSourceIdx = 0;
+	int trackStreamIdx = 0;
 	bool trackPlaying = false;
+	std::string curTrackFile = "";
 };
 
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS

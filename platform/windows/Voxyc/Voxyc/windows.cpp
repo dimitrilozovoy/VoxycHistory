@@ -132,32 +132,23 @@ std::string PLAT_GetCameraPic()
 	return "";
 }
 
-void PLAT_SavePref(std::string section, std::string key, std::string value)
+std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
 {
-	CSimpleIniA ini(true, true, true);
-	SI_Error rc = ini.LoadFile(CONFIG_FILENAME);
-	if (rc < 0)
-		Log("Error opening INI file to save");
+	CSimpleIniA ini;
+	ini.SetUnicode();
+	ini.LoadFile(CONFIG_FILENAME);
+	const char* pVal = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
 
-	rc = ini.SetValue(section.c_str(), key.c_str(), value.c_str());
-	if (rc < 0)
-		Log("Error saving to INI");
-
-	ini.SaveFile(CONFIG_FILENAME);
-	if (rc < 0)
-		Log("Error saving to INI file");
+	return pVal;
 }
 
-std::string PLAT_LoadPref(std::string section, std::string key, std::string def = "")
+void PLAT_SavePref(std::string section, std::string key, std::string val)
 {
-	CSimpleIniA ini(true, true, true);
-	SI_Error rc = ini.LoadFile(CONFIG_FILENAME);
-	if (rc < 0)
-		Log("Error opening INI file to load");
-
-	std::string value = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
-
-	return value;
+	CSimpleIniA ini;
+	ini.SetUnicode();
+	ini.LoadFile(CONFIG_FILENAME);
+	ini.SetValue(section.c_str(), key.c_str(), val.c_str());
+	ini.SaveFile(CONFIG_FILENAME);
 }
 
 void PLAT_StartTrackLocation()
@@ -168,8 +159,9 @@ void PLAT_StopTrackLocation()
 {
 }
 
-void PLAT_SetTrackVolume(float)
+void PLAT_SetTrackVolume(float gain)
 {
+	g_audio.setTrackVolume(gain);
 }
 
 long PLAT_GetTime()

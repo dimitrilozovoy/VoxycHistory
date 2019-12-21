@@ -299,7 +299,7 @@ private:
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS
     PlatformAudio audio;
 #else
-	Audio audio;
+//	Audio audio;
 #endif
 
     EditorController editorController;
