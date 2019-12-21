@@ -132,23 +132,35 @@ std::string PLAT_GetCameraPic()
 	return "";
 }
 
+// Non-persistent prefs
+std::map<std::string, std::string> g_prefs;
+
 std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
 {
-	CSimpleIniA ini;
+	if (g_prefs.find(key) == g_prefs.end()) {
+		return def;
+	}
+	else {
+		return g_prefs[key];
+	}
+
+/*	CSimpleIniA ini;
 	ini.SetUnicode();
 	ini.LoadFile(CONFIG_FILENAME);
 	const char* pVal = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
 
-	return pVal;
+	return pVal;*/
 }
 
 void PLAT_SavePref(std::string section, std::string key, std::string val)
 {
-	CSimpleIniA ini;
+	g_prefs[key] = val;
+
+/*	CSimpleIniA ini;
 	ini.SetUnicode();
 	ini.LoadFile(CONFIG_FILENAME);
 	ini.SetValue(section.c_str(), key.c_str(), val.c_str());
-	ini.SaveFile(CONFIG_FILENAME);
+	ini.SaveFile(CONFIG_FILENAME);*/
 }
 
 void PLAT_StartTrackLocation()
