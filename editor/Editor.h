@@ -40,6 +40,7 @@ public:
     void init();
 	void load();
 	void tick();
+	void tickMovement();
     void tickGuides();
 	bool isVoxels(std::string objName);
 	void ray(Object *src, float dist, float &x, float &y, float &z);
@@ -66,6 +67,8 @@ private:
 	const float minRayLength = 4.0;
 	const float maxRayLength = 50.0;
 	const float rayDeltaMultiplier = 0.1;
+	float moveSpeed = 0.1;
+	float turnSpeed = 1.0;
 	float rayLength = 20.0;
 	EditorMode mode = EM_OBJ;
 	Object *selectedObj = nullptr;

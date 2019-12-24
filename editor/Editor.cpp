@@ -83,6 +83,7 @@ load
 */
 
 void Editor::load() {
+
     // Reset this in case we are coming back to an old instance
     // or resetting state
     selectedObj = nullptr;
@@ -90,7 +91,9 @@ void Editor::load() {
     lastLitUpGuide = nullptr;
     curVoxels = nullptr;
 
-    // Turn off collision detection for player
+	g_common.showMouse = true;
+
+	// Turn off collision detection for player
     Object *player = engine->getPlayerObj();
     player->ints["ignorecollisions"] = 1;
     engine->setPlayerMoveSpeed(0.1);
@@ -146,8 +149,8 @@ void Editor::load() {
     float bsv = 0.25;
     float hw = 1.0 / numbtns;
 
-	if (touchControls)
-	{
+//	if (touchControls)
+//	{
 		// Top buttons
 		engine->addWg("filebtn", WG_BTN, "file.png", "", "filebtnclicked", "", -hw * 5, 0.85, hw, hw);
 		engine->addWg("objbtn", WG_BTN, "shapes.png", "", "objbtnclicked", "", -hw * 3, 0.85, hw, hw);
@@ -185,7 +188,7 @@ void Editor::load() {
 			hw, hw);
 		engine->addWg("movebackward", WG_BTN, "downarrow.png", "", "movebackwardclicked", "", hw * 5,
 			-0.8, hw, hw);
-	}
+//	}
 
 	engine->addText("msg", "", 0.0, 0.6, 0.08);
 	engine->addText("msg2", "", 0.0, 0.5, 0.08);
@@ -227,18 +230,20 @@ void Editor::tick() {
 	if (!touchControls)
 	{
 		processExtraKeys();
-		processHWButtons();
+//		processHWButtons();
 	}
 
     static int fileBtnTimer = 0;
 
     if (timer == 0) {
-        // File menu
 
-        if (engine->getExtraInt("filebtnclicked") != 0)
-        {
-			if (!gui->nonNativeWidgetsShown())
-			{
+		// File menu
+
+		if (engine->getExtraInt("filebtnclicked") == 1
+			|| engine->getExtraInt("filebtnclicked") == 3)
+		{
+//			if (!gui->nonNativeWidgetsShown())
+//			{
 				gui->clearListMenu();
 				gui->addListMenuOption("New Scene", "");
 				gui->addListMenuOption("Load Scene", "");
@@ -251,24 +256,25 @@ void Editor::tick() {
 //				gui->addListMenuOption("Toggle Map Location", "");
 #endif
 				gui->showListMenuInDialog("File", "");
-			}
+//			}
 
             engine->setExtraInt("filebtnclicked", 0);
 
             exitScreenShotMode();
-            timer = 50;
+            timer = 10;
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "New Scene") {
-            timer = 50;
+            timer = 10;
             engine->clear();
             engine->clearGUI();
             load();
             engine->setExtraStr("lis1tmenuoptionclicked", "");
         }
 
-        if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene") {
-            timer = 50;
+        if (engine->getExtraStr("listmenuoptionclicked") == "Load Scene"
+			|| engine->getExtraInt("Load Scene") == 1) {
+            timer = 10;
 
 			std::string fname = PLAT_LoadPref("main", "scene", "");
 			if (fname == "")
@@ -276,11 +282,12 @@ void Editor::tick() {
 
             gui->showFileSelector("sc", fname);
             engine->setExtraStr("listmenuoptionclicked", "");
-            fileSelectorAction = "loadscene";
+			engine->setExtraInt("Load Scene", 0);
+			fileSelectorAction = "loadscene";
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Save Scene") {
-            timer = 50;
+            timer = 10;
             std::string fname = PLAT_LoadPref("main", "scene", "");
 
             if (fname == "")
@@ -292,7 +299,7 @@ void Editor::tick() {
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Run script") {
-            timer = 50;
+            timer = 10;
 			
 			std::string fname = PLAT_LoadPref("main", "script", "");
 			if (fname == "")
@@ -304,7 +311,7 @@ void Editor::tick() {
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "Clear and run script") {
-            timer = 50;
+            timer = 10;
 			
 			std::string fname = PLAT_LoadPref("main", "script", "");
 			if (fname == "")
@@ -316,7 +323,7 @@ void Editor::tick() {
         }
 
         if (engine->getExtraStr("listmenuoptionclicked") == "README") {
-            timer = 50;
+            timer = 10;
             std::string t;
             t = t + "Thank you for downloading Voxyc.\n";
             t = t + "Sample games have been included with this release.\n";
@@ -1156,7 +1163,9 @@ void Editor::tick() {
     // MOVEMENT
     //
 
-    static bool movingLeft = false;
+	tickMovement();
+	
+/*    static bool movingLeft = false;
     static bool movingRight = false;
     static bool movingBackward = false;
     static bool movingForward = false;
@@ -1295,7 +1304,7 @@ void Editor::tick() {
         ctrl->MoveUp();
 
     if (movingDown)
-        ctrl->MoveDown();
+        ctrl->MoveDown();*/
 
     //
     // PREVIEW
@@ -1443,7 +1452,10 @@ void Editor::tick() {
     // Add button
 	//
 
-    static int addTimer = 0;
+	Object* playerObj = engine->getPlayerObj();
+	Controls2* controls = engine->getControls();
+	
+	static int addTimer = 0;
 
     if (addTimer > 0)
         addTimer--;
@@ -1882,7 +1894,7 @@ void Editor::tick() {
 	
 	// Copy
 
-    if (engine->getExtraStr("listmenuoptionclicked") == "Copy"
+	if (engine->getExtraStr("listmenuoptionclicked") == "Copy"
 		|| engine->getExtraStr("listmenuoptionclicked") == "Link copy") {
 
         if (selectedObj != nullptr)
@@ -2468,6 +2480,50 @@ void Editor::tick() {
 
 /*
 ========================================
+tickMovement
+========================================
+*/
+
+void Editor::tickMovement()
+{
+	Object* playerObj = engine->getPlayerObj();
+	Controls2* controls = engine->getControls();
+	GUI* gui = engine->getGUI();
+
+	if (!gui->nonNativeWidgetsShown())
+	{
+		if (controls->getKey(GLFW_KEY_UP))
+			playerObj->MoveForward(moveSpeed);
+		if (controls->getKey(GLFW_KEY_DOWN))
+			playerObj->MoveForward(-moveSpeed);
+		if (controls->getKey(GLFW_KEY_LEFT))
+			playerObj->MoveLeft(moveSpeed);
+		if (controls->getKey(GLFW_KEY_RIGHT))
+			playerObj->MoveRight(moveSpeed);
+
+		if (controls->getKey(GLFW_KEY_W))
+			playerObj->MoveForward(moveSpeed);
+		if (controls->getKey(GLFW_KEY_S))
+			playerObj->MoveForward(-moveSpeed);
+		if (controls->getKey(GLFW_KEY_A))
+			playerObj->MoveLeft(moveSpeed);
+		if (controls->getKey(GLFW_KEY_D))
+			playerObj->MoveRight(moveSpeed);
+
+		if (controls->getKey(GLFW_KEY_Q))
+			playerObj->MoveYaw(-turnSpeed);
+		if (controls->getKey(GLFW_KEY_E))
+			playerObj->MoveYaw(turnSpeed);
+
+		if (controls->getKey(GLFW_KEY_PAGE_UP))
+			playerObj->MoveUp(moveSpeed);
+		if (controls->getKey(GLFW_KEY_PAGE_DOWN))
+			playerObj->MoveUp(-moveSpeed);
+	}
+}
+
+/*
+========================================
 tickGuides
 ========================================
 */
@@ -2898,7 +2954,7 @@ void Editor::processHWButtons()
 		if (gui->nonNativeWidgetsShown())
 			gui->up();
 		else
-			playerObj->MoveUp(0.1);
+			playerObj->MoveForward(0.1);
 	}
 
 	if (ctrl->getBtn(BTN_DOWN))
@@ -2906,7 +2962,7 @@ void Editor::processHWButtons()
 		if (gui->nonNativeWidgetsShown())
 			gui->down();
 		else
-			playerObj->MoveDown(0.1);
+			playerObj->MoveForward(-0.1);
 	}
 
 	if (ctrl->getBtn(BTN_LEFT))

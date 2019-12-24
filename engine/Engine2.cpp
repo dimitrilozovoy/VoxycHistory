@@ -1191,6 +1191,7 @@ resetOnClickExtras
 ========================================
 */
 
+#pragma optimize ("", off)
 void Engine2::resetOnClickExtras()
 {
     std::map<std::string, Widget*> widgets = gui.getWidgets();
@@ -1203,6 +1204,7 @@ void Engine2::resetOnClickExtras()
             setExtraInt(item->onClickExtra, 0);
     }
 }
+#pragma optimize ("", on)
 
 /*
 ========================================

@@ -112,6 +112,8 @@ public:
 	void left();
 	void right();
 	void enter();
+	void escape();
+		
 	void charEntered(char c);
 	void backspace();
 

@@ -781,7 +781,7 @@ void GUI::up()
 
 void GUI::down()
 {
-	if (delayTimer > 0)
+ 	if (delayTimer > 0)
 	{
 		delayTimer--;
 		return;
@@ -1096,6 +1096,27 @@ void GUI::enter()
 		{
 			clearDialog();
 		}
+	}
+}
+
+void GUI::escape()
+{
+	if (fileSelectorShown == true)
+	{
+		g_common.extraStrings["fileselected"] = "";
+		clearListMenu();
+		fileSelectorShown = false;
+	}
+	else if (listMenuShown)
+	{
+		g_common.extraStrings["listmenuoptionclicked"] = "";
+		clearListMenu();
+		listMenuShown = false;
+	}
+	else if (dialogShown)
+	{
+		clearDialog();
+		dialogShown = false;
 	}
 }
 

@@ -38,6 +38,11 @@ void Controls2::init(Object *camera, Object *mouseLook, TextureManager2 *texMan,
 	this->gui = gui;
 
     texMan->load("thumbstick.png");
+
+	for (int k = 0; k < NUM_KBD_KEYS; k++)
+	{
+		keyTimers[k] = 0;
+	}
 }
 
 void Controls2::tick() {
@@ -88,11 +93,16 @@ void Controls2::tick() {
 
         case CTRL_EDITOR:
 
-            if (buttons[BTN_UP] == 1)
-                playerObj->MoveUp(getMoveFactor());
-            if (buttons[BTN_DOWN] == 1)
-                playerObj->MoveDown(getMoveFactor());
-            if (buttons[BTN_LEFT] == 1)
+/*			if (buttons[BTN_UP] == 1)
+			{
+				playerObj->MoveForward(getMoveFactor());
+			}
+			if (buttons[BTN_DOWN] == 1)
+			{
+				playerObj->MoveForward(-getMoveFactor());
+			}
+
+			if (buttons[BTN_LEFT] == 1)
                 playerObj->MoveLeft(getMoveFactor());
             if (buttons[BTN_RIGHT] == 1)
                 playerObj->MoveRight(getMoveFactor());
@@ -112,7 +122,7 @@ void Controls2::tick() {
             if (buttons[BTN_DOWN] == 1 && buttons[BTN_RIGHT] == 1) {
                 playerObj->MoveDown(getMoveFactor());
                 playerObj->MoveRight(getMoveFactor());
-            }
+            }*/
 
             break;
         case CTRL_THIRDPERSON:
@@ -435,7 +445,7 @@ void Controls2::tickMouse()
 		// Click?
 		//
 
-		if (mouseButtons[0] == 1 && mouseClickTimer <= 0)
+		if (mouseButtons[0] == 1 && mouseClickTimer == 0)
 		{
 			std::string extra = gui->getOnClickExtraIfClicked(1, (int)glToScrX(mouseCursorX), (int)glToScrY(mouseCursorY), 0, 1);
 
@@ -698,6 +708,11 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
 
 void Controls2::processGUI()
 {
+	for (int k = 0; k < NUM_KBD_KEYS; k++)
+	{
+		if (keyTimers[k] > 0) keyTimers[k]--;
+	}
+
 //	if (axes[AX_LEFT_Y] < -0.1)
 //		gui->down();
 
@@ -748,20 +763,18 @@ void Controls2::processGUI()
 	}
 
 	// Press enter to select
-	if (keys[257])
+	if (keys[GLFW_KEY_ENTER] && keyTimers[GLFW_KEY_ENTER] == 0)
 	{
-		enterWasPressed = true;
-
-		if (numPressedEnter >= 1)
-		{
-			if (gui->getSelectedWidget() != nullptr && gui->getSelectedWidget()->visible && gui->getSelectedWidget()->onClickExtra != "")
+		if (gui->getSelectedWidget() != nullptr && gui->getSelectedWidget()->visible && gui->getSelectedWidget()->onClickExtra != "")
 				g_common.extraInts[gui->getSelectedWidget()->onClickExtra] = 1;
-		}
+		gui->enter();
+		keyTimers[GLFW_KEY_ENTER] = keyDelay;
 	}
-	else
+
+	// Press enter to select
+	if (keys[GLFW_KEY_ESCAPE])
 	{
-		if (enterWasPressed)
-			numPressedEnter++;
+		gui->escape();
 	}
 }
 

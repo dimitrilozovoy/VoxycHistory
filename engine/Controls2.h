@@ -224,6 +224,8 @@ private:
 
 	// Keyboard keys
 	int keys[NUM_KBD_KEYS];
+	int keyTimers[NUM_KBD_KEYS];
+	const int keyDelay = 10;
 
 	// GUI
 	int numPressedA = 0;
