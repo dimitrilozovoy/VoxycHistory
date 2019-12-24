@@ -70,6 +70,10 @@ public:
 	void drawHealthBars();
 	void free();
 
+	void callObjTickStarts();
+	void callObjTickStartsPostControl();
+	void callObjTickEnds();
+
 	void addObject(std::string name);
 	void removeObject(std::string name);
 	void removeObject(Object *object);
@@ -299,7 +303,6 @@ private:
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS
     PlatformAudio audio;
 #else
-//	Audio audio;
 #endif
 
     EditorController editorController;

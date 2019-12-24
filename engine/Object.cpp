@@ -251,8 +251,22 @@ void Object::setDeltaXYZ(float heading, float pitch, float vel)
 	}
 }
 
+#pragma optimize ("", off)
 void Object::move()
 {
+	// Move smoothly if needed
+	if (moveSmoothly)
+	{
+		if (delta.x != 0 || delta.z != 0)
+		{
+			if (speedFactor < 1.0)
+			{
+				speedFactor += speedFactorDelta;
+				delta = delta * speedFactor;
+			}
+		}
+	}
+
 	// Check for possible collisions before moving
 	bool okToMove = true;
 	std::string stuckOn = "";
@@ -327,45 +341,29 @@ void Object::move()
 		ints["stuck"] = 0;
 		strings["stuckon"] = "";
 		
-		if (moveSmoothly)
-			nextPosition += delta;
-		else
-			position += delta;
+		position += delta;
 
 		deltaLastTick.x += delta.x;
 		deltaLastTick.y += delta.y;
 		deltaLastTick.z += delta.z;
 		deltaLastTick.w += delta.w;
+
+		if (moveSmoothly)
+		{
+			tickTotalDelta.x += delta.x;
+			tickTotalDelta.y += delta.y;
+			tickTotalDelta.z += delta.z;
+			tickTotalDelta.w += delta.w;
+		}
 	}
 	else
 	{
-		if (moveSmoothly)
-			nextPosition -= delta;
-		else
-			position -= delta;
+		position -= delta;
 		
 		// If player, slide them down the walls if possible instead of stucking them
 		if (name == "player")
 		{
 			bool slide = false;
-			
-/*			if (lastCollNorth && collSouth)
-				collSouth = false;
-			if (lastCollSouth && collNorth)
-				collNorth = false;
-			if (lastCollEast && collWest)
-				collWest = false;
-			if (lastCollWest && collEast)
-				collEast = false;*/
-
-/*			if (collNorth)
-				Log("collNorth");
-			if (collSouth)
-				Log("collSouth");
-			if (collEast)
-				Log("collEast");
-			if (collWest)
-				Log("collWest");*/
 				
 			int numColls = 0;
 				
@@ -407,102 +405,10 @@ void Object::move()
 			
 			if (slide && numColls == 1)
 			{
-				if (moveSmoothly)
-			        nextPosition += delta;
-		        else
-			        position += delta;
+				position += delta;
 
 				return;
 			}
-
-/*			const float slide = 0.1f;
-			const int afterDelay = 8;
-			bool notStuck = false;
-
-			yaw = Limit360(yaw);
-
-			static int afterNS = 0;
-			if (afterNS > 0)
-				afterNS--;
-
-			static int afterEW = 0;
-			if (afterEW > 0)
-				afterEW--;
-				
-			if (collNorth)
-				Log("collNorth");
-				
-			if ((collNorth || collSouth) && !collEast && !collWest)
-			{
-				if (yaw > 0 && yaw < 180)
-					nextPosition.x += slide;
-				else
-					nextPosition.x -= slide;
-
-				notStuck = true;
-				afterNS = afterDelay;
-			}
-			if (!collNorth && !collSouth && (collEast || collWest))
-			{
-				if (yaw > 90 && yaw < 270)
-					nextPosition.z += slide;
-				else
-					nextPosition.z -= slide;
-
-				notStuck = true;
-				afterEW = afterDelay;
-			}
-			if (collNorth && collEast)
-			{
-				nextPosition.x -= slide;
-				nextPosition.z += slide;
-				notStuck = true;
-			}
-			if (collNorth && collWest)
-			{
-				nextPosition.x += slide;
-				nextPosition.z += slide;
-				notStuck = true;
-			}
-			if (collSouth && collEast)
-			{
-				nextPosition.x -= slide;
-				nextPosition.z -= slide;
-				notStuck = true;
-			}
-			if (collSouth && collWest)
-			{
-				nextPosition.x += slide;
-				nextPosition.z -= slide;
-				notStuck = true;
-			}
-
-			if (afterNS > 0 && !collNorth && !collSouth)
-			{
-				if (collEast && delta.z < 0)
-					nextPosition.x -= slide;
-				if (collEast && delta.z > 0)
-					nextPosition.x -= slide;
-				if (collWest && delta.z < 0)
-					nextPosition.x += slide;
-				if (collWest && delta.z > 0)
-					nextPosition.x += slide;
-			}
-
-			if (afterEW > 0 && !collEast && !collWest)
-			{
-				if (collNorth && delta.x < 0)
-					nextPosition.z += slide;
-				if (collNorth && delta.x > 0)
-					nextPosition.z += slide;
-				if (collSouth && delta.x < 0)
-					nextPosition.z -= slide;
-				if (collSouth && delta.x > 0)
-					nextPosition.z -= slide;
-			}
-
-			if (notStuck)
-				return;*/
 		}
 
 		ints["stuck"] = 1;
@@ -512,6 +418,62 @@ void Object::move()
 //	if (ints["stuck"] == 1 && category != "voxels")
 //		Log(name + " stuck");
 }
+
+void Object::tickStart()
+{
+	if (moveSmoothly)
+	{
+		if (decel)
+		{
+			delta = lastTickTotalDelta;
+			moveSmoothly = false;
+			move();
+			moveSmoothly = true;
+			speedFactor -= speedFactorDeltaDecel;
+
+			if (speedFactor < 0.01)
+				decel = false;
+		}
+
+		lastTickTotalDelta = tickTotalDelta;
+
+		tickTotalDelta.x = 0.0f;
+		tickTotalDelta.y = 0.0f;
+		tickTotalDelta.z = 0.0f;
+		tickTotalDelta.w = 0.0f;
+	}
+}
+
+void Object::tickStartPostControls()
+{
+	if (tickTotalDelta.x == 0 && tickTotalDelta.y == 0
+		&& (lastTickTotalDelta.x != 0 || lastTickTotalDelta.y != 0))
+	{
+		// We're not trying to move but were on the last tick
+		delta = lastTickTotalDelta;
+		moveSmoothly = false;
+		move();
+		moveSmoothly = true;
+
+		decel = true;
+	}
+}
+
+void Object::tickEnd()
+{
+	if (moveSmoothly)
+	{
+		if (tickTotalDelta.x == 0 && tickTotalDelta.z == 0)
+		{
+			if (lastTickTotalDelta.x != 0 || lastTickTotalDelta.z != 0)
+			{
+				speedFactor = 0;
+//				decel = true;
+			}
+		}
+	}
+}
+#pragma optimize ("", on)
 
 void Object::MoveBackward(float factor)
 {

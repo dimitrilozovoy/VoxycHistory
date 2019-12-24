@@ -337,6 +337,51 @@ void Engine2::free()
 
 /*
 ========================================
+callObjTickStarts()
+========================================
+*/
+
+void Engine2::callObjTickStarts()
+{
+	for (const auto& pair: objects)
+	{
+		Object* obj = pair.second;
+		obj->tickStart();
+	}
+}
+
+/*
+========================================
+callObjTickStarts()
+========================================
+*/
+
+void Engine2::callObjTickStartsPostControl()
+{
+	for (const auto& pair : objects)
+	{
+		Object* obj = pair.second;
+		obj->tickStartPostControls();
+	}
+}
+
+/*
+========================================
+callObjTickEnds()
+========================================
+*/
+
+void Engine2::callObjTickEnds()
+{
+	for (const auto& pair : objects)
+	{
+		Object* obj = pair.second;
+		obj->tickEnd();
+	}
+}
+
+/*
+========================================
 addObject()
 ========================================
 */
@@ -759,9 +804,7 @@ void Engine2::setPos(std::string name, float x, float y, float z)
 		
     glm::vec4 pos = glm::vec4(x, y, z, 1.0);
 
-	if (!o->moveSmoothly)
-		o->position = pos;
-
+	o->position = pos;
 	o->nextPosition = pos;
 }
 
@@ -828,16 +871,7 @@ glm::vec4 Engine2::getEndOfTickPos(std::string name)
 	if (o == nullptr)
 		return glm::vec4(0.0, 0.0, 0.0, 0.0);
 		
-	if (o->moveSmoothly)
-	{
-	    glm::vec4 delta = o->nextPosition - o->position;
-
-	    glm::vec4 eotposition = o->position + delta / glm::vec4(2.0, 2.0, 2.0, 1.0);
-
-	    return eotposition;
-	}
-	else
-		return o->position;
+	return o->position;
 }
 
 /*
@@ -1921,9 +1955,6 @@ void Engine2::moveObjectsSmoothly()
     for(const auto &pair: objects)
     {
         Object *obj = pair.second;
-
-        if (obj != nullptr && obj->moveSmoothly)
-			obj->moveTowardsNextPosition();
 	}
 }
 

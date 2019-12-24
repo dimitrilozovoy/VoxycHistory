@@ -130,9 +130,13 @@ void VoxycApp::fixedTick()
 		return;
 	}
 	
+	engine.callObjTickStarts();
+
 	// Tick controls before processing scripts
 	engine.getControls()->tick();
 	
+	engine.callObjTickStartsPostControl();
+
 	if (module == "editor")
 		editor.tick();
 	else if (module == "orthoeditor")
@@ -142,7 +146,9 @@ void VoxycApp::fixedTick()
 	else if (module == "luaprogram")
 		luaProgram.tick();
 
-    engine.tick();
+	engine.callObjTickEnds();
+	
+	engine.tick();
 		
     // Switch module
 	int switchModule = engine.getExtraInt("switchmodule");

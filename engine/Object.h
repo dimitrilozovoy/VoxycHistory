@@ -50,6 +50,9 @@ public:
 	void setDeltaXZ(float heading, float vel);
 	void setDeltaXYZ(float heading, float pitch, float vel);
 	void move();
+	void tickStart();
+	void tickStartPostControls();
+	void tickEnd();
 	void MoveBackward(float factor = 1.00);
 	void MoveForward(float factor = 1.00);
 	void MoveLeft(float factor = 1.00);
@@ -115,6 +118,13 @@ public:
 	int hitPoints = 0;
 	bool fireTriggerOn = false;
 	float speed = 0.0;
+
+	float speedFactor = 0.0;
+	float speedFactorDelta = 0.1;
+	float speedFactorDeltaDecel = 0.02;
+	glm::vec4 tickTotalDelta = glm::vec4(0.0, 0.0, 0.0, 0.0);
+	glm::vec4 lastTickTotalDelta = glm::vec4(0.0, 0.0, 0.0, 0.0);
+	bool decel = false;
 
 	glm::vec4 destination;
 
