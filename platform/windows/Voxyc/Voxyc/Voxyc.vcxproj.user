@@ -9,7 +9,7 @@
     <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerCommandArguments>--monitor 0 --module luaprogram --assets C:/Users/dimitri/Fateless --fullscreen=0 --nomusic=0</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--monitor 1 --module luaprogram --assets C:/Users/dimitri/Fateless --fullscreen=1 --nomusic=1</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

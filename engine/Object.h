@@ -121,9 +121,10 @@ public:
 
 	float speedFactor = 0.0;
 	float speedFactorDelta = 0.1;
-	float speedFactorDeltaDecel = 0.02;
+	float speedFactorDeltaDecel = 0.1;
 	glm::vec4 tickTotalDelta = glm::vec4(0.0, 0.0, 0.0, 0.0);
 	glm::vec4 lastTickTotalDelta = glm::vec4(0.0, 0.0, 0.0, 0.0);
+	glm::vec4 decelDelta = glm::vec4(0.0, 0.0, 0.0, 0.0);
 	bool decel = false;
 
 	glm::vec4 destination;

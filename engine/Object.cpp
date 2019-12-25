@@ -257,13 +257,14 @@ void Object::move()
 	// Move smoothly if needed
 	if (moveSmoothly)
 	{
-		if (delta.x != 0 || delta.z != 0)
+		if (abs(delta.x) > 0.1 || abs(delta.z) > 0.1)
 		{
 			if (speedFactor < 1.0)
 			{
 				speedFactor += speedFactorDelta;
 				delta = delta * speedFactor;
 			}
+
 		}
 	}
 
@@ -425,13 +426,15 @@ void Object::tickStart()
 	{
 		if (decel)
 		{
-			delta = lastTickTotalDelta;
+			delta = decelDelta;
+			speedFactor -= speedFactorDeltaDecel;
+			delta = delta * speedFactor;
+
 			moveSmoothly = false;
 			move();
 			moveSmoothly = true;
-			speedFactor -= speedFactorDeltaDecel;
 
-			if (speedFactor < 0.01)
+			if (speedFactor < 0.1)
 				decel = false;
 		}
 
@@ -446,32 +449,31 @@ void Object::tickStart()
 
 void Object::tickStartPostControls()
 {
-	if (tickTotalDelta.x == 0 && tickTotalDelta.y == 0
-		&& (lastTickTotalDelta.x != 0 || lastTickTotalDelta.y != 0))
+	if (abs(tickTotalDelta.x) < 0.01 && abs(tickTotalDelta.z) < 0.01
+		&& ((abs(lastTickTotalDelta.x) > 0.01 || abs(lastTickTotalDelta.z) > 0.01)))
 	{
 		// We're not trying to move but were on the last tick
 		delta = lastTickTotalDelta;
 		moveSmoothly = false;
 		move();
 		moveSmoothly = true;
-
 		decel = true;
+		decelDelta = lastTickTotalDelta;
 	}
 }
 
 void Object::tickEnd()
 {
-	if (moveSmoothly)
+/*	if (moveSmoothly)
 	{
-		if (tickTotalDelta.x == 0 && tickTotalDelta.z == 0)
+		if (abs(tickTotalDelta.x) < 0.01 && abs(tickTotalDelta.z) < 0.01)
 		{
-			if (lastTickTotalDelta.x != 0 || lastTickTotalDelta.z != 0)
+			if (abs(lastTickTotalDelta.x) > 0.01 || abs(lastTickTotalDelta.z) > 0.01)
 			{
-				speedFactor = 0;
-//				decel = true;
+//				speedFactor = 0;
 			}
 		}
-	}
+	}*/
 }
 #pragma optimize ("", on)
 
