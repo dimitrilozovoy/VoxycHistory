@@ -452,13 +452,21 @@ void Object::tickStartPostControls()
 	if (abs(tickTotalDelta.x) < 0.01 && abs(tickTotalDelta.z) < 0.01
 		&& ((abs(lastTickTotalDelta.x) > 0.01 || abs(lastTickTotalDelta.z) > 0.01)))
 	{
-		// We're not trying to move but were on the last tick
+		// We're not trying to move but were moving on the last tick
 		delta = lastTickTotalDelta;
 		moveSmoothly = false;
 		move();
 		moveSmoothly = true;
 		decel = true;
 		decelDelta = lastTickTotalDelta;
+	}
+
+	if (decel)
+	{
+		if (abs(tickTotalDelta.x) > 0.01 || abs(tickTotalDelta.z) > 0.01)
+		{
+			decel = false;
+		}
 	}
 }
 

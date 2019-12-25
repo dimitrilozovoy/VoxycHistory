@@ -1129,38 +1129,38 @@ C:\Users\dimitri\Voxyc\engine\Object.cpp(250,13): warning C4244:         with
 C:\Users\dimitri\Voxyc\engine\Object.cpp(250,13): warning C4244:         [
 C:\Users\dimitri\Voxyc\engine\Object.cpp(250,13): warning C4244:             T=float
 C:\Users\dimitri\Voxyc\engine\Object.cpp(250,13): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\Object.cpp(544,12): warning C4305:  '=': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Object.cpp(547,13): warning C4305:  '=': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Object.cpp(567,13): warning C4244:  'initializing': conversion from 'T' to 'int', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(567,13): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\Object.cpp(567,13): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\Object.cpp(567,13): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\Object.cpp(567,13): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\Object.cpp(568,13): warning C4244:  'initializing': conversion from 'T' to 'int', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(568,13): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\Object.cpp(568,13): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\Object.cpp(568,13): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\Object.cpp(568,13): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\Object.cpp(569,13): warning C4244:  'initializing': conversion from 'T' to 'int', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(569,13): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\Object.cpp(569,13): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\Object.cpp(569,13): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\Object.cpp(569,13): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\Object.cpp(571,13): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(582,24): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(645,19): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(647,9): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(735,19): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1018,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1101,12): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1124,18): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1125,18): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1098,12): warning C4101:  'wy': unreferenced local variable
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1143,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1146,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1149,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(552,12): warning C4305:  '=': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.cpp(555,13): warning C4305:  '=': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Object.cpp(575,13): warning C4244:  'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(575,13): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\Object.cpp(575,13): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\Object.cpp(575,13): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\Object.cpp(575,13): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\Object.cpp(576,13): warning C4244:  'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(576,13): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\Object.cpp(576,13): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\Object.cpp(576,13): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\Object.cpp(576,13): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\Object.cpp(577,13): warning C4244:  'initializing': conversion from 'T' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(577,13): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\Object.cpp(577,13): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\Object.cpp(577,13): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\Object.cpp(577,13): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\Object.cpp(579,13): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(590,24): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(653,19): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(655,9): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(743,19): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1026,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1109,12): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1132,18): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1133,18): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1106,12): warning C4101:  'wy': unreferenced local variable
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1151,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1154,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1157,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
   Physics.cpp
-C:\Users\dimitri\Voxyc\engine\Object.cpp(1169,22): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1177,22): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
