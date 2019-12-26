@@ -29,7 +29,7 @@ void ShadowMap::bind(float lightSize)
 {
 	this->lightSize = lightSize;
 
-#ifdef PLATFORM_WINDOWS
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 
 	const int size = 4096;
 

@@ -52,6 +52,8 @@ void ModelRenderer::init(ShadowMap *shadowMap, bool useShadowMap, Object *mouseL
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX || defined PLATFORM_OPENVR
 	if (useShadowMap)
 	{
+        snprintf(vertexShaderStrDyn, len, "#version 330 core\n%s", vertexShaderCodeDesktopUseShadowMap);
+        snprintf(fragmentShaderStrDyn, len, "#version 330 core\n%s", fragmentShaderCodeDesktopUseShadowMap);
 		snprintf(vertexShaderStr, len, "#version 330 core\n%s", vertexShaderCodeDesktopUseShadowMap);
 		snprintf(fragmentShaderStr, len, "#version 330 core\n%s", fragmentShaderCodeDesktopUseShadowMap);
 	}

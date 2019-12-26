@@ -42,6 +42,8 @@ SOFTWARE.
 
 //#define DEBUG_BUILD
 
+//#define PREVIEW_SHADOWMAP
+
 #define FIXED_TIMESTEP
 
 #define DO_VERTEX_LIGHTS

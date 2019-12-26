@@ -231,8 +231,10 @@ void Audio::playTrack(char *filename, bool stereo)
 
 void Audio::setTrackVolume(float gain)
 {
+#ifdef USE_OPENAL
 	alSourcef(sources[trackStreamIdx].sourceId, AL_GAIN, gain);
 	checkError("alSourcef");
+#endif
 }
 
 void Audio::checkError(const char *msg)

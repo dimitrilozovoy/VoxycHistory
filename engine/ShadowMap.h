@@ -92,6 +92,23 @@ public:
 		"      fragmentDepth = gl_FragCoord.z; " \
 		"}\n";
 
+    //
+    // FRAGMENT SHADER PREVIEW SHADOW MAP DESKTOP
+    //
+    
+    const char *fragmentShaderCodePreviewShadowMapDesktop =
+    
+        "precision highp float;" \
+    
+        "out vec4 FragColor; " \
+        "in vec2 TexCoords; " \
+        "uniform sampler2D depthMap; " \
+    
+        "void main() {" \
+        "      float depthValue = texture(depthMap, TexCoords).r; " \
+        "      FragColor = vec4(vec3(depthValue), 1.0); " \
+        "}\n";
+    
 	void bind(float lightSize);
 	void unbind();
 	void checkGLError(char *tag);

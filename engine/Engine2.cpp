@@ -90,6 +90,7 @@ void Engine2::init()
 	
 	editorController.setPlayerObj(playerObj);
 
+    // Sun for shadow map
 	sun.position = glm::vec4(0.0, 15.0, 15.0, 0.0);
 	sun.yaw = 0.0;
 	sun.pitch = -45.0;
@@ -188,6 +189,9 @@ void Engine2::draw(int eye)
 	{
 		drawShadowMap(eye);
 		shadowMapReady = true;
+#ifdef PREVIEW_SHADOWMAP
+        return;
+#endif
 	}
 
 	// Viewport and clear
@@ -264,7 +268,9 @@ drawShadowMap()
 
 void Engine2::drawShadowMap(int eye)
 {
+#ifndef PREVIEW_SHADOWMAP
 		shadowMap.bind(sunSize);
+#endif
 
 #ifdef PLATFORM_IOS
         glClearDepthf(1.0);
@@ -277,7 +283,9 @@ void Engine2::drawShadowMap(int eye)
 		shapeRenderer.draw(eye, objects, &sun, true, false, &shadowMap, dynamicLights);
 		modelRenderer.draw(eye, objects, &sun, true, false, &shadowMap, dynamicLights);
 		
+#ifndef PREVIEW_SHADOWMAP
 		shadowMap.unbind();
+#endif
 }
 
 /*

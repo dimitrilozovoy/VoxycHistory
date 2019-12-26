@@ -624,7 +624,9 @@ void SpriteRenderer2D::DrawSprite(float xshift, float yshift, float scalex, floa
 	checkError("glUniform4f");
 	
 	// Texture
-	
+    glActiveTexture(GL_TEXTURE0);
+    checkError("glActiveTexture");
+
 	glBindTexture(GL_TEXTURE_2D, glTexID);
     checkError("glBindTexture");
     
