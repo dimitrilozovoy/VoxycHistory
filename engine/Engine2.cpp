@@ -50,8 +50,8 @@ void Engine2::init()
 		return;
 	
 #if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
-	useShadowMap = false;
-//	useShadowMap = true;
+//	useShadowMap = false;
+	useShadowMap = true;
 #else
 	useShadowMap = false;
 //	useShadowMap = true;
@@ -269,7 +269,7 @@ drawShadowMap()
 void Engine2::drawShadowMap(int eye)
 {
 #ifndef PREVIEW_SHADOWMAP
-		shadowMap.bind(sunSize);
+		shadowMap.bind();
 #endif
 
 #ifdef PLATFORM_IOS
@@ -1034,7 +1034,7 @@ void Engine2::setSun(glm::vec4 position, float yaw, float pitch, float roll, flo
 	sun.yaw = yaw;
 	sun.pitch = pitch;
 	sun.roll = roll;
-	sunSize = size;
+	shadowMap.lightSize = size;
 }
 
 /*

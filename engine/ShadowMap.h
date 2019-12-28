@@ -109,7 +109,7 @@ public:
         "      FragColor = vec4(vec3(depthValue), 1.0); " \
         "}\n";
     
-	void bind(float lightSize);
+	void bind();
 	void unbind();
 	void checkGLError(char *tag);
 
@@ -122,6 +122,7 @@ public:
 #endif
 	};
 	glm::mat4 getProjectionMatrix();
+    float lightSize = 100.0f;
 
 private:
 #ifdef GLM_PLATFORM_WINDOWS
@@ -133,8 +134,6 @@ private:
 	int depthTextureId = -1;
 	int renderTextureId = -1;
 #endif
-
-	float lightSize = 100.0f;
 };
 
 #endif

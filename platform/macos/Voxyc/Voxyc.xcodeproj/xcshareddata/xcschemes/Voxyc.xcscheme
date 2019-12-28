@@ -63,7 +63,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--assets /Users/dimitrilozovoy/Fateless"
+            argument = "--assets /Users/dimitrilozovoy/ShadowTest"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

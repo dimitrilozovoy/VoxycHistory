@@ -116,7 +116,7 @@ private:
 
 		"	float visibility = 1.0; " \
 		"	float bias = 0.00; " \
-
+    
 		"   if ( texture( shadowMap, vec3(ShadowCoord.xy, (ShadowCoord.z) / ShadowCoord.w) ) < ShadowCoord.z - bias){ " \
 		"		visibility = 0.5;	" \
 		"   } " \

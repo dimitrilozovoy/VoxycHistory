@@ -25,7 +25,7 @@ SOFTWARE.
 #include "platform.h"
 #include "DDLUtils.hpp"
 
-void ShadowMap::bind(float lightSize)
+void ShadowMap::bind()
 {
 	this->lightSize = lightSize;
 
