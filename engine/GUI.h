@@ -130,6 +130,8 @@ public:
 	}
 
 	void setFontKern(std::string font, float kern);
+    
+    bool isInternallyGeneratedShown();
 
 private:
     std::map<std::string, Widget*> widgets;

@@ -64,6 +64,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--assets /Users/dimitrilozovoy/ShadowTest"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--assets /Users/dimitrilozovoy/Voxyc/assets"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -71,8 +75,12 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--module luaprogram"
+            argument = "--module editor"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--module luaprogram"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

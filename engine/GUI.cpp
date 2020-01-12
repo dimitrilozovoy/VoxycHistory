@@ -23,8 +23,11 @@ SOFTWARE.
 #include "GUI.h"
 #include "platform.h"
 #include "DDLUtils.hpp"
-#ifdef PLATFORM_WINDOWS
+#if defined PLATFORM_WINDOWS
 #include "../thirdparty/dirent/dirent.h"
+#endif
+#if defined PLATFORM_OSX
+#include <dirent.h>
 #endif
 
 void GUI::init(TextureManager2 *texMan, SpriteRenderer2D *renderer, TextPrinter *tp)
@@ -436,16 +439,15 @@ void GUI::show()
 
 void GUI::showFileSelector(std::string ext, std::string sdir)
 {
+    if (sdir == "")
+        sdir = g_assetsDir;
+    
 	if (nativeWidgets)
 		PLAT_ShowFileSelector(ext, sdir);
 	else
 	{
 #ifdef PLATFORM_WINDOWS
-		if (sdir == "")
-			sdir = g_assetsDir;
-
 		clearListMenu();
-
 		addListMenuOption("new file", "");
 
 		DIR *dir;
@@ -479,6 +481,27 @@ void GUI::showFileSelector(std::string ext, std::string sdir)
 		fileSelectorShown = true;
 		fileSelectorDir = sdir;
 		fileSelectorExt = ext;
+#endif
+#ifdef PLATFORM_OSX
+        clearListMenu();
+        addListMenuOption("new file", "");
+
+        DIR* dirp = opendir(sdir.c_str());
+        struct dirent * dp;
+        
+        while ((dp = readdir(dirp)) != NULL)
+        {
+            addListMenuOption(dp->d_name, "");
+        }
+        
+        closedir(dirp);
+        
+//        int switchModule = g_common.extraInts["switchmodule"];
+        
+        showListMenuInDialog("", "");
+        fileSelectorShown = true;
+        fileSelectorDir = sdir;
+        fileSelectorExt = ext;
 #endif
 	}
 }
@@ -689,9 +712,18 @@ void GUI::up()
 
 		if (listMenuSelectedItem <= 0)
 			listMenuSelectedItem = listMenu.size();
-	}
 
-	if (dialogShown)
+        if (fileSelectorShown)
+        {
+            for (int i = 0; i < listMenu.size(); i++)
+            {
+                std::string name = "listmenuitem" + ToString(i);
+                if (widgets.find(name) != widgets.end())
+                    widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
+            }
+        }
+    }
+    else if (dialogShown)
 	{
 		if (dialogCancelSelected)
 		{
@@ -715,17 +747,8 @@ void GUI::up()
 
 		dialogCharIdx = 0;
 	}
-
-	if (fileSelectorShown)
-	{
-		for (int i = 0; i < listMenu.size(); i++)
-		{
-			std::string name = "listmenuitem" + ToString(i);
-			if (widgets.find(name) != widgets.end())
-				widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
-		}
-	}
-
+    else
+    {
 	// Widget selection; find all widgets directly below the current selected one and find the closest one
 	if (selectedWidget != nullptr)
 	{
@@ -771,6 +794,7 @@ void GUI::up()
 		if (closest != nullptr)
 			selectedWidget = closest;
 	}
+    }
 
 	delayTimer = 4;
 
@@ -793,9 +817,18 @@ void GUI::down()
 
 		if (listMenuSelectedItem > listMenu.size())
 			listMenuSelectedItem = 1;
+        
+        if (fileSelectorShown)
+        {
+        for (int i = 0; i < listMenu.size(); i++)
+        {
+            std::string name = "listmenuitem" + ToString(i);
+            if (widgets.find(name) != widgets.end())
+                widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
+        }
+        }
 	}
-
-	if (dialogShown)
+	else if (dialogShown)
 	{
 		dialogSelectedItem++;
 
@@ -813,17 +846,8 @@ void GUI::down()
 
 		dialogCharIdx = 0;
 	}
-
-	if (fileSelectorShown)
-	{
-		for (int i = 0; i < listMenu.size(); i++)
-		{
-			std::string name = "listmenuitem" + ToString(i);
-			if (widgets.find(name) != widgets.end())
-				widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
-		}
-	}
-
+    else
+    {
 	// Widget selection; find all widgets directly below the current selected one and find the closest one
 	if (selectedWidget != nullptr)
 	{
@@ -869,6 +893,7 @@ void GUI::down()
 		if (closest != nullptr)
 			selectedWidget = closest;
 	}
+    }
 
 	delayTimer = 4;
 
@@ -890,9 +915,8 @@ void GUI::left()
 		dialogCancelSelected = false;
 		dialogOKSelected = true;
 	}
-
     // Widget selection; find all widgets directly to the right of the current selected one and find the closest one
-    if (selectedWidget != nullptr)
+    else if (selectedWidget != nullptr)
     {
         if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue > 0.0f)
         {
@@ -967,9 +991,8 @@ void GUI::right()
 		dialogCancelSelected = true;
 		dialogOKSelected = false;
 	}
-    
     // Widget selection; find all widgets directly to the right of the current selected one and find the closest one
-    if (selectedWidget != nullptr)
+    else if (selectedWidget != nullptr)
     {
         if (selectedWidget->type == WG_SLIDER && selectedWidget->sliderValue < 1.0f)
         {
@@ -1226,4 +1249,9 @@ Widget *GUI::getTopVisibleWidget()
 void GUI::setFontKern(std::string font, float kern)
 {
 	fontKern[font] = kern;
+}
+
+bool GUI::isInternallyGeneratedShown()
+{
+    return listMenuShown || dialogShown;
 }

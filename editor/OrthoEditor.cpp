@@ -107,7 +107,7 @@ void OrthoEditor::tick()
 		btnTimer--;
 	
 	if (btnTimer == 0 && (engine->getExtraInt("backbtnclicked") == 1
-        || engine->getExtraInt("backbtnclicked") == 3)) {
+        || engine->getExtraInt("backbtnclicked") == 1)) {
 
 	    if (!modified) {
             engine->setExtraInt("switchmodule", 1);
@@ -301,7 +301,7 @@ void OrthoEditor::tick()
 	
 	// Color select button
 	
-	if (btnTimer == 0 && (engine->getExtraInt("colorbtnclicked") == 1
+    if (btnTimer == 0 && (engine->getExtraInt("colorbtnclicked") == 1
 	    || engine->getExtraInt("colorbtnclicked") == 3))
 	{
 		gui->clearDialog();
@@ -322,6 +322,8 @@ void OrthoEditor::tick()
         colorb = PLAT_stof(engine->getExtraStr("colorb"), 1.0f);
         colora = PLAT_stof(engine->getExtraStr("colora"), 1.0f);
     }
+    
+//    int switchModule = g_common.extraInts["switchmodule"];
 	
 	// Bottom button actions
 	
@@ -341,7 +343,9 @@ void OrthoEditor::tick()
         engine->setExtraInt("downbtnclicked", 0);
 		btnTimer = 2;
     }
-	
+    
+//    switchModule = g_common.extraInts["switchmodule"];
+    
     if (btnTimer == 0 && (engine->getExtraInt("upbtnclicked") == 1
         || engine->getExtraInt("upbtnclicked") == 1)) {
 
@@ -398,7 +402,7 @@ void OrthoEditor::tick()
     }
 
     // Message indicator
-
+    
     msgTimer--;
 
     if (msgTimer <= 0) {
