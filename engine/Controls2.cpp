@@ -1212,3 +1212,13 @@ int Controls2::getMouseBtn(int which) {
 
     return 0;
 }
+
+float Controls2::getMouseCursorX()
+{
+    return mouseCursorX;
+}
+
+float Controls2::getMouseCursorY()
+{
+    return mouseCursorY;
+}

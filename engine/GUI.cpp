@@ -569,9 +569,15 @@ void GUI::showListMenuInDialog(std::string title, std::string options)
 		float starty = 0;
 
 		if (listMenu.size() > 10)
+        {
 			starty = 0.0;
+            scrollingListMenu = true;
+        }
 		else
+        {
 			starty = (listMenu.size() * typeSize * lineHeight * 0.5);
+            scrollingListMenu = false;
+        }
 
 		for (int i = 0; i < listMenu.size(); i++)
 		{
@@ -728,7 +734,7 @@ void GUI::up()
 		if (listMenuSelectedItem <= 0)
 			listMenuSelectedItem = listMenu.size();
 
-        if (fileSelectorShown)
+        if (fileSelectorShown || scrollingListMenu)
         {
             for (int i = 0; i < listMenu.size(); i++)
             {
@@ -833,7 +839,7 @@ void GUI::down()
 		if (listMenuSelectedItem > listMenu.size())
 			listMenuSelectedItem = 1;
         
-        if (fileSelectorShown)
+        if (fileSelectorShown || scrollingListMenu)
         {
         for (int i = 0; i < listMenu.size(); i++)
         {

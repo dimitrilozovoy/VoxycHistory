@@ -29,6 +29,7 @@ SOFTWARE.
 #include "../engine/Engine2.h"
 #include "../engine/DDLUtils.hpp"
 #include "../engine/platform.h"
+#include "../engine/TextureManager2.h"
 
 #ifdef PLATFORM_ANDROID
 #ifdef GAME_RELEASE_DIR_TREE
@@ -72,6 +73,46 @@ void Editor::init() {
 #else
 	gui->setNativeWidgets(false);
 #endif
+    
+    // Preload font
+    TextureManager2 *tm = engine->getTextureManager();
+    tm->load("0.png", false);
+    tm->load("1.png", false);
+    tm->load("2.png", false);
+    tm->load("3.png", false);
+    tm->load("4.png", false);
+    tm->load("5.png", false);
+    tm->load("6.png", false);
+    tm->load("7.png", false);
+    tm->load("8.png", false);
+    tm->load("9.png", false);
+    tm->load("0.png", false);
+    tm->load("a.png", false);
+    tm->load("b.png", false);
+    tm->load("c.png", false);
+    tm->load("d.png", false);
+    tm->load("e.png", false);
+    tm->load("f.png", false);
+    tm->load("g.png", false);
+    tm->load("h.png", false);
+    tm->load("i.png", false);
+    tm->load("j.png", false);
+    tm->load("k.png", false);
+    tm->load("l.png", false);
+    tm->load("m.png", false);
+    tm->load("n.png", false);
+    tm->load("o.png", false);
+    tm->load("p.png", false);
+    tm->load("q.png", false);
+    tm->load("r.png", false);
+    tm->load("s.png", false);
+    tm->load("t.png", false);
+    tm->load("u.png", false);
+    tm->load("v.png", false);
+    tm->load("w.png", false);
+    tm->load("x.png", false);
+    tm->load("y.png", false);
+    tm->load("z.png", false);
 
     g_engine2->draw(0);
 }

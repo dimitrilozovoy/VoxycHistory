@@ -156,6 +156,8 @@ public:
 	int getKey(int key);
 	void setMouseBtn(int which, int state);
 	int getMouseBtn(int which);
+    float getMouseCursorX();
+    float getMouseCursorY();
 
 private:
 	const char *defaultVoxelsFname = "C:/Users/dimit/voxels.vx";

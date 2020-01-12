@@ -146,6 +146,7 @@ private:
 	int listMenuSelectedItem = 1;
 	float listMenuLineHeight = 0;
 	float listMenuTypeSize = 0;
+    bool scrollingListMenu = false;
 
 	bool fileSelectorShown = false;
 	std::string fileSelectorDir = "";

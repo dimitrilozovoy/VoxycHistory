@@ -78,7 +78,7 @@ void OrthoEditor::load()
 	std::string name = "texturepreview";
 	engine->addObject(name);
 	engine->setType(name, OBJTYPE_SPRITE);
-	engine->setPos(name, 0, 0, -5);
+	engine->setPos(name, 0, 0, -4.5);
 	engine->setSize(name, 1, 1, 1);
 	engine->setTexture(name, "brick3.png");
 	engine->setVisible(name, false);
@@ -294,6 +294,10 @@ void OrthoEditor::tick()
 			g_assetsDir = GetPath(engine->getExtraStr("fileselected"));
 			voxels.setVoxelTexture(texture, fname);
 			needsRefresh = true;
+            
+            engine->setTexture("texturepreview", voxels.getVoxelTexture(texture));
+            engine->setVisible("texturepreview", true);
+            texturePreviewTimer = 25;
 		}
 
 		engine->setExtraStr("fileselected", "");
@@ -374,9 +378,18 @@ void OrthoEditor::tick()
         engine->setText("msg", msg);
         msgTimer = msgTimerDelay;
 			
-		engine->setTexture("texturepreview", voxels.getVoxelTexture(texture));
-		engine->setVisible("texturepreview", true);
-		texturePreviewTimer = 25;
+        if (texture != 0)
+        {
+            engine->setTexture("texturepreview", voxels.getVoxelTexture(texture));
+            engine->setVisible("texturepreview", true);
+            texturePreviewTimer = 25;
+        }
+        else
+        {
+            engine->setTexture("texturepreview", "redx.png");
+            engine->setVisible("texturepreview", true);
+            texturePreviewTimer = 25;
+        }
 			
         engine->setExtraInt("prevbtnclicked", 0);
 		btnTimer = 2;
@@ -399,6 +412,18 @@ void OrthoEditor::tick()
 			
         engine->setExtraInt("nextbtnclicked", 0);
 		btnTimer = 2;
+    }
+    
+    // Mouse
+    
+    Controls2 *ctrl = engine->getControls();
+    
+    if (ctrl->getMouseBtn(0) == 1)
+    {
+        float clx = ctrl->getMouseCursorX();
+        float cly = -ctrl->getMouseCursorY();
+        
+        touchEvent(1, 1, clx, cly, 0, 0, 0, 0, true);
     }
 
     // Message indicator
@@ -608,12 +633,18 @@ void OrthoEditor::refresh()
 	}
 }
 
-void OrthoEditor::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex)
+void OrthoEditor::touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex, bool ndcCoords)
 {
 	float aspect = (float)screenWidth / (float)screenHeight;
 	
-	float glx = scrToGlX(x1);
-	float gly = -scrToGlY(y1);
+    float glx = x1;
+    float gly = y1;
+
+    if (!ndcCoords)
+    {
+        glx = scrToGlX(x1);
+        gly = -scrToGlY(y1);
+    }
 	
 	float glFromX = -1.0;
 	float glToX = 1.0;

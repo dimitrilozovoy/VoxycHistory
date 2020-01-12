@@ -52,7 +52,7 @@ public:
 	void create();
 	void setDefaultTextures();
 	void refresh();
-	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
+	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex, bool ndcCoods = false);
     float scrToGlX(float screenX);
     float scrToGlY(float screenY);
     float glToScrX(float glX);
