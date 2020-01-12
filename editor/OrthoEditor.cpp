@@ -425,6 +425,8 @@ void OrthoEditor::loadVoxels(std::string filename)
 	engine->setPlayerOrientation(0.0, 0.0, 0.0);
 	
 	g_assetsDir = GetPath(filename);
+//    std::size_t found = g_assetsDir.find_last_of("/");
+//    g_assetsDir = g_assetsDir.substr(0, found);
 
 	voxels.load(filename, nullptr, engine->getTextureManager());
 	create();
@@ -434,6 +436,11 @@ void OrthoEditor::loadVoxels(std::string filename)
 void OrthoEditor::saveVoxels(std::string filename)
 {
 	voxels.save(filename, nullptr);
+
+    g_assetsDir = GetPath(filename);
+//    std::size_t found = g_assetsDir.find_last_of("/");
+//    g_assetsDir = g_assetsDir.substr(0, found);
+    
 	modified = false;
 }
 

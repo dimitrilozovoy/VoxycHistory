@@ -486,18 +486,33 @@ void GUI::showFileSelector(std::string ext, std::string sdir)
         clearListMenu();
         addListMenuOption("new file", "");
 
-        DIR* dirp = opendir(sdir.c_str());
-        struct dirent * dp;
+        DIR *dir;
+        struct dirent *ent;
         
-        while ((dp = readdir(dirp)) != NULL)
+        if ((dir = opendir((const char *)sdir.c_str())) == NULL)
         {
-            addListMenuOption(dp->d_name, "");
+            sdir = GetPath(sdir);
         }
         
-        closedir(dirp);
-        
-//        int switchModule = g_common.extraInts["switchmodule"];
-        
+        if ((dir = opendir((const char *)sdir.c_str())) != NULL)
+        {
+            
+            while ((ent = readdir(dir)) != NULL)
+            {
+                std::string fname = ent->d_name;
+                
+                if (fname != ".")
+                {
+                    addListMenuOption(ent->d_name, "");
+                }
+            }
+            
+            closedir(dir);
+        }
+        else {
+            Log("Directory parsing error");
+        }
+
         showListMenuInDialog("", "");
         fileSelectorShown = true;
         fileSelectorDir = sdir;
@@ -1057,7 +1072,7 @@ void GUI::enter()
 {
 	if (fileSelectorShown == true)
 	{
-#ifdef PLATFORM_WINDOWS
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OSX
 		std::string fname = listMenu[listMenuSelectedItem - 1];
 
 		// Check if this is a dir
