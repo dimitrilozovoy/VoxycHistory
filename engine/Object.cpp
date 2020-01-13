@@ -251,7 +251,6 @@ void Object::setDeltaXYZ(float heading, float pitch, float vel)
 	}
 }
 
-#pragma optimize ("", off)
 void Object::move()
 {
 	// Move smoothly if needed
@@ -449,8 +448,10 @@ void Object::tickStart()
 
 void Object::tickStartPostControls()
 {
-	if (abs(tickTotalDelta.x) < 0.01 && abs(tickTotalDelta.z) < 0.01
-		&& ((abs(lastTickTotalDelta.x) > 0.01 || abs(lastTickTotalDelta.z) > 0.01)))
+	float thresh = 0.05;
+
+	if (abs(tickTotalDelta.x) < thresh && abs(tickTotalDelta.z) < thresh
+		&& ((abs(lastTickTotalDelta.x) > thresh || abs(lastTickTotalDelta.z) > thresh)))
 	{
 		// We're not trying to move but were moving on the last tick
 		delta = lastTickTotalDelta;
@@ -463,7 +464,7 @@ void Object::tickStartPostControls()
 
 	if (decel)
 	{
-		if (abs(tickTotalDelta.x) > 0.01 || abs(tickTotalDelta.z) > 0.01)
+		if (abs(tickTotalDelta.x) > thresh || abs(tickTotalDelta.z) > thresh)
 		{
 			decel = false;
 		}
@@ -483,7 +484,6 @@ void Object::tickEnd()
 		}
 	}*/
 }
-#pragma optimize ("", on)
 
 void Object::MoveBackward(float factor)
 {

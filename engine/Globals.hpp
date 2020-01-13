@@ -40,7 +40,7 @@ SOFTWARE.
 
 #define PRODUCT_EARTH2084
 
-#define DEBUG_BUILD
+//#define DEBUG_BUILD
 
 //#define PREVIEW_SHADOWMAP
 

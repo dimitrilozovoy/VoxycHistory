@@ -146,94 +146,94 @@ C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ':
 C:\Users\dimitri\Voxyc\editor\Editor.h(59,30): warning C4305:  'initializing': truncation from 'double' to 'const float'
 C:\Users\dimitri\Voxyc\editor\Editor.h(69,38): warning C4305:  'initializing': truncation from 'double' to 'const float'
 C:\Users\dimitri\Voxyc\editor\Editor.h(70,23): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(99,35): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(146,19): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(147,21): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(150,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(155,95): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(156,95): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(157,98): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(158,99): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(158,89): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(158,104): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(159,97): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(160,97): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(170,7): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(169,86): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(173,104): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(174,105): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(180,6): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(182,10): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(184,10): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(186,6): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(188,10): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(190,16): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(193,43): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(194,44): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(577,61): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(618,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(1110,43): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(1110,37): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(1110,31): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(1372,91): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(1522,61): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(1563,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2372,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2379,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2381,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2392,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2399,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2401,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2412,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2419,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2421,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2573,74): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2662,57): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2662,57): warning C4244:         with
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2662,57): warning C4244:         [
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2662,57): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2662,57): warning C4244:         ]
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2669,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2669,57): warning C4244:         with
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2669,57): warning C4244:         [
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2669,57): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2669,57): warning C4244:         ]
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2676,57): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2676,57): warning C4244:         with
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2676,57): warning C4244:         [
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2676,57): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2676,57): warning C4244:         ]
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2683,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2683,57): warning C4244:         with
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2683,57): warning C4244:         [
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2683,57): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2683,57): warning C4244:         ]
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2690,58): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2690,58): warning C4244:         with
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2690,58): warning C4244:         [
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2690,58): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2690,58): warning C4244:         ]
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2697,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2697,57): warning C4244:         with
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2697,57): warning C4244:         [
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2697,57): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2697,57): warning C4244:         ]
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2957,30): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2965,31): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2973,27): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2981,28): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2993,57): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(2995,58): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3003,62): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3005,63): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3013,62): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3015,64): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3065,26): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3067,27): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3082,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3085,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(140,35): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(187,19): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(188,21): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(191,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(196,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(197,95): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(198,98): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(199,99): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(199,89): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(199,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(200,97): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(201,97): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(211,7): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(210,86): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(214,104): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(215,105): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(221,6): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(223,10): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(225,10): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(227,6): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(229,10): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(231,16): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(234,43): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(235,44): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(618,61): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(659,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1151,43): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1151,37): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1151,31): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1413,91): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1563,61): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(1604,68): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2413,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2420,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2422,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2433,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2440,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2442,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2453,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2460,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2462,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2614,74): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2703,57): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2703,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2703,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2703,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2703,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2710,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2710,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2710,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2710,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2710,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2717,57): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2717,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2717,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2717,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2717,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2724,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2724,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2724,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2724,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2724,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2731,58): warning C4244:  '-=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2731,58): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2731,58): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2731,58): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2731,58): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2738,57): warning C4244:  '+=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2738,57): warning C4244:         with
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2738,57): warning C4244:         [
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2738,57): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2738,57): warning C4244:         ]
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(2998,30): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3006,31): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3014,27): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3022,28): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3034,57): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3036,58): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3044,62): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3046,63): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3054,62): warning C4244:  '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3056,64): warning C4244:  '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3106,26): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3108,27): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3123,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3126,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
   EditorOld.cpp
-C:\Users\dimitri\Voxyc\editor\Editor.cpp(3088,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\Editor.cpp(3129,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -395,15 +395,23 @@ C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(57,99): warning C4305:  'argument'
 C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(57,79): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(73,46): warning C4305:  'argument': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(74,47): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(561,19): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(563,36): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(564,36): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(580,66): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(580,49): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(580,32): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(609,16): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(597,19): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(599,36): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(600,36): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(616,66): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(616,49): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(616,32): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(651,16): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  Audio.cpp
+C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(652,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
   Batch.cpp
-C:\Users\dimitri\Voxyc\editor\OrthoEditor.cpp(610,14): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Audio.cpp(91,11): warning C4244:  'initializing': conversion from 'sf_count_t' to 'int', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -511,13 +519,23 @@ C:\Users\dimitri\Voxyc\engine\Controls2.cpp(568,46): warning C4244:  'argument':
 C:\Users\dimitri\Voxyc\engine\Controls2.cpp(587,23): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Controls2.cpp(640,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Controls2.cpp(641,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1023,86): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1025,86): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1034,68): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1035,67): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1042,69): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1027,86): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1029,86): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1038,68): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1039,67): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1046,69): warning C4305:  'argument': truncation from 'double' to 'float'
+  DDLUtils.cpp
+C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1075,39): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\DDLUtils.cpp(659,19): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\DDLUtils.cpp(672,19): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\DDLUtils.cpp(681,20): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
   EditorController.cpp
-C:\Users\dimitri\Voxyc\engine\Controls2.cpp(1071,39): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\DDLUtils.cpp(686,20): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -637,42 +655,52 @@ C:\Users\dimitri\Voxyc\engine\Controls2.h(66,2): warning C4091:  'typedef ': ign
 C:\Users\dimitri\Voxyc\engine\Controls2.h(79,2): warning C4091:  'typedef ': ignored on left of 'ControlSchemes' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Controls2.h(87,2): warning C4091:  'typedef ': ignored on left of 'TouchBtnBind' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(223,31): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(295,28): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(300,94): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(301,132): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(301,66): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(303,94): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(304,145): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(304,65): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(628,14): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1272,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1712,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1711,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1710,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1721,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1720,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1719,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1730,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1729,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1728,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1739,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1738,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1737,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1748,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1747,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1746,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1757,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1756,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1755,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1766,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1765,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1764,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1775,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1774,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1773,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(227,31): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(303,28): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(308,94): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(309,132): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(309,66): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(311,94): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(312,145): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(312,65): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(636,14): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1278,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1718,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1717,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1716,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1727,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1726,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1725,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1736,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1735,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1734,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1745,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1744,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1743,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1754,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1753,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1752,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1763,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1762,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1761,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1772,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1771,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1770,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1781,22): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1780,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(1779,25): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+  Framebuffer.cpp
+C:\Users\dimitri\Voxyc\engine\Engine2.cpp(2638,15): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Framebuffer.cpp(114,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Framebuffer.cpp(115,15): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Framebuffer.cpp(119,26): warning C4244:  'argument': conversion from 'float' to 'GLsizei', possible loss of data
   GUI.cpp
-C:\Users\dimitri\Voxyc\engine\Engine2.cpp(2632,15): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Framebuffer.cpp(119,19): warning C4244:  'argument': conversion from 'float' to 'GLsizei', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -694,56 +722,61 @@ C:\Users\dimitri\Voxyc\engine\GUI.h(66,2): warning C4091:  'typedef ': ignored o
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\minwindef.h(130,1): warning C4005:  'APIENTRY': macro redefinition
 C:\Users\dimitri\Voxyc\thirdparty\GLFW\glfw3.h(98): message :  see previous definition of 'APIENTRY'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(43,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(58,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(156,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(157,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(174,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(175,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(207,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(208,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(240,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(241,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(286,108): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(289,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(497,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(528,31): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(529,23): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(536,54): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(538,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(543,117): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(543,101): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(594,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(639,31): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(640,23): warning C4305:  'initializing': truncation from 'double' to 'float'
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(647,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(649,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(656,125): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(656,109): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(657,120): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(657,104): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(660,108): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(660,92): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(661,115): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(661,99): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(721,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(725,81): warning C4244:  '=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(725,81): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(725,81): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(725,81): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(725,81): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(794,28): warning C4018:  '>': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(819,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(823,81): warning C4244:  '=': conversion from 'double' to 'T', possible loss of data
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(823,81): warning C4244:         with
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(823,81): warning C4244:         [
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(823,81): warning C4244:             T=float
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(823,81): warning C4244:         ]
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(1085,22): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(1136,27): warning C4018:  '<=': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(1140,23): warning C4018:  '>': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(46,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(61,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(159,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(160,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(177,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(178,17): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(210,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(211,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(243,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(244,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(289,108): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(292,17): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(535,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(566,31): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(567,23): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(578,54): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(582,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(587,117): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(587,101): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(638,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(683,31): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(684,23): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(691,57): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(693,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(700,125): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(700,109): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(701,120): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(701,104): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(704,108): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(704,92): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,115): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(705,99): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(739,31): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(743,97): warning C4244:  '=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(743,97): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(743,97): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(743,97): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(743,97): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(839,28): warning C4018:  '>': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(844,27): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(848,93): warning C4244:  '=': conversion from 'double' to 'T', possible loss of data
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(848,93): warning C4244:         with
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(848,93): warning C4244:         [
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(848,93): warning C4244:             T=float
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(848,93): warning C4244:         ]
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(1129,22): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(1180,27): warning C4018:  '<=': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(1184,23): warning C4018:  '>': signed/unsigned mismatch
+  Globals.cpp
+C:\Users\dimitri\Voxyc\engine\GUI.cpp(1212,27): warning C4018:  '<=': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
   Grid.cpp
-C:\Users\dimitri\Voxyc\engine\GUI.cpp(1168,27): warning C4018:  '<=': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1011,8 +1044,34 @@ C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2331,17): warning C4244:  'initializ
 C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2332,15): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2333,16): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2397,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
-  ModelRenderer.cpp
+  Compiling...
+  Mesh.cpp
 C:\Users\dimitri\Voxyc\engine\LuaBridge.cpp(2406,13): warning C4244:  'initializing': conversion from 'lua_Number' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+  Model2.cpp
+C:\Users\dimitri\Voxyc\engine\Mesh.cpp(44,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Model2.h(39,2): warning C4091:  'typedef ': ignored on left of 'ModelState' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(674,25): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(711,22): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(717,23): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(975,18): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\thirdparty\OBJLoader\OBJ_Loader.h(1145,36): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(79,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(101,31): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(284,22): warning C4018:  '<': signed/unsigned mismatch
+  ModelRenderer.cpp
+C:\Users\dimitri\Voxyc\engine\Model2.cpp(492,23): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1027,15 +1086,21 @@ C:\Users\dimitri\Voxyc\engine\Object.h(124,35): warning C4305:  'initializing': 
 C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(143,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(220,27): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(228,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(241,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(242,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(309,15): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(310,15): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-  Object.cpp
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(145,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(222,27): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(230,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(243,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(244,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(311,15): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(312,15): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  OBJWriter.cpp
+C:\Users\dimitri\Voxyc\engine\ModelRenderer.cpp(313,15): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+  Object.cpp
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1159,8 +1224,15 @@ C:\Users\dimitri\Voxyc\engine\Object.cpp(1106,12): warning C4101:  'wy': unrefer
 C:\Users\dimitri\Voxyc\engine\Object.cpp(1151,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Object.cpp(1154,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Object.cpp(1157,11): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
-  Physics.cpp
 C:\Users\dimitri\Voxyc\engine\Object.cpp(1177,22): warning C4018:  '<': signed/unsigned mismatch
+  OzzRenderer.cpp
+C:\Users\dimitri\Voxyc\engine\Object.cpp(1226,7): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+  Physics.cpp
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1172,8 +1244,16 @@ C:\Users\dimitri\Voxyc\engine\Object.h(106,20): warning C4305:  'initializing': 
 C:\Users\dimitri\Voxyc\engine\Object.h(109,26): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Object.h(123,30): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Object.h(124,35): warning C4305:  'initializing': truncation from 'double' to 'float'
-  Renderer.cpp
+  PlatformAudio.cpp
 C:\Users\dimitri\Voxyc\engine\Physics.cpp(88,7): warning C4305:  'argument': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+  Renderer.cpp
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.cpp(89,23): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1186,7 +1266,6 @@ C:\Users\dimitri\Voxyc\engine\Object.h(109,26): warning C4305:  'initializing': 
 C:\Users\dimitri\Voxyc\engine\Object.h(123,30): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Object.h(124,35): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
-  Compiling...
   Scene.cpp
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
@@ -1251,10 +1330,10 @@ C:\Users\dimitri\Voxyc\engine\Object.h(124,35): warning C4305:  'initializing': 
 C:\Users\dimitri\Voxyc\engine\Camera.h(38,2): warning C4091:  'typedef ': ignored on left of 'CameraSchemes' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Users\dimitri\Voxyc\engine\ShapeRenderer.cpp(273,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\dimitri\Voxyc\engine\ShapeRenderer.cpp(335,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\ShapeRenderer.cpp(275,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\dimitri\Voxyc\engine\ShapeRenderer.cpp(337,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
   SkeletalRenderer.cpp
-C:\Users\dimitri\Voxyc\engine\ShapeRenderer.cpp(336,15): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\ShapeRenderer.cpp(338,15): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1290,8 +1369,20 @@ C:\Users\dimitri\Voxyc\engine\Object.h(124,35): warning C4305:  'initializing': 
 C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': ignored on left of 'DynamicLight' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
 C:\Users\dimitri\Voxyc\engine\SkyboxRenderer.cpp(42,17): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
-  SpriteRenderer.cpp
+  SoftCanvas.cpp
 C:\Users\dimitri\Voxyc\engine\SkyboxRenderer.cpp(43,18): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\SoftCanvas.cpp(68,47): warning C4244:  'argument': conversion from 'double' to 'char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\SoftCanvas.cpp(68,38): warning C4244:  'argument': conversion from 'double' to 'char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\SoftCanvas.cpp(68,29): warning C4244:  'argument': conversion from 'double' to 'char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\SoftCanvas.cpp(87,47): warning C4244:  'argument': conversion from 'double' to 'char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\SoftCanvas.cpp(87,38): warning C4244:  'argument': conversion from 'double' to 'char', possible loss of data
+  SpriteRenderer.cpp
+C:\Users\dimitri\Voxyc\engine\SoftCanvas.cpp(87,29): warning C4244:  'argument': conversion from 'double' to 'char', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1327,8 +1418,25 @@ C:\Users\dimitri\Voxyc\engine\Renderer.h(47,2): warning C4091:  'typedef ': igno
 C:\Users\dimitri\Voxyc\engine\SpriteRenderer2D.cpp(79,14): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\SpriteRenderer2D.cpp(80,15): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\SpriteRenderer2D.cpp(190,30): warning C4305:  '=': truncation from 'double' to 'float'
-  TextPrinter.cpp
+  Terrain.cpp
 C:\Users\dimitri\Voxyc\engine\SpriteRenderer2D.cpp(216,31): warning C4305:  '=': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\CustomTris.h(49,2): warning C4091:  'typedef ': ignored on left of 'Triangle' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(115,22): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(137,26): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(138,26): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(141,26): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(142,26): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(145,27): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(146,27): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(149,27): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  TextPrinter.cpp
+C:\Users\dimitri\Voxyc\engine\Terrain.cpp(150,27): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1355,6 +1463,7 @@ C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(94,15): warning C4305:  '=': trunc
 C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(98,100): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(140,20): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(313,22): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+  Compiling...
   TextureAtlas.cpp
 C:\Users\dimitri\Voxyc\engine\TextPrinter.cpp(322,20): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
@@ -1387,8 +1496,16 @@ C:\Users\dimitri\Voxyc\engine\TextureAtlas.cpp(210,14): warning C4244:  'initial
 C:\Users\dimitri\Voxyc\engine\TextureAtlas.cpp(211,15): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\TextureAtlas.cpp(215,26): warning C4244:  'argument': conversion from 'float' to 'GLsizei', possible loss of data
 C:\Users\dimitri\Voxyc\engine\TextureAtlas.cpp(215,19): warning C4244:  'argument': conversion from 'float' to 'GLsizei', possible loss of data
-  VertexLights.cpp
+  TextureManager2.cpp
 C:\Users\dimitri\Voxyc\engine\TextureAtlas.cpp(239,19): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\ReadData.h(14,2): warning C4091:  'typedef ': ignored on left of 'DataFileEntry' when no variable is declared
+  VertexLights.cpp
+C:\Users\dimitri\Voxyc\engine\ReadData.h(21,2): warning C4091:  'typedef ': ignored on left of 'DataFile' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
 C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
 C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
@@ -1404,10 +1521,216 @@ C:\Users\dimitri\Voxyc\engine\Object.h(124,35): warning C4305:  'initializing': 
 C:\Users\dimitri\Voxyc\engine\VertexLights.cpp(54,47): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\VertexLights.cpp(55,45): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\dimitri\Voxyc\engine\VertexLights.cpp(56,45): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  Voxels.cpp
 C:\Users\dimitri\Voxyc\engine\VertexLights.cpp(57,45): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Voxels.h(69,2): warning C4091:  'typedef ': ignored on left of 'Vertex' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(62,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(63,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(66,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(67,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(95,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(96,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(99,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(100,14): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(229,13): warning C4244:  '=': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(230,7): warning C4244:  '=': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(231,7): warning C4244:  '=': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(232,7): warning C4244:  '=': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(439,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(442,23): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(442,34): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(442,45): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(442,56): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(444,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(445,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(446,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(452,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(453,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(454,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(455,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(461,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(462,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(463,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(469,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(470,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(471,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(559,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(562,41): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(562,52): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(562,63): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(562,74): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(564,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(565,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(566,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(572,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(573,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(574,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(580,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(581,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(582,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(588,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(589,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(590,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(678,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(681,41): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(681,52): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(681,63): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(681,74): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(683,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(684,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(685,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(691,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(692,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(693,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(699,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(700,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(701,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(707,40): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(708,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(709,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(799,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(802,41): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(802,52): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(802,63): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(802,74): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(804,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(805,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(806,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(812,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(813,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(814,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(820,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(821,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(822,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(828,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(829,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(830,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(918,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(921,41): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(921,52): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(921,63): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(921,74): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(923,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(924,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(925,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(931,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(932,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(933,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(939,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(940,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(941,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(947,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(948,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(949,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1039,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1042,41): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1042,52): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1042,63): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1042,74): warning C4244:  'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1044,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1045,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1046,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1052,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1053,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1054,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1060,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1061,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1062,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1068,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1069,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1070,19): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1143,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1143,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1144,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1144,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1145,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1145,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1147,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1147,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1148,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1148,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1149,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1149,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1155,106): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1155,73): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1156,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1156,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1157,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1157,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1159,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1159,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1160,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1160,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1161,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1161,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1167,106): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1167,73): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1168,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1168,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1169,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1169,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1171,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1171,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1172,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1172,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1173,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1173,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1179,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1179,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1180,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1180,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1181,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1181,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1183,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1183,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1184,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1184,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1185,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1185,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1191,106): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1191,73): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1192,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1192,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1193,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1193,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1195,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1195,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1196,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1196,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1197,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1197,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1203,106): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1203,73): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1204,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1204,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1205,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1205,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1207,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1207,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1208,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1208,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1209,103): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1209,70): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1775,21): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1776,21): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1779,21): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1780,21): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+  windows.cpp
+C:\Users\dimitri\Voxyc\engine\Voxels.cpp(1898,6): warning C4101:  'vox': unreferenced local variable
+C:\Users\dimitri\Voxyc\engine\Common.h(53,29): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\dimitri\Voxyc\engine\Common.h(85,2): warning C4091:  'typedef ': ignored on left of 'Common' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(92,2): warning C4091:  'typedef ': ignored on left of 'RenderStats' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\Common.h(100,2): warning C4091:  'typedef ': ignored on left of 'VertexBuffer' when no variable is declared
+C:\Users\dimitri\Voxyc\engine\DDLUtils.hpp(40,9): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\dimitri\Voxyc\engine\PlatformAudio.h(34,2): warning C4091:  'typedef ': ignored on left of 'Sound' when no variable is declared
   Generating code
-  1 of 5827 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  161 of 5834 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    49 functions had inline decision re-evaluated but remain unchanged
+    105 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Voxyc.vcxproj -> C:\Users\dimitri\Voxyc\platform\windows\Voxyc\Release\Voxyc.exe

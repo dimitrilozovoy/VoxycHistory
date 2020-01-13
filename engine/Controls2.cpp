@@ -383,10 +383,14 @@ void Controls2::tick() {
     // Gamepad control for new schemes
     //
 
+	float deadZone = 0.01;
+
     switch (controlScheme) {
 		case CTRL_FPS:
-			playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
-			playerObj->MoveForward(- axes[AX_LEFT_Y] / 2.0);
+			if (abs(axes[AX_LEFT_X]) > deadZone)
+				playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
+			if (abs(axes[AX_LEFT_Y]) > deadZone)
+				playerObj->MoveForward(- axes[AX_LEFT_Y] / 2.0);
 			playerObj->MoveYaw(axes[AX_RIGHT_X] * 1.5 + axes[AX_RIGHT_X] * g_common.controllerSens * 2.0);
 			break;
 		case CTRL_EDITOR:
