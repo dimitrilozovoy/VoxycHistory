@@ -37,7 +37,7 @@ SOFTWARE.
 #define NDC_SCALE	1.0f
 #endif
 
-#define MAX_DYNAMIC_LIGHTS 8
+#define MAX_DYNAMIC_LIGHTS 12
 
 typedef struct DynamicLight
 {

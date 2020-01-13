@@ -1223,7 +1223,7 @@ bool Object::canSee(Object *dst, std::map<std::string, Object*> objects)
 			if (obj2 == nullptr || obj2->category == "terrain")
 				continue;
 
-			if (ray.checkVoxelCollision(obj2, 1.0))
+			if (ray.checkVoxelCollision(obj2, 0.1))
 			{
 				return false;
 			}

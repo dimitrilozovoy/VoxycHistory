@@ -67,8 +67,12 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--assets /Users/dimitrilozovoy/Voxyc/assets"
+            argument = "--assets /Users/dimitrilozovoy/Fateless"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--assets /Users/dimitrilozovoy/Voxyc/assets"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--fullscreen 0"
@@ -76,11 +80,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--module editor"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--module luaprogram"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
