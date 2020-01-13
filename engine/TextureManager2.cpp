@@ -67,13 +67,15 @@ void flip_vertically(unsigned char *pixels, const size_t width, const size_t hei
 
 void TextureManager2::load(std::string name, bool external)
 {
-    Texture *t = new Texture();
-    t->name = name;
-
     // If name is blank, do not try to load texture
     if (name == "")
         return;
     
+	Texture* t = new Texture();
+	t->name = name;
+
+	Log("loading texture: " + name);
+
 #ifdef PLATFORM_IOS
     if (name == "")
         return;

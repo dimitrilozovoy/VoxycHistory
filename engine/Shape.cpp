@@ -842,7 +842,7 @@ void Shape::free()
 	
 	meshes.clear();
 
-	if (type == SHAPE_VOXELS && voxels != nullptr)
+	if (type == SHAPE_VOXELS || voxels != nullptr)
 	{
 		voxels->clear();
 		voxels = nullptr;

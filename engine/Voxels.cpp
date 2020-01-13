@@ -1335,6 +1335,11 @@ std::vector<Mesh*> Voxels::getMeshes()
 		checkGLError("glBufferData");
 
 		meshes.push_back(mesh);
+
+		// Free buffer
+		free(buf->vertices);
+		buf->vertices = nullptr;
+		buf->allocatedSize = 0;
 	}
 
 	return meshes;
