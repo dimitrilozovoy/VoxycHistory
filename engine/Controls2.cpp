@@ -391,7 +391,8 @@ void Controls2::tick() {
 				playerObj->MoveRight(axes[AX_LEFT_X] / 4.0);
 			if (abs(axes[AX_LEFT_Y]) > deadZone)
 				playerObj->MoveForward(- axes[AX_LEFT_Y] / 2.0);
-			playerObj->MoveYaw(axes[AX_RIGHT_X] * 1.5 + axes[AX_RIGHT_X] * g_common.controllerSens * 2.0);
+            if (abs(axes[AX_RIGHT_X]) > deadZone)
+                playerObj->MoveYaw(axes[AX_RIGHT_X] * 1.5 + axes[AX_RIGHT_X] * g_common.controllerSens * 2.0);
 			break;
 		case CTRL_EDITOR:
             playerObj->MovePitch(axes[AX_RIGHT_Y] / 2.0);

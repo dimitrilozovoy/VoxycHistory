@@ -74,8 +74,6 @@ void TextureManager2::load(std::string name, bool external)
 	Texture* t = new Texture();
 	t->name = name;
 
-	Log("loading texture: " + name);
-
 #ifdef PLATFORM_IOS
     if (name == "")
         return;

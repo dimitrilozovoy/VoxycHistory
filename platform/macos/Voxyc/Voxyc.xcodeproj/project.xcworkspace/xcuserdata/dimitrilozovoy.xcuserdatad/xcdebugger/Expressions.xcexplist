@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Engine2::updateOptLists():Engine2.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "name.substr(0, 3)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GUI::showFileSelector(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;):GUI.cpp">
       </ContextState>
       <ContextState
@@ -20,13 +28,13 @@
          contextName = "OrthoEditor::tick():OrthoEditor.cpp">
          <PersistentStrings>
             <PersistentString
+               value = "engine-&gt;getExtraInt(&quot;backbtnclicked&quot;)">
+            </PersistentString>
+            <PersistentString
                value = "g_common.extraInts">
             </PersistentString>
             <PersistentString
                value = "g_extraInts">
-            </PersistentString>
-            <PersistentString
-               value = "engine-&gt;getExtraInt(&quot;backbtnclicked&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

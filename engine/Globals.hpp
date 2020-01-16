@@ -70,7 +70,7 @@ SOFTWARE.
 #define USE_JAVAGL
 //#define USE_OZZ
 
-#if defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR
+#if defined PLATFORM_WINDOWS || defined PLATFORM_OPENVR || defined PLATFORM_OSX
 #define USE_OPENAL
 #endif
 

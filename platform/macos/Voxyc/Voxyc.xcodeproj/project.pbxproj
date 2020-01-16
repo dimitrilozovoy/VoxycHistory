@@ -99,6 +99,9 @@
 		30AD57AA2384C6A00030F578 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AD57A92384C6A00030F578 /* OpenGL.framework */; };
 		30AD57AD2384C6CD0030F578 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AD57AB2384C6CD0030F578 /* libGLEW.2.1.0.dylib */; };
 		30AD57AE2384C6CD0030F578 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AD57AC2384C6CD0030F578 /* libglfw.3.3.dylib */; };
+		30C373B023CFE8E9006D75A0 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C373AF23CFE8E9006D75A0 /* OpenAL.framework */; };
+		30C373B423CFE9B4006D75A0 /* alhelpers.c in Sources */ = {isa = PBXBuildFile; fileRef = 30C373B323CFE9B4006D75A0 /* alhelpers.c */; };
+		30C373BB23CFF0BA006D75A0 /* libsndfile.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C373BA23CFF0BA006D75A0 /* libsndfile.1.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -288,6 +291,11 @@
 		30AD57A92384C6A00030F578 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		30AD57AB2384C6CD0030F578 /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = Voxyc/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		30AD57AC2384C6CD0030F578 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = Voxyc/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
+		30C373AF23CFE8E9006D75A0 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		30C373B323CFE9B4006D75A0 /* alhelpers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = alhelpers.c; path = ../../../../../thirdparty/openal/alhelpers.c; sourceTree = "<group>"; };
+		30C373B823CFF054006D75A0 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../../thirdparty/macos/libsndfile/sndfile.h; sourceTree = "<group>"; };
+		30C373B923CFF054006D75A0 /* sndfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sndfile.hh; path = ../../../../../thirdparty/macos/libsndfile/sndfile.hh; sourceTree = "<group>"; };
+		30C373BA23CFF0BA006D75A0 /* libsndfile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsndfile.1.dylib; path = Voxyc/lib/libsndfile.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +303,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30C373BB23CFF0BA006D75A0 /* libsndfile.1.dylib in Frameworks */,
+				30C373B023CFE8E9006D75A0 /* OpenAL.framework in Frameworks */,
 				300CD39E23A9EF66008F0270 /* CoreServices.framework in Frameworks */,
 				300CD39C23A9ED63008F0270 /* CoreFoundation.framework in Frameworks */,
 				30AD57AD2384C6CD0030F578 /* libGLEW.2.1.0.dylib in Frameworks */,
@@ -449,6 +459,8 @@
 		303F535323A8169600456181 /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				30C373B723CFF038006D75A0 /* libsndfile */,
+				30C373B223CFE983006D75A0 /* openal */,
 				300C51A723AAFD45009E48DF /* lodepng */,
 				300C092923A8926C004B35B0 /* SimpleIni */,
 				303F535423A816A600456181 /* lua */,
@@ -557,6 +569,8 @@
 		30AD57A82384C6A00030F578 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30C373BA23CFF0BA006D75A0 /* libsndfile.1.dylib */,
+				30C373AF23CFE8E9006D75A0 /* OpenAL.framework */,
 				300CD39D23A9EF66008F0270 /* CoreServices.framework */,
 				300CD39B23A9ED63008F0270 /* CoreFoundation.framework */,
 				30AD57AB2384C6CD0030F578 /* libGLEW.2.1.0.dylib */,
@@ -564,6 +578,23 @@
 				30AD57A92384C6A00030F578 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		30C373B223CFE983006D75A0 /* openal */ = {
+			isa = PBXGroup;
+			children = (
+				30C373B323CFE9B4006D75A0 /* alhelpers.c */,
+			);
+			name = openal;
+			sourceTree = "<group>";
+		};
+		30C373B723CFF038006D75A0 /* libsndfile */ = {
+			isa = PBXGroup;
+			children = (
+				30C373B823CFF054006D75A0 /* sndfile.h */,
+				30C373B923CFF054006D75A0 /* sndfile.hh */,
+			);
+			name = libsndfile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -666,6 +697,7 @@
 				303F53A323A81B6700456181 /* loslib.c in Sources */,
 				303F539223A81B6700456181 /* lbitlib.c in Sources */,
 				303F53A523A81B6700456181 /* ldo.c in Sources */,
+				30C373B423CFE9B4006D75A0 /* alhelpers.c in Sources */,
 				303F532123A8127100456181 /* SpriteRenderer2D.cpp in Sources */,
 				303F539323A81B6700456181 /* lua.c in Sources */,
 				303F534823A8127100456181 /* Object.cpp in Sources */,

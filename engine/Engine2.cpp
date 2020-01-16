@@ -1880,9 +1880,11 @@ bool Engine2::checkSight(Object *src, Object *dst)
 	Object ray;
 
 	ray.position = src->position;
+    ray.position.y += src->scale.y / 4; // Get roughly up to eye level of beholder
 	ray.pitch = src->pitch;
 	ray.yaw = src->getYawTo(dst);
 	ray.roll = src->roll;
+    ray.physSize = glm::vec3(1.0, 1.0, 1.0);
 
 	int iter = 0;
 	bool hit = false;
@@ -1891,20 +1893,19 @@ bool Engine2::checkSight(Object *src, Object *dst)
 
 	while (!hit && iter < numSteps)
 	{
-		for (const auto &pair2 : objects)
-		{
-			Object *obj2 = pair2.second;
+        for (int i = 0; i < optVoxelObjs.size(); i++)
+        {
+            if (ray.checkVoxelCollision(optVoxelObjs[i], 1.0))
+                return false;
+        }
 
-			if (obj2 == nullptr || obj2->category == "terrain")
-				continue;
+        for (int i = 0; i < optDoors.size(); i++)
+        {
+            if (ray.checkCollision(optDoors[i], 1.0))
+                return false;
+        }
 
-			if (ray.checkVoxelCollision(obj2, 1.0))
-			{
-				return false;
-			}
-		}
-
-		ray.MoveForward(step);
+        ray.MoveForward(step);
 		iter++;
 	}
 
@@ -3049,4 +3050,28 @@ void Engine2::checkGLError(char *tag)
     }
 #endif
 #endif
+}
+
+/*
+ ========================================
+ checkGLError
+ ========================================
+ */
+
+void Engine2::updateOptLists()
+{
+    optVoxelObjs.clear();
+    optDoors.clear();
+    
+    for (const auto &pair : objects)
+    {
+        std::string name = pair.first;
+        Object *obj = pair.second;
+        
+        if (obj->shape != nullptr && obj->shape->getVoxels() != nullptr)
+            optVoxelObjs.push_back(obj);
+        
+        if (name.substr(0, 4) == "door")
+            optDoors.push_back(obj);
+    }
 }

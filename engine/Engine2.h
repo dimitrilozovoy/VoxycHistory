@@ -259,6 +259,8 @@ public:
 	void setLight(std::string name, float radius, float r = 1.0f, float g = 1.0f, float b = 1.0f);
     
     void checkGLError(char *tag);
+    
+    void updateOptLists();
 
 private:
 	ShapeRenderer shapeRenderer;
@@ -286,6 +288,10 @@ private:
     std::map<std::string, Model2*> models;
 	std::map<std::string, Batch*> batches;
 	std::map<std::string, DynamicLight> dynamicLights;
+    
+    // Optimized lists
+    std::vector<Object*> optVoxelObjs;
+    std::vector<Object*> optDoors;
 
 	Scene scene;
 

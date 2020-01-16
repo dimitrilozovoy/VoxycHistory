@@ -2424,6 +2424,13 @@ static int getcategory(lua_State* L)
 	return 1;
 }
 
+static int updateoptlists(lua_State* L)
+{
+    g_engine2->updateOptLists();
+    
+    return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2629,6 +2636,7 @@ void LuaBridge::init(Engine2 *engine)
     lua_register(L, "setmousesens", setmousesens);
     lua_register(L, "setcontrollersens", setcontrollersens);
 	lua_register(L, "getcategory", getcategory);
+    lua_register(L, "updateoptlists", updateoptlists);
 }
 
 void LuaBridge::exec(std::string filename)

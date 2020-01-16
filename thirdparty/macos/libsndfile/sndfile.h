@@ -333,11 +333,11 @@ typedef	struct SNDFILE_tag	SNDFILE ;
 ** and the Microsoft compiler.
 */
 
-#if (defined (_MSCVER) || defined (_MSC_VER))
+#if (defined (_MSCVER) || defined (_MSC_VER) && (_MSC_VER < 1310))
 typedef __int64		sf_count_t ;
 #define SF_COUNT_MAX		0x7fffffffffffffffi64
 #else
-typedef __int64_t	sf_count_t ;
+typedef int64_t	sf_count_t ;
 #define SF_COUNT_MAX		0x7FFFFFFFFFFFFFFFLL
 #endif
 
