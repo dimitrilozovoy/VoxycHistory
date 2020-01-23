@@ -757,8 +757,12 @@ static int getobjstr(lua_State *L)
 	if (o == nullptr)
 		return 0;
 	
-    std::string val = o->strings[name];
-	lua_pushstring(L, val.c_str());
+    if (o->strings.find(name) == o->strings.end()) {
+        lua_pushstring(L, "");
+    } else {
+        std::string val = o->strings[name];        
+        lua_pushstring(L, val.c_str());
+    }
 	
 	return 1;
 }
@@ -2431,6 +2435,62 @@ static int updateoptlists(lua_State* L)
     return 0;
 }
 
+static int buyitem(lua_State* L)
+{
+    std::string name = lua_tostring(L, 1);
+
+#ifdef USE_API_CLIENT
+    g_engine2->getAPIClient()->buyItem(name);
+#endif
+    
+    return 0;
+}
+
+static int itemowned(lua_State* L)
+{
+    std::string name = lua_tostring(L, 1);
+    
+#ifdef USE_API_CLIENT
+    lua_pushboolean(L, g_engine2->getAPIClient()->itemOwned(name));
+#else
+    lua_pushboolean(L, true);
+#endif
+    
+    return 1;
+}
+
+static int apiinitialized(lua_State* L)
+{
+#ifdef USE_API_CLIENT
+    lua_pushboolean(L, g_engine2->getAPIClient()->initialized());
+#else
+    lua_pushboolean(L, false);
+#endif
+    
+    return 1;
+}
+
+static int getapierror(lua_State* L)
+{
+#ifdef USE_API_CLIENT
+    lua_pushstring(L, g_engine2->getAPIClient()->getError().c_str());
+#else
+    lua_pushstring(L, "no api");
+#endif
+    
+    return 1;
+}
+
+int setmenusounds(lua_State* L)
+{
+    std::string move = lua_tostring(L, 1);
+    std::string select = lua_tostring(L, 2);
+
+    g_engine2->getGUI()->setMenuSounds(move, select);
+    
+    return 0;
+}
+
 void LuaBridge::init(Engine2 *engine)
 {
     this->engine = engine;
@@ -2637,6 +2697,11 @@ void LuaBridge::init(Engine2 *engine)
     lua_register(L, "setcontrollersens", setcontrollersens);
 	lua_register(L, "getcategory", getcategory);
     lua_register(L, "updateoptlists", updateoptlists);
+    lua_register(L, "buyitem", buyitem);
+    lua_register(L, "itemowned", itemowned);
+    lua_register(L, "apiinitialized", apiinitialized);
+    lua_register(L, "getapierror", getapierror);
+    lua_register(L, "setmenusounds", getapierror);
 }
 
 void LuaBridge::exec(std::string filename)

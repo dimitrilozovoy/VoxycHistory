@@ -42,6 +42,10 @@ SOFTWARE.
 #include "Camera.h"
 #include "Audio.h"
 #include "TextPrinter.h"
+#ifdef USE_API_CLIENT
+#include "APIClient.hpp"
+#endif
+
 #include <map>
 
 #ifdef USE_OZZ
@@ -244,7 +248,10 @@ public:
 	std::string getObjStr(std::string name, std::string key);
 	void setPhysicsEnabled(bool en) { physicsEnabled = en; };
 	
-	GUI *getGUI() { return &gui; }
+    GUI *getGUI() { return &gui; }
+#ifdef USE_API_CLIENT
+	APIClient *getAPIClient() { return &apiClient; }
+#endif
 	
 	std::string objectDump();
 	void DumpFrame();
@@ -271,6 +278,9 @@ private:
     SpriteRenderer2D spriteRenderer2D;
 	TextPrinter textPrinter;
 	GUI gui;
+#ifdef USE_API_CLIENT
+    APIClient apiClient;
+#endif
 
 #ifdef USE_OZZ
 	OzzRenderer ozzRenderer;

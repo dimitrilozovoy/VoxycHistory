@@ -132,6 +132,10 @@ public:
 	void setFontKern(std::string font, float kern);
     
     bool isInternallyGeneratedShown();
+    
+    void setMenuSounds(std::string move, std::string select);
+    void playMenuMoveSound();
+    void playMenuSelectSound();
 
 private:
     std::map<std::string, Widget*> widgets;
@@ -168,6 +172,9 @@ private:
 	Widget* selectedWidget = nullptr;
 
 	std::map<std::string, float> fontKern;
+    
+    std::string menuMoveSound = "";
+    std::string menuSelectSound = "";
 };
 
 #endif

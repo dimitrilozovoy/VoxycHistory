@@ -102,6 +102,10 @@ void Engine2::init()
 	initialized = true;
 
 	clear();
+    
+#ifdef USE_API_CLIENT
+    apiClient.init();
+#endif
 }
 
 /*

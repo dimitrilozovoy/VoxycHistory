@@ -109,7 +109,7 @@ int Audio::loadSound(char *fname, bool stereo, bool music)
 	else
 		format = AL_FORMAT_MONO16;
 
-	alBufferData(buffers[i].bufferId, format, buffer, size, 48000);
+	alBufferData(buffers[i].bufferId, format, buffer, size, file.samplerate());
 	checkError("alBufferData");
 	
 	return i;

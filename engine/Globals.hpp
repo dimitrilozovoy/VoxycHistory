@@ -42,6 +42,8 @@ SOFTWARE.
 
 //#define DEBUG_BUILD
 
+//#define USE_API_CLIENT
+
 //#define PREVIEW_SHADOWMAP
 
 #define FIXED_TIMESTEP

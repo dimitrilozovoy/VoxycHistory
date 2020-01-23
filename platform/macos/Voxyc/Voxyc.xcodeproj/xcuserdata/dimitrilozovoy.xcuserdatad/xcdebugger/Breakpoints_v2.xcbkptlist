@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2692"
             endingLineNumber = "2692"
-            landmarkName = "LuaBridge::exec(std::string filename)"
+            landmarkName = "LuaBridge::init(Engine2 *engine)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2694"
             endingLineNumber = "2694"
-            landmarkName = "LuaBridge::exec(std::string filename)"
+            landmarkName = "LuaBridge::init(Engine2 *engine)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,8 +223,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1752"
             endingLineNumber = "1752"
-            landmarkName = "setwgvisible(lua_State *L)"
-            landmarkType = "9">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -255,8 +255,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1753"
             endingLineNumber = "1753"
-            landmarkName = "setwgvisible(lua_State *L)"
-            landmarkType = "9">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1762"
             endingLineNumber = "1762"
-            landmarkName = "setwggroupvisible(lua_State *L)"
+            landmarkName = "setwgvisible(lua_State *L)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -447,7 +447,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2397"
             endingLineNumber = "2397"
-            landmarkName = "setmousesens(lua_State *L)"
+            landmarkName = "exit(lua_State* L)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

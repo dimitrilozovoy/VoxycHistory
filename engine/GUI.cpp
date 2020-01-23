@@ -29,6 +29,7 @@ SOFTWARE.
 #if defined PLATFORM_OSX
 #include <dirent.h>
 #endif
+#include "Audio.h"
 
 void GUI::init(TextureManager2 *texMan, SpriteRenderer2D *renderer, TextPrinter *tp)
 {
@@ -743,6 +744,8 @@ void GUI::up()
                     widgets[name]->position.y = 0.0 - listMenuTypeSize * listMenuLineHeight * i + listMenuTypeSize * listMenuLineHeight * listMenuSelectedItem;
             }
         }
+        
+        playMenuMoveSound();
     }
     else if (dialogShown)
 	{
@@ -767,6 +770,7 @@ void GUI::up()
 		}
 
 		dialogCharIdx = 0;
+        playMenuMoveSound();
 	}
     else
     {
@@ -814,14 +818,12 @@ void GUI::up()
 
 		if (closest != nullptr)
 			selectedWidget = closest;
+        
+        playMenuMoveSound();
 	}
     }
 
 	delayTimer = 4;
-
-/*	delayTimer = 10 - (listMenu.size() / 20);
-	if (delayTimer < 0)
-		delayTimer = 0;*/
 }
 
 void GUI::down()
@@ -913,14 +915,12 @@ void GUI::down()
 
 		if (closest != nullptr)
 			selectedWidget = closest;
+        
+        playMenuMoveSound();
 	}
     }
 
 	delayTimer = 4;
-
-//	delayTimer = 10 - (listMenu.size() / 20);
-//	if (delayTimer < 0)
-//		delayTimer = 0;
 }
 
 void GUI::left()
@@ -994,9 +994,9 @@ void GUI::left()
             
         delayTimer = 4;
         
+        playMenuMoveSound();
         }
     }
-    
 }
 
 void GUI::right()
@@ -1070,6 +1070,7 @@ void GUI::right()
             
         delayTimer = 4;
         
+        playMenuMoveSound();
         }
     }
 }
@@ -1140,7 +1141,9 @@ void GUI::enter()
 		{
 			clearDialog();
 		}
-	}
+	}   
+    
+    playMenuSelectSound();
 }
 
 void GUI::escape()
@@ -1275,4 +1278,40 @@ void GUI::setFontKern(std::string font, float kern)
 bool GUI::isInternallyGeneratedShown()
 {
     return listMenuShown || dialogShown;
+}
+
+void GUI::setMenuSounds(std::string move, std::string select)
+{
+    menuMoveSound = move;
+    menuSelectSound = select;
+}
+
+void GUI::playMenuMoveSound()
+{
+    // Play sound
+    
+    std::string ext = "";
+    
+#ifdef PLATFORM_IOS
+    ext = "mp3";
+#else
+    ext = "ogg";
+#endif
+    
+    g_audio.playSound("menumove." + ext, false);
+}
+
+void GUI::playMenuSelectSound()
+{
+    // Play sound
+    
+    std::string ext = "";
+    
+#ifdef PLATFORM_IOS
+    ext = "mp3";
+#else
+    ext = "ogg";
+#endif
+    
+    g_audio.playSound("menuselect." + ext, false);
 }

@@ -9,6 +9,7 @@
 #include "Globals.hpp"
 #include <sys/time.h>
 #include "../../../../thirdparty/SimpleIni/SimpleIni.h"
+#include "../../../../engine/Audio.h"
 
 #ifdef PLATFORM_OSX
 
@@ -59,35 +60,23 @@ long PLAT_GetTime()
     return millis;
 }
 
-// Non-persistent prefs
-std::map<std::string, std::string> g_prefs;
-
 std::string PLAT_LoadPref(std::string section, std::string key, std::string def)
 {
-    if (g_prefs.find(key) == g_prefs.end()) {
-        return def;
-    }
-    else {
-        return g_prefs[key];
-    }
-
-/*    CSimpleIniA ini;
+    CSimpleIniA ini;
     ini.SetUnicode();
     ini.LoadFile(CONFIG_FILENAME);
     const char *pVal = ini.GetValue(section.c_str(), key.c_str(), def.c_str());
 
-    return pVal;*/
+    return pVal;
 }
 
 void PLAT_SavePref(std::string section, std::string key, std::string val)
 {
-    g_prefs[key] = val;
-    
-/*    CSimpleIniA ini;
+    CSimpleIniA ini;
     ini.SetUnicode();
     ini.LoadFile(CONFIG_FILENAME);
     ini.SetValue(section.c_str(), key.c_str(), val.c_str());
-    ini.SaveFile(CONFIG_FILENAME);*/
+    ini.SaveFile(CONFIG_FILENAME);
 }
 
 void PLAT_ShowText(std::string str)
@@ -111,7 +100,7 @@ void PLAT_StopTrack()
 
 void PLAT_SetTrackVolume(float vol)
 {
-    
+    g_audio.setTrackVolume(vol);
 }
 
 void PLAT_ShowDialog(std::string s1, std::string s2, std::string s3, std::string s4)
