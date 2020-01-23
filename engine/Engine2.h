@@ -174,7 +174,7 @@ public:
 	bool checkVoxelCollision(Object *obj, float multx, float multy, float multz);
     bool checkVoxelCollisionPt(Object *voxobj, float x, float y, float z);
 	Object *collisionRay(Object *source, float length = 0.0);
-	bool checkSight(Object *src, Object *dst);
+	bool checkSight(Object *src, Object *dst, float yofs);
 
 	void resetObjectaDeltaLastMoved();
 	void moveObjectsByVelocity();

@@ -1879,16 +1879,16 @@ checkSight
 ========================================
 */
 
-bool Engine2::checkSight(Object *src, Object *dst)
+bool Engine2::checkSight(Object *src, Object *dst, float yofs)
 {
 	Object ray;
 
 	ray.position = src->position;
-    ray.position.y += src->scale.y / 4; // Get roughly up to eye level of beholder
+    ray.position.y += src->scale.y * yofs; // Get roughly up to eye level of beholder
 	ray.pitch = src->pitch;
 	ray.yaw = src->getYawTo(dst);
 	ray.roll = src->roll;
-    ray.physSize = glm::vec3(1.0, 1.0, 1.0);
+    ray.physSize = glm::vec3(0.5, 0.5, 0.5);
 
 	int iter = 0;
 	bool hit = false;

@@ -1190,8 +1190,9 @@ static int checksight(lua_State *L)
 {
 	std::string name1 = lua_tostring(L, 1);
     std::string name2 = lua_tostring(L, 2);
-	
-	bool result = g_engine2->checkSight(g_engine2->findObj(name1), g_engine2->findObj(name2));
+	float yofs = lua_tonumber(L, 2);
+
+	bool result = g_engine2->checkSight(g_engine2->findObj(name1), g_engine2->findObj(name2), yofs);
 
 	lua_pushboolean(L, result);
 		
