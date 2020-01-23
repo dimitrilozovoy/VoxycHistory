@@ -100,6 +100,10 @@ void GUI::tick()
 	{
 		selectedWidget = getTopVisibleWidget();
 	}
+
+	// Sound timer
+	if (soundTimer > 0)
+		soundTimer--;
 }
 
 void GUI::draw()
@@ -127,8 +131,8 @@ void GUI::draw()
 	}
 	
 	// Text and icon layer
-    for(const auto &pair: widgets)
-    {
+    for(const auto &pair: widgets) 
+	{
         Widget *wg = pair.second;
 
         if (wg != nullptr)
@@ -1288,6 +1292,11 @@ void GUI::setMenuSounds(std::string move, std::string select)
 
 void GUI::playMenuMoveSound()
 {
+	if (soundTimer > 0)
+	{
+		return;
+	}
+
     // Play sound
     
     std::string ext = "";
@@ -1299,11 +1308,18 @@ void GUI::playMenuMoveSound()
 #endif
     
     g_audio.playSound("menumove." + ext, false);
+
+	soundTimer = 10;
 }
 
 void GUI::playMenuSelectSound()
 {
-    // Play sound
+	if (soundTimer > 0)
+	{
+		return;
+	}
+	
+	// Play sound
     
     std::string ext = "";
     
@@ -1314,4 +1330,6 @@ void GUI::playMenuSelectSound()
 #endif
     
     g_audio.playSound("menuselect." + ext, false);
+
+	soundTimer = 10;
 }

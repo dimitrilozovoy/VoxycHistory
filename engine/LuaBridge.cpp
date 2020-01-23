@@ -2453,7 +2453,7 @@ static int itemowned(lua_State* L)
 #ifdef USE_API_CLIENT
     lua_pushboolean(L, g_engine2->getAPIClient()->itemOwned(name));
 #else
-    lua_pushboolean(L, true);
+    lua_pushboolean(L, false);
 #endif
     
     return 1;

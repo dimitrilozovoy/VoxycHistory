@@ -175,6 +175,7 @@ private:
     
     std::string menuMoveSound = "";
     std::string menuSelectSound = "";
+	int soundTimer = 0;
 };
 
 #endif

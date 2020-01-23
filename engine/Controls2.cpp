@@ -742,6 +742,7 @@ void Controls2::processGUI()
 		{
 			if (gui->getSelectedWidget() != nullptr && gui->getSelectedWidget()->visible && gui->getSelectedWidget()->onClickExtra != "")
 				g_common.extraInts[gui->getSelectedWidget()->onClickExtra] = 1;
+			gui->playMenuSelectSound();
 		}
 	}
 	else
