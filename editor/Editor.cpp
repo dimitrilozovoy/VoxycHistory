@@ -2527,6 +2527,7 @@ tickMovement
 
 void Editor::tickMovement()
 {
+#ifndef PLATFORM_ANDROID
 	Object* playerObj = engine->getPlayerObj();
 	Controls2* controls = engine->getControls();
 	GUI* gui = engine->getGUI();
@@ -2561,6 +2562,7 @@ void Editor::tickMovement()
 		if (controls->getKey(GLFW_KEY_PAGE_DOWN))
 			playerObj->MoveUp(-moveSpeed);
 	}
+#endif
 }
 
 /*

@@ -30,6 +30,7 @@ void OrthoEditor::init()
     this->engine = g_engine2;
 	engine->clear();
 	engine->setControlsVisible(false);
+
 }
 
 void OrthoEditor::load()

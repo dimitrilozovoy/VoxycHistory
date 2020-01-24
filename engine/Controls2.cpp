@@ -713,6 +713,7 @@ void Controls2::processTouchJoystick(bool which, int action, float x, float y) {
 
 void Controls2::processGUI()
 {
+#ifndef PLATFORM_ANDROID
 	for (int k = 0; k < NUM_KBD_KEYS; k++)
 	{
 		if (keyTimers[k] > 0) keyTimers[k]--;
@@ -786,6 +787,7 @@ void Controls2::processGUI()
 	{
 		gui->escape();
 	}
+#endif
 }
 
 void Controls2::resetGUI()

@@ -75,30 +75,38 @@ void TextureAtlas::refresh()
 		   {
 		       Texture *tex = texMan->find(textures[texi]);
 
-			   float bigTileSizeX = (2.0 / (float) size);
-			   float bigTileSizeY = (2.0 / (float) size);
-			   float smallTileSizeX = (1.0 / (float) size) / tex->texSpanX;
-			   float smallTileSizeY = (1.0 / (float) size) / tex->texSpanY;
+		       if (tex != nullptr) {
+				   float bigTileSizeX = (2.0 / (float) size);
+				   float bigTileSizeY = (2.0 / (float) size);
+				   float smallTileSizeX = (1.0 / (float) size) / tex->texSpanX;
+				   float smallTileSizeY = (1.0 / (float) size) / tex->texSpanY;
 
-			   if (tex->texSpanX == 1.0 && tex->texSpanY == 1.0)
-			   {
-	               renderer->DrawSprite(-1.0 + bigTileSizeX * ((float)x + 0.5), -1.0 + bigTileSizeY * ((float)y + 0.5), 1.0 / (float)size, 1.0 / (float)size, tex->glTexID, 1.0, 1.0, 1.0, 1.0, true);
-			   }
-			   else
-			   {
-				   for (int yy = 0; yy < tex->texSpanY; yy++) {
-					   for (int xx = 0; xx < tex->texSpanX; xx++) {
-						   renderer->DrawSprite(-1.0 + bigTileSizeX * ((float) x + 0.5) - bigTileSizeX / 2.0 + smallTileSizeX + (smallTileSizeX * 2.0) * (float)xx,// - (bigTileSizeX) / (tex->texSpanX * 2.0),// + (smallTileSizeX * 2.0) * (float)xx,
-												-1.0 + bigTileSizeY * ((float) y + 0.5) - bigTileSizeY / 2.0 + smallTileSizeY + (smallTileSizeY * 2.0) * (float)yy,// - (bigTileSizeY) / (tex->texSpanY * 2.0),// + (smallTileSizeY * 2.0) * (float)yy,
-												smallTileSizeX, smallTileSizeY, tex->glTexID,
-												1.0,
-												1.0, 1.0, 1.0, true);
+				   if (tex->texSpanX == 1.0 && tex->texSpanY == 1.0) {
+					   renderer->DrawSprite(-1.0 + bigTileSizeX * ((float) x + 0.5),
+											-1.0 + bigTileSizeY * ((float) y + 0.5),
+											1.0 / (float) size, 1.0 / (float) size, tex->glTexID,
+											1.0, 1.0, 1.0, 1.0, true);
+				   } else {
+					   for (int yy = 0; yy < tex->texSpanY; yy++) {
+						   for (int xx = 0; xx < tex->texSpanX; xx++) {
+							   renderer->DrawSprite(-1.0 + bigTileSizeX * ((float) x + 0.5) -
+													bigTileSizeX / 2.0 + smallTileSizeX +
+													(smallTileSizeX * 2.0) *
+													(float) xx,// - (bigTileSizeX) / (tex->texSpanX * 2.0),// + (smallTileSizeX * 2.0) * (float)xx,
+													-1.0 + bigTileSizeY * ((float) y + 0.5) -
+													bigTileSizeY / 2.0 + smallTileSizeY +
+													(smallTileSizeY * 2.0) *
+													(float) yy,// - (bigTileSizeY) / (tex->texSpanY * 2.0),// + (smallTileSizeY * 2.0) * (float)yy,
+													smallTileSizeX, smallTileSizeY, tex->glTexID,
+													1.0,
+													1.0, 1.0, 1.0, true);
+						   }
 					   }
 				   }
-			   }
 
-			   texPos[textures[texi]].x = x;
-			   texPos[textures[texi]].y = y;
+				   texPos[textures[texi]].x = x;
+				   texPos[textures[texi]].y = y;
+			   }
            }
 		   
 	       texi++;

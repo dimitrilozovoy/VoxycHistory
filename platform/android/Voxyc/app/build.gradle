@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++11 -DPLATFORM_ANDROID"
+                cppFlags "-std=c++11 -DPLATFORM_ANDROID -Wmissing-declarations"
             }
         }
     }
@@ -41,6 +41,11 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds false
+        abortOnError false        // true by default
+        checkAllWarnings false
+        checkReleaseBuilds false
+        ignoreWarnings true       // false by default
+        quiet true                // false by default
     }
 }
 
