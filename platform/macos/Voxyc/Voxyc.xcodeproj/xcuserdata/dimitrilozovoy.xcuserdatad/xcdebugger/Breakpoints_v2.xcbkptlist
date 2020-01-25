@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.051466"
+            timestampString = "601685413.774419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2692"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.05161"
+            timestampString = "601685413.775524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2694"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.0518301"
+            timestampString = "601685413.7763391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2308"
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.052099"
+            timestampString = "601685413.777241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2368"
@@ -218,13 +218,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.052206"
+            timestampString = "601685413.778242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1752"
             endingLineNumber = "1752"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "setwgtext(lua_State* L)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.05235"
+            timestampString = "601685413.779083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1755"
@@ -250,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.05242"
+            timestampString = "601685413.779948"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1753"
@@ -266,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.052487"
+            timestampString = "601685413.780676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1722"
@@ -319,8 +319,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "Engine2::draw(int eye)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -346,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.054507"
+            timestampString = "601685413.781628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1331"
@@ -378,7 +378,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.054685"
+            timestampString = "601685413.78251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1332"
@@ -394,7 +394,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.054846"
+            timestampString = "601685413.783236"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1762"
@@ -442,7 +442,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.0549999"
+            timestampString = "601685413.7840281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2397"
@@ -458,13 +458,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.05507"
+            timestampString = "601685413.784765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2399"
             endingLineNumber = "2399"
-            landmarkName = "setmousesens(lua_State *L)"
-            landmarkType = "9">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -474,7 +474,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.055132"
+            timestampString = "601685413.7856621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2295"
@@ -490,7 +490,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../engine/LuaBridge.cpp"
-            timestampString = "600750630.055205"
+            timestampString = "601685413.7862999"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1363"
@@ -1135,7 +1135,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1905"
             endingLineNumber = "1905"
-            landmarkName = "Engine2::checkSight(Object *src, Object *dst)"
+            landmarkName = "Engine2::checkSight(Object *src, Object *dst, float yofs)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1151,7 +1151,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1904"
             endingLineNumber = "1904"
-            landmarkName = "Engine2::checkSight(Object *src, Object *dst)"
+            landmarkName = "Engine2::checkSight(Object *src, Object *dst, float yofs)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1167,7 +1167,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1902"
             endingLineNumber = "1902"
-            landmarkName = "Engine2::checkSight(Object *src, Object *dst)"
+            landmarkName = "Engine2::checkSight(Object *src, Object *dst, float yofs)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

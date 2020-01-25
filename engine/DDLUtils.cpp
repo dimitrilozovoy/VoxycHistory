@@ -893,14 +893,14 @@ float RotateAngleTowards(float angle, float targetAngle, float step)
 
 		if (cWiseDist > ccWiseDist)
 		{
-			angle -= step;
-			if (angle < targetAngle)
+            angle -= step;
+			if (targetAngle - angle < step * 2.0 && angle < targetAngle)
 				angle = targetAngle;
 		}
 		else
 		{
-			angle += step;
-			if (angle > targetAngle)
+            angle += step;
+			if (angle - targetAngle < step * 2.0 && angle > targetAngle)
 				angle = targetAngle;
 		}
 
