@@ -1892,7 +1892,7 @@ bool Engine2::checkSight(Object *src, Object *dst, float yofs)
 
 	int iter = 0;
 	bool hit = false;
-	int numSteps = 50;
+	int numSteps = 75;
 	float step = src->distanceTo(dst) / (float)numSteps;
 
 	while (!hit && iter < numSteps)
