@@ -29,6 +29,8 @@ import android.content.*;
 import android.widget.*;
 import java.io.*;
 import android.view.ViewGroup.*;
+
+import java.lang.reflect.Array;
 import java.util.*;
 import android.view.*;
 import android.graphics.*;
@@ -178,6 +180,7 @@ public class DDLUtils
 
             // List the files and folders
             File[] listOfFiles = folder.listFiles();
+            Arrays.sort(listOfFiles);
 
             if (listOfFiles != null) {
                 for (final File file : listOfFiles) {
