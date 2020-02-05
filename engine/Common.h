@@ -82,14 +82,14 @@ typedef struct Common
     bool exit = false;
     float mouseSens = 0.5;
     float controllerSens = 0.5;
-};
+} Common;
 
 typedef struct RenderStats
 {
 	int fps = 0;
 	int drawCalls = 0;
 	int polys = 0;
-};
+} RenderStats;
 
 typedef struct VertexBuffer
 {
@@ -97,6 +97,6 @@ typedef struct VertexBuffer
 	int size = 0;
 	int allocatedSize = 0;
 	int cursor = 0;
-};
+} VertexBuffer;
 
 #endif

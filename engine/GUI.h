@@ -39,7 +39,7 @@ typedef enum WidgetType
 	WG_TEXT,
     WG_SLIDER,
 	NUM_WIDGETTYPES
-};
+} WidgetType;
 
 typedef struct Widget
 {
@@ -56,14 +56,14 @@ typedef struct Widget
 	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 	std::string font = "";
     float sliderValue = 0.5f;
-};
+} Widget;
 
 typedef struct DialogPart
 {
 	std::string caption = "";
 	std::string value = "";
 	std::string extraKey = "";
-};
+} DialogPart;
 
 class GUI
 {

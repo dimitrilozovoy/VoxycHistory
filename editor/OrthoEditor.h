@@ -38,7 +38,7 @@ typedef enum OrthoMode
 	MODE_VOXELS,
 	MODE_PIXELS,
 	MODE_COLOR_ONLY
-};
+} OrthoMode;
 
 class OrthoEditor
 {

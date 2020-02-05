@@ -102,6 +102,7 @@
 		30C373B023CFE8E9006D75A0 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C373AF23CFE8E9006D75A0 /* OpenAL.framework */; };
 		30C373B423CFE9B4006D75A0 /* alhelpers.c in Sources */ = {isa = PBXBuildFile; fileRef = 30C373B323CFE9B4006D75A0 /* alhelpers.c */; };
 		30C373BB23CFF0BA006D75A0 /* libsndfile.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C373BA23CFF0BA006D75A0 /* libsndfile.1.dylib */; };
+		30FBD60323EB1BA800DBD49A /* Editor2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30FBD60123EB1BA700DBD49A /* Editor2.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -296,6 +297,8 @@
 		30C373B823CFF054006D75A0 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../../thirdparty/macos/libsndfile/sndfile.h; sourceTree = "<group>"; };
 		30C373B923CFF054006D75A0 /* sndfile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sndfile.hh; path = ../../../../../thirdparty/macos/libsndfile/sndfile.hh; sourceTree = "<group>"; };
 		30C373BA23CFF0BA006D75A0 /* libsndfile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsndfile.1.dylib; path = Voxyc/lib/libsndfile.1.dylib; sourceTree = "<group>"; };
+		30FBD60123EB1BA700DBD49A /* Editor2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Editor2.cpp; path = ../../../../editor/Editor2.cpp; sourceTree = "<group>"; };
+		30FBD60223EB1BA800DBD49A /* Editor2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Editor2.h; path = ../../../../editor/Editor2.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +330,8 @@
 		300C519A23AAFC4B009E48DF /* editor */ = {
 			isa = PBXGroup;
 			children = (
+				30FBD60123EB1BA700DBD49A /* Editor2.cpp */,
+				30FBD60223EB1BA800DBD49A /* Editor2.h */,
 				300C519D23AAFC69009E48DF /* Editor.cpp */,
 				300C519C23AAFC69009E48DF /* Editor.h */,
 				300C519F23AAFC69009E48DF /* EditorOld.cpp */,
@@ -705,6 +710,7 @@
 				303F53A023A81B6700456181 /* lapi.c in Sources */,
 				303F532B23A8127100456181 /* LuaBridge.cpp in Sources */,
 				303F533A23A8127100456181 /* Scene.cpp in Sources */,
+				30FBD60323EB1BA800DBD49A /* Editor2.cpp in Sources */,
 				303F534423A8127100456181 /* Billboarder.cpp in Sources */,
 				303F532C23A8127100456181 /* CustomTris.cpp in Sources */,
 				303F532323A8127100456181 /* Batcher.cpp in Sources */,

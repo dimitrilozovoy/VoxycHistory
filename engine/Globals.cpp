@@ -95,7 +95,7 @@ float g_stereoMatrixArr[16];
 #endif
 
 std::string g_assetsDir = "";
-extern bool g_assetsDirExplicit = false;
+//extern bool g_assetsDirExplicit = false;
 std::string g_module = DEFAULT_MODULE;
 std::string g_dataFile = "";
 bool g_useDataFile = false;

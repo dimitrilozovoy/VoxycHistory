@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include <stdio.h>
 #include "../editor/Editor.h"
+#include "../editor/Editor2.h"
 #include "../editor/EditorOld.h"
 #include "../editor/OrthoEditor.h"
 #include "../editor/ModelEditor.h"
@@ -45,7 +46,6 @@ public:
 	void free();
 	void touchEvent(int count, int action1, float x1, float y1, int action2, float x2, float y2, int actionIndex);
 
-
 private:
     const long targetFps = 30;
 	const int maxMakeupLoops = 10;
@@ -58,6 +58,7 @@ private:
 	std::string lastModule = module;
 
 	Editor editor;
+	Editor2 editor2;
 	EditorOld editorOld;
 	OrthoEditor orthoEditor;
 	ModelEditor modelEditor;

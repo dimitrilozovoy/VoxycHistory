@@ -37,14 +37,14 @@ SOFTWARE.
 typedef enum ModelMode
 {
 	MODE_VERTICES
-};
+} ModelMode;
 
 typedef enum ModelView
 {
 	VIEW_XY,
 	VIEW_ZY,
 	VIEW_XZ
-};
+} ModelView;
 
 class ModelEditor
 {

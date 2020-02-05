@@ -66,7 +66,7 @@ typedef struct Vertex
 	float r;
 	float g;
 	float b;
-};
+} Vertex;
 
 class Voxels
 {

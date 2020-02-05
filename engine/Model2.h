@@ -36,7 +36,7 @@ typedef enum ModelState
 	MODEL_LOADING,
 	MODEL_LOADED,
 	MODEL_READY
-};
+} ModelState;
 
 class Model2 {
 public:

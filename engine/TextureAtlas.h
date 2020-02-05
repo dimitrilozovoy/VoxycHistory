@@ -32,13 +32,13 @@ typedef struct UV
 {
 	float u;
 	float v;
-};
+} UV;
 
 typedef struct XYINTS
 {
 	int x;
 	int y;
-};
+} XYINTS;
 
 class TextureAtlas
 {

@@ -31,7 +31,7 @@ typedef struct Sound
 {
     std::string name;
     int id;
-};
+} Sound;
 
 class PlatformAudio
 {

@@ -44,7 +44,7 @@ typedef struct DynamicLight
 	Object *obj;
 	float radius;
 	glm::vec4 color;
-};
+} DynamicLight;
 
 class Renderer
 {

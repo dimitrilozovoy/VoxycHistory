@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++11 -DPLATFORM_ANDROID -Wmissing-declarations"
+                cppFlags "-std=c++11 -DPLATFORM_ANDROID -Wmissing-declarations -Wwritable-strings -Wstring-plus-int -Wdeprecated-declarations -Wswitch -Wextra-tokens"
             }
         }
     }

@@ -1277,6 +1277,15 @@ void Engine2::touchEvent(int count, int action1, float x1, float y1, int action2
 	float gly1 = scrToGlY(y1);
 	float gly2 = scrToGlY(y2);
 	
+	// Save touch ev
+	lastTCount = count;
+	lastTAction1 = action1;
+	lastTX1 = glx1;
+	lastTY1 = gly1;
+	lastTAction2 = action2;
+	lastTX2 = glx2;
+	lastTY2 = gly2;
+
 	std::vector<TouchBtnBind> touchBtnBinds = controls.getTouchBtnBinds();
 	
 	for (int i = 0; i < touchBtnBinds.size(); i++)
@@ -2933,7 +2942,7 @@ setAssetsDir
 void Engine2::setAssetsDir(std::string dir)
 {
 	g_assetsDir = dir;
-	g_assetsDirExplicit = true;
+//	g_assetsDirExplicit = true;
 }
 
 /*
@@ -3058,7 +3067,7 @@ void Engine2::checkGLError(char *tag)
 
 /*
  ========================================
- checkGLError
+ updateOptLists
  ========================================
  */
 
@@ -3079,3 +3088,28 @@ void Engine2::updateOptLists()
             optDoors.push_back(obj);
     }
 }
+
+/*
+ ========================================
+ updateOptLists
+ ========================================
+ */
+ 
+void Engine2::getLastTouchEvent(
+	int &lastCount,
+	int &lastAction1,
+	float &lastX1,
+	float &lastY1,
+	int &lastAction2,
+	float &lastX2,
+	float &lastY2)
+	{
+	  lastCount = this->lastTCount;
+      lastAction1 = this->lastTAction1;
+	  lastX1 = this->lastTX1;
+	  lastY1 = this->lastTY1;
+	  lastAction2 = this->lastTAction2;
+	  lastX2 = this->lastTX2;
+	  lastY2 = this->lastTY2;
+	}
+

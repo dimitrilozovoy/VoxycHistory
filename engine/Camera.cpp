@@ -123,6 +123,8 @@ void Camera::tick()
 			playerObj->yaw = yaw;
 
 		break;
+	case CAMERA_FIRSTPERSON:
+		break;
 	case CAMERA_THIRDPERSON_FREE:
 
 		yaw += g_common.gamepadRightX * 5;
@@ -135,6 +137,8 @@ void Camera::tick()
 		move();
 		this->position.y += 5;
 
+		break;
+	case CAMERA_THIRDPERSON_FIXED:
 		break;
 	}
 }

@@ -11,7 +11,7 @@ typedef struct DataFileEntry
 {
 	long pos;
 	long size;
-};
+} DataFileEntry;
 
 typedef struct DataFile
 {

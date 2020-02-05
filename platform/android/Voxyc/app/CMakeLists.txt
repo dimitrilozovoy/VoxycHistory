@@ -73,6 +73,7 @@ add_library( # Sets the name of the library.
              ../../../../app/VoxycApp.cpp
              ../../../../app/LuaProgram.cpp
              ../../../../editor/Editor.cpp
+             ../../../../editor/Editor2.cpp
              ../../../../editor/ModelEditor.cpp
              ../../../../editor/OrthoEditor.cpp
              ../../../../editor/EditorOld.cpp

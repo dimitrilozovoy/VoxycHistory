@@ -1751,6 +1751,18 @@ static int setwgtext(lua_State* L)
 	return 0;
 }
 
+static int setwgtex(lua_State* L)
+{
+	std::string name = lua_tostring(L, 1);
+	std::string tex = lua_tostring(L, 2);
+
+	if (g_engine2->getGUI()->getWidgets()[name] == nullptr)
+		return 0;
+
+	g_engine2->getGUI()->getWidgets()[name]->texture = tex;
+
+	return 0;
+}
 
 static int setwgvisible(lua_State *L)
 {
@@ -2482,7 +2494,7 @@ static int getapierror(lua_State* L)
     return 1;
 }
 
-int setmenusounds(lua_State* L)
+static int setmenusounds(lua_State* L)
 {
     std::string move = lua_tostring(L, 1);
     std::string select = lua_tostring(L, 2);
@@ -2490,6 +2502,36 @@ int setmenusounds(lua_State* L)
     g_engine2->getGUI()->setMenuSounds(move, select);
     
     return 0;
+}
+
+static int getlasttouchevent(lua_State* L)
+{
+	int lastTCount = 0;
+	int lastTAction1 = 0;
+	float lastTX1 = 0.0f;
+	float lastTY1 = 0.0f;
+	int laatTAction2 = 0;
+	float lastTX2 = 0.0f;
+	float lastTY2 = 0.0f;
+	
+	g_engine2->getLastTouchEvent(
+	lastTCount,
+	lastTAction1,
+	lastTX1,
+	lastTY1,
+	laatTAction2,
+	lastTX2,
+	lastTY2);
+	
+	lua_pushnumber(L, lastTCount);
+	lua_pushnumber(L, lastTAction1);
+	lua_pushnumber(L, lastTX1);
+	lua_pushnumber(L, lastTY1);
+	lua_pushnumber(L, laatTAction2);
+	lua_pushnumber(L, lastTX2);
+	lua_pushnumber(L, lastTY2);
+	
+	return 2;
 }
 
 void LuaBridge::init(Engine2 *engine)
@@ -2648,6 +2690,7 @@ void LuaBridge::init(Engine2 *engine)
 	lua_register(L, "addwg", addwg);
 	lua_register(L, "remwg", remwg);
 	lua_register(L, "setwgtext", setwgtext);
+	lua_register(L, "setwgtex", setwgtex);
     lua_register(L, "setwgvisible", setwgvisible);
 	lua_register(L, "setwggroupvisible", setwggroupvisible);
 	lua_register(L, "setwgcolor", setwgcolor);
@@ -2702,7 +2745,8 @@ void LuaBridge::init(Engine2 *engine)
     lua_register(L, "itemowned", itemowned);
     lua_register(L, "apiinitialized", apiinitialized);
     lua_register(L, "getapierror", getapierror);
-    lua_register(L, "setmenusounds", getapierror);
+    lua_register(L, "setmenusounds", setmenusounds);
+	lua_register(L, "getlasttouchevent", getlasttouchevent);
 }
 
 void LuaBridge::exec(std::string filename)

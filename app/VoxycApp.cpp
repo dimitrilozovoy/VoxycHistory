@@ -55,6 +55,8 @@ void VoxycApp::init()
 
 	if (module == "editor")
 		editor.init();
+	if (module == "editor2")
+		editor2.init();
 	else if (module == "orthoeditor")
         orthoEditor.init();
 	else if (module == "modeleditor")
@@ -74,6 +76,8 @@ void VoxycApp::load()
 
 	if (module == "editor")
 		editor.load();
+	if (module == "editor2")
+		editor2.load();
 	else if (module == "orthoeditor")
 		orthoEditor.load();
 	else if (module == "modeleditor")
@@ -139,6 +143,8 @@ void VoxycApp::fixedTick()
 
 	if (module == "editor")
 		editor.tick();
+	if (module == "editor2")
+	    editor2.tick();	
 	else if (module == "orthoeditor")
 		orthoEditor.tick();
     else if (module == "modeleditor")

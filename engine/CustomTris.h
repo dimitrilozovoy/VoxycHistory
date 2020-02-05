@@ -46,7 +46,7 @@ typedef struct Triangle
 	float bv = 0;
 	float cu = 0;
 	float cv = 0;
-};
+} Triangle;
 
 class CustomTris
 {

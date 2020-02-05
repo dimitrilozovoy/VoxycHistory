@@ -52,7 +52,7 @@ typedef enum BtnNames
 	BTN_DOWN,
 	BTN_LEFT,
 	MAX_BUTTONS
-};
+} BtnNames;
 
 typedef enum ENUM_AXES
 {
@@ -63,7 +63,7 @@ typedef enum ENUM_AXES
 	AX_LEFT_TRIGGER,
 	AX_RIGHT_TRIGGER,
 	MAX_AXES
-};
+} ENUM_AXES;
 
 typedef enum ControlSchemes
 {
@@ -76,7 +76,7 @@ typedef enum ControlSchemes
 	CTRL_SCROLLINGSHOOTER,
 	CTRL_SCROLLINGSHOOTERXY,*/
 	CTRL_CUSTOM
-};
+} ControlSchemes;
 
 typedef struct TouchBtnBind
 {
@@ -84,7 +84,7 @@ typedef struct TouchBtnBind
 	float y;
 	float size;
 	int btn;
-};
+} TouchBtnBind;
 
 class Controls2
 {

@@ -224,6 +224,7 @@ extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_registerEnv(JNIEnv *e
 //    AttachThread();
 
 //    g_env = env;
+    return 0;
 }
 
 /*extern "C" JNIEXPORT jint JNICALL Java_oculus_MainActivity_keyEvent(JNIEnv *env, jobject thiz, int action, int keyCode)

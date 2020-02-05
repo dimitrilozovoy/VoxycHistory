@@ -48,7 +48,7 @@ init
 void Editor::init() {
 
     g_simpleMode = false;
-    g_assetsDirExplicit = false;
+//    g_assetsDirExplicit = false;
 
 #if defined PLATFORM_ANDROID || defined PLATFORM_IOS
 	touchControls = true;

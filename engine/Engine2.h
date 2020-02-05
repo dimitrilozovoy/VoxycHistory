@@ -268,6 +268,15 @@ public:
     void checkGLError(char *tag);
     
     void updateOptLists();
+	
+	void getLastTouchEvent(
+	int &lastCount,
+	int &laatAction1,
+	float &lastX1,
+	float &lastY1,
+	int &lastAction2,
+	float &lastX2,
+	float &lastY2);
 
 private:
 	ShapeRenderer shapeRenderer;
@@ -339,6 +348,15 @@ private:
 	bool physicsEnabled = true;
 
 	OBJWriter objWriter;
+	
+    // Save last touch event
+	int lastTCount = 0;
+	int lastTAction1 = 0;
+	float lastTX1 = 0.0f;
+	float lastTY1 = 0.0f;
+	int lastTAction2 = 0;
+	float lastTX2 = 0.0f;
+	float lastTY2 = 0.0f;
 };
 
 extern Engine2 *g_engine2;

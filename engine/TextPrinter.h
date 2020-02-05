@@ -39,7 +39,7 @@ typedef struct TextItem
 	std::string onClickExtra;
 	glm::vec4 color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 	std::string font = "";
-};
+} TextItem;
 
 class TextPrinter
 {
